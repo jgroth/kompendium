@@ -35,6 +35,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@stencil/router": "^1.0.1",
     "bootstrap": "^4.4.1",
     "remark": "^11.0.2",
     "remark-html": "^10.0.0",

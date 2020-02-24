@@ -24,7 +24,7 @@
   }
 }
 
-.sidebar .nav-link {
+.sidebar .nav-link a {
   font-weight: 500;
   color: #333;
 }
@@ -34,7 +34,7 @@
   color: #999;
 }
 
-.sidebar .nav-link.active {
+.sidebar .nav-link .active {
   color: #007bff;
 }
 

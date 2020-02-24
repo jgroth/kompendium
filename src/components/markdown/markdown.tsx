@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element } from '@stencil/core';
+import { Component, h, Prop, Element } from '@stencil/core';
 import remark from 'remark';
 import html from 'remark-html';
 import recommended from 'remark-preset-lint-recommended';
@@ -26,8 +26,7 @@ export class Markdown {
     }
 
     private renderMarkdown() {
-        console.log('rendering markdown')
-        remark().use(recommended).use(html).process(this.text, (err, file) => {
+        remark().use(recommended).use(html).process(this.text, (_, file) => {
             this.host.shadowRoot.querySelector('#root').innerHTML = String(file);
         });
     }
@@ -37,5 +36,4 @@ export class Markdown {
             <div id="root"/>
         );
     }
-
 }

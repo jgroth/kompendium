@@ -12,13 +12,11 @@ export const maki = (config: Partial<MakiConfig> = {}) => (docs: JsonDocs): void
     return new Promise<void>(writeData(config.path, docs));
 }
 
-const writeData = (path: string, docs: JsonDocs) => (resolve: () => void, reject: () => void) => {
-    console.log('🍣 - writing maki.json');
-
+const writeData = (path: string, docs: JsonDocs) => (resolve: () => void) => {
     const filePath = `${path}/maki.json`;
 
     if (!fs.existsSync(path)) {
-        fs.mkdirSync(path);
+        fs.mkdirSync(path, { recursive: true });
     }
 
     const data = JSON.stringify(docs);

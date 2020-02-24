@@ -17,9 +17,13 @@ export const Sidebar: FunctionalComponent<{ component: App }> = ({component}) =>
 const ListItem = (component: JsonDocsComponent) => {
     return (
         <li class="nav-item">
-            <a class="nav-link active" href={`#/components/${component.tag}`}>
-                {component.tag}
-            </a>
+            <stencil-route-link
+                class="nav-link"
+                activeClass="active"
+                url={`/component/${component.tag}`}
+                exact={true}>
+                    {component.tag}
+                </stencil-route-link>
         </li>
     );
 };
