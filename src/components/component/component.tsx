@@ -1,6 +1,11 @@
 import { Component, h, Prop } from '@stencil/core';
 import { JsonDocs } from '@stencil/core/internal';
 import { MatchResults } from '@stencil/router';
+import { PropertyList } from './templates/props';
+import { EventList } from './templates/events';
+import { MethodList } from './templates/methods';
+import { SlotList } from './templates/slots';
+import { StyleList } from './templates/style';
 
 @Component({
     tag: 'maki-component',
@@ -15,16 +20,25 @@ export class MakiComponent {
     public match: MatchResults;
 
     public render() {
-        return getDocs(this.match.params.name, this.docs);
-    }
+        const tag = this.match.params.name;
+        const component = findComponent(tag, this.docs);
 
+        let title = tag.split('-').slice(1).join(' ');
+        title = title[0].toLocaleUpperCase() + title.slice(1);
+
+        return [
+            <h1>{title}</h1>,
+            <maki-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
+            <maki-markdown text={component.docs}/>,
+            <PropertyList props={component.props}/>,
+            <EventList events={component.events}/>,
+            <MethodList methods={component.methods}/>,
+            <SlotList slots={component.slots}/>,
+            <StyleList slots={component.styles}/>
+        ];
+    }
 }
 
-function getDocs(name: string, docs: JsonDocs) {
-    const component = docs.components.find(doc => doc.tag === name);
-    if (!component || !component.docs) {
-        return;
-    }
-
-    return <maki-markdown text={component.docs} />
+function findComponent(tag: string, docs: JsonDocs) {
+    return docs.components.find(doc => doc.tag === tag);
 }

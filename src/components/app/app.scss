@@ -4,6 +4,14 @@
 @import "./templates/navbar.scss";
 @import "./templates/main.scss";
 
+/**
+ * @prop --test: this is a test
+ * over several lines
+ * @prop --second: gsg
+ * @foo gg?
+ * @deprecated asd
+ */
+
 :host {
   display: block;
   font-size: 0.875rem;
@@ -18,11 +26,12 @@ maki-navbar,
 maki-sidebar,
 maki-main {
   display: contents;
+  --foo: var(--test)
 }
 
 .maki-body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;

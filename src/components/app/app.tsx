@@ -1,8 +1,9 @@
-import { Component, h, Host, State, Prop, FunctionalComponent } from '@stencil/core';
+import { Component, h, Host, State, Prop, FunctionalComponent, Method, EventEmitter, Event } from '@stencil/core';
 import { JsonDocs } from '@stencil/core/internal';
 import { Main } from './templates/main';
 import { Sidebar } from './templates/sidebar';
 import { Navbar } from './templates/navbar';
+import { Examples } from './templates/examples';
 
 /**
  * This is the main Maki app component
@@ -10,6 +11,11 @@ import { Navbar } from './templates/navbar';
  * # Does markdown work?!
  *
  * @deprecated this is deprecated
+ *
+ * @slot test - docs for this slot
+ * over several lines
+ *
+ * @style asd
  */
 @Component({
     tag: 'maki-app',
@@ -17,6 +23,14 @@ import { Navbar } from './templates/navbar';
     shadow: true
 })
 export class App {
+    /**
+     * Some text here
+     * @deprecated not really
+     * @foo bar
+     */
+    @Prop()
+    public fooBar: string = 'baz';
+
     @Prop()
     public path: string = '/.maki/maki.json';
 
@@ -26,6 +40,13 @@ export class App {
     @State()
     public route: string = '';
 
+    /**
+     * gfg
+     * @todo gg
+     */
+    @Event()
+    public foobar: EventEmitter<string>;
+
     constructor() {
         this.handleNavigation = this.handleNavigation.bind(this);
     }
@@ -33,6 +54,7 @@ export class App {
     protected componentWillLoad() {
         window.addEventListener('hashchange', this.handleNavigation);
         this.fetchData();
+        loadFont('https://fonts.googleapis.com/css?family=Public+Sans&display=swap');
     }
 
     private async fetchData() {
@@ -46,6 +68,20 @@ export class App {
                 <AppPage component={this} />
             </Host>
         );
+    }
+
+    /**
+     * Don't call this
+     *
+     * @param s - some text
+     * @
+     *
+     * @deprecated foobar
+     * @returns qwertyy
+     */
+    @Method({})
+    public async test(s: string, flag: boolean) {
+        return s;
     }
 
     private handleNavigation(event: HashChangeEvent) {
@@ -66,8 +102,17 @@ const AppPage: FunctionalComponent<{ component: App }> = ({ component }) => {
                 <div class="row">
                     <Sidebar component={component} />
                     <Main component={component} />
+                    <Examples component={component}/>
                 </div>
             </div>
         </div>
     );
+}
+
+function loadFont(url: string) {
+    let link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('type', 'text/css');
+    link.setAttribute('href', url);
+    document.head.appendChild(link);
 }
