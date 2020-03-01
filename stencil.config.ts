@@ -7,11 +7,17 @@ import makiPlugin from './src/maki/rollup-plugin-maki';
 export const config: Config = {
     namespace: 'maki',
     plugins: [sass(), nodePolyfill(), makiPlugin()],
+    globalStyle: 'src/global/maki.css',
 
     outputTargets: [
         {
             type: 'dist',
-            esmLoaderPath: '../loader'
+            esmLoaderPath: '../loader',
+            copy: [{
+                src: '../node_modules/@fortawesome/fontawesome-free/webfonts/',
+                dest: 'fonts',
+                warn: true
+            }]
         },
         {
             type: 'docs-custom',
@@ -20,7 +26,12 @@ export const config: Config = {
         },
         {
             type: 'www',
-            serviceWorker: null // disable service workers
+            serviceWorker: null,
+            copy: [{
+                src: '../node_modules/@fortawesome/fontawesome-free/webfonts/',
+                dest: 'fonts',
+                warn: true
+            }]
         }
     ]
 };

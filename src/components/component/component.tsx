@@ -9,7 +9,8 @@ import { StyleList } from './templates/style';
 
 @Component({
     tag: 'maki-component',
-    shadow: true
+    shadow: true,
+    styleUrl: 'component.scss'
 })
 export class MakiComponent {
 

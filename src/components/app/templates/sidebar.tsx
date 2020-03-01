@@ -7,7 +7,7 @@ export const Sidebar: FunctionalComponent<{ component: App }> = ({component}) =>
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    {component.docs.components.map(ListItem)}
+                    {component.data.docs.components.map(ListItem)}
                 </ul>
             </div>
         </nav>

@@ -17,6 +17,7 @@
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve --docs",
+    "dev": "stencil build --dev --docs",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
@@ -35,6 +36,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "@stencil/router": "^1.0.1",
     "bootstrap": "^4.4.1",
     "remark": "^11.0.2",

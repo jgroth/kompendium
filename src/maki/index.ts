@@ -1,1 +1,1 @@
-export * from './generator';
+export { maki } from './generator';

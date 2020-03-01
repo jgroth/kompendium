@@ -15,7 +15,7 @@ export const Main: FunctionalComponent<{ component: App }> = ({ component }) => 
                             url="/component/:name"
                             component="maki-component"
                             componentProps={{
-                                docs: component.docs
+                                docs: component.data.docs
                             }}/>
                     </stencil-route-switch>
                 </stencil-router>

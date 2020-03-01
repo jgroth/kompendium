@@ -4,6 +4,7 @@ import { Main } from './templates/main';
 import { Sidebar } from './templates/sidebar';
 import { Navbar } from './templates/navbar';
 import { Examples } from './templates/examples';
+import { MakiData } from '../../maki/config';
 
 /**
  * This is the main Maki app component
@@ -24,7 +25,7 @@ import { Examples } from './templates/examples';
 })
 export class App {
     /**
-     * Some text here
+     * Some text here!
      * @deprecated not really
      * @foo bar
      */
@@ -35,10 +36,7 @@ export class App {
     public path: string = '/.maki/maki.json';
 
     @State()
-    public docs: JsonDocs;
-
-    @State()
-    public route: string = '';
+    public data: MakiData;
 
     /**
      * gfg
@@ -48,18 +46,15 @@ export class App {
     public foobar: EventEmitter<string>;
 
     constructor() {
-        this.handleNavigation = this.handleNavigation.bind(this);
     }
 
     protected componentWillLoad() {
-        window.addEventListener('hashchange', this.handleNavigation);
         this.fetchData();
-        loadFont('https://fonts.googleapis.com/css?family=Public+Sans&display=swap');
     }
 
     private async fetchData() {
         const data = await fetch(this.path);
-        this.docs = await data.json();
+        this.data = await data.json();
     }
 
     protected render() {
@@ -83,36 +78,20 @@ export class App {
     public async test(s: string, flag: boolean) {
         return s;
     }
-
-    private handleNavigation(event: HashChangeEvent) {
-        this.route = window.location.hash.substr(1);
-    }
 }
 
 const AppPage: FunctionalComponent<{ component: App }> = ({ component }) => {
-    if (!component.docs) {
+    if (!component.data) {
         return <div>Loadings...</div>;
     }
 
+
     return (
         <div class="maki-body">
-            <Navbar component={component} />
 
-            <div class="container-fluid">
-                <div class="row">
-                    <Sidebar component={component} />
-                    <Main component={component} />
-                    <Examples component={component}/>
-                </div>
-            </div>
+            <maki-navigation menu={component.data.menu} />
+            <Main component={component} />
+            <Examples component={component} />
         </div>
     );
-}
-
-function loadFont(url: string) {
-    let link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('type', 'text/css');
-    link.setAttribute('href', url);
-    document.head.appendChild(link);
 }
