@@ -1,13 +1,13 @@
 import { JsonDocsSlot } from "@stencil/core/internal";
 import { h } from '@stencil/core';
 
-export function SlotList({slots}: {slots: JsonDocsSlot[]}) {
+export function SlotList({slots, id}: {id: string, slots: JsonDocsSlot[]}) {
     if (!slots.length) {
         return;
     }
 
     return [
-        <h2>Slots</h2>,
+        <h4 id={id}>Slots</h4>,
         ...slots.map(renderSlot)
     ];
 }
@@ -15,7 +15,7 @@ export function SlotList({slots}: {slots: JsonDocsSlot[]}) {
 function renderSlot(slot: JsonDocsSlot) {
     return (
         <div>
-            <h3>{slot.name}</h3>
+            <h5>{slot.name}</h5>
             <maki-markdown text={slot.docs} />
         </div>
     );

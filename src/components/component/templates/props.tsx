@@ -2,13 +2,13 @@ import { JsonDocsProp } from "@stencil/core/internal";
 import { h } from '@stencil/core';
 import { ProplistItem } from "../../proplist/proplist";
 
-export function PropertyList({props}: {props: JsonDocsProp[]}) {
+export function PropertyList({props, id}: {id: string, props: JsonDocsProp[]}) {
     if (!props.length) {
         return;
     }
 
     return [
-        <h2>Properties</h2>,
+        <h4 id={id}>Properties</h4>,
         ...props.map(renderProperty)
     ];
 }
@@ -16,26 +16,26 @@ export function PropertyList({props}: {props: JsonDocsProp[]}) {
 function renderProperty(property: JsonDocsProp) {
     const items: ProplistItem[] = [{
         key: 'Type',
-        value: <code>{property.type}</code>
+        value: property.type
     }, {
         key: 'Attribute name',
-        value: <code>{property.attr}</code>
+        value: property.attr
     }, {
         key: 'Default value',
-        value: <code>{property.default}</code>
+        value: property.default
     }, {
         key: 'Optional',
-        value: <code>{String(property.optional)}</code>
+        value: String(property.optional)
     }, {
         key: 'Required',
-        value: <code>{String(property.required)}</code>
+        value: String(property.required)
     }];
 
     return (
         <div>
-            <h3>{property.name}</h3>
-            <maki-taglist tags={property.docsTags} />
+            <h5>{property.name}</h5>
             <maki-markdown text={property.docs} />
+            <maki-taglist tags={property.docsTags} />
             <maki-proplist items={items}/>
         </div>
     );

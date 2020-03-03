@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, State, Element } from '@stencil/core';
 import { JsonDocs } from '@stencil/core/internal';
 import { MatchResults } from '@stencil/router';
 import { PropertyList } from './templates/props';
@@ -20,7 +20,54 @@ export class MakiComponent {
     @Prop()
     public match: MatchResults;
 
+    @Element()
+    private host: HTMLElement;
+
+    constructor() {
+        this.handleRouteChange = this.handleRouteChange.bind(this);
+    }
+
+    protected componentWillLoad() {
+        window.addEventListener('hashchange', this.handleRouteChange);
+    }
+
+    protected componentDidUnload() {
+        window.removeEventListener('hashchange', this.handleRouteChange);
+    }
+
+    protected componentDidLoad() {
+        const route = this.getRoute();
+        this.scrollToElement(route);
+    }
+
+    private handleRouteChange() {
+        const route = this.getRoute();
+        this.scrollToElement(route);
+    }
+
+    private scrollToElement(id: string) {
+        const element = this.host.shadowRoot.getElementById(id);
+        if (!element) {
+            return;
+        }
+
+        element.scrollIntoView();
+    }
+
     public render() {
+        return (
+            <article class="component">
+                <section class="docs">
+                    {this.renderDocs()}
+                </section>
+                <aside class="examples">
+                    {this.renderExamples()}
+                </aside>
+            </article>
+        );
+    }
+
+    private renderDocs() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
 
@@ -28,15 +75,28 @@ export class MakiComponent {
         title = title[0].toLocaleUpperCase() + title.slice(1);
 
         return [
-            <h1>{title}</h1>,
-            <maki-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
+            <h1 id={this.getId()}>{title}</h1>,
             <maki-markdown text={component.docs}/>,
-            <PropertyList props={component.props}/>,
-            <EventList events={component.events}/>,
-            <MethodList methods={component.methods}/>,
-            <SlotList slots={component.slots}/>,
-            <StyleList slots={component.styles}/>
+            <maki-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
+            <PropertyList props={component.props} id={this.getId('properties')} />,
+            <EventList events={component.events} id={this.getId('events')} />,
+            <MethodList methods={component.methods} id={this.getId('methods')} />,
+            <SlotList slots={component.slots} id={this.getId('slots')} />,
+            <StyleList styles={component.styles} id={this.getId('styles')} />
         ];
+    }
+
+    private renderExamples() {
+        return '';
+    }
+
+    private getId(name?: string) {
+        const route = this.getRoute().split('/').slice(0, 3).join('/');
+        return [route, name].filter(item => !!item).join('/');
+    }
+
+    private getRoute() {
+        return location.hash.substr(1);
     }
 }
 

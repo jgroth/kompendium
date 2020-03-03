@@ -11,6 +11,7 @@ export const maki = (config: Partial<MakiConfig> = {}) => (docs: JsonDocs): void
 
     const data: MakiData = {
         docs,
+        title: getProjectTitle(config),
         menu: createMenu(docs)
     };
 
@@ -57,6 +58,10 @@ export function getComponentMenu(component: JsonDocsComponent): MenuItem {
 
 
 function getComponentPropertyMenu(component: JsonDocsComponent): MenuItem {
+    if (!component.props.length) {
+        return;
+    }
+
     return {
         title: 'Properties',
         path: `/component/${component.tag}/properties`
@@ -64,6 +69,10 @@ function getComponentPropertyMenu(component: JsonDocsComponent): MenuItem {
 }
 
 function getComponentEventMenu(component: JsonDocsComponent): MenuItem {
+    if (!component.events.length) {
+        return;
+    }
+
     return {
         title: 'Events',
         path: `/component/${component.tag}/events`
@@ -71,6 +80,10 @@ function getComponentEventMenu(component: JsonDocsComponent): MenuItem {
 }
 
 function getComponentMethodMenu(component: JsonDocsComponent): MenuItem {
+    if (!component.methods.length) {
+        return;
+    }
+
     return {
         title: 'Methods',
         path: `/component/${component.tag}/methods`
@@ -78,6 +91,10 @@ function getComponentMethodMenu(component: JsonDocsComponent): MenuItem {
 }
 
 function getComponentSlotMenu(component: JsonDocsComponent): MenuItem {
+    if (!component.slots.length) {
+        return;
+    }
+
     return {
         title: 'Slots',
         path: `/component/${component.tag}/slots`
@@ -85,6 +102,10 @@ function getComponentSlotMenu(component: JsonDocsComponent): MenuItem {
 }
 
 function getComponentStyleMenu(component: JsonDocsComponent): MenuItem {
+    if (!component.styles.length) {
+        return;
+    }
+
     return {
         title: 'Styles',
         path: `/component/${component.tag}/styles`
@@ -109,6 +130,17 @@ export function createVersionMenu(): MenuItem {
         path: '/version',
         icon: 'code-branch'
     }
+}
+
+function getProjectTitle(config: Partial<MakiConfig>): string {
+    if (config.title) {
+        return config.title;
+    }
+
+    const json = fs.readFileSync('./package.json', 'utf8');
+    const data = JSON.parse(json);
+
+    return data.name.split('-').join(' ');
 }
 
 const writeData = (path: string, data: MakiData) => (resolve: () => void) => {

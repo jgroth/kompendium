@@ -6,7 +6,8 @@ import { JsonDocsTag } from '@stencil/core/internal';
  */
 @Component({
     tag: 'maki-taglist',
-    shadow: true
+    shadow: true,
+    styleUrl: 'taglist.scss'
 })
 export class Taglist {
 
@@ -21,9 +22,17 @@ export class Taglist {
     }
 
     private renderTag(tag: JsonDocsTag) {
+        const classList = {
+            'tag-list': true
+        };
+
+        classList[`tag--${tag.name}`] = true;
+
         return (
-            <div>
-                <code>@{tag.name}</code><maki-markdown text={tag.text} />
+            <div class={classList}>
+                <i class="fas fa-tag"></i>
+                <code>@{tag.name}</code>
+                <maki-markdown text={tag.text} />
             </div>
         );
     }

@@ -1,0 +1,40 @@
+@import '../../style/reset.scss';
+@import '../../style/typography.scss';
+
+:host {
+    display: block;
+}
+
+.value--false {
+    color: #e83e8c;
+    code {
+        border-color: #fdcae2;
+        background-color: #fff6fa;
+    }
+}
+
+
+.value--true {
+    color: #35c454;
+    code {
+        border-color: #b6f0c2;
+        background-color: #f3fff6;
+    }
+}
+
+dl {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: .5rem;
+    margin-bottom: 2rem;
+
+    dt, dd {
+        padding-bottom: .2rem;
+    }
+
+    // > dt:nth-child(4n+3), > dd:nth-child(4n) {
+    //     background-color: #f0f5fa
+    // }
+}

@@ -1,0 +1,20 @@
+@import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
+
+:host {
+    display: block;
+}
+
+code {
+    margin-bottom: .5rem;
+    margin-left: .5rem;
+}
+
+i.fa-tag {
+    color: var(--maki-primary-color);
+    font-size: .8rem;
+
+    .tag--deprecated & {
+        color: #A3333D;
+    }
+}

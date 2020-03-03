@@ -4,6 +4,7 @@
 
 :host {
   display: block;
+  font-family: var(--maki-font-secondary);
 }
 
 .nav-bar {
@@ -45,7 +46,7 @@
     }
 }
 
-.nav-link a {
+.nav-link {
     display: flex;
     align-items: center;
     height: 5rem;
@@ -108,13 +109,31 @@
     position: fixed;
     background-color: var(--maki-secondary-color);
     margin-left: 5rem;
+
+    .panel-header {
+        display: flex;
+        height: 5rem;
+        align-items: center;
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        font-size: .8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5ch;
+        color: var(--maki-text-on-secondary);
+
+        h1 {
+            font-weight: unset;
+            word-break: break-word;
+        }
+    }
 }
 
 .panel-item {
     width: 100%;
 }
 
-.panel-link a {
+.panel-link {
     display: flex;
     align-items: center;
     height: 2.5rem;

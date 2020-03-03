@@ -11,6 +11,9 @@ export class Navigation {
     @Prop()
     public menu: MenuItem[];
 
+    @Prop()
+    public title: string;
+
     @State()
     private route: string = '';
 
@@ -43,9 +46,10 @@ export class Navigation {
         },
         ...this.menu
         ];
-        const subMenu = rootMenu.find(item => item.path !== '/' && this.route.startsWith(item.path))?.children || [];
+        const subMenu = rootMenu
+            .filter(item => item.path !== '/')
+            .find(item => this.isRouteActive(item.path))?.children || [];
 
-        console.log(this.route)
         return [
             <nav class="nav-bar">
                 <ul class="nav-list">
@@ -53,9 +57,10 @@ export class Navigation {
                 </ul>
             </nav>,
             <nav class="nav-panel">
-                <ul class="panel-list">
-                    {subMenu.map(this.renderPanelMenuItem)}
-                </ul>
+                <header class="panel-header">
+                    <h1>{this.title}</h1>
+                </header>
+                {this.renderPanelContent(subMenu)}
             </nav>
         ];
     }
@@ -71,50 +76,66 @@ export class Navigation {
     private renderLink(item: MenuItem) {
         if (item.path === '/') {
             return (
-                <stencil-route-link class="nav-link">
+                <a class="nav-link">
                     <i class={`fas fa-${item.icon}`}></i>
-                </stencil-route-link>
+                </a>
             );
         }
 
+        const classList = {
+            'nav-link': true,
+            active: this.isRouteActive(item.path),
+        };
+
         return (
-            <stencil-route-link
-                class="nav-link"
-                activeClass="active"
-                url={item.path}
-            >
+            <a class={classList} href={'#' + item.path}>
                 <span class="bubble">
                     <i class={`fas fa-${item.icon}`}></i>
                 </span>
-            </stencil-route-link>
+            </a>
+        );
+    }
+
+    private renderPanelContent(menu: MenuItem[]) {
+        if (this.route === '/search') {
+            return <maki-search />;
+        }
+
+        return (
+            <ul class="panel-list">
+                {menu.map(this.renderPanelMenuItem)}
+            </ul>
         );
     }
 
     private renderPanelMenuItem(item: MenuItem) {
         const classList = {
-            active: this.route.startsWith(item.path),
+            active: this.isRouteActive(item.path),
             chapters: true,
             'panel-list': true
+        };
+        const anchorClassList = {
+            'panel-link': true,
+            active: this.isRouteActive(item.path),
         };
         const chapters = item.children || [];
 
         return (
             <li class="panel-item">
-                <stencil-route-link
-                    class="panel-link"
-                    activeClass="active"
-                    url={item.path}
-                >
+                <a class={anchorClassList} href={'#' + item.path}>
                     <span class="link-text">
                         <i class="fas fa-chevron-right"></i>
                         {item.title}
                     </span>
-                </stencil-route-link>
+                </a>
                 <ul class={classList}>
                     {chapters.map(this.renderPanelMenuItem)}
                 </ul>
             </li>
         );
     }
-}
 
+    private isRouteActive(route: string) {
+        return this.route.startsWith(route);
+    }
+}

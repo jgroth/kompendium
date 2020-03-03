@@ -10,6 +10,8 @@ export interface MakiConfig {
      * www
      */
     publicPath: string;
+
+    title?: string;
 }
 
 export const defaultConfig: MakiConfig = {
@@ -25,6 +27,7 @@ export interface MenuItem {
 }
 
 export interface MakiData {
-    docs: JsonDocs,
-    menu: MenuItem[]
+    title: string;
+    docs: JsonDocs;
+    menu: MenuItem[];
 }

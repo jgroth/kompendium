@@ -2,13 +2,13 @@ import { JsonDocsEvent } from "@stencil/core/internal";
 import { h } from '@stencil/core';
 import { ProplistItem } from "../../proplist/proplist";
 
-export function EventList({events}: {events: JsonDocsEvent[]}) {
+export function EventList({events, id}: {id: string, events: JsonDocsEvent[]}) {
     if (!events.length) {
         return;
     }
 
     return [
-        <h2>Events</h2>,
+        <h4 id={id}>Events</h4>,
         ...events.map(renderEvent)
     ];
 }
@@ -16,23 +16,23 @@ export function EventList({events}: {events: JsonDocsEvent[]}) {
 function renderEvent(event: JsonDocsEvent) {
     const items: ProplistItem[] = [{
         key: 'Detail',
-        value: <code>{event.detail}</code>
+        value: event.detail
     }, {
         key: 'Bubbles',
-        value: <code>{String(event.bubbles)}</code>
+        value: String(event.bubbles)
     }, {
         key: 'Cancelable',
-        value: <code>{String(event.cancelable)}</code>
+        value: String(event.cancelable)
     }, {
         key: 'Composed',
-        value: <code>{String(event.composed)}</code>
+        value: String(event.composed)
     }];
 
     return (
         <div>
-            <h3>{event.event}</h3>
-            <maki-taglist tags={event.docsTags} />
+            <h5>{event.event}</h5>
             <maki-markdown text={event.docs} />
+            <maki-taglist tags={event.docsTags} />
             <maki-proplist items={items}/>
         </div>
     );

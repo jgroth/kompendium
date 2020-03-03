@@ -7,7 +7,7 @@ import makiPlugin from './src/maki/rollup-plugin-maki';
 export const config: Config = {
     namespace: 'maki',
     plugins: [sass(), nodePolyfill(), makiPlugin()],
-    globalStyle: 'src/global/maki.css',
+    globalStyle: 'src/global/maki.scss',
 
     outputTargets: [
         {

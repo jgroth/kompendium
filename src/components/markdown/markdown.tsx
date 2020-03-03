@@ -8,7 +8,8 @@ import recommended from 'remark-preset-lint-recommended';
  */
 @Component({
     tag: 'maki-markdown',
-    shadow: true
+    shadow: true,
+    styleUrl: 'markdown.scss'
 })
 export class Markdown {
     @Prop()

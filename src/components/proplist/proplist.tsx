@@ -7,7 +7,8 @@ export interface ProplistItem {
 
 @Component({
     tag: 'maki-proplist',
-    shadow: true
+    shadow: true,
+    styleUrl: 'proplist.scss'
 })
 export class Proplist {
 
@@ -23,9 +24,11 @@ export class Proplist {
     }
 
     private renderProperty(property: ProplistItem) {
+        const {key, value} = property;
+
         return [
-            <dt>{property.key}</dt>,
-            <dd>{property.value}</dd>
+            <dt>{key}</dt>,
+            <dd class={`value--${value}`}><code>{value}</code></dd>
         ];
     }
 }

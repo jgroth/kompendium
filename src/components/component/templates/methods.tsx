@@ -1,14 +1,14 @@
-import { JsonDocsEvent, JsonDocsMethod } from "@stencil/core/internal";
+import { JsonDocsMethod } from "@stencil/core/internal";
 import { h } from '@stencil/core';
 import { ProplistItem } from "../../proplist/proplist";
 
-export function MethodList({methods}: {methods: JsonDocsMethod[]}) {
+export function MethodList({methods, id}: {id: string, methods: JsonDocsMethod[]}) {
     if (!methods.length) {
         return;
     }
 
     return [
-        <h2>Methods</h2>,
+        <h4 id={id}>Methods</h4>,
         ...methods.map(renderMethod)
     ];
 }
@@ -16,14 +16,14 @@ export function MethodList({methods}: {methods: JsonDocsMethod[]}) {
 function renderMethod(method: JsonDocsMethod) {
     const items: ProplistItem[] = [{
         key: 'Signature',
-        value: <code>{method.signature}</code>
+        value: method.signature
     }];
 
     return (
         <div>
-            <h3>{method.name}</h3>
-            <maki-taglist tags={method.docsTags} />
+            <h5>{method.name}</h5>
             <maki-markdown text={method.docs} />
+            <maki-taglist tags={method.docsTags} />
             <maki-proplist items={items}/>
         </div>
     );

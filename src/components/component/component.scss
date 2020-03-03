@@ -1,1 +1,37 @@
 @import '../../style/reset.scss';
+@import '../../style/typography.scss';
+
+:host {
+    display: block;
+}
+
+.component {
+    display: flex;
+}
+
+.docs {
+    margin: 3rem 2rem;
+    margin-right: 52rem;
+}
+
+.examples {
+    width: 50rem;
+    height: 100vh;
+    position: fixed;
+    background-color: var(--maki-primary-color);
+    margin: 0;
+    right: 0;
+    top: 0;
+}
+
+maki-taglist {
+    margin-bottom: 1rem;
+}
+
+maki-proplist {
+    margin-bottom: 2rem;
+}
+
+h5 {
+    border-bottom: 1px solid #eee;
+}

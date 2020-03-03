@@ -1,13 +1,13 @@
 import { JsonDocsStyle } from "@stencil/core/internal";
 import { h } from '@stencil/core';
 
-export function StyleList({slots: styles}: {slots: JsonDocsStyle[]}) {
+export function StyleList({styles, id}: {id: string, styles: JsonDocsStyle[]}) {
     if (!styles.length) {
         return;
     }
 
     return [
-        <h2>Styles</h2>,
+        <h4 id={id}>Styles</h4>,
         ...styles.map(renderStyle)
     ];
 }
@@ -15,7 +15,7 @@ export function StyleList({slots: styles}: {slots: JsonDocsStyle[]}) {
 function renderStyle(style: JsonDocsStyle) {
     return (
         <div>
-            <h3>{style.name}</h3>
+            <h5>{style.name}</h5>
             <maki-markdown text={style.docs} />
         </div>
     );
