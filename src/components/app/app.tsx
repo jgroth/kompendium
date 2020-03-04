@@ -54,7 +54,6 @@ import { KompendiumData } from '../../kompendium/config';
  * previous block.
  *
  * @sealed
- * @example test-component
  */
 @Component({
     tag: 'kompendium-app',
