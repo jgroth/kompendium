@@ -1,7 +1,7 @@
 import { Component, h, Host, State, Prop, FunctionalComponent, Method, EventEmitter, Event } from '@stencil/core';
 import { Main } from './templates/main';
 import { Examples } from './templates/examples';
-import { MakiData } from '../../maki/config';
+import { KompendiumData } from '../../kompendium/config';
 
 /**
  * The summary section should be brief. On a documentation web site,
@@ -54,9 +54,11 @@ import { MakiData } from '../../maki/config';
  * previous block.
  *
  * @sealed
+ * @example test-component
+ * this is a description
  */
 @Component({
-    tag: 'maki-app',
+    tag: 'kompendium-app',
     styleUrl: 'app.scss',
     shadow: true
 })
@@ -70,10 +72,10 @@ export class App {
     public fooBar: string = 'baz';
 
     @Prop()
-    public path: string = '/.maki/maki.json';
+    public path: string = '/.kompendium/kompendium.json';
 
     @State()
-    public data: MakiData;
+    public data: KompendiumData;
 
     /**
      * gfg
@@ -124,9 +126,9 @@ const AppPage: FunctionalComponent<{ component: App }> = ({ component }) => {
 
 
     return (
-        <div class="maki-body">
+        <div class="kompendium-body">
 
-            <maki-navigation menu={component.data.menu} title={component.data.title}/>
+            <kompendium-navigation menu={component.data.menu} title={component.data.title}/>
             <Main component={component} />
             <Examples component={component} />
         </div>

@@ -1,8 +1,8 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { MenuItem } from '../../maki/config';
+import { MenuItem } from '../../kompendium/config';
 
 @Component({
-    tag: 'maki-navigation',
+    tag: 'kompendium-navigation',
     styleUrl: 'navigation.scss',
     shadow: true
 })
@@ -98,7 +98,7 @@ export class Navigation {
 
     private renderPanelContent(menu: MenuItem[]) {
         if (this.route === '/search') {
-            return <maki-search />;
+            return <kompendium-search />;
         }
 
         return (

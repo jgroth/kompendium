@@ -16,7 +16,7 @@ function renderStyle(style: JsonDocsStyle) {
     return (
         <div>
             <h5>{style.name}</h5>
-            <maki-markdown text={style.docs} />
+            <kompendium-markdown text={style.docs} />
         </div>
     );
 }

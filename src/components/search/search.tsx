@@ -1,7 +1,7 @@
 import { Component, Host, h, Element } from '@stencil/core';
 
 @Component({
-    tag: 'maki-search',
+    tag: 'kompendium-search',
     styleUrl: 'search.scss',
     shadow: true
 })

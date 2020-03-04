@@ -1,1 +1,0 @@
-export { maki } from './generator';

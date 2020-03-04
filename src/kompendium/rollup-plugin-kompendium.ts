@@ -1,31 +1,31 @@
 import fs from 'fs';
 import lnk from 'lnk';
-import { MakiConfig, defaultConfig } from './config';
+import { KompendiumConfig, defaultConfig } from './config';
 
-function maki(config: Partial<MakiConfig> = {}) {
+function kompendium(config: Partial<KompendiumConfig> = {}) {
     config = {
         ...defaultConfig,
         ...config
     };
 
     let started = false;
-    const path = `${config.publicPath}/.maki`;
+    const path = `${config.publicPath}/.kompendium`;
 
     if (fs.existsSync(path)) {
         fs.unlinkSync(path);
     }
 
     return {
-        name: 'rollup-plugin-maki',
+        name: 'rollup-plugin-kompendium',
         generateBundle: async function() {
             if (started) {
                 return;
             }
 
             started = true;
-            lnk([config.path], config.publicPath, { rename: '.maki' });
+            lnk([config.path], config.publicPath, { rename: '.kompendium' });
         }
     };
 }
 
-export default maki;
+export default kompendium;

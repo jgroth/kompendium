@@ -4,14 +4,14 @@
 
 :host {
   display: block;
-  font-family: var(--maki-font-secondary);
+  font-family: var(--kompendium-font-secondary);
 }
 
 .nav-bar {
     width: 5rem;
     height: 100vh;
     position: fixed;
-    background-color: var(--maki-primary-color);
+    background-color: var(--kompendium-primary-color);
     // transition: width 200ms ease;
     // overflow: hidden;
 
@@ -50,7 +50,7 @@
     display: flex;
     align-items: center;
     height: 5rem;
-    color: var(--maki-text-on-primary);
+    color: var(--kompendium-text-on-primary);
     color:black;
     text-decoration: none;
 
@@ -59,8 +59,8 @@
 
     &:hover {
         filter: grayscale(0%) opacity(1);
-        background-color: var(--maki-secondary-color);
-        color: var(--maki-text-on-secondary)
+        background-color: var(--kompendium-secondary-color);
+        color: var(--kompendium-text-on-secondary)
     }
 
     &.active {
@@ -107,7 +107,7 @@
     width: 16rem;
     height: 100vh;
     position: fixed;
-    background-color: var(--maki-secondary-color);
+    background-color: var(--kompendium-secondary-color);
     margin-left: 5rem;
 
     .panel-header {
@@ -120,7 +120,7 @@
         font-size: .8rem;
         text-transform: uppercase;
         letter-spacing: 0.5ch;
-        color: var(--maki-text-on-secondary);
+        color: var(--kompendium-text-on-secondary);
 
         h1 {
             font-weight: unset;
@@ -137,7 +137,7 @@
     display: flex;
     align-items: center;
     height: 2.5rem;
-    color: var(--maki-text-on-secondary);
+    color: var(--kompendium-text-on-secondary);
     text-decoration: none;
     padding-left: 1.5rem;
 
@@ -147,8 +147,8 @@
     &:hover,
     &.active {
         filter: grayscale(0%) opacity(1);
-        background-color: var(--maki-primary-color);
-        color: var(--maki-text-on-primary)
+        background-color: var(--kompendium-primary-color);
+        color: var(--kompendium-text-on-primary)
     }
 
     &.active {

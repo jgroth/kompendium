@@ -1,6 +1,6 @@
 import { JsonDocs } from "@stencil/core/internal";
 
-export interface MakiConfig {
+export interface KompendiumConfig {
     /**
      * Output path
      */
@@ -14,8 +14,8 @@ export interface MakiConfig {
     title?: string;
 }
 
-export const defaultConfig: MakiConfig = {
-    path: '.maki',
+export const defaultConfig: KompendiumConfig = {
+    path: '.kompendium',
     publicPath: 'www'
 };
 
@@ -26,7 +26,7 @@ export interface MenuItem {
     children?: MenuItem[];
 }
 
-export interface MakiData {
+export interface KompendiumData {
     title: string;
     docs: JsonDocs;
     menu: MenuItem[];

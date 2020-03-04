@@ -8,11 +8,11 @@ export const Main: FunctionalComponent<{ component: App }> = ({ component }) => 
                 <stencil-route-switch scrollTopOffset={0}>
                     <stencil-route
                         url="/"
-                        component="maki-home"
+                        component="kompendium-home"
                         exact={true}/>
                     <stencil-route
                         url="/component/:name"
-                        component="maki-component"
+                        component="kompendium-component"
                         componentProps={{
                             docs: component.data.docs
                         }}/>

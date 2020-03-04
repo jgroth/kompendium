@@ -11,13 +11,13 @@
 }
 
 :root {
-    --maki-font-primary: Raleway, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-    --maki-font-secondary: "Public Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    --kompendium-font-primary: Raleway, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    --kompendium-font-secondary: "Public Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
-    --maki-primary-color: #2364AA;
-    --maki-secondary-color: #3DA5D9;
-    --maki-text-on-primary: rgba(255, 255, 255, 0.5);
-    --maki-text-on-secondary: rgba(0, 0, 0, 0.5);
+    --kompendium-primary-color: #2364AA;
+    --kompendium-secondary-color: #3DA5D9;
+    --kompendium-text-on-primary: rgba(255, 255, 255, 0.5);
+    --kompendium-text-on-secondary: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -27,7 +27,7 @@ body {
     scroll-behavior: smooth;
 
     font-size: 16px;
-    font-family: var(--maki-font-primary);
+    font-family: var(--kompendium-font-primary);
     color: black;
     text-rendering: optimizeSpeed;
     line-height: 1.5;

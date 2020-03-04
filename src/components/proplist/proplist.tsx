@@ -6,7 +6,7 @@ export interface ProplistItem {
 }
 
 @Component({
-    tag: 'maki-proplist',
+    tag: 'kompendium-proplist',
     shadow: true,
     styleUrl: 'proplist.scss'
 })

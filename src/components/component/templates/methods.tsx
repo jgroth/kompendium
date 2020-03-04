@@ -22,9 +22,9 @@ function renderMethod(method: JsonDocsMethod) {
     return (
         <div>
             <h5>{method.name}</h5>
-            <maki-markdown text={method.docs} />
-            <maki-taglist tags={method.docsTags} />
-            <maki-proplist items={items}/>
+            <kompendium-markdown text={method.docs} />
+            <kompendium-taglist tags={method.docsTags} />
+            <kompendium-proplist items={items}/>
         </div>
     );
 }

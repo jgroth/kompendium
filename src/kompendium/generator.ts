@@ -1,15 +1,15 @@
 import { JsonDocs, JsonDocsComponent } from "@stencil/core/internal";
 import fs from 'fs';
-import { MakiConfig, defaultConfig, MakiData, MenuItem } from "./config";
+import { KompendiumConfig, defaultConfig, KompendiumData, MenuItem } from "./config";
 
 
-export const maki = (config: Partial<MakiConfig> = {}) => (docs: JsonDocs): void | Promise<void> => {
+export const kompendium = (config: Partial<KompendiumConfig> = {}) => (docs: JsonDocs): void | Promise<void> => {
     config = {
         ...defaultConfig,
         ...config
     };
 
-    const data: MakiData = {
+    const data: KompendiumData = {
         docs,
         title: getProjectTitle(config),
         menu: createMenu(docs)
@@ -132,7 +132,7 @@ export function createVersionMenu(): MenuItem {
     }
 }
 
-function getProjectTitle(config: Partial<MakiConfig>): string {
+function getProjectTitle(config: Partial<KompendiumConfig>): string {
     if (config.title) {
         return config.title;
     }
@@ -143,8 +143,8 @@ function getProjectTitle(config: Partial<MakiConfig>): string {
     return data.name.split('-').join(' ');
 }
 
-const writeData = (path: string, data: MakiData) => (resolve: () => void) => {
-    const filePath = `${path}/maki.json`;
+const writeData = (path: string, data: KompendiumData) => (resolve: () => void) => {
+    const filePath = `${path}/kompendium.json`;
 
     if (!fs.existsSync(path)) {
         fs.mkdirSync(path, { recursive: true });

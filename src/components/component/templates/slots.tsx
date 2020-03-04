@@ -16,7 +16,7 @@ function renderSlot(slot: JsonDocsSlot) {
     return (
         <div>
             <h5>{slot.name}</h5>
-            <maki-markdown text={slot.docs} />
+            <kompendium-markdown text={slot.docs} />
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'maki-home',
+  tag: 'kompendium-home',
   shadow: true
 })
 export class Home {

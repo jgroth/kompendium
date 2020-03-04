@@ -12,13 +12,13 @@
 
 input {
     border: 0;
-    background-color: var(--maki-primary-color);
+    background-color: var(--kompendium-primary-color);
     border-radius: .5rem;
     padding: .5rem;
-    color: var(--maki-text-on-primary);
+    color: var(--kompendium-text-on-primary);
 
     &::placeholder {
-        color: var(--maki-text-on-primary);
+        color: var(--kompendium-text-on-primary);
         text-transform: uppercase;
         font-size: .7em;
         letter-spacing: .3ch;

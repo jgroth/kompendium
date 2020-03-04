@@ -5,7 +5,7 @@ import { JsonDocsTag } from '@stencil/core/internal';
  * asd
  */
 @Component({
-    tag: 'maki-taglist',
+    tag: 'kompendium-taglist',
     shadow: true,
     styleUrl: 'taglist.scss'
 })
@@ -32,7 +32,7 @@ export class Taglist {
             <div class={classList}>
                 <i class="fas fa-tag"></i>
                 <code>@{tag.name}</code>
-                <maki-markdown text={tag.text} />
+                <kompendium-markdown text={tag.text} />
             </div>
         );
     }

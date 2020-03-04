@@ -1,13 +1,13 @@
 import { Config } from '@stencil/core';
-import { maki } from './src/maki';
+import { kompendium } from './src/kompendium';
 import { sass } from '@stencil/sass';
 import nodePolyfill from 'rollup-plugin-node-polyfills';
-import makiPlugin from './src/maki/rollup-plugin-maki';
+import kompendiumPlugin from './src/kompendium/rollup-plugin-kompendium';
 
 export const config: Config = {
-    namespace: 'maki',
-    plugins: [sass(), nodePolyfill(), makiPlugin()],
-    globalStyle: 'src/global/maki.scss',
+    namespace: 'kompendium',
+    plugins: [sass(), nodePolyfill(), kompendiumPlugin()],
+    globalStyle: 'src/global/kompendium.scss',
 
     outputTargets: [
         {
@@ -22,7 +22,7 @@ export const config: Config = {
         {
             type: 'docs-custom',
             strict: true,
-            generator: maki()
+            generator: kompendium()
         },
         {
             type: 'www',

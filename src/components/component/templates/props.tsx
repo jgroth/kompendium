@@ -34,9 +34,9 @@ function renderProperty(property: JsonDocsProp) {
     return (
         <div>
             <h5>{property.name}</h5>
-            <maki-markdown text={property.docs} />
-            <maki-taglist tags={property.docsTags} />
-            <maki-proplist items={items}/>
+            <kompendium-markdown text={property.docs} />
+            <kompendium-taglist tags={property.docsTags} />
+            <kompendium-proplist items={items}/>
         </div>
     );
 }

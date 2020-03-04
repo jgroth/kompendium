@@ -31,9 +31,9 @@ function renderEvent(event: JsonDocsEvent) {
     return (
         <div>
             <h5>{event.event}</h5>
-            <maki-markdown text={event.docs} />
-            <maki-taglist tags={event.docsTags} />
-            <maki-proplist items={items}/>
+            <kompendium-markdown text={event.docs} />
+            <kompendium-taglist tags={event.docsTags} />
+            <kompendium-proplist items={items}/>
         </div>
     );
 }

@@ -7,7 +7,7 @@ import recommended from 'remark-preset-lint-recommended';
  * This component renders markdown!
  */
 @Component({
-    tag: 'maki-markdown',
+    tag: 'kompendium-markdown',
     shadow: true,
     styleUrl: 'markdown.scss'
 })

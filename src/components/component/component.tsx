@@ -8,11 +8,11 @@ import { SlotList } from './templates/slots';
 import { StyleList } from './templates/style';
 
 @Component({
-    tag: 'maki-component',
+    tag: 'kompendium-component',
     shadow: true,
     styleUrl: 'component.scss'
 })
-export class MakiComponent {
+export class KompendiumComponent {
 
     @Prop()
     public docs: JsonDocs;
@@ -76,8 +76,8 @@ export class MakiComponent {
 
         return [
             <h1 id={this.getId()}>{title}</h1>,
-            <maki-markdown text={component.docs}/>,
-            <maki-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
+            <kompendium-markdown text={component.docs}/>,
+            <kompendium-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
             <PropertyList props={component.props} id={this.getId('properties')} />,
             <EventList events={component.events} id={this.getId('events')} />,
             <MethodList methods={component.methods} id={this.getId('methods')} />,
