@@ -1,6 +1,4 @@
 import { Component, h, Host, State, Prop, FunctionalComponent, Method, EventEmitter, Event } from '@stencil/core';
-import { Main } from './templates/main';
-import { Examples } from './templates/examples';
 import { KompendiumData } from '../../kompendium/config';
 
 /**
@@ -95,40 +93,30 @@ export class App {
     }
 
     protected render() {
+        if (!this.data) {
+            return <div>Loadings...</div>;
+        }
+
         return (
-            <Host>
-                <AppPage component={this} />
-            </Host>
+            <div class="kompendium-body">
+                <kompendium-navigation menu={this.data.menu} title={this.data.title}/>
+                <main role="main" >
+                    <stencil-router historyType="hash">
+                        <stencil-route-switch scrollTopOffset={0}>
+                            <stencil-route
+                                url="/"
+                                component="kompendium-home"
+                                exact={true}/>
+                            <stencil-route
+                                url="/component/:name/:example?"
+                                component="kompendium-component"
+                                componentProps={{
+                                    docs: this.data.docs
+                                }}/>
+                        </stencil-route-switch>
+                    </stencil-router>
+                </main>
+            </div>
         );
     }
-
-    /**
-     * Don't call this
-     *
-     * @param s - some text
-     * @
-     *
-     * @deprecated foobar
-     * @returns qwertyy
-     */
-    @Method({})
-    public async test(s: string, flag: boolean) {
-        return s;
-    }
-}
-
-const AppPage: FunctionalComponent<{ component: App }> = ({ component }) => {
-    if (!component.data) {
-        return <div>Loadings...</div>;
-    }
-
-
-    return (
-        <div class="kompendium-body">
-
-            <kompendium-navigation menu={component.data.menu} title={component.data.title}/>
-            <Main component={component} />
-            <Examples component={component} />
-        </div>
-    );
 }

@@ -1,16 +1,17 @@
 import { JsonDocs, JsonDocsComponent } from "@stencil/core/internal";
 import fs from 'fs';
 import { KompendiumConfig, defaultConfig, KompendiumData, MenuItem } from "./config";
+import { addSources } from "./source";
 
 
-export const kompendium = (config: Partial<KompendiumConfig> = {}) => (docs: JsonDocs): void | Promise<void> => {
+export const kompendium = (config: Partial<KompendiumConfig> = {}) => async (docs: JsonDocs) => {
     config = {
         ...defaultConfig,
         ...config
     };
 
     const data: KompendiumData = {
-        docs,
+        docs: await addSources(docs),
         title: getProjectTitle(config),
         menu: createMenu(docs)
     };

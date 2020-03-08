@@ -109,8 +109,11 @@
     position: fixed;
     background-color: var(--kompendium-secondary-color);
     margin-left: 5rem;
+    display: flex;
+    flex-direction: column;
 
     .panel-header {
+        flex-shrink: 0;
         display: flex;
         height: 5rem;
         align-items: center;
@@ -126,6 +129,10 @@
             font-weight: unset;
             word-break: break-word;
         }
+    }
+
+    .panel-list {
+        overflow-y: auto;
     }
 }
 

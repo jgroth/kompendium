@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+.tab-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-items {
+  overflow-y: auto;
+  display: flex;
+  height: 100%;
+  align-items: stretch;
+}
+
+kompendium-code {
+  display: flex;
+  align-items: stretch;
+  flex-grow: 1;
+}

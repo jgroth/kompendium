@@ -1,5 +1,5 @@
-import { Component, h, Prop, State, Element } from '@stencil/core';
-import { JsonDocs } from '@stencil/core/internal';
+import { Component, h, Prop, Element } from '@stencil/core';
+import { JsonDocs, JsonDocsComponent } from '@stencil/core/internal';
 import { MatchResults } from '@stencil/router';
 import { PropertyList } from './templates/props';
 import { EventList } from './templates/events';
@@ -55,22 +55,25 @@ export class KompendiumComponent {
     }
 
     public render() {
+        const tag = this.match.params.name;
+        const component = findComponent(tag, this.docs);
+
+        const exampleName = this.match.params.example;
+        const example = findComponent(exampleName, this.docs);
+
         return (
             <article class="component">
                 <section class="docs">
-                    {this.renderDocs()}
+                    {this.renderDocs(tag, component)}
                 </section>
-                <aside class="examples">
-                    {this.renderExamples()}
+                <aside class="playground">
+                    <kompendium-playground component={example} />
                 </aside>
             </article>
         );
     }
 
-    private renderDocs() {
-        const tag = this.match.params.name;
-        const component = findComponent(tag, this.docs);
-
+    private renderDocs(tag: string, component: JsonDocsComponent) {
         let title = tag.split('-').slice(1).join(' ');
         title = title[0].toLocaleUpperCase() + title.slice(1);
 
@@ -84,10 +87,6 @@ export class KompendiumComponent {
             <SlotList slots={component.slots} id={this.getId('slots')} />,
             <StyleList styles={component.styles} id={this.getId('styles')} />
         ];
-    }
-
-    private renderExamples() {
-        return '';
     }
 
     private getId(name?: string) {

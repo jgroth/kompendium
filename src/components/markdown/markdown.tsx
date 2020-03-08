@@ -4,7 +4,7 @@ import html from 'remark-html';
 import recommended from 'remark-preset-lint-recommended';
 
 /**
- * This component renders markdown!
+ * This component renders markdown!?!?!?
  */
 @Component({
     tag: 'kompendium-markdown',
@@ -27,9 +27,13 @@ export class Markdown {
     }
 
     private renderMarkdown() {
-        remark().use(recommended).use(html).process(this.text, (_, file) => {
-            this.host.shadowRoot.querySelector('#root').innerHTML = String(file);
-        });
+        const f = false;
+        remark()
+            .use(recommended)
+            .use(html)
+            .process(this.text, (_, file) => {
+                this.host.shadowRoot.querySelector('#root').innerHTML = String(file);
+            });
     }
 
     render() {

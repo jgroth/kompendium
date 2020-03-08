@@ -14,7 +14,7 @@
     margin-right: 52rem;
 }
 
-.examples {
+.playground {
     width: 50rem;
     height: 100vh;
     position: fixed;
@@ -22,6 +22,10 @@
     margin: 0;
     right: 0;
     top: 0;
+}
+
+kompendium-playground {
+    height: 100%;
 }
 
 kompendium-taglist {
