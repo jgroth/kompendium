@@ -27,7 +27,6 @@ export class Markdown {
     }
 
     private renderMarkdown() {
-        const f = false;
         remark()
             .use(recommended)
             .use(html)

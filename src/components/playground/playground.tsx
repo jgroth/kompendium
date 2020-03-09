@@ -1,7 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { JsonDocsComponent } from '@stencil/core/internal';
 import { JsonDocsSource } from '../../kompendium/source';
-import { kompendium } from '../../kompendium';
 
 @Component({
     tag: 'kompendium-playground',
@@ -14,41 +13,81 @@ export class Playground {
     public component: JsonDocsComponent;
 
     @State()
-    private activeTab = 1;
+    private activeTab: string = 'result';
 
     constructor() {
-        this.renderItem = this.renderItem.bind(this) ;
+        this.renderTab = this.renderTab.bind(this);
+        this.renderItem = this.renderItem.bind(this);
     }
 
-    render() {
+    public render() {
         const sources: JsonDocsSource[] = this.component['sources'] || [];
-        const tabs = this.renderTabs();
 
         return (
             <section class="tab-panel">
                 <nav class="tab-bar">
-                    {tabs}
+                    {this.renderTabs(sources)}
+                    <span/>
                 </nav>
                 <div class="tab-items">
-                    {sources.map(this.renderItem)}
+                    {this.renderItems(sources)}
                 </div>
             </section>
         );
     }
 
-    private renderTabs() {
-        const sources: JsonDocsSource[] = this.component['sources'] || [];
+    private renderTabs(sources: JsonDocsSource[]) {
+        const classList = {
+            'tab': true,
+            'active': this.activeTab === 'result'
+        };
+
         return [
-            <button>Result</button>,
-            ...sources.map(source => <button>{source.type}</button>)
+            <button class={classList} onClick={this.activateTab('result')}>
+                Result
+            </button>,
+            ...sources.map(this.renderTab)
+        ];
+    }
+
+    private renderTab(source: JsonDocsSource) {
+        const classList = {
+            'tab': true,
+            'active': this.activeTab === source.type
+        };
+
+        return (
+            <button class={classList} onClick={this.activateTab(source.type)}>
+                {source.type}
+            </button>
+        );
+    }
+
+    private renderItems(sources: JsonDocsSource[]) {
+        const Component = this.component.tag;
+        const classList = {
+            'tab-item': true,
+            'active': this.activeTab === 'result'
+        };
+
+        return [
+            <Component class={classList}/>,
+            ...sources.map(this.renderItem)
         ];
     }
 
     private renderItem(source: JsonDocsSource) {
-        const Component = this.component.tag;
-        return [
-            <Component />,
-            <kompendium-code language={source.type} code={source.source} />
-        ]
+        const classList = {
+            'tab-item': true,
+            'active': this.activeTab === source.type
+        };
+
+        return (
+            <kompendium-code class={classList} language={source.type} code={source.source} />
+        );
     }
+
+    private activateTab = (id: string) => () => {
+        this.activeTab = id;
+    };
 }

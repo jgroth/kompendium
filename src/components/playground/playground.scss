@@ -8,11 +8,93 @@
   flex-direction: column;
 }
 
+.tab-bar {
+  background-color: var(--kompendium-primary-color);
+  display: flex;
+
+  .tab {
+    width: 6rem;
+    height: 4rem;
+    border: 0;
+    font-family: var(--kompendium-font-secondary);
+    color: var(--kompendium-text-on-primary);
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 1rem;
+    z-index: 2;
+    cursor: pointer;
+
+    &:hover {
+    //   background-color: var(--kompendium-secondary-color);
+      color: var(--kompendium-text-on-secondary);
+    }
+
+    &.active {
+    //   background-color: rgba(255, 255, 255, 0.5);
+      color: var(--kompendium-text-on-secondary);
+    //   border-bottom: 0.2rem solid var(--kompendium-secondary-color);
+    }
+
+    &:active,
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  span {
+    position: absolute;
+    width: 5rem;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    top: .75rem;
+    left: 1rem;
+    border-radius: 10%;
+    z-index: 1;
+    // transition: 0.3s ease left;
+  }
+
+  .tab:nth-child(1).active ~ span {
+    left: .5rem;
+  }
+
+  .tab:nth-child(2).active ~ span {
+    left: 6.5rem;
+  }
+
+  .tab:nth-child(3).active ~ span {
+    left: 12.5rem;
+  }
+
+  .tab:nth-child(1):hover ~ span {
+    left: .5rem;
+  }
+
+  .tab:nth-child(2):hover ~ span {
+    left: 6.5rem;
+  }
+
+  .tab:nth-child(3):hover ~ span {
+    left: 12.5rem;
+  }
+}
+
 .tab-items {
   overflow-y: auto;
   display: flex;
   height: 100%;
   align-items: stretch;
+
+  .tab-item {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+
+    &:nth-child(1) {
+      margin: 2rem;
+    }
+  }
 }
 
 kompendium-code {

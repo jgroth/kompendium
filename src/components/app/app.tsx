@@ -1,4 +1,4 @@
-import { Component, h, Host, State, Prop, FunctionalComponent, Method, EventEmitter, Event } from '@stencil/core';
+import { Component, h, State, Prop, EventEmitter, Event } from '@stencil/core';
 import { KompendiumData } from '../../kompendium/config';
 
 /**

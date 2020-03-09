@@ -1,4 +1,4 @@
-import { Component, Host, h, Element } from '@stencil/core';
+import { Component, h, Element } from '@stencil/core';
 
 @Component({
     tag: 'kompendium-search',
