@@ -2,48 +2,48 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
 
 @font-face {
-    font-family: 'Font Awesome 5 Free';
-    font-style: normal;
-    font-weight: 900;
-    font-display: auto;
-    src: url("../fonts/fa-solid-900.eot");
-    src: url("../fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fa-solid-900.woff") format("woff"), url("../fonts/fa-solid-900.ttf") format("truetype"), url("../fonts/fa-solid-900.svg#fontawesome") format("svg");
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: auto;
+  src: url("../fonts/fa-solid-900.eot");
+  src: url("../fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fa-solid-900.woff") format("woff"),
+    url("../fonts/fa-solid-900.ttf") format("truetype"), url("../fonts/fa-solid-900.svg#fontawesome") format("svg");
 }
 
 :root {
-    --kompendium-font-primary: Raleway, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-    --kompendium-font-secondary: "Public Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --kompendium-font-primary: Raleway, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --kompendium-font-secondary: "Public Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
-    --kompendium-primary-color: #2364AA;
-    --kompendium-secondary-color: #3DA5D9;
-    --kompendium-text-on-primary: rgba(255, 255, 255, 0.5);
-    --kompendium-text-on-secondary: rgba(0, 0, 0, 0.5);
+  --kompendium-primary-color: #2364aa;
+  --kompendium-secondary-color: #3da5d9;
+  --kompendium-text-on-primary: rgba(255, 255, 255, 0.5);
+  --kompendium-text-on-secondary: rgba(0, 0, 0, 0.5);
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  scroll-behavior: smooth;
 
-    font-size: 16px;
-    font-family: var(--kompendium-font-primary);
-    color: black;
-    text-rendering: optimizeSpeed;
-    line-height: 1.5;
+  font-size: 16px;
+  font-family: var(--kompendium-font-primary);
+  color: black;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
 }
 
-
 body::-webkit-scrollbar {
-    width: 1em;
-  }
+  width: 1em;
+}
 
-  body::-webkit-scrollbar-track {
-      background-color: var(--kompendium-primary-color);
-  }
+body::-webkit-scrollbar-track {
+  background-color: var(--kompendium-primary-color);
+}
 
-  body::-webkit-scrollbar-thumb {
-    border-radius: 0.5em;
-    background-color: rgba(0,0,0, 0.3);
-  }
-
+body::-webkit-scrollbar-thumb {
+  border-radius: 0.5em;
+  background-color: rgba(0, 0, 0, 0.3);
+}

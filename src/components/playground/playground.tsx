@@ -27,7 +27,6 @@ export class Playground {
             <section class="tab-panel">
                 <nav class="tab-bar">
                     {this.renderTabs(sources)}
-                    <span/>
                 </nav>
                 <div class="tab-items">
                     {this.renderItems(sources)}
@@ -43,9 +42,11 @@ export class Playground {
         };
 
         return [
-            <button class={classList} onClick={this.activateTab('result')}>
-                Result
-            </button>,
+            <a class={classList} onClick={this.activateTab('result')}>
+                <span class="bubble">
+                    Result
+                </span>
+            </a>,
             ...sources.map(this.renderTab)
         ];
     }
@@ -57,9 +58,11 @@ export class Playground {
         };
 
         return (
-            <button class={classList} onClick={this.activateTab(source.type)}>
-                {source.type}
-            </button>
+            <a class={classList} onClick={this.activateTab(source.type)}>
+                <span class="bubble">
+                    {source.type}
+                </span>
+            </a>
         );
     }
 

@@ -36,7 +36,8 @@ if (meat === 'tenderloin') {
 
 @Component({
     tag: 'kompendium-example-markdown',
-    shadow: true
+    shadow: true,
+    styleUrl: 'markdown.scss'
 })
 export class MarkdownExample {
 
