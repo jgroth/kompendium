@@ -73,6 +73,8 @@ export class App {
     @State()
     public data: KompendiumData;
 
+    private socket: WebSocket;
+
     /**
      * gfg
      * @todo gg
@@ -81,10 +83,34 @@ export class App {
     public foobar: EventEmitter<string>;
 
     constructor() {
+        this.onMessage = this.onMessage.bind(this);
     }
 
     protected componentWillLoad() {
+        this.createWebSocket();
         this.fetchData();
+    }
+
+    private createWebSocket() {
+        if (this.socket) {
+            return;
+        }
+
+        const url = getSocketUrl(location);
+        this.socket = new WebSocket(url);
+        this.socket.addEventListener('message', this.onMessage);
+    }
+
+    private onMessage(event: MessageEvent) {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.buildLog?.progress === 1) {
+                this.fetchData();
+            }
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     private async fetchData() {
@@ -120,3 +146,8 @@ export class App {
         );
     }
 }
+
+function getSocketUrl(location: Location) {
+    const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${protocol}//${location.hostname}:${location.port}/`;
+  }
