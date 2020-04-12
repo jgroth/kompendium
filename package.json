@@ -29,8 +29,6 @@
     "@types/puppeteer": "1.19.0",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "lnk": "^1.1.0",
-    "prismjs": "^1.20.0",
     "puppeteer": "1.19.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "tmp": "^0.1.0"
@@ -40,6 +38,10 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@stencil/router": "^1.0.1",
     "bootstrap": "^4.4.1",
+    "chokidar": "^3.3.1",
+    "lnk": "^1.1.0",
+    "node-cleanup": "^2.1.2",
+    "prismjs": "^1.20.0",
     "remark": "^11.0.2",
     "remark-html": "^10.0.0",
     "remark-preset-lint-recommended": "^3.0.3"

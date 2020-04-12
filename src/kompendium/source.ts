@@ -1,5 +1,5 @@
 import { JsonDocs, JsonDocsComponent } from "@stencil/core/internal";
-import fs from "fs";
+import { readFile } from "./filesystem";
 
 export interface JsonDocsSource {
     type: 'tsx' | 'scss' | 'less' | 'css';
@@ -63,15 +63,3 @@ const getStyle = (path: string) => async (name: string): Promise<JsonDocsSource>
         source: source
     };
 };
-
-function readFile(filename: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filename, 'utf8', (error, data) => {
-            if (error) {
-                reject(error);
-            }
-
-            resolve(data);
-        });
-    });
-}

@@ -2,11 +2,10 @@ import { Config } from '@stencil/core';
 import { kompendium } from './src/kompendium';
 import { sass } from '@stencil/sass';
 import nodePolyfill from 'rollup-plugin-node-polyfills';
-import kompendiumPlugin from './src/kompendium/rollup-plugin-kompendium';
 
 export const config: Config = {
     namespace: 'kompendium',
-    plugins: [sass(), kompendiumPlugin()],
+    plugins: [sass()],
     rollupPlugins: {
         after: [nodePolyfill()]
     },

@@ -1,155 +1,72 @@
-import { JsonDocs, JsonDocsComponent } from "@stencil/core/internal";
-import fs from 'fs';
-import { KompendiumConfig, defaultConfig, KompendiumData, MenuItem } from "./config";
+import { JsonDocs } from "@stencil/core/internal";
+import { KompendiumConfig, defaultConfig, KompendiumData } from "./config";
 import { addSources } from "./source";
+import lnk from 'lnk';
+import { createMenu } from "./menu";
+import { exists, mkdir, readFile, writeFile } from "./filesystem";
+import { createWatcher } from "./watch";
 
-
-export const kompendium = (config: Partial<KompendiumConfig> = {}) => async (docs: JsonDocs) => {
+export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
     config = {
         ...defaultConfig,
         ...config
     };
+    initialize(config);
 
-    const data: KompendiumData = {
-        docs: await addSources(docs),
-        title: getProjectTitle(config),
-        menu: createMenu(docs)
-    };
+    return async (docs: JsonDocs) => {
+        const data: KompendiumData = {
+            docs: await addSources(docs),
+            title: await getProjectTitle(config),
+            menu: createMenu(docs)
+        };
 
-    return new Promise<void>(writeData(config.path, data));
-}
-
-export function createMenu(docs: JsonDocs): MenuItem[] {
-    return [
-        createGuideMenu(),
-        createComponentMenu(docs),
-        createApiMenu(),
-        createVersionMenu()
-    ];
-}
-
-export function createGuideMenu(): MenuItem {
-    return {
-        path: '/guide',
-        icon: 'book'
-    };
-}
-
-export function createComponentMenu(docs: JsonDocs): MenuItem {
-    return {
-        path: '/component',
-        icon: 'cubes',
-        children: docs.components.map(getComponentMenu)
-    };
-}
-
-export function getComponentMenu(component: JsonDocsComponent): MenuItem {
-    return {
-        path: `/component/${component.tag}`,
-        title: getComponentTitle(component.tag),
-        children: [
-            getComponentPropertyMenu(component),
-            getComponentEventMenu(component),
-            getComponentMethodMenu(component),
-            getComponentSlotMenu(component),
-            getComponentStyleMenu(component),
-        ].filter(item => !!item)
+        await writeData(config, data);
     }
 }
 
+async function initialize(config: Partial<KompendiumConfig>) {
+    const path = `${config.publicPath}/kompendium.json`;
+    createWatcher(path, 'unlink', onUnlink(config));
+}
 
-function getComponentPropertyMenu(component: JsonDocsComponent): MenuItem {
-    if (!component.props.length) {
+const onUnlink = (config: Partial<KompendiumConfig>) => () => {
+    createSymlink(config);
+}
+
+async function createSymlink(config: Partial<KompendiumConfig>) {
+    const source = `${config.path}/kompendium.json`;
+    const target = `${config.publicPath}/kompendium.json`;
+
+    if (!await exists(source)) {
         return;
     }
 
-    return {
-        title: 'Properties',
-        path: `/component/${component.tag}/properties`
-    }
-}
-
-function getComponentEventMenu(component: JsonDocsComponent): MenuItem {
-    if (!component.events.length) {
+    if (await exists(target)) {
         return;
     }
 
-    return {
-        title: 'Events',
-        path: `/component/${component.tag}/events`
-    }
-}
-
-function getComponentMethodMenu(component: JsonDocsComponent): MenuItem {
-    if (!component.methods.length) {
-        return;
-    }
-
-    return {
-        title: 'Methods',
-        path: `/component/${component.tag}/methods`
-    }
-}
-
-function getComponentSlotMenu(component: JsonDocsComponent): MenuItem {
-    if (!component.slots.length) {
-        return;
-    }
-
-    return {
-        title: 'Slots',
-        path: `/component/${component.tag}/slots`
-    }
-}
-
-function getComponentStyleMenu(component: JsonDocsComponent): MenuItem {
-    if (!component.styles.length) {
-        return;
-    }
-
-    return {
-        title: 'Styles',
-        path: `/component/${component.tag}/styles`
-    }
+    lnk([source], config.publicPath);
 }
 
 
-export function getComponentTitle(tag: string) {
-    const title = tag.split('-').slice(1).join(' ');
-    return title[0].toLocaleUpperCase() + title.slice(1);
-}
-
-export function createApiMenu(): MenuItem {
-    return {
-        path: '/api',
-        icon: 'code'
-    }
-}
-
-export function createVersionMenu(): MenuItem {
-    return {
-        path: '/version',
-        icon: 'code-branch'
-    }
-}
-
-function getProjectTitle(config: Partial<KompendiumConfig>): string {
+async function getProjectTitle(config: Partial<KompendiumConfig>): Promise<string> {
     if (config.title) {
         return config.title;
     }
 
-    const json = fs.readFileSync('./package.json', 'utf8');
+    const json = await readFile('./package.json');
     const data = JSON.parse(json);
 
     return data.name.split('-').join(' ');
 }
 
-const writeData = (path: string, data: KompendiumData) => (resolve: () => void) => {
-    const filePath = `${path}/kompendium.json`;
+async function writeData(config: Partial<KompendiumConfig>, data: KompendiumData) {
+    const filePath = `${config.path}/kompendium.json`;
 
-    if (!fs.existsSync(path)) {
-        fs.mkdirSync(path, { recursive: true });
+    if (!await exists(config.path)) {
+        mkdir(config.path, { recursive: true });
     }
 
-    fs.writeFile(filePath, JSON.stringify(data), 'utf8', resolve);
+    await writeFile(filePath, JSON.stringify(data));
+    createSymlink(config);
 }

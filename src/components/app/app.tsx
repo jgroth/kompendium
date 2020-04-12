@@ -68,7 +68,7 @@ export class App {
     public fooBar: string = 'baz';
 
     @Prop()
-    public path: string = '/.kompendium/kompendium.json';
+    public path: string = '/kompendium.json';
 
     @State()
     public data: KompendiumData;

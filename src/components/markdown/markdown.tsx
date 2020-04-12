@@ -4,7 +4,7 @@ import html from 'remark-html';
 import recommended from 'remark-preset-lint-recommended';
 
 /**
- * This component renders markdown!?!?!?
+ * This component renders markdown
  */
 @Component({
     tag: 'kompendium-markdown',
