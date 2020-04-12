@@ -6,7 +6,13 @@ import kompendiumPlugin from './src/kompendium/rollup-plugin-kompendium';
 
 export const config: Config = {
     namespace: 'kompendium',
-    plugins: [sass(), nodePolyfill(), kompendiumPlugin()],
+    plugins: [sass(), kompendiumPlugin()],
+    rollupPlugins: {
+        after: [nodePolyfill()]
+    },
+    nodeResolve: {
+        preferBuiltins: true
+    },
     globalStyle: 'src/global/kompendium.scss',
 
     outputTargets: [
