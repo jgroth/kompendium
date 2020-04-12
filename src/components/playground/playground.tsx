@@ -10,7 +10,7 @@ import { JsonDocsSource } from '../../kompendium/source';
 export class Playground {
 
     @Prop()
-    public component: JsonDocsComponent;
+    public component: JsonDocsComponent = {} as any;
 
     @State()
     private activeTab: string = 'result';
@@ -67,16 +67,26 @@ export class Playground {
     }
 
     private renderItems(sources: JsonDocsSource[]) {
+        return [
+            this.renderResult(),
+            ...sources.map(this.renderItem)
+        ];
+    }
+
+    private renderResult() {
         const Component = this.component.tag;
         const classList = {
             'tab-item': true,
             'active': this.activeTab === 'result'
         };
 
-        return [
-            <Component class={classList}/>,
-            ...sources.map(this.renderItem)
-        ];
+        return (
+            <div class={classList}>
+                <kompendium-markdown text={this.component.docs} />
+                <Component />
+            </div>
+        );
+
     }
 
     private renderItem(source: JsonDocsSource) {
