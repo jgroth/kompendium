@@ -21,8 +21,12 @@ export function createComponentMenu(docs: JsonDocs): MenuItem {
     return {
         path: '/component',
         icon: 'cubes',
-        children: docs.components.map(getComponentMenu)
+        children: docs.components.filter(isNotExample).map(getComponentMenu)
     };
+}
+
+function isNotExample(component: JsonDocsComponent): boolean {
+    return !component.filePath.includes('example');
 }
 
 export function getComponentMenu(component: JsonDocsComponent): MenuItem {
