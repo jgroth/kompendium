@@ -36,6 +36,8 @@ if (meat === 'tenderloin') {
 
 /**
  * This is a simple example of how the `kompendium-markdown` component is used
+ *
+ * @title Simple usage
  */
 @Component({
     tag: 'kompendium-example-markdown',

@@ -6,6 +6,7 @@ import { EventList } from './templates/events';
 import { MethodList } from './templates/methods';
 import { SlotList } from './templates/slots';
 import { StyleList } from './templates/style';
+import { ExampleList } from './templates/examples';
 
 @Component({
     tag: 'kompendium-component',
@@ -76,11 +77,13 @@ export class KompendiumComponent {
     private renderDocs(tag: string, component: JsonDocsComponent) {
         let title = tag.split('-').slice(1).join(' ');
         title = title[0].toLocaleUpperCase() + title.slice(1);
+        const examples = this.docs.components.filter(isExampleOf(component))
 
         return [
             <h1 id={this.getId()}>{title}</h1>,
             <kompendium-markdown text={component.docs}/>,
             <kompendium-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
+            <ExampleList component={component} examples={examples} id={this.getId('examples')} />,
             <PropertyList props={component.props} id={this.getId('properties')} />,
             <EventList events={component.events} id={this.getId('events')} />,
             <MethodList methods={component.methods} id={this.getId('methods')} />,
@@ -101,4 +104,12 @@ export class KompendiumComponent {
 
 function findComponent(tag: string, docs: JsonDocs) {
     return docs.components.find(doc => doc.tag === tag);
+}
+
+const isExampleOf = (component: JsonDocsComponent) => (example: JsonDocsComponent) => {
+    if (!example.filePath.includes('example')) {
+        return false;
+    }
+
+    return example.dirPath.startsWith(component.dirPath);
 }
