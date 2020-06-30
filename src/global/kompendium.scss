@@ -30,19 +30,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: auto;
 
-  color: black;
+  color: var(--kompendium-color-text-primary);
   line-height: 1.5;
-}
-
-body::-webkit-scrollbar {
-  width: 1em;
-}
-
-body::-webkit-scrollbar-track {
-  background-color: var(--kompendium-primary-color);
-}
-
-body::-webkit-scrollbar-thumb {
-  border-radius: 0.5em;
-  background-color: rgba(0, 0, 0, 0.3);
 }

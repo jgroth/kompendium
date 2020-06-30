@@ -127,28 +127,6 @@
       flex-direction: column;
     }
   }
-
-
-  &::-webkit-scrollbar {
-    width: 1em;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 0.5em;
-    background-color: transparent;
-  }
-
-  &:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-
-
-
-
 }
 
 kompendium-code {
