@@ -92,9 +92,7 @@ export class Navigation {
 
         return (
             <a class={classList} href={'#' + item.path}>
-                <span class="bubble">
-                    <i class={`fas fa-${item.icon}`}></i>
-                </span>
+                <i class={`fas fa-${item.icon}`}></i>
             </a>
         );
     }
