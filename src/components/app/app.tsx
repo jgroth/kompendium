@@ -125,20 +125,20 @@ export class App {
 
         return (
             <div class="kompendium-body">
-                <kompendium-navigation menu={this.data.menu} title={this.data.title}/>
+                <kompendium-navigation menu={this.data.menu} header={this.data.title} />
                 <main role="main" >
                     <stencil-router historyType="hash">
                         <stencil-route-switch scrollTopOffset={0}>
                             <stencil-route
                                 url="/"
                                 component="kompendium-home"
-                                exact={true}/>
+                                exact={true} />
                             <stencil-route
-                                url="/component/:name/:example?"
+                                url="/component/:name/:section?"
                                 component="kompendium-component"
                                 componentProps={{
                                     docs: this.data.docs
-                                }}/>
+                                }} />
                         </stencil-route-switch>
                     </stencil-router>
                 </main>
@@ -150,4 +150,4 @@ export class App {
 function getSocketUrl(location: Location) {
     const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
     return `${protocol}//${location.hostname}:${location.port}/`;
-  }
+}

@@ -7,6 +7,7 @@ import { MethodList } from './templates/methods';
 import { SlotList } from './templates/slots';
 import { StyleList } from './templates/style';
 import { ExampleList } from './templates/examples';
+import { isExample } from '../../kompendium/menu';
 
 @Component({
     tag: 'kompendium-component',
@@ -58,9 +59,9 @@ export class KompendiumComponent {
     public render() {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
+        const examples = findExamples(component, this.docs);
 
-        const exampleName = this.match.params.example;
-        const example = findComponent(exampleName, this.docs);
+        const example = examples[0];
 
         return (
             <article class="component">
@@ -77,7 +78,7 @@ export class KompendiumComponent {
     private renderDocs(tag: string, component: JsonDocsComponent) {
         let title = tag.split('-').slice(1).join(' ');
         title = title[0].toLocaleUpperCase() + title.slice(1);
-        const examples = this.docs.components.filter(isExampleOf(component))
+        const examples = findExamples(component, this.docs);
 
         return [
             <h1 id={this.getId()}>{title}</h1>,
@@ -102,14 +103,14 @@ export class KompendiumComponent {
     }
 }
 
+function findExamples(component: JsonDocsComponent, docs: JsonDocs) {
+    return docs.components.filter(isExample).filter(isExampleOf(component));
+}
+
 function findComponent(tag: string, docs: JsonDocs) {
     return docs.components.find(doc => doc.tag === tag);
 }
 
 const isExampleOf = (component: JsonDocsComponent) => (example: JsonDocsComponent) => {
-    if (!example.filePath.includes('example')) {
-        return false;
-    }
-
     return example.dirPath.startsWith(component.dirPath);
 }

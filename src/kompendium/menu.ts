@@ -21,12 +21,23 @@ export function createComponentMenu(docs: JsonDocs): MenuItem {
     return {
         path: '/component',
         icon: 'cubes',
-        children: docs.components.filter(isNotExample).map(getComponentMenu)
+        children: docs.components
+            .filter(isNotExample)
+            .filter(isPublic)
+            .map(getComponentMenu)
     };
 }
 
-function isNotExample(component: JsonDocsComponent): boolean {
-    return !component.filePath.includes('example');
+export function isExample(component: JsonDocsComponent) {
+    return !!component.dirPath.match(/\/examples?$/);
+}
+
+function isNotExample(component: JsonDocsComponent) {
+    return !isExample(component);
+}
+
+export function isPublic(component: JsonDocsComponent) {
+    return !component.docsTags.find(tag => ['internal', 'private'].includes(tag.name));
 }
 
 export function getComponentMenu(component: JsonDocsComponent): MenuItem {

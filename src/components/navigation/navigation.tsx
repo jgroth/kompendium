@@ -1,6 +1,9 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { MenuItem } from '../../kompendium/config';
 
+/**
+ * @private
+ */
 @Component({
     tag: 'kompendium-navigation',
     styleUrl: 'navigation.scss',
@@ -12,7 +15,7 @@ export class Navigation {
     public menu: MenuItem[];
 
     @Prop()
-    public title: string;
+    public header: string;
 
     @State()
     private route: string = '';
@@ -58,7 +61,7 @@ export class Navigation {
             </nav>,
             <nav class="nav-panel">
                 <header class="panel-header">
-                    <h1>{this.title}</h1>
+                    <h1>{this.header}</h1>
                 </header>
                 {this.renderPanelContent(subMenu)}
             </nav>
