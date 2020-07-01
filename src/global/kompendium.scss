@@ -1,3 +1,9 @@
+@import '../style/mixins.scss';
+@import '../style/functions.scss';
+@import '../style/reset.scss';
+@import '../style/colors.scss';
+@import '../style/typography.scss';
+
 @font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
@@ -17,6 +23,8 @@
   --kompendium-secondary-color: #3da5d9;
   --kompendium-text-on-primary: rgba(255, 255, 255, 0.5);
   --kompendium-text-on-secondary: rgba(0, 0, 0, 0.5);
+
+  --kompendium-color-text-primary: rgb(var(--contrast-1500));
 }
 
 body {
