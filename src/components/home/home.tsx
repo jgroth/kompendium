@@ -9,7 +9,7 @@ export class Home {
   render() {
     return (
       <Host>
-          Homes
+          Home
       </Host>
     );
   }

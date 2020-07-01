@@ -13,6 +13,7 @@ export function createMenu(docs: JsonDocs): MenuItem[] {
 export function createGuideMenu(): MenuItem {
     return {
         path: '/guide',
+        title: 'Guide',
         icon: 'book'
     };
 }
@@ -20,6 +21,7 @@ export function createGuideMenu(): MenuItem {
 export function createComponentMenu(docs: JsonDocs): MenuItem {
     return {
         path: '/component',
+        title: 'Components',
         icon: 'cubes',
         children: docs.components
             .filter(isNotExample)
@@ -119,6 +121,7 @@ export function getComponentTitle(tag: string) {
 export function createApiMenu(): MenuItem {
     return {
         path: '/api',
+        title: 'API',
         icon: 'code'
     }
 }
@@ -126,6 +129,7 @@ export function createApiMenu(): MenuItem {
 export function createVersionMenu(): MenuItem {
     return {
         path: '/version',
+        title: 'Versions',
         icon: 'code-branch'
     }
 }

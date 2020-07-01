@@ -120,7 +120,7 @@ export class App {
 
     protected render() {
         if (!this.data) {
-            return <div>Loadings...</div>;
+            return <div>Loading data...</div>;
         }
 
         return (
