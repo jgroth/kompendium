@@ -6,20 +6,28 @@
     display: block;
 }
 
+pre,
 code {
-  padding: 0.125rem 0.3125rem;
-  margin: 0 0.125rem;
-  white-space: nowrap;
-  color: rgb(var(--contrast-1100));
-  border: 1px solid rgba(var(--contrast-1100), .1);;
-  border-radius: pxToRem(4);
-  background: rgba(var(--contrast-1100), .05);
+    font-family: var(--kompendium-font-code);
+    border-radius: pxToRem(4);
+    font-size: pxToRem(11);
 }
 
-pre > code {
-  display: block;
-  padding: .625rem 0.6375rem;
-  white-space: pre;
+code {
+    background: rgba(var(--contrast-1100), .05);
+    border: 1px solid rgba(var(--contrast-1100), .1);
+    padding: 0.125rem 0.3125rem;
+    margin: 0 0.125rem;
+    white-space: nowrap;
+    color: rgb(var(--contrast-1100));
+}
+
+pre {
+    > code {
+      display: block;
+      padding: .625rem 0.6375rem;
+      white-space: pre;
+    }
 }
 
 .value--false {
