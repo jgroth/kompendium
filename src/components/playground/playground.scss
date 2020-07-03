@@ -1,3 +1,5 @@
+@import '../../style/functions.scss';
+
 :host {
   display: block;
 }
@@ -9,61 +11,32 @@
 }
 
 .tab-bar {
-  background-color: var(--kompendium-primary-color);
+  background-color: rgb(var(--contrast-100));
   display: flex;
+  padding: pxToRem(8) pxToRem(8) 0 pxToRem(8);
+  position: sticky;
+  top: 0;
 
   .tab {
-    display: block;
-    width: 6rem;
-    height: 4rem;
-    line-height: 4rem;
-    text-align: center;
-    border: 0;
-    color: var(--kompendium-text-on-primary);
-    background-color: transparent;
-    font-weight: 600;
-    font-size: 1rem;
+    transition: background-color 0.2s ease;
     cursor: pointer;
-    color: black;
-    filter: grayscale(100%) opacity(0.5);
+
+    position: relative;
+    display: inline-block;
+    line-height: pxToRem(28);
+    padding: pxToRem(4) pxToRem(16);
+    text-align: center;
+    color: rgb(var(--contrast-1000));
+    font-size: pxToRem(16);
+    border-radius: pxToRem(4) pxToRem(4) 0 0;
+    margin-right: pxToRem(8);
 
     &:hover {
-      background-color: var(--kompendium-secondary-color);
-      color: var(--kompendium-text-on-secondary);
-      filter: grayscale(0%) opacity(1);
+      background-color: rgb(var(--contrast-100));
     }
 
     &.active {
-      //   background-color: rgba(255, 255, 255, 0.5);
-       //var(--kompendium-text-on-secondary);
-      //   border-bottom: 0.2rem solid var(--kompendium-secondary-color);
-
-      .bubble {
-        display: flex;
-        height: 2rem;
-        width: 5rem;
-        text-align: center;
-        background: white;
-        margin: 1rem 0.5rem;
-        border-radius: 0.4rem;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-
-        &:after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          top: 2rem;
-          width: 0;
-          height: 0;
-          border: 6px solid transparent;
-          border-top-color: white;
-          border-bottom: 0;
-          margin-left: -6px;
-          margin-bottom: -6px;
-        }
-      }
+        background-color: rgb(var(--contrast-300));
     }
 
     // &:active,

@@ -43,9 +43,7 @@ export class Playground {
 
         return [
             <a class={classList} onClick={this.activateTab('result')}>
-                <span class="bubble">
-                    Result
-                </span>
+                Result
             </a>,
             ...sources.map(this.renderTab)
         ];
@@ -59,9 +57,7 @@ export class Playground {
 
         return (
             <a class={classList} onClick={this.activateTab(source.type)}>
-                <span class="bubble">
-                    {source.type}
-                </span>
+                {source.type}
             </a>
         );
     }
