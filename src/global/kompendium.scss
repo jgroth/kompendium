@@ -1,5 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Public+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap&subset=latin-ext");
-@import url("https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
+@import '../style/mixins.scss';
+@import '../style/functions.scss';
+@import '../style/reset.scss';
+@import '../style/variables.scss';
+@import '../style/colors.scss';
+@import '../style/typography.scss';
 
 @font-face {
   font-family: "Font Awesome 5 Free";
@@ -13,13 +17,11 @@
 }
 
 :root {
-  --kompendium-font-primary: Raleway, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --kompendium-font-secondary: "Public Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --kompendium-font-primary: 'Hind', sans-serif;
+  --kompendium-font-code: 'Source Code Pro', monospace;
 
   --kompendium-primary-color: #2364aa;
   --kompendium-secondary-color: #3da5d9;
-  --kompendium-text-on-primary: rgba(255, 255, 255, 0.5);
-  --kompendium-text-on-secondary: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -28,22 +30,12 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
 
-  font-size: 16px;
   font-family: var(--kompendium-font-primary);
-  color: black;
-  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: auto;
+
+  color: rgb(var(--contrast-1200));
   line-height: 1.5;
-}
-
-body::-webkit-scrollbar {
-  width: 1em;
-}
-
-body::-webkit-scrollbar-track {
-  background-color: var(--kompendium-primary-color);
-}
-
-body::-webkit-scrollbar-thumb {
-  border-radius: 0.5em;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgb(var(--contrast-300))
 }

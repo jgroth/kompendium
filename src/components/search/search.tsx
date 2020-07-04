@@ -18,7 +18,7 @@ export class Search {
     render() {
         return (
             <div class="search-box">
-                <input type="text" autoFocus placeholder="Search"/>
+                <input type="search" autoFocus placeholder="Search"/>
                 <ul class="result"></ul>
             </div>
         );

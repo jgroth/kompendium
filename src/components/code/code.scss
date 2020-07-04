@@ -1,3 +1,5 @@
+@import '../../style/mixins.scss';
+
 :host {
   display: flex;
 }
@@ -9,12 +11,11 @@ https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+cli
  * Based on https://github.com/chriskempson/tomorrow-theme
  * @author Rose Pritchard
  */
-
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #ccc;
+  color: rgb(var(--color-code-gray-light));
   background: none;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-family: var(--kompendium-font-code);
   font-size: 1em;
   text-align: left;
   white-space: pre;
@@ -39,29 +40,15 @@ pre[class*="language-"] {
   margin: 0;
   overflow: auto;
   flex-grow: 1;
-//   height: 100%;
-
-  &::-webkit-scrollbar {
-    width: 1em;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 0.5em;
-    background-color: transparent;
-  }
-
-  &:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: #2d2d2d;
+  background: rgb(var(--contrast-1500));
+
+  @include in(dark-mode) {
+    background: rgb(var(--contrast-200));
+  }
 }
 
 /* Inline code */
@@ -76,35 +63,35 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #999;
+  color: var(--color-code-gray-light);
 }
 
 .token.punctuation {
-  color: #ccc;
+  color: var(--color-code-gray-dark);
 }
 
 .token.tag,
 .token.attr-name,
 .token.namespace,
 .token.deleted {
-  color: #e2777a;
+  color: rgb(var(--color-code-pink));
 }
 
 .token.function-name {
-  color: #6196cc;
+  color: rgb(var(--color-code-blue));
 }
 
 .token.boolean,
 .token.number,
 .token.function {
-  color: #f08d49;
+  color: rgb(var(--color-code-orange));
 }
 
 .token.property,
 .token.class-name,
 .token.constant,
 .token.symbol {
-  color: #f8c555;
+  color: rgb(var(--color-code-yellow));
 }
 
 .token.selector,
@@ -112,7 +99,7 @@ pre[class*="language-"] {
 .token.atrule,
 .token.keyword,
 .token.builtin {
-  color: #cc99cd;
+  color: rgb(var(--color-code-purple));
 }
 
 .token.string,
@@ -120,13 +107,13 @@ pre[class*="language-"] {
 .token.attr-value,
 .token.regex,
 .token.variable {
-  color: #7ec699;
+  color: rgb(var(--color-code-green-light));
 }
 
 .token.operator,
 .token.entity,
 .token.url {
-  color: #67cdcc;
+  color: rgb(var(--color-code-turquoise));
 }
 
 .token.important,
@@ -142,5 +129,5 @@ pre[class*="language-"] {
 }
 
 .token.inserted {
-  color: green;
+  color: rgb(var(--color-code-green-dark));
 }

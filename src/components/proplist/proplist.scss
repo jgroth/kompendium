@@ -1,24 +1,49 @@
 @import '../../style/reset.scss';
+@import '../../style/functions.scss';
 @import '../../style/typography.scss';
 
 :host {
     display: block;
 }
 
+pre,
+code {
+    font-family: var(--kompendium-font-code);
+    border-radius: pxToRem(4);
+    font-size: pxToRem(11);
+}
+
+code {
+    background: rgba(var(--contrast-1100), .05);
+    border: 1px solid rgba(var(--contrast-1100), .1);
+    padding: 0.125rem 0.3125rem;
+    margin: 0 0.125rem;
+    white-space: nowrap;
+    color: rgb(var(--contrast-1100));
+}
+
+pre {
+    > code {
+      display: block;
+      padding: .625rem 0.6375rem;
+      white-space: pre;
+    }
+}
+
 .value--false {
-    color: #e83e8c;
     code {
-        border-color: #fdcae2;
-        background-color: #fff6fa;
+        color: rgb(var(--color-code-magenta));
+        border-color: rgba(var(--color-code-magenta), .2);
+        background-color: rgba(var(--color-code-magenta), .1);
     }
 }
 
 
 .value--true {
-    color: #35c454;
     code {
-        border-color: #b6f0c2;
-        background-color: #f3fff6;
+        color: rgb(var(--color-code-green-dark));
+        border-color: rgba(var(--color-code-green-dark), .2);
+        background-color: rgba(var(--color-code-green-dark), .1);
     }
 }
 

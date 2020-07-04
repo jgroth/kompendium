@@ -1,0 +1,62 @@
+// To use be able to use colors with alpha, they are written in RGB.
+// Comments in front of the values are used as reference only.
+// Example of use:
+// solid: `color: rgb(var(--contrast-100))`
+// transparent: `color: rgba(var(--contrast-100), 0.5)`
+
+:root {
+    // Contrast set, to use for tones that automatically revert in dark/light modes. E.g. text and background
+    --contrast-100: 255, 255, 255; // #fff
+    --contrast-200: 250, 250, 251; // #fafafb
+    --contrast-300: 246, 246, 247; // #f6f6f7
+    --contrast-400: 241, 241, 243; // #f1f1f3
+    --contrast-500: 237, 237, 238; // #ededee
+    --contrast-600: 232, 232, 234; // #e8e8ea
+    --contrast-700: 209, 209, 213; // #d1d1d5
+    --contrast-800: 186, 186, 192; // #babac0
+    --contrast-900: 140, 140, 150; // #8c8c96
+    --contrast-1000: 117, 117, 128; // #757580
+    --contrast-1100: 94, 94, 108; // #5e5e6c
+    --contrast-1200: 71, 71, 86; // #474756
+    --contrast-1300: 48, 48, 66; // #303042
+    --contrast-1400: 39, 39, 57; // #272739
+    --contrast-1500: 35, 35, 53; // #232335
+    --contrast-1600: 25, 25, 44; // #19192c
+    --contrast-1700: 0, 0, 0; // #000
+
+    @include in(dark-mode) {
+        --contrast-100: 0, 0, 0; // #000
+        --contrast-200: 25, 25, 44; // #19192c
+        --contrast-300: 35, 35, 53; // #232335
+        --contrast-400: 39, 39, 57; // #272739
+        --contrast-500: 48, 48, 66; // #303042
+        --contrast-600: 71, 71, 86; // #474756
+        --contrast-700: 94, 94, 108; // #5e5e6c
+        --contrast-800: 117, 117, 128; // #757580
+        --contrast-900: 140, 140, 150; // #8c8c96
+        --contrast-1000: 186, 186, 192; // #babac0
+        --contrast-1100: 209, 209, 213; // #d1d1d5
+        --contrast-1200: 232, 232, 234; // #e8e8ea
+        --contrast-1300: 237, 237, 238; // #ededee
+        --contrast-1400: 241, 241, 243; // #f1f1f3
+        --contrast-1500: 246, 246, 247; // #f6f6f7
+        --contrast-1600: 250, 250, 251; // #fafafb
+        --contrast-1700: 255, 255, 255; // #fff
+    }
+}
+
+
+:root {
+    // Code colors
+    --color-code-pink: 226, 119, 122; // #e2777a
+    --color-code-magenta: 232, 62, 140; // #e83e8c
+    --color-code-blue: 97, 150, 204; // #6196cc
+    --color-code-orange: 240, 141, 73; // #f08d49
+    --color-code-yellow: 248, 197, 85; // #f8c555
+    --color-code-purple: 204, 153, 205; // #cc99cd
+    --color-code-green-light: 126, 198, 153; // #7ec699
+    --color-code-green-dark: 53, 196, 84; // #35c454
+    --color-code-turquoise: 103, 205, 204; // #67cdcc
+    --color-code-gray-light: 153, 153, 153; // #999
+    --color-code-gray-dark: 204, 204, 204,; // #ccc
+}
