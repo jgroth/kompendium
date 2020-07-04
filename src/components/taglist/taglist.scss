@@ -1,6 +1,3 @@
-@import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import 'node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
-
 :host {
     display: block;
 }
@@ -10,11 +7,13 @@ code {
     margin-left: .5rem;
 }
 
-i.fa-tag {
-    color: var(--kompendium-primary-color);
-    font-size: .8rem;
+// 😱😵🤘
+img {
+    width: 1rem;
+    filter: invert(0.5) sepia(1) hue-rotate(185deg) saturate(5);
+    vertical-align: middle;
 
     .tag--deprecated & {
-        color: #A3333D;
+        filter: invert(0.35) sepia(1) hue-rotate(-60deg) saturate(5);
     }
 }

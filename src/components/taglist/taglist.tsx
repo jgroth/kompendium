@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, getAssetPath } from '@stencil/core';
 import { JsonDocsTag } from '@stencil/core/internal';
 
 /**
@@ -25,12 +25,13 @@ export class Taglist {
         const classList = {
             'tag-list': true
         };
+        const path = getAssetPath('../collection/assets/icons/bookmark-fill.svg');
 
         classList[`tag--${tag.name}`] = true;
 
         return (
             <div class={classList}>
-                <i class="fas fa-tag"></i>
+                <img src={path} />
                 <code>@{tag.name}</code>
                 <kompendium-markdown text={tag.text} />
             </div>

@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, getAssetPath } from '@stencil/core';
 import { MenuItem } from '../../kompendium/config';
 
 /**
@@ -73,12 +73,13 @@ export class Navigation {
             active: this.isRouteActive(item.path),
         };
         const chapters = item.children || [];
+        const path = getAssetPath('../collection/assets/icons/arrow-right-s-line.svg');
 
         return (
             <li class="panel-item">
                 <a class={anchorClassList} href={'#' + item.path}>
                     <span class="link-text">
-                        <i class="fas fa-chevron-right"></i>
+                        <img src={path} />
                         {item.title}
                     </span>
                 </a>
@@ -94,6 +95,6 @@ export class Navigation {
     }
 }
 
-function hasContent(item: MenuItem) {
-    return item.children?.length > 0;
-}
+// function hasContent(item: MenuItem) {
+//     return item.children?.length > 0;
+// }

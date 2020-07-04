@@ -1,7 +1,5 @@
 @import '../../style/reset.scss';
 @import '../../style/functions.scss';
-@import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import 'node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
 
 :host {
   display: block;
@@ -58,16 +56,18 @@
     }
 
     &.active {
-        i {
+        img {
             transform: rotate(90deg) scale(0.8);
         }
     }
 
-    i {
+    img {
         transform: scale(0.8);
         transition: transform 0.2s ease;
         margin-right: pxToRem(8);
         padding: pxToRem(4);
+        display: inline-block;
+        vertical-align: bottom;
     }
 }
 
@@ -79,7 +79,7 @@
         height: 100%;
     }
 
-    i {
+    img {
         opacity: 0;
     }
 }

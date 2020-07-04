@@ -18,11 +18,6 @@ export const config: Config = {
         {
             type: 'dist',
             esmLoaderPath: '../loader',
-            copy: [{
-                src: '../node_modules/@fortawesome/fontawesome-free/webfonts/',
-                dest: 'fonts',
-                warn: true
-            }]
         },
         {
             type: 'docs-custom',
@@ -33,9 +28,8 @@ export const config: Config = {
             type: 'www',
             serviceWorker: null,
             copy: [{
-                src: '../node_modules/@fortawesome/fontawesome-free/webfonts/',
-                dest: 'fonts',
-                warn: true
+                src: 'assets',
+                dest: './collection/assets'
             }]
         }
     ]

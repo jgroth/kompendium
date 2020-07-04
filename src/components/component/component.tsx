@@ -58,10 +58,14 @@ export class KompendiumComponent {
 
     public render() {
         const tag = this.match.params.name;
+        const exampleName = this.match.params.section;
         const component = findComponent(tag, this.docs);
         const examples = findExamples(component, this.docs);
 
-        const example = examples[0];
+        let example = examples.find(e => e.tag === exampleName);
+        if (!example) {
+            example = examples[0];
+        }
 
         return (
             <article class="component">

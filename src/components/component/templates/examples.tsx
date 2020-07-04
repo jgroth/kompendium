@@ -20,8 +20,10 @@ const renderExample = (component: JsonDocsComponent) => (example: JsonDocsCompon
     const href = `#/component/${component.tag}/${example.tag}`;
 
     return (
-        <a href={href}>
-            {title}
-        </a>
+        <li>
+            <a href={href}>
+                {title}
+            </a>
+        </li>
     );
 }
