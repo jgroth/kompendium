@@ -1,3 +1,10 @@
+## 🛒 [0.1.4](https://github.com/jgroth/kompendium/compare/v0.1.3...v0.1.4) (2020-07-05)
+
+
+### Bug Fixes
+
+* emoji in changelog ([46c5adf](https://github.com/jgroth/kompendium/commit/46c5adf57c4553e93fbc6ac509eaf941bd74094e))
+
 ## 🏃‍♀️ [0.1.3](https://github.com/jgroth/kompendium/compare/v0.1.2...v0.1.3) (2020-07-05)
 
 
