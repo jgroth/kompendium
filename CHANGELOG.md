@@ -1,3 +1,18 @@
+## [0.1.3](https://github.com/jgroth/kompendium/compare/v0.1.2...v0.1.3) (2020-07-05)
+
+
+### Bug Fixes
+
+* emoji in release notes ([ae9611f](https://github.com/jgroth/kompendium/commit/ae9611f01cec422e1926e693d4969b3a8b065c76))
+* nothing ([1b580b7](https://github.com/jgroth/kompendium/commit/1b580b7ec41445a48101480bc311d599b4e69438))
+
+
+
+
+
+> kompendium@0.1.2 update-changelog /home/runner/work/kompendium/kompendium
+> node scripts/update-changelog "--vermoji=🏃‍♀️"
+
 ## 👨‍🍳 [0.1.2](https://github.com/jgroth/kompendium/compare/v0.1.1...v0.1.2) (2020-07-05)
 
 
