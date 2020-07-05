@@ -11,6 +11,5 @@ module.exports = {
             message: `${vermoji} <%= nextRelease.version %>`
         }],
         '@semantic-release/github',
-    ],
-    dryRun: true
+    ]
 };
