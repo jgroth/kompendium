@@ -1,6 +1,6 @@
 import tmp from 'tmp';
 import fs from 'fs';
-import { kompendium as kompendiumFactory } from '../generator';
+import { kompendiumGenerator } from '../generator';
 
 describe('kompendium()', () => {
     let path: string;
@@ -10,7 +10,7 @@ describe('kompendium()', () => {
     beforeEach(() => {
         tmpObject = tmp.dirSync();
         path = tmpObject.name;
-        kompendium = kompendiumFactory({path});
+        kompendium = kompendiumGenerator({path});
     });
 
     afterEach(() => {

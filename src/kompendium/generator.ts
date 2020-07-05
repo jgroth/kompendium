@@ -7,6 +7,14 @@ import { exists, mkdir, readFile, writeFile } from "./filesystem";
 import { createWatcher } from "./watch";
 
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
+    if (!generateDocs()) {
+        return () => {};
+    }
+
+    return kompendiumGenerator(config);
+}
+
+export function kompendiumGenerator(config: Partial<KompendiumConfig>) {
     config = {
         ...defaultConfig,
         ...config
@@ -27,7 +35,10 @@ export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
 
 async function initialize(config: Partial<KompendiumConfig>) {
     const path = `${config.publicPath}/kompendium.json`;
-    createWatcher(path, 'unlink', onUnlink(config));
+
+    if (isWatcher()) {
+        createWatcher(path, 'unlink', onUnlink(config));
+    }
 }
 
 const onUnlink = (config: Partial<KompendiumConfig>) => () => {
@@ -95,4 +106,12 @@ async function getReadme(): Promise<string> {
     }
 
     return data;
+}
+
+function generateDocs(): boolean {
+    return !!process.argv.find(arg => arg === '--docs');
+}
+
+function isWatcher(): boolean {
+    return !!process.argv.find(arg => arg === '--watch');
 }

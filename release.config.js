@@ -7,4 +7,5 @@ module.exports = {
         '@semantic-release/git',
         '@semantic-release/github',
     ],
+    dryRun: true
 };
