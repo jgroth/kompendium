@@ -31,7 +31,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "stencil build",
     "postbuild": "copyfiles -f src/kompendium/*.ts dist",
     "start": "stencil build --dev --watch --serve --docs",
     "dev": "stencil build --dev --docs",
