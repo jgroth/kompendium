@@ -7,7 +7,7 @@ module.exports = {
         '@semantic-release/release-notes-generator',
         '@semantic-release/changelog',
         ['@semantic-release/exec', {
-            generateNotesCmd: `npm run update-changelog -- --vermoji=${vermoji}`,
+            prepareCmd: `npm run update-changelog -- --vermoji=${vermoji}`,
         }],
         '@semantic-release/npm',
         ['@semantic-release/git', {
