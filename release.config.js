@@ -6,9 +6,12 @@ module.exports = {
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
         '@semantic-release/changelog',
+        ['@semantic-release/exec', {
+            generateNotes: `npm run update-changelog -- --vermoji=${vermoji}`,
+        }],
         '@semantic-release/npm',
         ['@semantic-release/git', {
-            message: `${vermoji} <%= nextRelease.version %>`
+            message: `${vermoji} <%= nextRelease.version %>\n\n[skip ci]`
         }],
         '@semantic-release/github',
     ]

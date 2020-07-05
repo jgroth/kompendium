@@ -1,4 +1,4 @@
-## [0.1.1](https://github.com/jgroth/kompendium/compare/v0.1.0...v0.1.1) (2020-07-05)
+## 🕌 [0.1.1](https://github.com/jgroth/kompendium/compare/v0.1.0...v0.1.1) (2020-07-05)
 
 
 ### Bug Fixes
