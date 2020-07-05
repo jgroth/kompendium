@@ -2,6 +2,16 @@
   "name": "kompendium",
   "version": "0.1.0",
   "description": "Documentation generator for Stencil components",
+  "keywords": ["stencil", "documentation", "webcomponents", "kompendium", "typescript"],
+  "homepage": "https://github.com/jgroth/kompendium",
+  "bugs": {
+      "url": "https://github.com/jgroth/kompendium/issues"
+  },
+  "license": "MIT",
+  "author": {
+      "name": "Johan Groth"
+  },
+  "contributors": [],
   "main": "dist/index.ts",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -40,7 +50,6 @@
     "rollup-plugin-node-polyfills": "^0.2.1",
     "tmp": "^0.1.0"
   },
-  "license": "MIT",
   "dependencies": {
     "chokidar": "^3.3.1",
     "lnk": "^1.1.0",
