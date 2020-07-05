@@ -1,4 +1,4 @@
-![.github/workflows/release.yml](https://github.com/jgroth/kompendium/workflows/.github/workflows/release.yml/badge.svg)
+![CI](https://github.com/jgroth/kompendium/workflows/CI/badge.svg?branch=master)
 
 # Kompendium
 
