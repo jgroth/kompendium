@@ -1,3 +1,5 @@
+![.github/workflows/release.yml](https://github.com/jgroth/kompendium/workflows/.github/workflows/release.yml/badge.svg)
+
 # Kompendium
 
 Kompendium is a simple tool for generating documentation for your Stencil components. Use it to get a compendium for your components together with component API and a live playground.
