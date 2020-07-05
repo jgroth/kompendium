@@ -6,6 +6,13 @@
   font-family: var(--kompendium-font-primary);
 }
 
+header {
+    a {
+        text-decoration: none;
+        color: unset;
+    }
+}
+
 .nav-panel {
     width: var(--width-nav-panel);
     height: 100vh;

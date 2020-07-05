@@ -42,7 +42,7 @@ export class Navigation {
         return [
             <nav class="nav-panel">
                 <header class="panel-header">
-                    <h1>{this.header}</h1>
+                    <h1><a href="#">{this.header}</a></h1>
                     <kompendium-search/>
                 </header>
                 {this.renderChapters(this.menu)}

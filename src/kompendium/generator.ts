@@ -58,7 +58,7 @@ async function getProjectTitle(config: Partial<KompendiumConfig>): Promise<strin
     const json = await readFile('./package.json');
     const data = JSON.parse(json);
 
-    return data.name.split('-').join(' ');
+    return data.name.replace(/^@[^\/]+?\//, '').split('-').join(' ');
 }
 
 async function writeData(config: Partial<KompendiumConfig>, data: KompendiumData) {
