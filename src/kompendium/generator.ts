@@ -17,7 +17,8 @@ export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
         const data: KompendiumData = {
             docs: await addSources(docs),
             title: await getProjectTitle(config),
-            menu: createMenu(docs)
+            menu: createMenu(docs),
+            readme: await getReadme()
         };
 
         await writeData(config, data);
@@ -69,4 +70,29 @@ async function writeData(config: Partial<KompendiumConfig>, data: KompendiumData
 
     await writeFile(filePath, JSON.stringify(data));
     createSymlink(config);
+}
+
+async function getReadme(): Promise<string> {
+    const files = [
+        'readme.md',
+        'README.md',
+        'README',
+        'readme'
+    ];
+    let data = null;
+
+    for (const file of files) {
+        if (data) {
+            continue;
+        }
+
+        if (!await exists(file)) {
+            console.log(`${file} did not exist`)
+            continue;
+        }
+
+        data = await readFile(file);
+    }
+
+    return data;
 }

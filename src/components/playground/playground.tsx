@@ -21,6 +21,10 @@ export class Playground {
     }
 
     public render() {
+        if (!this.component) {
+            return;
+        }
+
         const sources: JsonDocsSource[] = this.component['sources'] || [];
 
         return (

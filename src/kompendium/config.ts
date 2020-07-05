@@ -30,4 +30,5 @@ export interface KompendiumData {
     title: string;
     docs: JsonDocs;
     menu: MenuItem[];
+    readme?: string
 }

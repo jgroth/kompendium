@@ -131,7 +131,10 @@ export class App {
                         <stencil-route-switch scrollTopOffset={0}>
                             <stencil-route
                                 url="/"
-                                component="kompendium-home"
+                                component="kompendium-markdown"
+                                componentProps={{
+                                    text: this.data.readme
+                                }}
                                 exact={true} />
                             <stencil-route
                                 url="/component/:name/:section?"
