@@ -26,6 +26,7 @@ describe('kompendium()', () => {
         await kompendium({ foo: 'bar' });
         const json = fs.readFileSync(`${path}/kompendium.json`, 'utf8');
         const data = JSON.parse(json);
-        expect(data).toEqual({ foo: 'bar' });
+        expect(typeof data).toEqual('object');
+        expect(data.docs).toEqual({ foo: 'bar', components: [] });
     });
 });

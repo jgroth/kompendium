@@ -1,15 +1,21 @@
 {
   "name": "kompendium",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "Documentation generator for Stencil components",
-  "keywords": ["stencil", "documentation", "webcomponents", "kompendium", "typescript"],
+  "keywords": [
+    "stencil",
+    "documentation",
+    "webcomponents",
+    "kompendium",
+    "typescript"
+  ],
   "homepage": "https://github.com/jgroth/kompendium",
   "bugs": {
-      "url": "https://github.com/jgroth/kompendium/issues"
+    "url": "https://github.com/jgroth/kompendium/issues"
   },
   "license": "MIT",
   "author": {
-      "name": "Johan Groth"
+    "name": "Johan Groth"
   },
   "contributors": [],
   "main": "dist/index.ts",
@@ -29,15 +35,18 @@
     "postbuild": "copyfiles -f src/kompendium/*.ts dist",
     "start": "stencil build --dev --watch --serve --docs",
     "dev": "stencil build --dev --docs",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "test": "stencil test --spec",
+    "test:watch": "stencil test --spec --watchAll",
+    "generate": "stencil generate",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@stencil/core": "^1.15.0",
     "@stencil/router": "^1.0.1",
     "@stencil/sass": "^1.1.1",
-    "@types/jest": "24.0.25",
+    "@types/jest": "25.2.3",
     "@types/puppeteer": "1.19.0",
     "copyfiles": "^2.3.0",
     "jest": "24.9.0",
@@ -48,11 +57,16 @@
     "remark-html": "^10.0.0",
     "remark-preset-lint-recommended": "^3.0.3",
     "rollup-plugin-node-polyfills": "^0.2.1",
+    "semantic-release": "^17.1.1",
     "tmp": "^0.1.0"
   },
   "dependencies": {
     "chokidar": "^3.3.1",
     "lnk": "^1.1.0",
     "node-cleanup": "^2.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgroth/kompendium.git"
   }
 }

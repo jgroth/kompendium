@@ -19,11 +19,13 @@ export function createGuideMenu(): MenuItem {
 }
 
 export function createComponentMenu(docs: JsonDocs): MenuItem {
+    const components = docs.components || [];
+
     return {
         path: '/component',
         title: 'Components',
         icon: 'cubes',
-        children: docs.components
+        children: components
             .filter(isNotExample)
             .filter(isPublic)
             .map(getComponentMenu)

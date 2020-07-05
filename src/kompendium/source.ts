@@ -7,7 +7,7 @@ export interface JsonDocsSource {
 }
 
 export async function addSources(docs: JsonDocs): Promise<JsonDocs> {
-    const components = await Promise.all(docs.components.map(addComponentSources));
+    const components = await Promise.all(docs.components?.map(addComponentSources) || []);
 
     return {
         ...docs,
