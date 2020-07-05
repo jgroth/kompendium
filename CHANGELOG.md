@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/jgroth/kompendium/compare/v0.1.1...v0.1.2) (2020-07-05)
+
+
+### Bug Fixes
+
+* minor issues ([2ea1d07](https://github.com/jgroth/kompendium/commit/2ea1d078de244cc094f6d1d066c720e02a44e4e3))
+
 ## 🕌 [0.1.1](https://github.com/jgroth/kompendium/compare/v0.1.0...v0.1.1) (2020-07-05)
 
 
