@@ -1,5 +1,11 @@
 name: CI
-on: push
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - beta
+      - next
 jobs:
   release:
     name: Run Semantic Release
