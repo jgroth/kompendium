@@ -46,6 +46,10 @@ export class Navigation {
     public render(): HTMLElement {
         return (
             <nav class="nav-panel">
+                <a class="nav-panel__responsive-menu">
+                    <span class="show-nav">|||</span>
+                    <span class="hide-nav">⨯</span>
+                </a>
                 <header class="panel-header">
                     <h1>
                         <a href="#">{this.header}</a>

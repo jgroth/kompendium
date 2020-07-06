@@ -9,7 +9,7 @@
 .component {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     height: 100vh;
 }
 
