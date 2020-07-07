@@ -1,23 +1,26 @@
-import { JsonDocs } from "@stencil/core/internal";
-import { KompendiumConfig, defaultConfig, KompendiumData } from "./config";
-import { addSources } from "./source";
+import { JsonDocs } from '@stencil/core/internal';
+import { KompendiumConfig, defaultConfig, KompendiumData } from './config';
+import { addSources } from './source';
 import lnk from 'lnk';
-import { createMenu } from "./menu";
-import { exists, mkdir, readFile, writeFile } from "./filesystem";
-import { createWatcher } from "./watch";
+import { createMenu } from './menu';
+import { exists, mkdir, readFile, writeFile } from './filesystem';
+import { createWatcher } from './watch';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
     if (!generateDocs()) {
-        return () => {};
+        return () => null;
     }
 
     return kompendiumGenerator(config);
-}
+};
 
-export function kompendiumGenerator(config: Partial<KompendiumConfig>) {
+export function kompendiumGenerator(
+    config: Partial<KompendiumConfig>
+): (docs: JsonDocs) => Promise<void> {
     config = {
         ...defaultConfig,
-        ...config
+        ...config,
     };
     initialize(config);
 
@@ -26,11 +29,11 @@ export function kompendiumGenerator(config: Partial<KompendiumConfig>) {
             docs: await addSources(docs),
             title: await getProjectTitle(config),
             menu: createMenu(docs),
-            readme: await getReadme()
+            readme: await getReadme(),
         };
 
         await writeData(config, data);
-    }
+    };
 }
 
 async function initialize(config: Partial<KompendiumConfig>) {
@@ -43,13 +46,13 @@ async function initialize(config: Partial<KompendiumConfig>) {
 
 const onUnlink = (config: Partial<KompendiumConfig>) => () => {
     createSymlink(config);
-}
+};
 
 async function createSymlink(config: Partial<KompendiumConfig>) {
     const source = `${config.path}/kompendium.json`;
     const target = `${config.publicPath}/kompendium.json`;
 
-    if (!await exists(source)) {
+    if (!(await exists(source))) {
         return;
     }
 
@@ -60,8 +63,9 @@ async function createSymlink(config: Partial<KompendiumConfig>) {
     lnk([source], config.publicPath);
 }
 
-
-async function getProjectTitle(config: Partial<KompendiumConfig>): Promise<string> {
+async function getProjectTitle(
+    config: Partial<KompendiumConfig>
+): Promise<string> {
     if (config.title) {
         return config.title;
     }
@@ -69,13 +73,19 @@ async function getProjectTitle(config: Partial<KompendiumConfig>): Promise<strin
     const json = await readFile('./package.json');
     const data = JSON.parse(json);
 
-    return data.name.replace(/^@[^\/]+?\//, '').split('-').join(' ');
+    return data.name
+        .replace(/^@[^/]+?\//, '')
+        .split('-')
+        .join(' ');
 }
 
-async function writeData(config: Partial<KompendiumConfig>, data: KompendiumData) {
+async function writeData(
+    config: Partial<KompendiumConfig>,
+    data: KompendiumData
+) {
     const filePath = `${config.path}/kompendium.json`;
 
-    if (!await exists(config.path)) {
+    if (!(await exists(config.path))) {
         mkdir(config.path, { recursive: true });
     }
 
@@ -84,12 +94,7 @@ async function writeData(config: Partial<KompendiumConfig>, data: KompendiumData
 }
 
 async function getReadme(): Promise<string> {
-    const files = [
-        'readme.md',
-        'README.md',
-        'README',
-        'readme'
-    ];
+    const files = ['readme.md', 'README.md', 'README', 'readme'];
     let data = null;
 
     for (const file of files) {
@@ -97,8 +102,8 @@ async function getReadme(): Promise<string> {
             continue;
         }
 
-        if (!await exists(file)) {
-            console.log(`${file} did not exist`)
+        if (!(await exists(file))) {
+            console.log(`${file} did not exist`);
             continue;
         }
 
@@ -109,9 +114,9 @@ async function getReadme(): Promise<string> {
 }
 
 function generateDocs(): boolean {
-    return !!process.argv.find(arg => arg === '--docs');
+    return !!process.argv.find((arg) => arg === '--docs');
 }
 
 function isWatcher(): boolean {
-    return !!process.argv.find(arg => arg === '--watch');
+    return !!process.argv.find((arg) => arg === '--watch');
 }

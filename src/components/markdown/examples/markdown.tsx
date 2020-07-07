@@ -1,6 +1,6 @@
 import { Component, h } from '@stencil/core';
 
-const text: string = `
+const text = `
 # Bacon Ipsum!
 
 Spicy jalapeno bacon ipsum dolor amet fatback bresaola enim
@@ -42,11 +42,10 @@ if (meat === 'tenderloin') {
 @Component({
     tag: 'kompendium-example-markdown',
     shadow: true,
-    styleUrl: 'markdown.scss'
+    styleUrl: 'markdown.scss',
 })
 export class MarkdownExample {
-
-    public render() {
-        return <kompendium-markdown text={text} />
+    public render(): HTMLElement {
+        return <kompendium-markdown text={text} />;
     }
 }

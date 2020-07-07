@@ -7,30 +7,35 @@ import { MenuItem } from '../../kompendium/config';
 @Component({
     tag: 'kompendium-navigation',
     styleUrl: 'navigation.scss',
-    shadow: true
+    shadow: true,
 })
 export class Navigation {
-
+    /**
+     * The menu to display
+     */
     @Prop()
     public menu: MenuItem[];
 
+    /**
+     * Title to display at the top of the navigation
+     */
     @Prop()
     public header: string;
 
     @State()
-    private route: string = '';
+    private route = '';
 
     constructor() {
         this.setRoute = this.setRoute.bind(this);
-        this.renderMenuItem = this.renderMenuItem.bind(this)
+        this.renderMenuItem = this.renderMenuItem.bind(this);
     }
 
-    protected componentWillLoad() {
+    protected componentWillLoad(): void {
         window.addEventListener('hashchange', this.setRoute);
         this.setRoute();
     }
 
-    protected componentDidUnload() {
+    protected componentDidUnload(): void {
         window.removeEventListener('hashchange', this.setRoute);
     }
 
@@ -38,16 +43,18 @@ export class Navigation {
         this.route = location.hash.substr(1);
     }
 
-    public render() {
-        return [
+    public render(): HTMLElement {
+        return (
             <nav class="nav-panel">
                 <header class="panel-header">
-                    <h1><a href="#">{this.header}</a></h1>
-                    <kompendium-search/>
+                    <h1>
+                        <a href="#">{this.header}</a>
+                    </h1>
+                    <kompendium-search />
                 </header>
                 {this.renderChapters(this.menu)}
             </nav>
-        ];
+        );
     }
 
     private renderChapters(menu: MenuItem[]) {
@@ -55,25 +62,23 @@ export class Navigation {
             return;
         }
 
-        return (
-            <ul class="panel-list">
-                {menu.map(this.renderMenuItem)}
-            </ul>
-        );
+        return <ul class="panel-list">{menu.map(this.renderMenuItem)}</ul>;
     }
 
     private renderMenuItem(item: MenuItem) {
         const classList = {
             active: this.isRouteActive(item.path),
             chapters: true,
-            'panel-list': true
+            'panel-list': true,
         };
         const anchorClassList = {
             'panel-link': true,
             active: this.isRouteActive(item.path),
         };
         const chapters = item.children || [];
-        const path = getAssetPath('../collection/assets/icons/arrow-right-s-line.svg');
+        const path = getAssetPath(
+            '../collection/assets/icons/arrow-right-s-line.svg'
+        );
 
         return (
             <li class="panel-item">
@@ -83,9 +88,7 @@ export class Navigation {
                         {item.title}
                     </span>
                 </a>
-                <ul class={classList}>
-                    {chapters.map(this.renderMenuItem)}
-                </ul>
+                <ul class={classList}>{chapters.map(this.renderMenuItem)}</ul>
             </li>
         );
     }

@@ -3,25 +3,22 @@ import { Component, h, Element } from '@stencil/core';
 @Component({
     tag: 'kompendium-search',
     styleUrl: 'search.scss',
-    shadow: true
+    shadow: true,
 })
 export class Search {
-
     @Element()
-    private host: HTMLElement;
+    private host: HTMLKompendiumSearchElement;
 
-    componentDidLoad() {
+    componentDidLoad(): void {
         this.host.shadowRoot.querySelector('input').focus();
     }
 
-
-    render() {
+    render(): HTMLElement {
         return (
             <div class="search-box">
-                <input type="search" autoFocus placeholder="Search"/>
+                <input type="search" autoFocus placeholder="Search" />
                 <ul class="result"></ul>
             </div>
         );
     }
-
 }

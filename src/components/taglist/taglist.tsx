@@ -7,25 +7,32 @@ import { JsonDocsTag } from '@stencil/core/internal';
 @Component({
     tag: 'kompendium-taglist',
     shadow: true,
-    styleUrl: 'taglist.scss'
+    styleUrl: 'taglist.scss',
 })
 export class Taglist {
-
+    /**
+     * List of tags to render
+     */
     @Prop()
     public tags: JsonDocsTag[];
 
+    /**
+     * Set to `true` if the list should be rendered in compact mode
+     */
     @Prop()
-    public compact: boolean = false;
+    public compact = false;
 
-    render() {
+    render(): HTMLElement[] {
         return this.tags.map(this.renderTag);
     }
 
     private renderTag(tag: JsonDocsTag) {
         const classList = {
-            'tag-list': true
+            'tag-list': true,
         };
-        const path = getAssetPath('../collection/assets/icons/bookmark-fill.svg');
+        const path = getAssetPath(
+            '../collection/assets/icons/bookmark-fill.svg'
+        );
 
         classList[`tag--${tag.name}`] = true;
 

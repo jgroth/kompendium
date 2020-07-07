@@ -1,15 +1,18 @@
-import { JsonDocsSlot } from "@stencil/core/internal";
+import { JsonDocsSlot } from '@stencil/core/internal';
 import { h } from '@stencil/core';
 
-export function SlotList({slots, id}: {id: string, slots: JsonDocsSlot[]}) {
+export function SlotList({
+    slots,
+    id,
+}: {
+    id: string;
+    slots: JsonDocsSlot[];
+}): HTMLElement[] {
     if (!slots.length) {
         return;
     }
 
-    return [
-        <h4 id={id}>Slots</h4>,
-        ...slots.map(renderSlot)
-    ];
+    return [<h4 id={id}>Slots</h4>, ...slots.map(renderSlot)];
 }
 
 function renderSlot(slot: JsonDocsSlot) {

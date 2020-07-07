@@ -5,22 +5,24 @@ import { JsonDocsSource } from '../../kompendium/source';
 @Component({
     tag: 'kompendium-playground',
     styleUrl: 'playground.scss',
-    shadow: true
+    shadow: true,
 })
 export class Playground {
-
+    /**
+     * The component to display
+     */
     @Prop()
     public component: JsonDocsComponent = {} as any;
 
     @State()
-    private activeTab: string = 'result';
+    private activeTab = 'result';
 
     constructor() {
         this.renderTab = this.renderTab.bind(this);
         this.renderItem = this.renderItem.bind(this);
     }
 
-    public render() {
+    public render(): HTMLElement {
         if (!this.component) {
             return;
         }
@@ -29,34 +31,30 @@ export class Playground {
 
         return (
             <section class="tab-panel">
-                <nav class="tab-bar">
-                    {this.renderTabs(sources)}
-                </nav>
-                <div class="tab-items">
-                    {this.renderItems(sources)}
-                </div>
+                <nav class="tab-bar">{this.renderTabs(sources)}</nav>
+                <div class="tab-items">{this.renderItems(sources)}</div>
             </section>
         );
     }
 
     private renderTabs(sources: JsonDocsSource[]) {
         const classList = {
-            'tab': true,
-            'active': this.activeTab === 'result'
+            tab: true,
+            active: this.activeTab === 'result',
         };
 
         return [
             <a class={classList} onClick={this.activateTab('result')}>
                 Result
             </a>,
-            ...sources.map(this.renderTab)
+            ...sources.map(this.renderTab),
         ];
     }
 
     private renderTab(source: JsonDocsSource) {
         const classList = {
-            'tab': true,
-            'active': this.activeTab === source.type
+            tab: true,
+            active: this.activeTab === source.type,
         };
 
         return (
@@ -67,36 +65,36 @@ export class Playground {
     }
 
     private renderItems(sources: JsonDocsSource[]) {
-        return [
-            this.renderResult(),
-            ...sources.map(this.renderItem)
-        ];
+        return [this.renderResult(), ...sources.map(this.renderItem)];
     }
 
     private renderResult() {
-        const Component = this.component.tag;
+        const PlaygroundComponent = this.component.tag;
         const classList = {
             'tab-item': true,
-            'active': this.activeTab === 'result'
+            active: this.activeTab === 'result',
         };
 
         return (
             <div class={classList}>
                 <kompendium-markdown text={this.component.docs} />
-                <Component />
+                <PlaygroundComponent />
             </div>
         );
-
     }
 
     private renderItem(source: JsonDocsSource) {
         const classList = {
             'tab-item': true,
-            'active': this.activeTab === source.type
+            active: this.activeTab === source.type,
         };
 
         return (
-            <kompendium-code class={classList} language={source.type} code={source.source} />
+            <kompendium-code
+                class={classList}
+                language={source.type}
+                code={source.source}
+            />
         );
     }
 

@@ -9,20 +9,23 @@ import recommended from 'remark-preset-lint-recommended';
 @Component({
     tag: 'kompendium-markdown',
     shadow: true,
-    styleUrl: 'markdown.scss'
+    styleUrl: 'markdown.scss',
 })
 export class Markdown {
+    /**
+     * The text to render
+     */
     @Prop()
     public text: string;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLKompendiumMarkdownElement;
 
-    protected componentDidLoad() {
+    protected componentDidLoad(): void {
         this.renderMarkdown();
     }
 
-    protected componentDidUpdate() {
+    protected componentDidUpdate(): void {
         this.renderMarkdown();
     }
 
@@ -31,13 +34,13 @@ export class Markdown {
             .use(recommended)
             .use(html)
             .process(this.text, (_, file) => {
-                this.host.shadowRoot.querySelector('#root').innerHTML = String(file);
+                this.host.shadowRoot.querySelector('#root').innerHTML = String(
+                    file
+                );
             });
     }
 
-    render() {
-        return (
-            <div id="root"/>
-        );
+    render(): HTMLElement {
+        return <div id="root" />;
     }
 }

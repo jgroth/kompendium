@@ -1,0 +1,13 @@
+{
+    "singleQuote": true,
+    "tabWidth": 4,
+    "overrides": [
+      {
+        "files": [".prettierrc", "*.json"],
+        "options": {
+          "parser": "json",
+          "tabWidth": 2
+        }
+      }
+    ]
+  }

@@ -10,7 +10,7 @@ describe('kompendium()', () => {
     beforeEach(() => {
         tmpObject = tmp.dirSync();
         path = tmpObject.name;
-        kompendium = kompendiumGenerator({path});
+        kompendium = kompendiumGenerator({ path });
     });
 
     afterEach(() => {

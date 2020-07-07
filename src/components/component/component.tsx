@@ -12,32 +12,37 @@ import { isExample } from '../../kompendium/menu';
 @Component({
     tag: 'kompendium-component',
     shadow: true,
-    styleUrl: 'component.scss'
+    styleUrl: 'component.scss',
 })
 export class KompendiumComponent {
-
+    /**
+     * The generated documentation data
+     */
     @Prop()
     public docs: JsonDocs;
 
+    /**
+     * Matched route parameters
+     */
     @Prop()
     public match: MatchResults;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLKompendiumComponentElement;
 
     constructor() {
         this.handleRouteChange = this.handleRouteChange.bind(this);
     }
 
-    protected componentWillLoad() {
+    protected componentWillLoad(): void {
         window.addEventListener('hashchange', this.handleRouteChange);
     }
 
-    protected componentDidUnload() {
+    protected componentDidUnload(): void {
         window.removeEventListener('hashchange', this.handleRouteChange);
     }
 
-    protected componentDidLoad() {
+    protected componentDidLoad(): void {
         const route = this.getRoute();
         this.scrollToElement(route);
     }
@@ -56,13 +61,13 @@ export class KompendiumComponent {
         element.scrollIntoView();
     }
 
-    public render() {
+    public render(): HTMLElement {
         const tag = this.match.params.name;
         const exampleName = this.match.params.section;
         const component = findComponent(tag, this.docs);
         const examples = findExamples(component, this.docs);
 
-        let example = examples.find(e => e.tag === exampleName);
+        let example = examples.find((e) => e.tag === exampleName);
         if (!example) {
             example = examples[0];
         }
@@ -86,20 +91,32 @@ export class KompendiumComponent {
 
         return [
             <h1 id={this.getId()}>{title}</h1>,
-            <kompendium-markdown text={component.docs}/>,
-            <kompendium-taglist tags={component.docsTags.filter(tag => tag.name !== 'slot')} />,
-            <ExampleList component={component} examples={examples} id={this.getId('examples')} />,
-            <PropertyList props={component.props} id={this.getId('properties')} />,
+            <kompendium-markdown text={component.docs} />,
+            <kompendium-taglist
+                tags={component.docsTags.filter((t) => t.name !== 'slot')}
+            />,
+            <ExampleList
+                component={component}
+                examples={examples}
+                id={this.getId('examples')}
+            />,
+            <PropertyList
+                props={component.props}
+                id={this.getId('properties')}
+            />,
             <EventList events={component.events} id={this.getId('events')} />,
-            <MethodList methods={component.methods} id={this.getId('methods')} />,
+            <MethodList
+                methods={component.methods}
+                id={this.getId('methods')}
+            />,
             <SlotList slots={component.slots} id={this.getId('slots')} />,
-            <StyleList styles={component.styles} id={this.getId('styles')} />
+            <StyleList styles={component.styles} id={this.getId('styles')} />,
         ];
     }
 
     private getId(name?: string) {
         const route = this.getRoute().split('/').slice(0, 3).join('/');
-        return [route, name].filter(item => !!item).join('/');
+        return [route, name].filter((item) => !!item).join('/');
     }
 
     private getRoute() {
@@ -112,9 +129,11 @@ function findExamples(component: JsonDocsComponent, docs: JsonDocs) {
 }
 
 function findComponent(tag: string, docs: JsonDocs) {
-    return docs.components.find(doc => doc.tag === tag);
+    return docs.components.find((doc) => doc.tag === tag);
 }
 
-const isExampleOf = (component: JsonDocsComponent) => (example: JsonDocsComponent) => {
+const isExampleOf = (component: JsonDocsComponent) => (
+    example: JsonDocsComponent
+) => {
     return example.dirPath.startsWith(component.dirPath);
-}
+};

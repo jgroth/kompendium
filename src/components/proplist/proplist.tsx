@@ -8,30 +8,27 @@ export interface ProplistItem {
 @Component({
     tag: 'kompendium-proplist',
     shadow: true,
-    styleUrl: 'proplist.scss'
+    styleUrl: 'proplist.scss',
 })
 export class Proplist {
-
+    /**
+     * List of properties
+     */
     @Prop()
     public items: ProplistItem[];
 
-    render() {
-        return (
-            <dl>
-                {this.items.map(this.renderProperty)}
-            </dl>
-        );
+    render(): HTMLElement {
+        return <dl>{this.items.map(this.renderProperty)}</dl>;
     }
 
     private renderProperty(property: ProplistItem) {
-        const {key, value} = property;
+        const { key, value } = property;
 
         return [
             <dt>{key}</dt>,
-            <dd class={`value--${value}`}><code>{value}</code></dd>
+            <dd class={`value--${value}`}>
+                <code>{value}</code>
+            </dd>,
         ];
     }
 }
-
-
-

@@ -1,12 +1,12 @@
-import { MenuItem } from "./config";
-import { JsonDocsComponent, JsonDocs } from "@stencil/core/internal";
+import { MenuItem } from './config';
+import { JsonDocsComponent, JsonDocs } from '@stencil/core/internal';
 
 export function createMenu(docs: JsonDocs): MenuItem[] {
     return [
         createGuideMenu(),
         createComponentMenu(docs),
         createApiMenu(),
-        createVersionMenu()
+        createVersionMenu(),
     ];
 }
 
@@ -14,7 +14,7 @@ export function createGuideMenu(): MenuItem {
     return {
         path: '/guide',
         title: 'Guide',
-        icon: 'book'
+        icon: 'book',
     };
 }
 
@@ -28,11 +28,11 @@ export function createComponentMenu(docs: JsonDocs): MenuItem {
         children: components
             .filter(isNotExample)
             .filter(isPublic)
-            .map(getComponentMenu)
+            .map(getComponentMenu),
     };
 }
 
-export function isExample(component: JsonDocsComponent) {
+export function isExample(component: JsonDocsComponent): boolean {
     return !!component.dirPath.match(/\/examples?$/);
 }
 
@@ -40,8 +40,10 @@ function isNotExample(component: JsonDocsComponent) {
     return !isExample(component);
 }
 
-export function isPublic(component: JsonDocsComponent) {
-    return !component.docsTags.find(tag => ['internal', 'private'].includes(tag.name));
+export function isPublic(component: JsonDocsComponent): boolean {
+    return !component.docsTags.find((tag) =>
+        ['internal', 'private'].includes(tag.name)
+    );
 }
 
 export function getComponentMenu(component: JsonDocsComponent): MenuItem {
@@ -54,10 +56,9 @@ export function getComponentMenu(component: JsonDocsComponent): MenuItem {
             getComponentMethodMenu(component),
             getComponentSlotMenu(component),
             getComponentStyleMenu(component),
-        ].filter(item => !!item)
-    }
+        ].filter((item) => !!item),
+    };
 }
-
 
 function getComponentPropertyMenu(component: JsonDocsComponent): MenuItem {
     if (!component.props.length) {
@@ -66,8 +67,8 @@ function getComponentPropertyMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Properties',
-        path: `/component/${component.tag}/properties`
-    }
+        path: `/component/${component.tag}/properties`,
+    };
 }
 
 function getComponentEventMenu(component: JsonDocsComponent): MenuItem {
@@ -77,8 +78,8 @@ function getComponentEventMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Events',
-        path: `/component/${component.tag}/events`
-    }
+        path: `/component/${component.tag}/events`,
+    };
 }
 
 function getComponentMethodMenu(component: JsonDocsComponent): MenuItem {
@@ -88,8 +89,8 @@ function getComponentMethodMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Methods',
-        path: `/component/${component.tag}/methods`
-    }
+        path: `/component/${component.tag}/methods`,
+    };
 }
 
 function getComponentSlotMenu(component: JsonDocsComponent): MenuItem {
@@ -99,8 +100,8 @@ function getComponentSlotMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Slots',
-        path: `/component/${component.tag}/slots`
-    }
+        path: `/component/${component.tag}/slots`,
+    };
 }
 
 function getComponentStyleMenu(component: JsonDocsComponent): MenuItem {
@@ -110,13 +111,13 @@ function getComponentStyleMenu(component: JsonDocsComponent): MenuItem {
 
     return {
         title: 'Styles',
-        path: `/component/${component.tag}/styles`
-    }
+        path: `/component/${component.tag}/styles`,
+    };
 }
 
-
-export function getComponentTitle(tag: string) {
+export function getComponentTitle(tag: string): string {
     const title = tag.split('-').slice(1).join(' ');
+
     return title[0].toLocaleUpperCase() + title.slice(1);
 }
 
@@ -124,14 +125,14 @@ export function createApiMenu(): MenuItem {
     return {
         path: '/api',
         title: 'API',
-        icon: 'code'
-    }
+        icon: 'code',
+    };
 }
 
 export function createVersionMenu(): MenuItem {
     return {
         path: '/version',
         title: 'Versions',
-        icon: 'code-branch'
-    }
+        icon: 'code-branch',
+    };
 }

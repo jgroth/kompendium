@@ -1,4 +1,4 @@
-import { JsonDocs } from "@stencil/core/internal";
+import { JsonDocs } from '@stencil/core/internal';
 
 export interface KompendiumConfig {
     /**
@@ -16,7 +16,7 @@ export interface KompendiumConfig {
 
 export const defaultConfig: KompendiumConfig = {
     path: '.kompendium',
-    publicPath: 'www'
+    publicPath: 'www',
 };
 
 export interface MenuItem {
@@ -30,5 +30,5 @@ export interface KompendiumData {
     title: string;
     docs: JsonDocs;
     menu: MenuItem[];
-    readme?: string
+    readme?: string;
 }

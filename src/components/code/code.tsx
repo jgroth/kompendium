@@ -9,28 +9,33 @@ import 'prismjs/components/prism-typescript.js';
 @Component({
     tag: 'kompendium-code',
     styleUrl: 'code.scss',
-    shadow: true
+    shadow: true,
 })
 export class Code {
-
+    /**
+     * The language of the code
+     */
     @Prop()
     public language: string;
 
+    /**
+     * Source code
+     */
     @Prop()
     public code: string;
 
     @Element()
-    private host: HTMLElement;
+    private host: HTMLKompendiumCodeElement;
 
-    protected componentDidLoad() {
+    protected componentDidLoad(): void {
         this.renderCode();
     }
 
-    protected componentDidUpdate() {
+    protected componentDidUpdate(): void {
         this.renderCode();
     }
 
-    render() {
+    render(): HTMLElement {
         const classList = {};
         classList[`language-${this.language}`] = true;
 
@@ -43,6 +48,9 @@ export class Code {
 
     private renderCode() {
         const container = this.host.shadowRoot.querySelector('.root');
-        container.innerHTML = Prism.highlight(this.code, Prism.languages[this.language]);
+        container.innerHTML = Prism.highlight(
+            this.code,
+            Prism.languages[this.language]
+        );
     }
 }
