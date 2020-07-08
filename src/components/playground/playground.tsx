@@ -15,7 +15,7 @@ export class Playground {
     public component: JsonDocsComponent = {} as any;
 
     @State()
-    private activeTab = 'result';
+    private activeTab: string;
 
     constructor() {
         this.renderTab = this.renderTab.bind(this);
@@ -30,31 +30,25 @@ export class Playground {
         const sources: JsonDocsSource[] = this.component['sources'] || [];
 
         return (
-            <section class="tab-panel">
-                <nav class="tab-bar">{this.renderTabs(sources)}</nav>
-                <div class="tab-items">{this.renderItems(sources)}</div>
+            <section class="example">
+                <div class="result">{this.renderResult()}</div>
+
+                <aside class="code">
+                    <nav class="tab-bar">{this.renderTabs(sources)}</nav>
+                    <div class="tab-items">{this.renderItems(sources)}</div>
+                </aside>
             </section>
         );
     }
 
     private renderTabs(sources: JsonDocsSource[]) {
-        const classList = {
-            tab: true,
-            active: this.activeTab === 'result',
-        };
-
-        return [
-            <a class={classList} onClick={this.activateTab('result')}>
-                Result
-            </a>,
-            ...sources.map(this.renderTab),
-        ];
+        return sources.map(this.renderTab);
     }
 
-    private renderTab(source: JsonDocsSource) {
+    private renderTab(source: JsonDocsSource, index: number) {
         const classList = {
             tab: true,
-            active: this.activeTab === source.type,
+            active: this.isTabActive(source, index),
         };
 
         return (
@@ -65,28 +59,24 @@ export class Playground {
     }
 
     private renderItems(sources: JsonDocsSource[]) {
-        return [this.renderResult(), ...sources.map(this.renderItem)];
+        return sources.map(this.renderItem);
     }
 
     private renderResult() {
-        const PlaygroundComponent = this.component.tag;
-        const classList = {
-            'tab-item': true,
-            active: this.activeTab === 'result',
-        };
+        const ExampleComponent = this.component.tag;
 
         return (
-            <div class={classList}>
+            <div>
                 <kompendium-markdown text={this.component.docs} />
-                <PlaygroundComponent />
+                <ExampleComponent />
             </div>
         );
     }
 
-    private renderItem(source: JsonDocsSource) {
+    private renderItem(source: JsonDocsSource, index: number) {
         const classList = {
             'tab-item': true,
-            active: this.activeTab === source.type,
+            active: this.isTabActive(source, index),
         };
 
         return (
@@ -101,4 +91,13 @@ export class Playground {
     private activateTab = (id: string) => () => {
         this.activeTab = id;
     };
+
+    private isTabActive(source: JsonDocsSource, index: number): boolean {
+        let isActive = this.activeTab === source.type;
+        if (!isActive) {
+            isActive = index === 0 && !this.activeTab;
+        }
+
+        return isActive;
+    }
 }

@@ -10,6 +10,8 @@ main {
     margin-left: var(--width-nav-panel);
 }
 
-kompendium-markdown {
-    padding: 2rem;
+@media (max-width: 1000px) {
+    main {
+        margin-left: 0;
+    }
 }

@@ -63,23 +63,13 @@ export class KompendiumComponent {
 
     public render(): HTMLElement {
         const tag = this.match.params.name;
-        const exampleName = this.match.params.section;
         const component = findComponent(tag, this.docs);
-        const examples = findExamples(component, this.docs);
-
-        let example = examples.find((e) => e.tag === exampleName);
-        if (!example) {
-            example = examples[0];
-        }
 
         return (
             <article class="component">
                 <section class="docs">
                     {this.renderDocs(tag, component)}
                 </section>
-                <aside class="playground">
-                    <kompendium-playground component={example} />
-                </aside>
             </article>
         );
     }
@@ -95,11 +85,7 @@ export class KompendiumComponent {
             <kompendium-taglist
                 tags={component.docsTags.filter((t) => t.name !== 'slot')}
             />,
-            <ExampleList
-                component={component}
-                examples={examples}
-                id={this.getId('examples')}
-            />,
+            <ExampleList examples={examples} id={this.getId('examples')} />,
             <PropertyList
                 props={component.props}
                 id={this.getId('properties')}

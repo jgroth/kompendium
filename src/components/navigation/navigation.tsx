@@ -1,4 +1,11 @@
-import { Component, h, Prop, State, getAssetPath } from '@stencil/core';
+import {
+    Component,
+    h,
+    Prop,
+    State,
+    getAssetPath,
+    Element,
+} from '@stencil/core';
 import { MenuItem } from '../../kompendium/config';
 
 /**
@@ -25,6 +32,9 @@ export class Navigation {
     @State()
     private route = '';
 
+    @Element()
+    private host: HTMLKompendiumNavigationElement;
+
     constructor() {
         this.setRoute = this.setRoute.bind(this);
         this.renderMenuItem = this.renderMenuItem.bind(this);
@@ -46,6 +56,10 @@ export class Navigation {
     public render(): HTMLElement {
         return (
             <nav class="nav-panel">
+                <a class="nav-panel__responsive-menu" onClick={this.toggleMenu}>
+                    <span class="show-nav">|||</span>
+                    <span class="hide-nav">⨯</span>
+                </a>
                 <header class="panel-header">
                     <h1>
                         <a href="#">{this.header}</a>
@@ -56,6 +70,15 @@ export class Navigation {
             </nav>
         );
     }
+
+    private toggleMenu = () => {
+        const panel = this.host.shadowRoot.querySelector('.nav-panel');
+        if (!panel) {
+            return;
+        }
+
+        panel.classList.toggle('display-nav-panel');
+    };
 
     private renderChapters(menu: MenuItem[]) {
         if (!menu || !menu.length) {

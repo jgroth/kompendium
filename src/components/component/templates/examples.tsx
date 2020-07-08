@@ -4,32 +4,17 @@ import { h } from '@stencil/core';
 export function ExampleList({
     examples,
     id,
-    component,
 }: {
     id: string;
     examples: JsonDocsComponent[];
-    component: JsonDocsComponent;
 }): HTMLElement[] {
     if (!examples.length) {
         return;
     }
 
-    return [
-        <h4 id={id}>Examples</h4>,
-        <ul>{examples.map(renderExample(component))}</ul>,
-    ];
+    return [<h4 id={id}>Examples</h4>, examples.map(renderExample)];
 }
 
-const renderExample = (component: JsonDocsComponent) => (
-    example: JsonDocsComponent
-) => {
-    const titleTag = example.docsTags.find((tag) => tag.name === 'title');
-    const title = titleTag?.text || example.tag;
-    const href = `#/component/${component.tag}/${example.tag}`;
-
-    return (
-        <li>
-            <a href={href}>{title}</a>
-        </li>
-    );
+const renderExample = (example: JsonDocsComponent) => {
+    return <kompendium-playground component={example} />;
 };
