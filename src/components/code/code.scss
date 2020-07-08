@@ -1,4 +1,5 @@
 @import '../../style/mixins.scss';
+@import '../../style/functions.scss';
 
 :host {
   display: flex;
@@ -11,18 +12,21 @@ https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+cli
  * Based on https://github.com/chriskempson/tomorrow-theme
  * @author Rose Pritchard
  */
+code,
+pre {
+    font-family: var(--kompendium-font-code);
+    font-size: pxToRem(13);
+}
 code[class*="language-"],
 pre[class*="language-"] {
-  color: rgb(var(--color-code-gray-light));
+  color: rgb(var(--color-code-gray-lighter));
   background: none;
-  font-family: var(--kompendium-font-code);
-  font-size: 1em;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
-  line-height: 1.5;
+  line-height: normal;
 
   -moz-tab-size: 4;
   -o-tab-size: 4;
@@ -36,34 +40,33 @@ pre[class*="language-"] {
 
 /* Code blocks */
 pre[class*="language-"] {
-  padding: 1em;
+  padding: pxToRem(24) pxToRem(16) pxToRem(32) pxToRem(16);
+  position: relative;
   margin: 0;
   overflow: auto;
   flex-grow: 1;
+  border-radius: pxToRem(9);
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: rgb(var(--contrast-1500));
-
-  @include in(dark-mode) {
-    background: rgb(var(--contrast-200));
-  }
+  background: rgb(var(--color-code-background));
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-  padding: 0.1em;
-  border-radius: 0.3em;
   white-space: normal;
 }
 
-.token.comment,
+.token.comment {
+    color: var(--color-code-gray-light);
+}
+
 .token.block-comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--color-code-gray-light);
+  color: var(--color-code-gray-lighter);
 }
 
 .token.punctuation {
@@ -110,7 +113,10 @@ pre[class*="language-"] {
   color: rgb(var(--color-code-green-light));
 }
 
-.token.operator,
+.token.operator {
+    color: rgb(var(--color-code-purple));
+}
+
 .token.entity,
 .token.url {
   color: rgb(var(--color-code-turquoise));

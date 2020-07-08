@@ -1,4 +1,7 @@
 @import '../../style/functions.scss';
+@import '../../style/mixins.scss';
+
+$tab-active-outer-edge-curve-size: pxToRem(10);
 
 :host {
   display: block;
@@ -11,11 +14,8 @@
 }
 
 .tab-bar {
-  background-color: rgb(var(--contrast-100));
   display: flex;
-  padding: pxToRem(8) pxToRem(8) 0 pxToRem(8);
-  position: sticky;
-  top: 0;
+  padding: pxToRem(8) pxToRem(16) 0 pxToRem(16);
 
   .tab {
     transition: background-color 0.2s ease;
@@ -23,70 +23,69 @@
 
     position: relative;
     display: inline-block;
-    line-height: pxToRem(28);
-    padding: pxToRem(4) pxToRem(16);
+    padding: pxToRem(8) pxToRem(16);
     text-align: center;
+    line-height: pxToRem(15);
     color: rgb(var(--contrast-1000));
     font-size: pxToRem(16);
-    border-radius: pxToRem(4) pxToRem(4) 0 0;
-    margin-right: pxToRem(8);
+    border-radius: pxToRem(8) pxToRem(8) 0 0;
+    margin: 0 pxToRem(2);
+
+    &:before,
+    &:after {
+        transition: background-color 0.2s ease;
+
+        content: '';
+        display: block;
+        width: $tab-active-outer-edge-curve-size;
+        height: $tab-active-outer-edge-curve-size;
+        position: absolute;
+        bottom: 0;
+        -webkit-mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
+        mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>");
+
+        background: transparent;
+    }
+
+    &:before {
+        left: -$tab-active-outer-edge-curve-size;
+        transform: rotateY(180deg);
+    }
+    &:after {
+        right: -$tab-active-outer-edge-curve-size;
+    }
 
     &:hover {
       background-color: rgb(var(--contrast-100));
+
+      &:before,
+      &:after {
+          background-color: rgb(var(--contrast-100));
+
+          @include in(dark-mode) {
+              background-color: rgb(var(--contrast-100));
+          }
+      }
     }
 
     &.active {
-        background-color: rgb(var(--contrast-300));
+        z-index: 1;
+        color: rgb(var(--contrast-700));
+        background: rgb(var(--color-code-background));
+
+        &:before,
+        &:after {
+            background: rgb(var(--color-code-background));
+        }
     }
-
-    // &:active,
-    // &:focus {
-    //   outline: 0;
-    // }
-  }
-
-  //   span {
-  //     position: absolute;
-  //     width: 5rem;
-  //     height: 2.5rem;
-  //     background-color: rgba(255, 255, 255, 0.5);
-  //     top: .75rem;
-  //     left: 1rem;
-  //     border-radius: 10%;
-  //     z-index: 1;
-  //     // transition: 0.3s ease left;
-  //   }
-
-  .tab:nth-child(1).active ~ span {
-    left: 0.5rem;
-  }
-
-  .tab:nth-child(2).active ~ span {
-    left: 6.5rem;
-  }
-
-  .tab:nth-child(3).active ~ span {
-    left: 12.5rem;
-  }
-
-  .tab:nth-child(1):hover ~ span {
-    left: 0.5rem;
-  }
-
-  .tab:nth-child(2):hover ~ span {
-    left: 6.5rem;
-  }
-
-  .tab:nth-child(3):hover ~ span {
-    left: 12.5rem;
-  }
+ }
 }
 
+
+
 .tab-items {
-  overflow-y: auto;
   display: flex;
-  height: 100%;
-  align-items: stretch;
+  max-height: pxToRem(500);
 
   .tab-item {
     width: 100%;
@@ -96,21 +95,66 @@
       display: flex;
     }
 
-    &:nth-child(1) {
-      margin: 2rem;
-      flex-direction: column;
-    }
+    // &:nth-child(1) {
+    //   flex-direction: column;
+    // }
   }
 }
 
 kompendium-code {
-  display: flex;
-  align-items: stretch;
-  flex-grow: 1;
+  display: block;
+
+  &:before,
+  &:after {
+      content: '';
+      z-index: 1;
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      border-radius: pxToRem(9);
+  }
+
+  &:before {
+      top: pxToRem(39);
+      height: pxToRem(24);
+      background-image: linear-gradient(rgb(var(--color-code-background)), rgba(var(--color-code-background), 0));
+  }
+  &:after {
+      bottom: 0;
+      height: pxToRem(32);
+      background-image: linear-gradient(rgba(var(--color-code-background), 0), rgb(var(--color-code-background)));
+  }
 }
 
 section.example {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr 1fr;
+    .result,
+    .code {
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+    }
+
+    .result {
+        padding-right: pxToRem(40);
+    }
+
+    .code {
+        position: sticky;
+        top: 0;
+    }
+}
+
+@media (max-width: 1000px) {
+    section.example {
+        .result,
+        .code {
+            width: 100%;
+        }
+
+        .code {
+            position: relative;
+        }
+    }
 }
