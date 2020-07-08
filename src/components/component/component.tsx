@@ -85,11 +85,7 @@ export class KompendiumComponent {
             <kompendium-taglist
                 tags={component.docsTags.filter((t) => t.name !== 'slot')}
             />,
-            <ExampleList
-                component={component}
-                examples={examples}
-                id={this.getId('examples')}
-            />,
+            <ExampleList examples={examples} id={this.getId('examples')} />,
             <PropertyList
                 props={component.props}
                 id={this.getId('properties')}
