@@ -113,6 +113,7 @@ kompendium-code {
       left: 0;
       right: 0;
       border-radius: pxToRem(9);
+      pointer-events: none;
   }
 
   &:before {
