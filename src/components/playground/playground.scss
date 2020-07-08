@@ -155,6 +155,7 @@ section.example {
 
         .code {
             position: relative;
+            margin-bottom: pxToRem(40);
         }
     }
 }

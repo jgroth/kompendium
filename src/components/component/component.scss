@@ -8,6 +8,8 @@
 }
 
 .docs {
+    padding: pxToRem(20) pxToRem(32);
+
     h1, h2, h3, h4, h5,
     kompendium-markdown,
     kompendium-taglist {
@@ -18,17 +20,6 @@
         width: 100%;
     }
 }
-
-.docs {
-    padding: pxToRem(20) pxToRem(32);
-}
-
-.playground {
-    height: 100%;
-    border-left: 1px solid rgba(var(--contrast-500));
-    background-color: rgb(var(--contrast-300))
-}
-
 
 kompendium-taglist {
     margin-bottom: 1rem;
@@ -44,6 +35,8 @@ h5 {
 
 @media (max-width: 1000px) {
     .docs {
+        padding-top: pxToRem(42);
+
         h1, h2, h3, h4, h5,
         kompendium-markdown,
         kompendium-taglist {

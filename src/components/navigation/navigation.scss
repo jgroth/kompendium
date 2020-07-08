@@ -5,7 +5,7 @@
   display: block;
   font-family: var(--kompendium-font-primary);
 
-  --size-show-nav-panel-button: 2.5rem;
+  --size-show-nav-panel-button: 2.25rem;
 }
 
 header {
@@ -16,6 +16,8 @@ header {
 }
 
 .nav-panel {
+    z-index: 100;
+
     width: var(--width-nav-panel);
     height: 100vh;
     position: fixed;
@@ -53,11 +55,11 @@ header {
 
     position: absolute;
     top: 0;
-    right: calc(var(--size-show-nav-panel-button) * -1);
+    right: calc((var(--size-show-nav-panel-button) * -1) - 0.5rem);
 
     width: var(--size-show-nav-panel-button);
     height: var(--size-show-nav-panel-button);
-    line-height: var(--size-show-nav-panel-button);
+    margin: pxToRem(4);
     border-radius: pxToRem(4);
 
     text-align: center;
@@ -65,15 +67,33 @@ header {
     background-color: rgb(var(--contrast-600));
     color: rgb(var(--contrast-900));
 
-    span {
-        transform: rotate(90deg);
-        display: inline-block;
-    }
+    transform: rotate(90deg);
 }
 
 @media (max-width: 1000px) {
     .nav-panel {
         margin-left: calc(var(--width-nav-panel) * -1);
+
+        .show-nav {
+            line-height: calc(var(--size-show-nav-panel-button) + 0.15rem);
+            display: initial;
+        }
+        .hide-nav {
+            display: none;
+            line-height: calc(var(--size-show-nav-panel-button) - 0.3rem);
+            font-size: pxToRem(32);
+        }
+
+        &.display-nav-panel {
+            margin-left: 0;
+
+            .show-nav {
+                display: none;
+            }
+            .hide-nav {
+                display: initial;
+            }
+        }
     }
 
     .nav-panel__responsive-menu {
