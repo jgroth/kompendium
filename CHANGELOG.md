@@ -1,3 +1,10 @@
+## 💰 [0.1.5](https://github.com/jgroth/kompendium/compare/v0.1.4...v0.1.5) (2020-07-08)
+
+
+### Bug Fixes
+
+* trigger release ([8a1cdaa](https://github.com/jgroth/kompendium/commit/8a1cdaaabd659bfba5d27a1145d95a1cd82c9f46))
+
 ## 🛒 [0.1.4](https://github.com/jgroth/kompendium/compare/v0.1.3...v0.1.4) (2020-07-05)
 
 
