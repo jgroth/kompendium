@@ -1,5 +1,11 @@
+@import './functions.scss';
+
 body {
 
+}
+
+p, a, li {
+    font-size: pxToRem(14);
 }
 
 h1,
@@ -72,9 +78,10 @@ p {
 
 a {
   color: var(--kompendium-primary-color);
-}
-a:hover {
-  color: var(--kompendium-primary-color);
+
+  &:hover {
+      color: var(--kompendium-primary-color);
+  }
 }
 
 ul {
