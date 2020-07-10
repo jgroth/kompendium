@@ -69,6 +69,7 @@
     "prismjs": "^1.20.0",
     "puppeteer": "1.19.0",
     "rehype-stringify": "^8.0.0",
+    "remark-admonitions": "^1.2.1",
     "remark-parse": "^8.0.2",
     "remark-rehype": "^7.0.0",
     "rollup-plugin-node-polyfills": "^0.2.1",

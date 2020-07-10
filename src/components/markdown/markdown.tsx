@@ -4,6 +4,7 @@ import markdown from 'remark-parse';
 import html from 'rehype-stringify';
 import remark2rehype from 'remark-rehype';
 import map from 'unist-util-map';
+import admonitions from 'remark-admonitions';
 
 /**
  * This component renders markdown
@@ -34,6 +35,7 @@ export class Markdown {
     private renderMarkdown() {
         unified()
             .use(markdown)
+            .use(admonitions)
             .use(remark2rehype)
             .use(kompendiumCode)
             .use(html)
