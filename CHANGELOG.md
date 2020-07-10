@@ -1,3 +1,11 @@
+## 👓 [0.1.6](https://github.com/jgroth/kompendium/compare/v0.1.5...v0.1.6) (2020-07-10)
+
+
+### Bug Fixes
+
+* **markdown:** add support for admonitions ([21b4ed5](https://github.com/jgroth/kompendium/commit/21b4ed5ea5e523cecedcbc22375a4fc9e088afe3))
+* **markdown:** style code blocks with kompendium-code ([b83afa7](https://github.com/jgroth/kompendium/commit/b83afa768ba19fbc001e2c03e72ef086572739ea))
+
 ## 💰 [0.1.5](https://github.com/jgroth/kompendium/compare/v0.1.4...v0.1.5) (2020-07-08)
 
 
