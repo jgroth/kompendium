@@ -41,6 +41,7 @@ export class Code {
 
         return (
             <pre class={classList}>
+                <slot></slot>
                 <code class="root" />
             </pre>
         );
@@ -49,8 +50,18 @@ export class Code {
     private renderCode() {
         const container = this.host.shadowRoot.querySelector('.root');
         container.innerHTML = Prism.highlight(
-            this.code,
+            this.findCode(),
             Prism.languages[this.language]
         );
+    }
+
+    private findCode() {
+        const slot: HTMLSlotElement = this.host.shadowRoot.querySelector(
+            'slot'
+        );
+
+        return [...slot.assignedNodes()]
+            .map((node) => node.textContent)
+            .join('');
     }
 }

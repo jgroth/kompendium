@@ -80,11 +80,9 @@ export class Playground {
         };
 
         return (
-            <kompendium-code
-                class={classList}
-                language={source.type}
-                code={source.source}
-            />
+            <kompendium-code class={classList} language={source.type}>
+                {source.source}
+            </kompendium-code>
         );
     }
 

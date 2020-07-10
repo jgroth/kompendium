@@ -3,6 +3,11 @@
 
 :host {
   display: flex;
+  font-size: 1rem;
+}
+
+slot {
+    display: none;
 }
 
 /* PrismJS 1.19.0
