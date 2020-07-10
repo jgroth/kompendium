@@ -32,6 +32,11 @@ if (meat === 'tenderloin') {
     console.log('Meatlover!')
 }
 \`\`\`
+
+:::note Drumstick
+Chicken pariatur strip steak ad, salami picanha corned beef aliquip capicola
+:::
+
 `;
 
 /**
