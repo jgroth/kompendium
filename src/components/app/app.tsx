@@ -82,6 +82,12 @@ export class App {
                                     docs: this.data.docs,
                                 }}
                             />
+                            <stencil-route
+                                component="kompendium-guide"
+                                componentProps={{
+                                    data: this.data,
+                                }}
+                            />
                         </stencil-route-switch>
                     </stencil-router>
                 </main>

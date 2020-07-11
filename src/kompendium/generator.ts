@@ -5,6 +5,7 @@ import lnk from 'lnk';
 import { createMenu } from './menu';
 import { exists, mkdir, readFile, writeFile } from './filesystem';
 import { createWatcher } from './watch';
+import { findGuides } from './guides';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
@@ -25,11 +26,13 @@ export function kompendiumGenerator(
     initialize(config);
 
     return async (docs: JsonDocs) => {
+        const guides = await findGuides();
         const data: KompendiumData = {
             docs: await addSources(docs),
             title: await getProjectTitle(config),
-            menu: createMenu(docs),
+            menu: createMenu(docs, guides),
             readme: await getReadme(),
+            guides: guides,
         };
 
         await writeData(config, data);
