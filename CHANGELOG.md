@@ -1,3 +1,10 @@
+# 🗒️ [0.2.0](https://github.com/jgroth/kompendium/compare/v0.1.6...v0.2.0) (2020-07-11)
+
+
+### Features
+
+* **guides:** read markdown files and add them to the generated menu ([f09c1bc](https://github.com/jgroth/kompendium/commit/f09c1bc505e49ef7b9031f8b5e2e30cda596739e))
+
 ## 👓 [0.1.6](https://github.com/jgroth/kompendium/compare/v0.1.5...v0.1.6) (2020-07-10)
 
 
