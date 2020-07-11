@@ -1,4 +1,5 @@
 import { JsonDocs } from '@stencil/core/internal';
+import { KompendiumGuide } from './guides';
 
 export interface KompendiumConfig {
     /**
@@ -31,4 +32,5 @@ export interface KompendiumData {
     docs: JsonDocs;
     menu: MenuItem[];
     readme?: string;
+    guides: KompendiumGuide[];
 }
