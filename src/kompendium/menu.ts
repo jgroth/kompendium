@@ -76,7 +76,7 @@ function isNotExample(component: JsonDocsComponent) {
 
 export function isPublic(component: JsonDocsComponent): boolean {
     return !component.docsTags.find((tag) =>
-        ['internal', 'private'].includes(tag.name)
+        ['internal', 'private', 'ignore'].includes(tag.name)
     );
 }
 
