@@ -1,3 +1,10 @@
+## 🐤 [0.2.2](https://github.com/jgroth/kompendium/compare/v0.2.1...v0.2.2) (2020-07-12)
+
+
+### Bug Fixes
+
+* **examples:** bugfixes ([d7f5674](https://github.com/jgroth/kompendium/commit/d7f5674046d8d6768c1d143ab0d0a122ff24f98d))
+
 ## 🍻 [0.2.1](https://github.com/jgroth/kompendium/compare/v0.2.0...v0.2.1) (2020-07-12)
 
 
