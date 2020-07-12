@@ -39,11 +39,6 @@ Chicken pariatur strip steak ad, salami picanha corned beef aliquip capicola
 
 `;
 
-/**
- * This is a simple example of how the `kompendium-markdown` component is used
- *
- * @title Simple usage
- */
 @Component({
     tag: 'kompendium-example-markdown',
     shadow: true,
