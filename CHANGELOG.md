@@ -1,3 +1,11 @@
+## 🍻 [0.2.1](https://github.com/jgroth/kompendium/compare/v0.2.0...v0.2.1) (2020-07-12)
+
+
+### Bug Fixes
+
+* **examples:** add link support ([d87fe50](https://github.com/jgroth/kompendium/commit/d87fe5059312f80359ef4492d33d19a9a75c1663))
+* **examples:** include examples by tag ([163b101](https://github.com/jgroth/kompendium/commit/163b1010e139b71a90077f6fbb54c4c36badf95a))
+
 # 🗒️ [0.2.0](https://github.com/jgroth/kompendium/compare/v0.1.6...v0.2.0) (2020-07-11)
 
 
