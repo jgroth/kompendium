@@ -2,6 +2,7 @@ import { Component, h } from '@stencil/core';
 import { bacon } from './bacon';
 
 /**
+ * Markdown example
  * @link bacon.ts
  */
 @Component({

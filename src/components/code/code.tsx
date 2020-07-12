@@ -6,6 +6,9 @@ import 'prismjs/components/prism-less.js';
 import 'prismjs/components/prism-tsx.js';
 import 'prismjs/components/prism-typescript.js';
 
+/**
+ * @exampleComponent kompendium-example-code
+ */
 @Component({
     tag: 'kompendium-code',
     styleUrl: 'code.scss',
@@ -17,6 +20,12 @@ export class Code {
      */
     @Prop()
     public language: string;
+
+    /**
+     * @ignore
+     */
+    @Prop()
+    public random: number;
 
     /**
      * Source code
@@ -41,7 +50,7 @@ export class Code {
 
         return (
             <pre class={classList}>
-                <slot></slot>
+                <slot />
                 <code class="root" />
             </pre>
         );

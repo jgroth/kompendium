@@ -10,7 +10,7 @@ import { EventList } from './templates/events';
 import { MethodList } from './templates/methods';
 import { SlotList } from './templates/slots';
 import { StyleList } from './templates/style';
-import { ExampleList, isExampleTag } from './templates/examples';
+import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
 
 @Component({
@@ -90,11 +90,7 @@ export class KompendiumComponent {
             <h1 id={this.getId()}>{title}</h1>,
             <kompendium-markdown text={component.docs} />,
             <kompendium-taglist tags={tags} />,
-            <ExampleList
-                examples={examples}
-                tags={component.docsTags}
-                id={this.getId('examples')}
-            />,
+            <ExampleList examples={examples} id={this.getId('examples')} />,
             <PropertyList
                 props={component.props}
                 id={this.getId('properties')}
@@ -120,19 +116,17 @@ export class KompendiumComponent {
 }
 
 function findExamples(component: JsonDocsComponent, docs: JsonDocs) {
-    return docs.components.filter(isExampleOf(component));
+    return component.docsTags
+        .filter(isTag('exampleComponent'))
+        .map(findComponentByTag(docs));
 }
 
 function findComponent(tag: string, docs: JsonDocs) {
     return docs.components.find((doc) => doc.tag === tag);
 }
 
-const isExampleOf = (component: JsonDocsComponent) => (
-    example: JsonDocsComponent
-) => {
-    return !!component.docsTags
-        .filter(isTag('exampleComponent'))
-        .find(isExampleTag(example.tag));
+const findComponentByTag = (docs: JsonDocs) => (tag: JsonDocsTag) => {
+    return docs.components.find((component) => component.tag === tag.text);
 };
 
 const isTag = (name: string) => (tag: JsonDocsTag) => {

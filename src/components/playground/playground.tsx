@@ -52,7 +52,7 @@ export class Playground {
         };
 
         return (
-            <a class={classList} onClick={this.activateTab(source.type)}>
+            <a class={classList} onClick={this.activateTab(source.filename)}>
                 {source.filename}
             </a>
         );
@@ -64,10 +64,11 @@ export class Playground {
 
     private renderResult() {
         const ExampleComponent = this.component.tag;
+        const text = '##### ' + this.component.docs;
 
         return (
             <div>
-                <kompendium-markdown text={this.component.docs} />
+                <kompendium-markdown text={text} />
                 <ExampleComponent />
             </div>
         );
@@ -78,10 +79,15 @@ export class Playground {
             'tab-item': true,
             active: this.isTabActive(source, index),
         };
+        const code = source.source.replace(/\/\*\*.+?\*\//gms, '');
 
         return (
-            <kompendium-code class={classList} language={source.type}>
-                {source.source}
+            <kompendium-code
+                random={Math.random()}
+                class={classList}
+                language={source.type}
+            >
+                {code}
             </kompendium-code>
         );
     }
@@ -91,7 +97,7 @@ export class Playground {
     };
 
     private isTabActive(source: JsonDocsSource, index: number): boolean {
-        let isActive = this.activeTab === source.type;
+        let isActive = this.activeTab === source.filename;
         if (!isActive) {
             isActive = index === 0 && !this.activeTab;
         }
