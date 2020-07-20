@@ -6,14 +6,14 @@ export function PropertyList({
     props,
     id,
 }: {
-    id: string;
-    props: JsonDocsProp[];
+    id?: string;
+    props: Partial<JsonDocsProp>[];
 }): HTMLElement[] {
     if (!props.length) {
         return;
     }
 
-    return [<h4 id={id}>Properties</h4>, ...props.map(renderProperty)];
+    return [<h3 id={id}>Properties</h3>, ...props.map(renderProperty)];
 }
 
 function renderProperty(property: JsonDocsProp) {
@@ -38,11 +38,11 @@ function renderProperty(property: JsonDocsProp) {
             key: 'Required',
             value: String(property.required),
         },
-    ];
+    ].filter((item) => item.value !== undefined && item.value !== 'undefined');
 
     return (
         <div>
-            <h5>{property.name}</h5>
+            <h4>{property.name}</h4>
             <kompendium-markdown text={property.docs} />
             <kompendium-taglist tags={property.docsTags} />
             <kompendium-proplist items={items} />

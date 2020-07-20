@@ -13,7 +13,7 @@ export function EventList({
         return;
     }
 
-    return [<h4 id={id}>Events</h4>, ...events.map(renderEvent)];
+    return [<h3 id={id}>Events</h3>, ...events.map(renderEvent)];
 }
 
 function renderEvent(event: JsonDocsEvent) {
@@ -38,7 +38,7 @@ function renderEvent(event: JsonDocsEvent) {
 
     return (
         <div>
-            <h5>{event.event}</h5>
+            <h4>{event.event}</h4>
             <kompendium-markdown text={event.docs} />
             <kompendium-taglist tags={event.docsTags} />
             <kompendium-proplist items={items} />

@@ -12,13 +12,13 @@ export function StyleList({
         return;
     }
 
-    return [<h4 id={id}>Styles</h4>, ...styles.map(renderStyle)];
+    return [<h3 id={id}>Styles</h3>, ...styles.map(renderStyle)];
 }
 
 function renderStyle(style: JsonDocsStyle) {
     return (
         <div>
-            <h5>{style.name}</h5>
+            <h4>{style.name}</h4>
             <kompendium-markdown text={style.docs} />
         </div>
     );

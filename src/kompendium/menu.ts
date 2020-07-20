@@ -1,13 +1,13 @@
-import { MenuItem } from './config';
 import { JsonDocsComponent, JsonDocs } from '@stencil/core/internal';
-import { KompendiumGuide } from './guides';
 import startCase from 'lodash/startCase';
+import { MenuItem, KompendiumGuide, TypeDescription } from '../types';
 
 export function createMenu(
     docs: JsonDocs,
-    guides: KompendiumGuide[]
+    guides: KompendiumGuide[],
+    types: TypeDescription[]
 ): MenuItem[] {
-    const menu = [createComponentMenu(docs)];
+    const menu = [createComponentMenu(docs), createTypeMenu(types)];
 
     guides.forEach(addGuide(menu, ''));
 
@@ -58,7 +58,6 @@ export function createComponentMenu(docs: JsonDocs): MenuItem {
     return {
         path: '/component',
         title: 'Components',
-        icon: 'cubes',
         children: components
             .filter(isNotExample)
             .filter(isPublic)
@@ -159,7 +158,6 @@ export function createApiMenu(): MenuItem {
     return {
         path: '/api',
         title: 'API',
-        icon: 'code',
     };
 }
 
@@ -167,6 +165,21 @@ export function createVersionMenu(): MenuItem {
     return {
         path: '/version',
         title: 'Versions',
-        icon: 'code-branch',
+    };
+}
+
+function createTypeMenu(types: TypeDescription[]): MenuItem {
+    return {
+        path: '/type',
+        title: 'Types',
+        children: types.map(getTypeMenu),
+    };
+}
+
+export function getTypeMenu(type: TypeDescription): MenuItem {
+    return {
+        path: `/type/${type.name}`,
+        title: type.name,
+        children: [],
     };
 }

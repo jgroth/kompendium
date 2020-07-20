@@ -1,11 +1,13 @@
 import { JsonDocs } from '@stencil/core/internal';
-import { KompendiumConfig, defaultConfig, KompendiumData } from './config';
+import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
 import { createMenu } from './menu';
 import { exists, mkdir, readFile, writeFile } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
+import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
+import { parseFile } from './typedoc';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
@@ -26,16 +28,28 @@ export function kompendiumGenerator(
     initialize(config);
 
     return async (docs: JsonDocs) => {
-        const guides = await findGuides();
+        console.time('kompendium');
+
+        const [jsonDocs, title, readme, guides, types] = await Promise.all([
+            addSources(docs),
+            getProjectTitle(config),
+            getReadme(),
+            findGuides(),
+            getTypes(config),
+        ]);
+
         const data: KompendiumData = {
-            docs: await addSources(docs),
-            title: await getProjectTitle(config),
-            menu: createMenu(docs, guides),
-            readme: await getReadme(),
+            docs: jsonDocs,
+            title: title,
+            menu: createMenu(docs, guides, types),
+            readme: readme,
             guides: guides,
+            types: types,
         };
 
         await writeData(config, data);
+
+        console.timeEnd('kompendium');
     };
 }
 
@@ -122,4 +136,13 @@ function generateDocs(): boolean {
 
 function isWatcher(): boolean {
     return !!process.argv.find((arg) => arg === '--watch');
+}
+
+async function getTypes(
+    config: Partial<KompendiumConfig>
+): Promise<TypeDescription[]> {
+    return new Promise((resolve) => {
+        const data = parseFile(config.typeRoot);
+        resolve(data);
+    });
 }

@@ -1,5 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { KompendiumData } from '../../kompendium/config';
+import { KompendiumData } from '../../types';
 
 @Component({
     tag: 'kompendium-guide',
