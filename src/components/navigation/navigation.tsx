@@ -6,7 +6,7 @@ import {
     getAssetPath,
     Element,
 } from '@stencil/core';
-import { MenuItem } from '../../kompendium/config';
+import { MenuItem } from '../../types';
 
 /**
  * @private

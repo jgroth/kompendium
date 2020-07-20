@@ -1,5 +1,5 @@
 import { Component, h, State, Prop } from '@stencil/core';
-import { KompendiumData } from '../../kompendium/config';
+import { KompendiumData } from '../../types';
 
 @Component({
     tag: 'kompendium-app',
@@ -80,6 +80,13 @@ export class App {
                                 component="kompendium-component"
                                 componentProps={{
                                     docs: this.data.docs,
+                                }}
+                            />
+                            <stencil-route
+                                url="/type/:name"
+                                component="kompendium-type"
+                                componentProps={{
+                                    types: this.data.types,
                                 }}
                             />
                             <stencil-route

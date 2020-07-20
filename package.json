@@ -86,6 +86,7 @@
     "remark-parse": "^8.0.2",
     "remark-parse-yaml": "0.0.3",
     "remark-rehype": "^7.0.0",
+    "typedoc": "^0.17.8",
     "unified": "^9.0.0",
     "unist-util-map": "^2.0.1",
     "unist-util-visit": "^2.0.2"

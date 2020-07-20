@@ -12,7 +12,7 @@ export function ExampleList({
         return;
     }
 
-    return [<h4 id={id}>Examples</h4>, examples.map(renderExample)];
+    return [<h3 id={id}>Examples</h3>, examples.map(renderExample)];
 }
 
 const renderExample = (example: JsonDocsComponent) => {

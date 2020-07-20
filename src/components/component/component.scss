@@ -10,7 +10,7 @@
 .docs {
     padding: pxToRem(20) pxToRem(32);
 
-    h1, h2, h3, h4, h5,
+    h1, h2, h3, h4, h5, h6,
     kompendium-markdown,
     kompendium-taglist {
         width: 50%;
@@ -29,7 +29,7 @@ kompendium-proplist {
     margin-bottom: 2rem;
 }
 
-h5 {
+h5, h6 {
     border-bottom: 1px solid rgb(var(--contrast-600));
 }
 
@@ -37,7 +37,7 @@ h5 {
     .docs {
         padding-top: pxToRem(42);
 
-        h1, h2, h3, h4, h5,
+        h1, h2, h3, h4, h5, h6,
         kompendium-markdown,
         kompendium-taglist {
             width: 100%;

@@ -12,13 +12,13 @@ export function SlotList({
         return;
     }
 
-    return [<h4 id={id}>Slots</h4>, ...slots.map(renderSlot)];
+    return [<h3 id={id}>Slots</h3>, ...slots.map(renderSlot)];
 }
 
 function renderSlot(slot: JsonDocsSlot) {
     return (
         <div>
-            <h5>{slot.name}</h5>
+            <h4>{slot.name}</h4>
             <kompendium-markdown text={slot.docs} />
         </div>
     );

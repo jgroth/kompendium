@@ -2,14 +2,7 @@ import glob from 'glob';
 import { basename, dirname, resolve } from 'path';
 import { markdownToHtml } from './markdown';
 import { readFile } from './filesystem';
-
-export interface KompendiumGuide {
-    dirPath?: string;
-    fileName?: string;
-    filePath?: string;
-    data: Record<string, any>;
-    content: string;
-}
+import { KompendiumGuide } from '../types';
 
 export async function findGuides(): Promise<KompendiumGuide[]> {
     return new Promise((resolve) => {
