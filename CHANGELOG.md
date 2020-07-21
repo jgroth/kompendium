@@ -1,3 +1,10 @@
+# 🥮 [0.3.0](https://github.com/jgroth/kompendium/compare/v0.2.2...v0.3.0) (2020-07-21)
+
+
+### Features
+
+* **types:** add docs generation for types ([84c7410](https://github.com/jgroth/kompendium/commit/84c7410e778c1c908443891537ec36a957f37354))
+
 ## 🐤 [0.2.2](https://github.com/jgroth/kompendium/compare/v0.2.1...v0.2.2) (2020-07-12)
 
 
