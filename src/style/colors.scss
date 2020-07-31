@@ -4,6 +4,8 @@
 // solid: `color: rgb(var(--contrast-100))`
 // transparent: `color: rgba(var(--contrast-100), 0.5)`
 
+@import 'mixins';
+
 :root {
     // Contrast set, to use for tones that automatically revert in dark/light modes. E.g. text and background
     --contrast-100: 255, 255, 255; // #fff
