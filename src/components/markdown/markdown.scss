@@ -1,1 +1,111 @@
 @import '../proplist/proplist.scss';
+@import '../../style/colors.scss';
+@import '../../style/mixins.scss';
+
+
+.admonition {
+    --size-of-admonition-icon: 2.5rem;
+    --border-radius-of-admonition-icon: 0.5rem;
+
+    // Styles for block elements from https://github.com/elviswolcott/remark-admonitions
+    border-radius: var(--border-radius-of-admonition-icon);
+    background-color: rgb(var(--contrast-400));
+    margin: pxToRem(12) 0 pxToRem(16) 0;
+    padding: pxToRem(8) pxToRem(8) pxToRem(12) pxToRem(8);
+    position: relative;
+
+    &:before {
+        content: '';
+        width: var(--size-of-admonition-icon);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: block;
+        border-radius: var(--border-radius-of-admonition-icon) 0 0 var(--border-radius-of-admonition-icon);
+
+        background: {
+            position: top center;
+            repeat: no-repeat;
+            size: contain;
+            color: #eaeaea;
+        }
+    }
+    &-tip:before {
+        background: {
+            image: url(collection/assets/icons/tip.svg);
+            color: rgba(var(--color-code-yellow), 0.2);
+        }
+    }
+
+    &-note:before {
+        background: {
+            image: url(collection/assets/icons/note.svg);
+            color: rgba(var(--color-code-green-dark), 0.1);
+        }
+    }
+
+    &-warning:before {
+        background: {
+            image: url(collection/assets/icons/warning.svg);
+            color: rgba(var(--color-code-pink), 0.2);
+        }
+    }
+
+    &-danger:before {
+        background: {
+            image: url(collection/assets/icons/danger.svg);
+            color: rgba(var(--color-code-gray-dark), 0.1);
+        }
+    }
+
+    &-info:before {
+        background: {
+            image: url(collection/assets/icons/info.svg);
+            color: rgba(var(--color-code-turquoise), 0.2);
+        }
+    }
+
+    &-important:before {
+        background: {
+            image: url(collection/assets/icons/important.svg);
+            color: rgba(var(--color-code-gray-dark), 0.4);
+        }
+    }
+}
+
+.admonition-heading {
+    margin-bottom: pxToRem(6);
+
+    h5 {
+        color: rgb(var(--contrast-1100));
+        margin-bottom: 0;
+        font-size: pxToRem(15);
+        padding: pxToRem(2) 0 0 var(--size-of-admonition-icon);
+
+        &::first-letter {
+            text-transform: capitalize;
+        }
+    }
+
+}
+
+.admonition-content {
+    padding-left: var(--size-of-admonition-icon);
+
+    p {
+        &:first-child {
+            margin-top: 0;
+        }
+        &:only-child {
+            margin-bottom: 0;
+        }
+
+    }
+}
+
+@media (max-width: 600px) {
+    .admonition {
+        --size-of-admonition-icon: 2rem;
+    }
+}
