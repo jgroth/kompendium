@@ -106,8 +106,8 @@ export class Navigation {
         return (
             <li class="panel-item">
                 <a class={anchorClassList} href={'#' + item.path}>
+                    <img src={path} />
                     <span class="link-text">
-                        <img src={path} />
                         {item.title}
                     </span>
                 </a>

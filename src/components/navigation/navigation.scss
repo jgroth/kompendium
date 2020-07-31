@@ -107,8 +107,9 @@ header {
 }
 
 .panel-link {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: pxToRem(20) 1fr;
     height: pxToRem(36);
     line-height: pxToRem(36);
     color: rgb(var(--contrast-900));
@@ -126,12 +127,10 @@ header {
     }
 
     img {
-        transform: scale(0.8);
         transition: transform 0.2s ease;
-        margin-right: pxToRem(8);
-        padding: pxToRem(4);
-        display: inline-block;
-        vertical-align: bottom;
+        transform: scale(0.8);
+        margin: pxToRem(-2) pxToRem(8) 0 0;
+        height: pxToRem(36);
     }
 }
 
