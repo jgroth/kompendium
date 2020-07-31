@@ -1,4 +1,5 @@
 @import '../../style/reset.scss';
+@import '../../style/functions.scss';
 
 :host {
     display: block;
@@ -7,11 +8,14 @@
 }
 
 main {
+    padding: pxToRem(20) pxToRem(32);
+
     margin-left: var(--width-nav-panel);
 }
 
 @media (max-width: 1000px) {
     main {
+        padding-top: pxToRem(42);
         margin-left: 0;
     }
 }
