@@ -1,3 +1,10 @@
+## 🍔 [0.3.1](https://github.com/jgroth/kompendium/compare/v0.3.0...v0.3.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* **markdown:** create links to existing types ([df773d6](https://github.com/jgroth/kompendium/commit/df773d6496473462d0d8d0cd658cb0b651eea4a6))
+
 # 🥮 [0.3.0](https://github.com/jgroth/kompendium/compare/v0.2.2...v0.3.0) (2020-07-21)
 
 
