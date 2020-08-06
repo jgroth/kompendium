@@ -6,8 +6,8 @@ import admonitions from 'remark-admonitions';
 import remark2rehype from 'remark-rehype';
 import raw from 'rehype-raw';
 import html from 'rehype-stringify';
-import { saveFrontmatter } from './frontmatter';
-import { kompendiumCode } from './code';
+import { saveFrontmatter } from './markdown-frontmatter';
+import { kompendiumCode } from './markdown-code';
 
 export interface File {
     data: {
