@@ -1,5 +1,6 @@
 import { Component, h, State, Prop } from '@stencil/core';
 import { KompendiumData } from '../../types';
+import { setTypes } from '../markdown/markdown-types';
 
 @Component({
     tag: 'kompendium-app',
@@ -51,6 +52,8 @@ export class App {
     private async fetchData() {
         const data = await fetch(this.path);
         this.data = await data.json();
+        const typeNames = this.data.types.map((type) => type.name);
+        setTypes(typeNames);
     }
 
     protected render(): HTMLElement {
