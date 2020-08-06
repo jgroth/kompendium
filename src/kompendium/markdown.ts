@@ -8,6 +8,7 @@ import raw from 'rehype-raw';
 import html from 'rehype-stringify';
 import { saveFrontmatter } from './markdown-frontmatter';
 import { kompendiumCode } from './markdown-code';
+import { typeLinks } from './markdown-typelinks';
 
 export interface File {
     data: {
@@ -17,7 +18,7 @@ export interface File {
     toString(): string;
 }
 
-export async function markdownToHtml(text: string): Promise<File> {
+export async function markdownToHtml(text: string, types = []): Promise<File> {
     return new Promise((resolve) => {
         unified()
             .use(markdown)
@@ -27,6 +28,7 @@ export async function markdownToHtml(text: string): Promise<File> {
             .use(admonitions, { icons: 'none' })
             .use(remark2rehype, { allowDangerousHtml: true })
             .use(raw)
+            .use(typeLinks, { types: types })
             .use(kompendiumCode)
             .use(html)
             .process(text, (_, file) => {

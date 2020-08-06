@@ -27,7 +27,7 @@ export class Proplist {
         return [
             <dt>{key}</dt>,
             <dd class={`value--${value}`}>
-                <code>{value}</code>
+                <kompendium-markdown text={`\`${value}\``} />
             </dd>,
         ];
     }

@@ -88,6 +88,7 @@
     "remark-rehype": "^7.0.0",
     "typedoc": "^0.17.8",
     "unified": "^9.0.0",
+    "unist-util-flatmap": "^1.0.0",
     "unist-util-map": "^2.0.1",
     "unist-util-visit": "^2.0.2"
   },
