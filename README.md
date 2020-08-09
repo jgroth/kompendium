@@ -4,7 +4,9 @@
 
 Kompendium is a simple tool for generating documentation for your Stencil components. Use it to get a compendium of your components with component API and live playground.
 
+{% hint style="warning" %}
 **Please note:** Kompendium is still in development. Consider this an early preview!
+{% endhint %}
 
 ### Installation
 
