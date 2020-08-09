@@ -1,12 +1,8 @@
 ---
 path: /guides/app
 ---
-
-# app
-
-## Hello, World!
+# Hello, World!
 
 This is some text
 
-## HTML
-
+<h1>HTML</h1>
