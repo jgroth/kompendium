@@ -4,12 +4,12 @@
 
 ## Introduction
 
-* [Getting started](introduction/getting-started.md)
-* [Writing documentation](introduction/writing-documentation.md)
-* [Adding examples](introduction/adding-examples.md)
-* [Type information](introduction/type-information.md)
+* [Getting started](docs/introduction/getting-started.md)
+* [Writing documentation](docs/introduction/writing-documentation.md)
+* [Adding examples](docs/introduction/adding-examples.md)
+* [Type information](docs/introduction/type-information.md)
 
 ## Configuration
 
-* [Configuration options](configuration/configuration-options.md)
+* [Configuration options](docs/configuration/configuration-options.md)
 
