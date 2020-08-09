@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Initial page](readme.md)
+* [Initial page](README.md)
