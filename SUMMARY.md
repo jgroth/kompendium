@@ -1,3 +1,8 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [Kompendium](README.md)
+
+## Introduction
+
+* [Getting started](introduction/getting-started.md)
+
