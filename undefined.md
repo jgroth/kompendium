@@ -1,15 +1,18 @@
-![CI](https://github.com/jgroth/kompendium/workflows/CI/badge.svg?branch=master) [![Version](https://img.shields.io/npm/v/kompendium.svg)](https://www.npmjs.com/package/kompendium) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) 
+# readme
 
-# Kompendium
+![CI](https://github.com/jgroth/kompendium/workflows/CI/badge.svg?branch=master) [![Version](https://img.shields.io/npm/v/kompendium.svg)](https://www.npmjs.com/package/kompendium) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
+## Kompendium
 
 Kompendium is a simple tool for generating documentation for your Stencil components. Use it to get a compendium for your components together with component API and a live playground.
 
 **Please note:** Kompendium is still in development. Consider this an early preview!
 
-## Getting Started
+### Getting Started
 
 Install it with NPM
-```
+
+```text
 npm install kompendium
 ```
 
@@ -43,7 +46,7 @@ export const config: Config = {
 
 To get the generated documentation up and running, simply use the `kompendium-app` component in your `index.html` file. Don't forget to also include the scripts and styles
 
-```html
+```markup
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,18 +74,21 @@ To get the generated documentation up and running, simply use the `kompendium-ap
 
 Now let's run it!
 
-```
+```text
 npm start
 ```
+
 or
-```
+
+```text
 stencil build --dev --watch --serve --docs
 ```
 
-## Roadmap
+### Roadmap
 
 Some stuff that are still left to do
 
 * Search
 * Include other documentation, like markdown files
 * Documentation for types, interfaces, classes etc.
+
