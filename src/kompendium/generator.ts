@@ -100,18 +100,21 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData
 ) {
+    let path = config.path;
     let filePath = `${config.path}/kompendium.json`;
 
-    if (!(await exists(config.path))) {
-        mkdir(config.path, { recursive: true });
+    if (isProd()) {
+        path = config.publicPath;
+        filePath = `${config.publicPath}/kompendium.json`;
+    }
+
+    if (!(await exists(path))) {
+        mkdir(path, { recursive: true });
     }
 
     await writeFile(filePath, JSON.stringify(data));
 
-    if (!isWatcher() && isProd()) {
-        filePath = `${config.publicPath}/kompendium.json`;
-        await writeFile(filePath, JSON.stringify(data));
-    } else {
+    if (isWatcher()) {
         createSymlink(config);
     }
 }
@@ -126,30 +129,37 @@ async function getReadme(): Promise<string> {
         }
 
         if (!(await exists(file))) {
-            console.log(`${file} did not exist`);
             continue;
         }
 
         data = await readFile(file);
     }
 
+    if (!data) {
+        console.log('README did not exist');
+    }
+
     return data;
 }
 
 function generateDocs(): boolean {
-    return !!process.argv.find((arg) => arg === '--docs');
+    return !!process.argv.includes('--docs');
 }
 
 function isWatcher(): boolean {
-    return !!process.argv.find((arg) => arg === '--watch');
+    return !!process.argv.includes('--watch');
 }
 
 function isProd(): boolean {
-    if (process.argv.find((arg) => arg === '--dev')) {
+    if (process.argv.includes('--dev')) {
         return false;
     }
 
-    if (process.argv.find((arg) => arg === 'test')) {
+    if (process.argv.includes('test')) {
+        return false;
+    }
+
+    if (process.argv.find((arg) => arg.includes('jest-worker'))) {
         return false;
     }
 
