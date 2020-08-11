@@ -1,3 +1,10 @@
+## 🙆 [0.4.1](https://github.com/jgroth/kompendium/compare/v0.4.0...v0.4.1) (2020-08-11)
+
+
+### Bug Fixes
+
+* inline icons to make them work in production ([a5b69b2](https://github.com/jgroth/kompendium/commit/a5b69b25907e46f477968c413162d4fa37129d5b))
+
 # 🍥 [0.4.0](https://github.com/jgroth/kompendium/compare/v0.3.2...v0.4.0) (2020-08-11)
 
 
