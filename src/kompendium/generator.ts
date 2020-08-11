@@ -100,14 +100,20 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData
 ) {
-    const filePath = `${config.path}/kompendium.json`;
+    let filePath = `${config.path}/kompendium.json`;
 
     if (!(await exists(config.path))) {
         mkdir(config.path, { recursive: true });
     }
 
     await writeFile(filePath, JSON.stringify(data));
-    createSymlink(config);
+
+    if (!isWatcher() && isProd()) {
+        filePath = `${config.publicPath}/kompendium.json`;
+        await writeFile(filePath, JSON.stringify(data));
+    } else {
+        createSymlink(config);
+    }
 }
 
 async function getReadme(): Promise<string> {
@@ -136,6 +142,18 @@ function generateDocs(): boolean {
 
 function isWatcher(): boolean {
     return !!process.argv.find((arg) => arg === '--watch');
+}
+
+function isProd(): boolean {
+    if (process.argv.find((arg) => arg === '--dev')) {
+        return false;
+    }
+
+    if (process.argv.find((arg) => arg === 'test')) {
+        return false;
+    }
+
+    return true;
 }
 
 async function getTypes(
