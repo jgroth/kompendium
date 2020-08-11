@@ -1,3 +1,17 @@
+# 🍥 [0.4.0](https://github.com/jgroth/kompendium/compare/v0.3.2...v0.4.0) (2020-08-11)
+
+
+### Bug Fixes
+
+* correct positioning of navigation link icons ([0d5d96f](https://github.com/jgroth/kompendium/commit/0d5d96f32f6ffb05ff9f19a0e6f0cb9772cb2193))
+* imported mixins in colors to enable darkmode ([0dc7e9e](https://github.com/jgroth/kompendium/commit/0dc7e9e91a8f97988255fd6bb7200f7f7e4fca24))
+* layout improvements ([1b4d5c9](https://github.com/jgroth/kompendium/commit/1b4d5c9dbc5300225eb1c3d0743ab229407ff4d5))
+
+
+### Features
+
+* **admonition:** styles and icons for admonition ([faeddba](https://github.com/jgroth/kompendium/commit/faeddbaade758ebdc4ab8089c4f3a8190c356b05))
+
 ## 🥕 [0.3.2](https://github.com/jgroth/kompendium/compare/v0.3.1...v0.3.2) (2020-08-11)
 
 
