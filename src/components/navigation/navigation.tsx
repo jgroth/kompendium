@@ -107,9 +107,7 @@ export class Navigation {
             <li class="panel-item">
                 <a class={anchorClassList} href={'#' + item.path}>
                     <img src={path} />
-                    <span class="link-text">
-                        {item.title}
-                    </span>
+                    <span class="link-text">{item.title}</span>
                 </a>
                 <ul class={classList}>{chapters.map(this.renderMenuItem)}</ul>
             </li>
