@@ -1,3 +1,12 @@
+## 🥕 [0.3.2](https://github.com/jgroth/kompendium/compare/v0.3.1...v0.3.2) (2020-08-11)
+
+
+### Bug Fixes
+
+* export type ([2529e32](https://github.com/jgroth/kompendium/commit/2529e326b468e19c184d08ac70947d6c12c78ec5))
+* handle writing of data correctly ([a341b9e](https://github.com/jgroth/kompendium/commit/a341b9e7cb721d17cc664c7518ef81042be21c17))
+* write data in prod ([b6e1b1d](https://github.com/jgroth/kompendium/commit/b6e1b1ddff91b86d1c563b17dd09b3b13f618459))
+
 ## 🍔 [0.3.1](https://github.com/jgroth/kompendium/compare/v0.3.0...v0.3.1) (2020-08-06)
 
 
