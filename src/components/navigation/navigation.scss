@@ -29,6 +29,7 @@ header {
         flex-direction: row;
         padding: 1rem;
         border-bottom: 1px solid rgb(var(--contrast-600));
+        margin-bottom: pxToRem(8);
 
         h1 {
             text-transform: uppercase;
@@ -44,7 +45,7 @@ header {
         overflow-y: auto;
 
         &:not(.chapters) {
-          padding-bottom: pxToRem(32);
+          padding: 0 pxToRem(4) pxToRem(32) pxToRem(4);
         }
     }
 }
@@ -102,16 +103,15 @@ header {
 }
 
 .panel-item {
+    transition: opacity 0.2s ease;
     width: 100%;
-    padding-left: pxToRem(8);
 }
 
 .panel-link {
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: pxToRem(20) 1fr;
-    height: pxToRem(36);
-    line-height: pxToRem(36);
+    height: pxToRem(28);
     color: rgb(var(--contrast-900));
     text-decoration: none;
 
@@ -129,8 +129,8 @@ header {
     img {
         transition: transform 0.2s ease;
         transform: scale(0.8);
-        margin: pxToRem(-2) pxToRem(8) 0 0;
-        height: pxToRem(36);
+        margin: pxToRem(-4) pxToRem(8) 0 0;
+        height: pxToRem(32);
     }
 }
 
@@ -140,6 +140,51 @@ header {
 
     &.active {
         height: 100%;
+
+        .panel-item {
+            opacity: 1;
+            transition-delay: 0.2s;
+
+            &:nth-child(1) {
+                transition-delay: 0s;
+            }
+            &:nth-child(2) {
+                transition-delay: 0.04s;
+            }
+            &:nth-child(3) {
+                transition-delay: 0.06s;
+            }
+            &:nth-child(4) {
+                transition-delay: 0.08s;
+            }
+            &:nth-child(5) {
+                transition-delay: 0.1s;
+            }
+            &:nth-child(6) {
+                transition-delay: 0.12s;
+            }
+            &:nth-child(7) {
+                transition-delay: 0.14s;
+            }
+            &:nth-child(8) {
+                transition-delay: 0.15s;
+            }
+            &:nth-child(9) {
+                transition-delay: 0.16s;
+            }
+            &:nth-child(10) {
+                transition-delay: 0.17s;
+            }
+            &:nth-child(11) {
+                transition-delay: 0.18s;
+            }
+            &:nth-child(12) {
+                transition-delay: 0.19s;
+            }
+            &:last-child {
+                margin-bottom: pxToRem(16);
+            }
+        }
     }
 
     img {
@@ -147,8 +192,15 @@ header {
     }
 
     .panel-item {
+        opacity: 0;
+
         .chapters {
             font-size: pxToRem(13);
+            padding-left: pxToRem(8);
+
+            &:first-child {
+                margin-top: pxToRem(4);
+            }
 
             &:last-child {
                 margin-bottom: pxToRem(8);
