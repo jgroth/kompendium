@@ -20,7 +20,11 @@ export interface KompendiumConfig {
     title?: string;
 
     typeRoot: string;
+
+    guides: Guide[];
 }
+
+export type Guide = string | { name: string; children: Guide[] };
 
 export interface MenuItem {
     title?: string;

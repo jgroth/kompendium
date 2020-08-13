@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { kompendium } from './src/kompendium';
 import { sass } from '@stencil/sass';
 import nodePolyfill from 'rollup-plugin-node-polyfills';
+import guides from './guides';
 
 export const config: Config = {
     namespace: 'kompendium',
@@ -22,7 +23,9 @@ export const config: Config = {
         {
             type: 'docs-custom',
             strict: true,
-            generator: kompendium()
+            generator: kompendium({
+                guides: guides
+            })
         },
         {
             type: 'www',

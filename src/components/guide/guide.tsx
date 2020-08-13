@@ -39,9 +39,7 @@ export class Guide {
     }
 
     private findGuide() {
-        const guide = this.data.guides.find(
-            (guide) => guide.data.frontmatter.path === this.route
-        );
+        const guide = this.data.guides.find((g) => g.data.path === this.route);
 
         if (guide) {
             this.text = guide.content;

@@ -13,6 +13,7 @@ import { typeLinks } from './markdown-typelinks';
 export interface File {
     data: {
         frontmatter?: Record<string, any>;
+        path?: string;
     };
 
     toString(): string;

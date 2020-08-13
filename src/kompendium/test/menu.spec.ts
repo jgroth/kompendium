@@ -5,7 +5,7 @@ describe('addGuide', () => {
         {
             menu: [],
             guide: {
-                data: { frontmatter: { path: '/guide/test' } },
+                data: { path: '/guide/test' },
                 content: '# My test guide',
             },
             result: [
@@ -25,7 +25,7 @@ describe('addGuide', () => {
         {
             menu: [],
             guide: {
-                data: { frontmatter: { path: '/guide/test/foo' } },
+                data: { path: '/guide/test/foo' },
                 content: '# My test guide',
             },
             result: [

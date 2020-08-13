@@ -15,7 +15,9 @@
   },
   "license": "MIT",
   "author": {
-    "name": "Johan Groth"
+    "name": "Johan Groth",
+    "email": "hello@kompendium.dev",
+    "url": "https://kompendium.dev"
   },
   "contributors": [
     {

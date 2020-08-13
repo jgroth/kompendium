@@ -7,9 +7,10 @@ export function createMenu(
     guides: KompendiumGuide[],
     types: TypeDescription[]
 ): MenuItem[] {
-    const menu = [createComponentMenu(docs), createTypeMenu(types)];
+    let menu = [];
 
     guides.forEach(addGuide(menu, ''));
+    menu = [...menu, createComponentMenu(docs), createTypeMenu(types)];
 
     return menu;
 }
@@ -18,7 +19,7 @@ export function createMenu(
 export const addGuide = (menu: MenuItem[], path: string) => (
     guide: KompendiumGuide
 ) => {
-    const subPath: string = guide.data.frontmatter.path.replace(path, '');
+    const subPath: string = guide.data.path.replace(path, '');
     const parts = subPath.split('/');
     const parentPath = `${path}/${parts[1]}`;
     let submenu = menu.find((item) => item.path === parentPath);
@@ -26,7 +27,7 @@ export const addGuide = (menu: MenuItem[], path: string) => (
     if (!submenu && parts.length === 2) {
         const title = getGuideTitle(guide);
         menu.push({
-            path: guide.data.frontmatter.path,
+            path: guide.data.path,
             title: title,
             children: [],
         });

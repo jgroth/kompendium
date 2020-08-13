@@ -34,7 +34,7 @@ export function kompendiumGenerator(
             addSources(docs),
             getProjectTitle(config),
             getReadme(),
-            findGuides(),
+            findGuides(config),
             getTypes(config),
         ]);
 
