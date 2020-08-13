@@ -1,3 +1,15 @@
+## 😩 [0.4.2](https://github.com/jgroth/kompendium/compare/v0.4.1...v0.4.2) (2020-08-13)
+
+
+### Bug Fixes
+
+* ordering of guides ([51b48e9](https://github.com/jgroth/kompendium/commit/51b48e92ddcd1e1b8063c11777ff0b75b17ed0b2))
+
+
+### Performance Improvements
+
+* cache type data ([0d6e0d8](https://github.com/jgroth/kompendium/commit/0d6e0d8eced7c572ae3341ae59b5a07f1c67feca))
+
 ## 🙆 [0.4.1](https://github.com/jgroth/kompendium/compare/v0.4.0...v0.4.1) (2020-08-11)
 
 
