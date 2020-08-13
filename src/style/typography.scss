@@ -77,10 +77,12 @@ p {
 }
 
 a {
-  color: var(--kompendium-primary-color);
+    transition: color 0.2s ease;
+  color: rgb(var(--color-blue-default));
+  text-decoration: none;
 
   &:hover {
-      color: var(--kompendium-primary-color);
+      color: rgb(var(--color-blue-light));
   }
 }
 
