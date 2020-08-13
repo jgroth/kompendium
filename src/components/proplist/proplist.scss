@@ -51,14 +51,13 @@ dl {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
     margin-bottom: 2rem;
     border: 1px solid rgb(var(--contrast-500));
     border-radius: pxToRem(6);
     background-color: rgb(var(--contrast-300));
 
     dt, dd {
-        padding: pxToRem(8) pxToRem(8) pxToRem(0) pxToRem(8);
+        padding: pxToRem(6) pxToRem(8);
         font-size: pxToRem(14);
 
         &:nth-of-type(even) {
