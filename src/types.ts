@@ -57,6 +57,7 @@ export interface TypeDescription {
     name: string;
     docs: string;
     docsTags: JsonDocsTag[];
+    sources: string[];
 }
 
 export interface InterfaceDescription extends TypeDescription {

@@ -47,3 +47,15 @@ export function writeFile(
         });
     });
 }
+
+export function stat(path: string): Promise<fs.Stats> {
+    return new Promise((resolve, reject) => {
+        fs.stat(path, (error, stats) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(stats);
+            }
+        });
+    });
+}

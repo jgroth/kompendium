@@ -3,7 +3,7 @@ import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
 import { createMenu } from './menu';
-import { exists, mkdir, readFile, writeFile } from './filesystem';
+import { exists, mkdir, readFile, writeFile, stat } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
@@ -169,8 +169,80 @@ function isProd(): boolean {
 async function getTypes(
     config: Partial<KompendiumConfig>
 ): Promise<TypeDescription[]> {
-    return new Promise((resolve) => {
+    console.log('Getting type information...');
+    let types = await readTypes(config);
+    const cache = await readCache(config);
+
+    if (types.length === 0 || (await isModified(types, cache))) {
+        console.log('Parsing types...');
         const data = parseFile(config.typeRoot);
-        resolve(data);
+        await saveData(config, data);
+        types = data;
+    }
+
+    return types;
+}
+
+async function isModified(types: any[], cache: Record<string, number>) {
+    if (Object.keys(cache).length === 0) {
+        return true;
+    }
+
+    let filenames = types.map((t) => t.sources).flat();
+    filenames = [...new Set(filenames)];
+
+    const stats = await Promise.all(filenames.map(stat));
+
+    return stats.some((data, index) => {
+        const filename = filenames[index];
+        const result = cache[filename] !== data.mtimeMs;
+
+        console.log(`${filename} was ${result ? '' : 'not'} modified!`);
+
+        return result;
     });
+}
+
+async function saveData(
+    config: Partial<KompendiumConfig>,
+    types: TypeDescription[]
+) {
+    let filenames = types.map((t) => t.sources).flat();
+    filenames = [...new Set(filenames)];
+
+    const stats = await Promise.all(filenames.map(stat));
+
+    const cache = {};
+    stats.forEach((data, index) => {
+        const filename = filenames[index];
+        cache[filename] = data.mtimeMs;
+    });
+
+    await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
+}
+
+async function readCache(config: Partial<KompendiumConfig>) {
+    try {
+        const data = await readFile(`${config.path}/cache.json`);
+        return JSON.parse(data);
+    } catch {
+        return {};
+    }
+}
+
+async function writeCache(config: Partial<KompendiumConfig>, data: any) {
+    await writeFile(`${config.path}/cache.json`, JSON.stringify(data));
+}
+
+async function readTypes(config: Partial<KompendiumConfig>) {
+    try {
+        const data = await readFile(`${config.path}/types.json`);
+        return JSON.parse(data);
+    } catch {
+        return [];
+    }
+}
+
+async function writeTypes(config: Partial<KompendiumConfig>, data: any) {
+    await writeFile(`${config.path}/types.json`, JSON.stringify(data));
 }

@@ -98,6 +98,7 @@ function addInterface(
         docsTags: getDocsTags(reflection),
         props: reflection.children.filter(isProperty).map(getProperty),
         methods: reflection.children.filter(isMethod).map(getMethod),
+        sources: getSources(reflection),
     });
 }
 
@@ -137,6 +138,7 @@ function addType(reflection: DeclarationReflection, data: AliasDescription[]) {
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
         alias: reflection.type.toString(),
+        sources: getSources(reflection),
     });
 }
 
@@ -154,6 +156,7 @@ function addEnum(reflection: DeclarationReflection, data: EnumDescription[]) {
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
         members: members,
+        sources: getSources(reflection),
     });
 }
 
@@ -243,4 +246,8 @@ function getTypeParams(reflection: DeclarationReflection) {
             name: param.name,
         })) || []
     );
+}
+
+function getSources(reflection: DeclarationReflection) {
+    return reflection.sources.map((source) => source.file.fullFileName);
 }

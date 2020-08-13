@@ -9,6 +9,7 @@ describe('parseFile()', () => {
                 name: 'Color',
                 docs: 'The colors',
                 docsTags: [],
+                sources: ['src/kompendium/test/fixtures/basic.ts'],
                 members: [
                     {
                         name: 'Blue',
@@ -35,6 +36,7 @@ describe('parseFile()', () => {
                 name: 'Foo',
                 typeParams: [],
                 docs: 'This is Foo\nFoo is good',
+                sources: ['src/kompendium/test/fixtures/basic.ts'],
                 docsTags: [
                     {
                         name: 'foo',
@@ -95,6 +97,7 @@ describe('parseFile()', () => {
                 name: 'Bar',
                 docs: 'The bar',
                 docsTags: [],
+                sources: ['src/kompendium/test/fixtures/basic.ts'],
                 alias: 'Record<string, any>',
             },
         ]);
