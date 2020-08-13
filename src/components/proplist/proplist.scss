@@ -52,14 +52,33 @@ dl {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
-    grid-row-gap: .5rem;
     margin-bottom: 2rem;
+    border: 1px solid rgb(var(--contrast-500));
+    border-radius: pxToRem(6);
+    background-color: rgb(var(--contrast-300));
 
     dt, dd {
-        padding-bottom: .2rem;
-    }
+        padding: pxToRem(8) pxToRem(8) pxToRem(0) pxToRem(8);
+        font-size: pxToRem(14);
 
-    // > dt:nth-child(4n+3), > dd:nth-child(4n) {
-    //     background-color: #f0f5fa
-    // }
+        &:nth-of-type(even) {
+            background-color: rgb(var(--contrast-400));
+        }
+    }
+    dt {
+        &:first-child {
+            border-top-left-radius: pxToRem(6);
+        }
+        &:last-child {
+            border-bottom-left-radius: pxToRem(6);
+        }
+    }
+    dd {
+        &:first-child {
+            border-top-right-radius: pxToRem(6);
+        }
+        &:last-child {
+            border-bottom-right-radius: pxToRem(6);
+        }
+    }
 }
