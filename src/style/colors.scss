@@ -7,7 +7,11 @@
 @import 'mixins';
 
 :root {
-    // Contrast set, to use for tones that automatically revert in dark/light modes. E.g. text and background
+    // Absolute white and balck (Do not havedark/light mode variants)
+    --color-white: 255, 255, 255; // #fff
+    --color-black: 0, 0, 0; // #000
+
+    // Contrast swatches, to use for tones that can automatically revert in dark/light modes. E.g. text and background
     --contrast-100: 255, 255, 255; // #fff
     --contrast-200: 250, 250, 251; // #fafafb
     --contrast-300: 246, 246, 247; // #f6f6f7
@@ -25,6 +29,22 @@
     --contrast-1500: 35, 35, 53; // #232335
     --contrast-1600: 25, 25, 44; // #19192c
     --contrast-1700: 0, 0, 0; // #000
+
+    // Colors swatches that get slightly dimmer in dark mode
+    --color-red-light: 229, 115, 115; // #e57373;
+    --color-red-default: 244, 67, 54; // #f44336;
+
+    --color-blue-light: 100, 181, 246; // #64b5f6
+    --color-blue-default: 33, 150, 243; // #2196f3
+
+    --color-green-light: 129, 199, 132; // #81c784
+    --color-green-default: 76, 175, 80; // #4caf50
+
+    --color-amber-light: 255, 213, 79; // #ffd54f
+    --color-amber-default: 255, 193, 7; // #ffc107
+
+    --color-orange-light: 255, 183, 77; // #ffb74d
+    --color-orange-default: 255, 152, 0; // #ff9800
 
     @include in(dark-mode) {
         --contrast-100: 0, 0, 0; // #000
@@ -44,6 +64,21 @@
         --contrast-1500: 246, 246, 247; // #f6f6f7
         --contrast-1600: 250, 250, 251; // #fafafb
         --contrast-1700: 255, 255, 255; // #fff
+
+        --color-red-light: 240, 87, 80; // #f05750
+        --color-red-default: 229, 57, 53; // #e53935
+
+        --color-blue-light: 66, 165, 245; // #42a5f5
+        --color-blue-default: 30, 136, 229; // #1e88e5
+
+        --color-green-light: 102, 187, 106; // #66bb6a
+        --color-green-default: 67, 160, 71; // #43a047
+
+        --color-amber-light: 255, 207, 61; // #ffcf3d
+        --color-amber-default: 255, 176, 59; // #ffb03b
+
+        --color-orange-light: 255, 167, 38; // #ffa726
+        --color-orange-default: 251, 140, 0; // #fb8c00
     }
 }
 
