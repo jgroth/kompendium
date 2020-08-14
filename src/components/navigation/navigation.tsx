@@ -57,8 +57,10 @@ export class Navigation {
         return (
             <nav class="nav-panel">
                 <a class="nav-panel__responsive-menu" onClick={this.toggleMenu}>
-                    <span class="show-nav">|||</span>
-                    <span class="hide-nav">⨯</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </a>
                 <header class="panel-header">
                     <h1>
