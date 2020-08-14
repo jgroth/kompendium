@@ -16,6 +16,7 @@ header {
 }
 
 .nav-panel {
+    transition: margin 0.2s ease;
     z-index: 100;
 
     width: var(--width-nav-panel);
@@ -51,6 +52,7 @@ header {
 }
 
 .nav-panel__responsive-menu {
+    transition: all 0.2s ease;
     display: none;
     cursor: pointer;
 
@@ -68,34 +70,68 @@ header {
     background-color: rgb(var(--contrast-600));
     color: rgb(var(--contrast-900));
 
-    transform: rotate(90deg);
+    span {
+        transition: background-color 0.2s ease, transform 0.2s ease 0.3s, opacity 0.15s ease 0.3s;
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: pxToRem(2);
+        width: pxToRem(16);
+        border-radius: pxToRem(4);
+        background-color: rgb(var(--contrast-900));
+
+        &:nth-child(1) {
+            top: pxToRem(12);
+        }
+
+        &:nth-child(2),
+        &:nth-child(3) {
+            top: 0;
+            bottom: 0;
+        }
+
+        &:nth-child(4) {
+            bottom: pxToRem(12);
+        }
+    }
+
+    &:hover {
+        span {
+            background-color: rgb(var(--contrast-1200))
+        }
+    }
 }
 
 @media (max-width: 1000px) {
     .nav-panel {
-        margin-left: calc(var(--width-nav-panel) * -1);
+      margin-left: calc(var(--width-nav-panel) * -1);
 
-        .show-nav {
-            line-height: calc(var(--size-show-nav-panel-button) + 0.15rem);
-            display: initial;
-        }
-        .hide-nav {
-            display: none;
-            line-height: calc(var(--size-show-nav-panel-button) - 0.3rem);
-            font-size: pxToRem(32);
-        }
+      &.display-nav-panel {
+          margin-left: 0;
+          box-shadow: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232), 0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(0, 0, 0, 0.208);
 
-        &.display-nav-panel {
-            margin-left: 0;
+          .nav-panel__responsive-menu {
+              right: pxToRem(2);
 
-            .show-nav {
-                display: none;
-            }
-            .hide-nav {
-                display: initial;
-            }
-        }
-    }
+              span {
+                  &:nth-child(1),
+                  &:nth-child(4) {
+                      transform: scaleX(0);
+                      opacity: 0;
+                  }
+
+                  &:nth-child(2) {
+                      transform: rotate(45deg);
+                  }
+                  &:nth-child(3) {
+                      transform: rotate(-45deg);
+                  }
+              }
+          }
+      }
+  }
 
     .nav-panel__responsive-menu {
         display: block;
