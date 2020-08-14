@@ -98,7 +98,7 @@
     --color-code-gray-light: 94, 94, 108; // #5e5e6c
     --color-code-gray-dark: 71, 71, 86; // #474756
 
-    --color-code-background: 35, 35, 53; // #232335 (--contrast-1600 in light mode)
+    --color-code-background: 24, 48, 85; // #183055 (--contrast-1600 in light mode)
 
     @include in(dark-mode) {
         --color-code-background: 25, 25, 44; // #19192c (--contrast-200 in dark mode)
