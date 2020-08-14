@@ -58,7 +58,12 @@ export class App {
 
     protected render(): HTMLElement {
         if (!this.data) {
-            return <div class="loading-screen"><div class="loading-screen-icon"></div><div class="loading-screen-text">Loading...</div></div>;
+            return (
+                <div class="loading-screen">
+                    <div class="loading-screen-icon"></div>
+                    <div class="loading-screen-text">Loading...</div>
+                </div>
+            );
         }
 
         return (
