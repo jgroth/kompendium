@@ -53,7 +53,7 @@ export class Playground {
 
         return (
             <a class={classList} onClick={this.activateTab(source.filename)}>
-                {source.filename}
+                <span>{source.filename}</span>
             </a>
         );
     }
