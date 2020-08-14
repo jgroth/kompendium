@@ -1,3 +1,31 @@
+# 🚈 [0.5.0](https://github.com/jgroth/kompendium/compare/v0.4.2...v0.5.0) (2020-08-14)
+
+
+### Bug Fixes
+
+* navigation title ([6af946d](https://github.com/jgroth/kompendium/commit/6af946d4df168e61a78f94c01612bc62a69a1816))
+* **app:** style loading screen ([328b3cd](https://github.com/jgroth/kompendium/commit/328b3cd4afb557fea2c5c7a953f1753ba290b34f))
+* **playground:** tabs with long titles truncate ([88f71dd](https://github.com/jgroth/kompendium/commit/88f71dd563311f5af6e3e139fa9ee1e809441300))
+* add a variable and a larger breakpoint to switch to mobile UI ([762b9be](https://github.com/jgroth/kompendium/commit/762b9bea950d3139ab9c726ebb655f3d08075aa4))
+* **colors:** tweak code background color for light mode ([93ce228](https://github.com/jgroth/kompendium/commit/93ce228cade3239ca84b9c637b84da60ffdc3083))
+* **naigation:** animated items ([cafbabe](https://github.com/jgroth/kompendium/commit/cafbabe4de19aeae3d5007358bd4174c04d501bd))
+* **navigation:** animate responsive menu and nav-items when section is opened ([768079c](https://github.com/jgroth/kompendium/commit/768079c6ed124792bfdd7750aff05fbdd7273e7d))
+* **navigation:** more ui tweaks due to the new font ([5bf59f1](https://github.com/jgroth/kompendium/commit/5bf59f1396fd7e75f750f0f28e9770725b0c6683))
+* **playground:** add more space between examples ([258d161](https://github.com/jgroth/kompendium/commit/258d1616d1064efd6d3ecad15e4f4b9989cb31c5))
+* **proplist:** improve layout and colors ([2677a16](https://github.com/jgroth/kompendium/commit/2677a16fb97f01dc8a3371bd756f357c55a49756))
+* **typography:** mainly style headings ([ca0142f](https://github.com/jgroth/kompendium/commit/ca0142f4928f289e20445c1ed1089fc440aad2df))
+* **typography:** single paragraphs won't mess the UI ([473073c](https://github.com/jgroth/kompendium/commit/473073c92d334d1820463d8ec7ea6f6cce3e9016))
+* **typography:** style border with dark mode in mind ([392dc17](https://github.com/jgroth/kompendium/commit/392dc17512ff794d8c124aca510a057481817c74))
+* **typography:** style links ([91f746f](https://github.com/jgroth/kompendium/commit/91f746ff66150e3626d691c1d028fb33ab3f187f))
+* **typography:** switch fornt to Lato, due to line-height problems of Hind ([1496e13](https://github.com/jgroth/kompendium/commit/1496e134abfecdc8ab7c5080b2343f77d6ccc9ab))
+
+
+### Features
+
+* **colors:** add new colors useful for UI design ([e5d180f](https://github.com/jgroth/kompendium/commit/e5d180f531b806752f1632aeae80315aedfcca2d))
+* **index:** load weight 500 of the hind font as well ([5562ae2](https://github.com/jgroth/kompendium/commit/5562ae2fac3ad7635072f67ade8a5489bff003a5))
+* **mixins:** add mixing for truncating text ([10f3b97](https://github.com/jgroth/kompendium/commit/10f3b971ce4e0649bd07cfa8b139ec422d1ade83))
+
 ## 😩 [0.4.2](https://github.com/jgroth/kompendium/compare/v0.4.1...v0.4.2) (2020-08-13)
 
 
