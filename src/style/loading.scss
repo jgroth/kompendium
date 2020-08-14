@@ -1,0 +1,38 @@
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-screen {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.loading-screen-icon {
+    animation: spin 0.35s linear infinite;
+    border: {
+        radius: 50%;
+        style: solid;
+        width: pxToRem(2);
+        color: rgb(var(--color-blue-default));
+        top-color: transparent;
+    }
+    display: inline-block;
+
+    height: pxToRem(20);
+    width: pxToRem(20);
+}
+
+.loading-screen-text {
+    padding-left: pxToRem(12);
+    color: rgb(var(--contrast-1100));
+}
