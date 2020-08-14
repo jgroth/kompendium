@@ -145,15 +145,18 @@ header {
 
 .panel-link {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: pxToRem(20) 1fr;
-    height: pxToRem(28);
+    grid: {
+        auto-flow: column;
+        template-columns: pxToRem(20) 1fr;
+    }
+    line-height: pxToRem(28);
     color: rgb(var(--contrast-900));
     text-decoration: none;
+    border-radius: pxToRem(6);
 
     &:hover,
     &.active {
-        color: rgb(var(--contrast-1600))
+        color: rgb(var(--color-blue-default));
     }
 
     &.active {
@@ -165,9 +168,12 @@ header {
     img {
         transition: transform 0.2s ease;
         transform: scale(0.8);
-        margin: pxToRem(-4) pxToRem(8) 0 0;
         height: pxToRem(32);
     }
+}
+
+.link-text {
+    padding-left: pxToRem(8);
 }
 
 .chapters {
@@ -176,6 +182,7 @@ header {
 
     &.active {
         height: 100%;
+        padding-left: pxToRem(20);
 
         .panel-item {
             opacity: 1;
@@ -224,7 +231,7 @@ header {
     }
 
     img {
-        opacity: 0;
+        display: none;
     }
 
     .panel-item {
