@@ -16,9 +16,15 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
 
 .tab-bar {
   display: flex;
-  padding: pxToRem(8) pxToRem(16) 0 pxToRem(16);
+  padding: pxToRem(3) pxToRem(16) 0 pxToRem(16);
 
   .tab {
+    span {
+      @include truncate-text;
+      display: inline-block;
+      width: 100%;
+      padding: pxToRem(2) 0;
+    }
     transition: background-color 0.2s ease;
     cursor: pointer;
 
@@ -31,6 +37,7 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
     font-size: pxToRem(16);
     border-radius: pxToRem(8) pxToRem(8) 0 0;
     margin: 0 pxToRem(2);
+    min-width: pxToRem(60); // needs to be here for titles to truncate
 
     &:before,
     &:after {
