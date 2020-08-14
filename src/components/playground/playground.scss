@@ -129,6 +129,8 @@ kompendium-code {
 }
 
 section.example {
+    margin-bottom: pxToRem(40);
+
     .result,
     .code {
         box-sizing: border-box;
