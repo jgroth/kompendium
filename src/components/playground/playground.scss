@@ -177,3 +177,19 @@ section.example {
         }
     }
 }
+
+
+.show-case {
+
+}
+
+.show-case_description {
+    padding: pxToRem(12);
+}
+
+.show-case_component {
+    padding: pxToRem(20);
+    border-radius: pxToRem(14);
+    background: white;
+    background-color: rgb(var(--color-white));
+}
