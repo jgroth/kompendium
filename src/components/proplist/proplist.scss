@@ -11,6 +11,10 @@ code {
     font-family: var(--kompendium-font-code);
     border-radius: pxToRem(4);
     font-size: pxToRem(11);
+
+    a {
+        font-size: pxToRem(11);
+    }
 }
 
 code {
