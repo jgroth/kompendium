@@ -30,13 +30,21 @@ function renderMethod(method: JsonDocsMethod) {
     ].filter((item) => item.value !== undefined);
 
     return (
-        <div>
-            <h4>{method.name}</h4>
-            <kompendium-markdown text={method.docs} />
-            <kompendium-taglist tags={method.docsTags} />
-            <kompendium-proplist items={items} />
-            <ParamList params={method.parameters} />
-            <Returns value={method.returns} />
+        <div class="methods-layout">
+            <h4 class="methods-title">{method.name}</h4>
+            <div class="methods-content">
+                <div>
+                    <kompendium-markdown text={method.docs} />
+                </div>
+                <div>
+                    <kompendium-taglist tags={method.docsTags} />
+                    <kompendium-proplist items={items} />
+                    <ParamList params={method.parameters} />
+                </div>
+            </div>
+            <div class="methods-returns">
+                <Returns value={method.returns} />
+            </div>
         </div>
     );
 }

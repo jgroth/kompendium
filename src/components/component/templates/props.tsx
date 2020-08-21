@@ -41,11 +41,13 @@ function renderProperty(property: JsonDocsProp) {
     ].filter((item) => item.value !== undefined && item.value !== 'undefined');
 
     return (
-        <div>
+        <div class="props-events-layout">
             <h4>{property.name}</h4>
-            <kompendium-markdown text={property.docs} />
             <kompendium-taglist tags={property.docsTags} />
-            <kompendium-proplist items={items} />
+            <div class="markdown-props">
+                <kompendium-markdown text={property.docs} />
+                <kompendium-proplist items={items} />
+            </div>
         </div>
     );
 }

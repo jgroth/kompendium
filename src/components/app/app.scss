@@ -13,11 +13,30 @@ main {
     padding: pxToRem(20) pxToRem(32);
 
     margin-left: var(--width-nav-panel);
+
+    kompendium-markdown {
+        width: 50%;
+    }
 }
+
+
 
 @media (max-width: $break-point-small) {
     main {
         padding-top: pxToRem(42);
         margin-left: 0;
+
+        kompendium-markdown {
+            width: 75%;
+        }
+    }
+}
+
+
+@media (max-width: $break-point-mini) {
+    main {
+        kompendium-markdown {
+            width: 100%;
+        }
     }
 }
