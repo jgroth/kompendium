@@ -67,9 +67,13 @@ export class Playground {
         const text = '##### ' + this.component.docs;
 
         return (
-            <div>
-                <kompendium-markdown text={text} />
-                <ExampleComponent />
+            <div class="show-case">
+                <div class="show-case_description">
+                    <kompendium-markdown text={text} />
+                </div>
+                <div class="show-case_component">
+                    <ExampleComponent />
+                </div>
             </div>
         );
     }
