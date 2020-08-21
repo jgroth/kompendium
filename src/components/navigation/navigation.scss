@@ -142,6 +142,7 @@ header {
 .panel-item {
     transition: opacity 0.2s ease;
     width: 100%;
+    padding-right: pxToRem(12);
 }
 
 .panel-link {
@@ -174,6 +175,8 @@ header {
 }
 
 .link-text {
+    @include truncate-text();
+    width: 100%;
     padding-left: pxToRem(8);
 }
 
