@@ -37,11 +37,13 @@ function renderEvent(event: JsonDocsEvent) {
     ];
 
     return (
-        <div>
+        <div class="props-events-layout">
             <h4>{event.event}</h4>
-            <kompendium-markdown text={event.docs} />
             <kompendium-taglist tags={event.docsTags} />
-            <kompendium-proplist items={items} />
+            <div class="markdown-props">
+                <kompendium-markdown text={event.docs} />
+                <kompendium-proplist items={items} />
+            </div>
         </div>
     );
 }

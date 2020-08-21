@@ -3,41 +3,15 @@
 @import '../../style/mixins.scss';
 @import '../../style/functions.scss';
 @import '../../style/typography.scss';
+@import '../../style/global-layout-rules.scss';
 
 :host {
     display: block;
 }
 
-main {
-    h1, h2, h3, h4, h5, h6,
-    kompendium-markdown,
-    kompendium-taglist {
-        width: 50%;
-    }
-
-    kompendium-playground {
-        width: 100%;
-    }
-}
-
-kompendium-taglist {
-    margin-bottom: 1rem;
-}
-
-kompendium-proplist {
-    margin-bottom: 2rem;
-}
-
-h5, h6 {
-    border-bottom: 1px solid rgb(var(--contrast-600));
-}
-
 @media (max-width: $break-point-small) {
     main {
-        h1, h2, h3, h4, h5, h6,
-        kompendium-markdown,
-        kompendium-taglist {
-            width: 100%;
-        }
+        padding-top: pxToRem(42);
+        margin-left: 0;
     }
 }
