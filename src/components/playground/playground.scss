@@ -17,6 +17,7 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
 .tab-bar {
   display: flex;
   padding: pxToRem(3) pxToRem(16) 0 pxToRem(16);
+  overflow-y: auto;
 
   .tab {
     span {
