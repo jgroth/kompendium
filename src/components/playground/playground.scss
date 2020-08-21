@@ -138,7 +138,9 @@ kompendium-code {
 }
 
 section.example {
+    padding-bottom: pxToRem(40);
     margin-bottom: pxToRem(40);
+    border-bottom: 1px solid rgb(var(--contrast-500));
 
     .result,
     .code {
@@ -150,6 +152,10 @@ section.example {
 
     .result {
         padding-right: pxToRem(40);
+
+        kompendium-markdown {
+            margin-bottom: pxToRem(32);
+        }
     }
 
     .code {
