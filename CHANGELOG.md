@@ -1,3 +1,23 @@
+# 💼 [0.6.0](https://github.com/jgroth/kompendium/compare/v0.5.0...v0.6.0) (2020-08-23)
+
+
+### Bug Fixes
+
+* **playground:** styles for previewing examples ([67c10ae](https://github.com/jgroth/kompendium/commit/67c10ae357964dd5076a28b0118d8d4daabc5d23))
+* responsive layout for many of the templates ([77d187f](https://github.com/jgroth/kompendium/commit/77d187fdb818e36cc924942cc3302de6df018b4f))
+* **navigation:** truncate long link texts ([aaa41a0](https://github.com/jgroth/kompendium/commit/aaa41a04aa20eb085cce0d238da5b3c4e4db20cb))
+* **navigatoin:** truncate long link texts ([10175e4](https://github.com/jgroth/kompendium/commit/10175e452ab7ff8945193ea8a6447fcebc15a2c0))
+* **playground:** more distinct ui for examples ([4676b86](https://github.com/jgroth/kompendium/commit/4676b8601e4c8ba9d960efa25346173b284c883c))
+* **proplist:** same font-size for links as other stuff ([d7d8d1a](https://github.com/jgroth/kompendium/commit/d7d8d1a493976e47aa533298ada6f00f1618b31c))
+* **tab-bar:** if many tabs, there will be a scrollbar ([0e9bce6](https://github.com/jgroth/kompendium/commit/0e9bce685e46077ee956ded953580aa9c3f6fb1e))
+* **tag-list:** style layout ([815dbad](https://github.com/jgroth/kompendium/commit/815dbad49f31278e92de091881613a069c51b1ef))
+* **typography:** improved H2s ([6107317](https://github.com/jgroth/kompendium/commit/61073177eb9b8218705213e0121440d0dd9ff928))
+
+
+### Features
+
+* **variables:** add smaller break point ([4b201f9](https://github.com/jgroth/kompendium/commit/4b201f90626fb30e13209dfbc48f57cf2afe342c))
+
 # 🚈 [0.5.0](https://github.com/jgroth/kompendium/compare/v0.4.2...v0.5.0) (2020-08-14)
 
 
