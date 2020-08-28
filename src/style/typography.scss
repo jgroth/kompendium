@@ -73,7 +73,25 @@ a {
 }
 
 ul {
-  list-style: circle inside;
+  list-style: none;
+  li {
+      position: relative;
+      margin-left: pxToRem(12);
+
+      &:before {
+          content: '';
+          position: absolute;
+          left: pxToRem(-8);
+          top: pxToRem(10);
+
+          width: pxToRem(4);
+          height: pxToRem(4);
+
+          border-radius: 50%;
+          background-color: rgb(var(--contrast-700));
+          display: block;
+      }
+  }
 }
 ol {
   list-style: decimal inside;
