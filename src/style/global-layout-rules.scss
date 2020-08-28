@@ -5,6 +5,22 @@ kompendium-playground {
     width: 100%;
 }
 
+.docs-layout-section-heading {
+    padding-top: pxToRem(40);
+    margin: pxToRem(40) 0 pxToRem(20) 0;
+    border-top: 1px solid rgb(var(--contrast-500));
+
+    &:before {
+        content: '';
+        width: pxToRem(2);
+        height: pxToRem(12);
+        display: inline-block;
+        background-color: rgba(var(--color-code-blue), 0.4);
+        border-radius: pxToRem(1);
+        transform: translateX(pxToRem(-8));
+    }
+}
+
 .props-events-layout {
     .markdown-props {
         display: grid;
@@ -72,6 +88,70 @@ kompendium-playground {
             gap: pxToRem(12);
             auto-flow: row;
             template-columns: unset;
+        }
+    }
+}
+
+
+
+.styles-layout {
+    display: grid;
+    grid: {
+        auto-flow: column;
+        template-columns: 1fr 1fr;
+        gap: 0 pxToRem(12);
+    }
+    border: solid rgb(var(--contrast-500));
+    border-width: 1px 1px 0 1px;
+
+    padding: pxToRem(8);
+
+    background-color: rgb(var(--contrast-300));
+
+    &:first-of-type { // FIXME: I've tried different ways, but this doesn't seem to apply, while "last-of-type" does.
+        border: {
+            top-right-radius: pxToRem(6);
+            top-left-radius: pxToRem(6);
+        }
+    }
+    &:last-of-type {
+        border: {
+            bottom-right-radius: pxToRem(6);
+            bottom-left-radius: pxToRem(6);
+            bottom-width: 1px;
+        }
+    }
+    &:nth-of-type(odd) {
+        background-color: rgb(var(--contrast-400));
+    }
+}
+
+.styles-title {
+    code {
+        font-family: var(--kompendium-font-code);
+        border-radius: pxToRem(4);
+        border: 1px solid rgba(var(--contrast-1100), .1);
+
+        font-size: pxToRem(11);
+        white-space: nowrap;
+        color: rgb(var(--contrast-1100));
+
+        padding: 0.125rem 0.3125rem;
+        margin: 0 0.125rem;
+        background: rgba(var(--contrast-1100), .05);
+    }
+}
+
+.styles-content {
+
+}
+
+@media (max-width: $break-point-mini) {
+    .styles-layout {
+        grid: {
+            auto-flow: row;
+            template-columns: unset;
+            gap: pxToRem(12) 0;
         }
     }
 }

@@ -13,7 +13,7 @@ export function PropertyList({
         return;
     }
 
-    return [<h3 id={id}>Properties</h3>, ...props.map(renderProperty)];
+    return [<h3 class="docs-layout-section-heading" id={id}>Properties</h3>, ...props.map(renderProperty)];
 }
 
 function renderProperty(property: JsonDocsProp) {

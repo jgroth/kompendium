@@ -12,7 +12,7 @@ export function SlotList({
         return;
     }
 
-    return [<h3 id={id}>Slots</h3>, ...slots.map(renderSlot)];
+    return [<h3 class="docs-layout-section-heading" id={id}>Slots</h3>, ...slots.map(renderSlot)];
 }
 
 function renderSlot(slot: JsonDocsSlot) {
