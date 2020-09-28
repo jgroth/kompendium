@@ -4,7 +4,7 @@
 ### Bug Fixes
 
 * **templates:** improve layouts, specially for template styles ([56bc851](https://github.com/jgroth/kompendium/commit/56bc8512b8836ca4c4bfadace5b21c051b99b289))
-* **typography:** styling <li>s in <ul>s ([8974c72](https://github.com/jgroth/kompendium/commit/8974c7294e83f20ee52678a6013925d7ddd39f08))
+* **typography:** styling `<li>`s in `<ul>`s ([8974c72](https://github.com/jgroth/kompendium/commit/8974c7294e83f20ee52678a6013925d7ddd39f08))
 
 # 💼 [0.6.0](https://github.com/jgroth/kompendium/compare/v0.5.0...v0.6.0) (2020-08-23)
 
