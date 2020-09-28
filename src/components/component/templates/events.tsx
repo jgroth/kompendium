@@ -13,7 +13,12 @@ export function EventList({
         return;
     }
 
-    return [<h3 class="docs-layout-section-heading" id={id}>Events</h3>, ...events.map(renderEvent)];
+    return [
+        <h3 class="docs-layout-section-heading" id={id}>
+            Events
+        </h3>,
+        ...events.map(renderEvent),
+    ];
 }
 
 function renderEvent(event: JsonDocsEvent) {
