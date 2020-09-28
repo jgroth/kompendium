@@ -18,7 +18,12 @@ export function MethodList({
         return;
     }
 
-    return [<h3 class="docs-layout-section-heading" id={id}>Methods</h3>, ...methods.map(renderMethod)];
+    return [
+        <h3 class="docs-layout-section-heading" id={id}>
+            Methods
+        </h3>,
+        ...methods.map(renderMethod),
+    ];
 }
 
 function renderMethod(method: JsonDocsMethod) {
