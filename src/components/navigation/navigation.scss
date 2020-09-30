@@ -40,7 +40,7 @@ header {
             font-weight: normal;
             letter-spacing: 0.5ch;
             color: rgb(var(--contrast-800));
-            margin-bottom: pxToRem(8);
+            margin: pxToRem(2) 0 pxToRem(8) 0;
         }
     }
 
@@ -54,22 +54,24 @@ header {
 }
 
 .nav-panel__responsive-menu {
+    @include is-elevated-clickable;
     transition: all 0.2s ease;
     display: none;
     cursor: pointer;
 
     position: absolute;
-    top: 0;
-    right: calc((var(--size-show-nav-panel-button) * -1) - 0.5rem);
+    top: pxToRem(12);
+    right: calc((var(--size-show-nav-panel-button) * -1) - #{pxToRem(16)});
 
     width: var(--size-show-nav-panel-button);
     height: var(--size-show-nav-panel-button);
     margin: pxToRem(4);
-    border-radius: pxToRem(4);
+    border-radius: 50%;
 
     text-align: center;
     font-weight: bold;
-    background-color: rgb(var(--contrast-600));
+    background-color: rgba(var(--contrast-200), .7);
+    backdrop-filter: blur(pxToRem(4));
     color: rgb(var(--contrast-900));
 
     span {
@@ -115,7 +117,8 @@ header {
           box-shadow: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232), 0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(0, 0, 0, 0.208);
 
           .nav-panel__responsive-menu {
-              right: pxToRem(2);
+              right: calc((var(--size-show-nav-panel-button) * -1) - #{pxToRem(5)});
+              border-radius: 0 pxToRem(8) pxToRem(8) 0;
 
               span {
                   &:nth-child(1),
