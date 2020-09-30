@@ -64,7 +64,7 @@ export class Navigation {
                 </a>
                 <header class="panel-header">
                     <h1>
-                        <a href="#">{this.header}</a>
+                        <a href="#"><img alt="home" src="../collection/assets/logotype.svg"/></a>
                     </h1>
                     <kompendium-search />
                 </header>
