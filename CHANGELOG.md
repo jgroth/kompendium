@@ -1,3 +1,10 @@
+## 🚎 [0.6.2](https://github.com/jgroth/kompendium/compare/v0.6.1...v0.6.2) (2020-10-01)
+
+
+### Bug Fixes
+
+* make sure output path exists at init ([0742557](https://github.com/jgroth/kompendium/commit/07425577eb67659d439427d2ab4ac72f1313c28f))
+
 ## 🏇 [0.6.1](https://github.com/jgroth/kompendium/compare/v0.6.0...v0.6.1) (2020-09-28)
 
 
