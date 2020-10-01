@@ -60,7 +60,7 @@ async function initialize(config: Partial<KompendiumConfig>) {
         createWatcher(path, 'unlink', onUnlink(config));
     }
 
-    await createOutputDir(config);
+    await createOutputDirs(config);
 }
 
 const onUnlink = (config: Partial<KompendiumConfig>) => () => {
@@ -115,13 +115,13 @@ async function writeData(
     }
 }
 
-async function createOutputDir(config: Partial<KompendiumConfig>) {
+async function createOutputDirs(config: Partial<KompendiumConfig>) {
     let path = config.path;
-
-    if (isProd()) {
-        path = config.publicPath;
+    if (!(await exists(path))) {
+        mkdir(path, { recursive: true });
     }
 
+    path = config.publicPath;
     if (!(await exists(path))) {
         mkdir(path, { recursive: true });
     }
