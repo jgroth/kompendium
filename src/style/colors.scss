@@ -85,22 +85,34 @@
 
 :root {
     // Code colors
-    --color-code-pink: 226, 119, 122; // #e2777a
-    --color-code-magenta: 232, 62, 140; // #e83e8c
-    --color-code-blue: 97, 150, 204; // #6196cc
-    --color-code-orange: 255, 152, 0; // #ff9800
-    --color-code-yellow: 255, 213, 79; // #ffd54f
-    --color-code-purple: 206, 147, 216; // #ce93d8
-    --color-code-green-light: 174, 213, 129; // #aed581
-    --color-code-green-dark: 53, 196, 84; // #35c454
-    --color-code-turquoise: 103, 205, 204; // #67cdcc
-    --color-code-gray-lighter: 232, 232, 234; // #e8e8ea
-    --color-code-gray-light: 94, 94, 108; // #5e5e6c
-    --color-code-gray-dark: 71, 71, 86; // #474756
+    --color-code-pink: 216, 27, 96; /* #d81b60 */
+    --color-code-magenta: 156, 22, 87; /* #9c1657 */
+    --color-code-blue: 33, 150, 243; /* #2196f3 */
+    --color-code-orange: 245, 124, 0; /* #f57c00 */
+    --color-code-yellow: 255, 87, 34; /* #ff5722 */
+    --color-code-purple: 149, 117, 205; /* #9575cd */
+    --color-code-green-light: 53, 196, 84; // #35c454
+    --color-code-green-dark: 85, 139, 47; /* #558b2f */
+    --color-code-turquoise: 0, 151, 167; /* #0097a7 */
 
-    --color-code-background: 24, 48, 85; // #183055 (--contrast-1600 in light mode)
+    --color-code-gray-lighter: 71, 71, 86; // #474756
+
+    --color-code-gray-light: var(--contrast-1100);
+    --color-code-gray-dark: var(--contrast-1200);
+    --color-code-background: var(--contrast-200);
 
     @include in(dark-mode) {
-        --color-code-background: 25, 25, 44; // #19192c (--contrast-200 in dark mode)
+        // Code colors
+        --color-code-pink: 226, 119, 122; // #e2777a
+        --color-code-magenta: 232, 62, 140; // #e83e8c
+        --color-code-blue: 97, 150, 204; // #6196cc
+        --color-code-orange: 255, 152, 0; // #ff9800
+        --color-code-yellow: 255, 213, 79; // #ffd54f
+        --color-code-purple: 206, 147, 216; // #ce93d8
+        --color-code-green-light: 174, 213, 129; // #aed581
+        --color-code-green-dark: 53, 196, 84; // #35c454
+        --color-code-turquoise: 103, 205, 204; // #67cdcc
+
+        --color-code-gray-lighter: 117, 117, 128; // #757580
     }
 }

@@ -79,7 +79,7 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
 
     &.active {
         z-index: 1;
-        color: rgb(var(--contrast-700));
+        color: rgb(var(--contrast-1100));
         background: rgb(var(--color-code-background));
 
         &:before,
@@ -190,6 +190,7 @@ section.example {
 .show-case_component {
     padding: pxToRem(20);
     border-radius: pxToRem(14);
-    background: white;
     background-color: rgb(var(--color-white));
+    box-shadow: var(--shadow-showcase);
+    border: 1px solid rgb(var(--contrast-300));
 }
