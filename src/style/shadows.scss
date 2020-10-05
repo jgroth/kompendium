@@ -1,4 +1,5 @@
 @import './functions';
+@import './mixins';
 
 :root {
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
@@ -35,4 +36,10 @@
     // Good for Pop up dialogs
     --shadow-depth-64: 0 #{pxToRem(25.6)} #{pxToRem(57.6)} 0 rgba(0, 0, 0, 0.22),
         0 #{pxToRem(4.8)} #{pxToRem(14.4)} 0 rgba(0, 0, 0, 0.18);
+
+    --shadow-showcase: #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--color-black), 0.01), #{pxToRem(-10)} #{pxToRem(-10)} #{pxToRem(30)} rgba(var(--color-white), 1), #{pxToRem(10)} #{pxToRem(10)} #{pxToRem(30)} rgba(var(--color-black), 0.05), #{pxToRem(2)} #{pxToRem(2)} #{pxToRem(10)} rgba(var(--color-white), 0.7);
+
+    @include in(dark-mode) {
+        --shadow-showcase: #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--color-black), 0.2), #{pxToRem(-10)} #{pxToRem(-10)} #{pxToRem(30)} rgba(var(--color-white), 0.17), #{pxToRem(10)} #{pxToRem(10)} #{pxToRem(30)} rgba(var(--color-black), 0.3), #{pxToRem(2)} #{pxToRem(2)} #{pxToRem(10)} rgba(var(--color-white), 0.17);
+    }
 }
