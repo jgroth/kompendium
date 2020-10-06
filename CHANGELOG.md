@@ -1,3 +1,26 @@
+# 😸 [0.7.0](https://github.com/jgroth/kompendium/compare/v0.6.3...v0.7.0) (2020-10-06)
+
+
+### Bug Fixes
+
+* broken example ([1c3999a](https://github.com/jgroth/kompendium/commit/1c3999a6287aa4e9c661702ea0957740b86e528c))
+* **playground:** add better support for small screens ([6dd34d9](https://github.com/jgroth/kompendium/commit/6dd34d982fe7c47a9e096aafd0120ba1f1a4842f))
+* add dark-mode support to a svg file ([f1f1b8e](https://github.com/jgroth/kompendium/commit/f1f1b8e609859063b7c945be57c0da183f6b36df))
+* add proper light-mode for code and tabs ([ce3cc80](https://github.com/jgroth/kompendium/commit/ce3cc80836bad1deb867e3677fc876ec21c4c6bf))
+* **assets:** add favicon.svg ([87b6f5f](https://github.com/jgroth/kompendium/commit/87b6f5fddddf9cb2e02dee8fba18b17d2c3f0fdf))
+* **assets:** add logotype.svg ([421c466](https://github.com/jgroth/kompendium/commit/421c46629ead19fba8042ee813352b0a1f43d6e4))
+* **index:** add favicon to index.html ([68b1365](https://github.com/jgroth/kompendium/commit/68b136500445a90168d5f57f818e6362b1a85cf7))
+* **mixins:** add mixins for interactive buttons ([3d62c1e](https://github.com/jgroth/kompendium/commit/3d62c1e24fa16acdaece135c8da696447c7e360c))
+* **navigation:** add logotype to the navigation ([d47c1f4](https://github.com/jgroth/kompendium/commit/d47c1f4f28b7fc1d0cac2780b7097c76765df8f1))
+* **navigation:** tweaked the placement of responsive nav-button ([c163a5c](https://github.com/jgroth/kompendium/commit/c163a5c61a06d862675c2b93a6ec06e3f4dc2a10))
+* **reset:** render images in a row (badges) ([7de9f61](https://github.com/jgroth/kompendium/commit/7de9f61f26db318ce7c00678d8a4916053c28b08))
+* **shadows:** add css variables for shadows ([5a32f39](https://github.com/jgroth/kompendium/commit/5a32f39e975bdf5d6cf98b909d42bce25ed2493a))
+
+
+### Features
+
+* configurable logo ([a081988](https://github.com/jgroth/kompendium/commit/a081988c62f47bb92d68ecad86ff42bdd41df515))
+
 ## 🚣 [0.6.3](https://github.com/jgroth/kompendium/compare/v0.6.2...v0.6.3) (2020-10-01)
 
 
