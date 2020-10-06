@@ -2,7 +2,8 @@ import { Component, h } from '@stencil/core';
 import { bacon } from './bacon';
 
 /**
- * Markdown example
+ * This is a simple example of how the `kompendium-markdown` component is used
+ *
  * @link bacon.ts
  */
 @Component({
