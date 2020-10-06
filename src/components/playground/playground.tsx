@@ -12,7 +12,7 @@ export class Playground {
      * The component to display
      */
     @Prop()
-    public component: JsonDocsComponent = {} as any;
+    public component: JsonDocsComponent;
 
     @State()
     private activeTab: string;

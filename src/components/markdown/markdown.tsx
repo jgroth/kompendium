@@ -6,7 +6,6 @@ import { getTypes } from './markdown-types';
  * This component renders markdown
  *
  * @exampleComponent kompendium-example-markdown
- * This is a simple example of how the `kompendium-markdown` component is used
  */
 @Component({
     tag: 'kompendium-markdown',
