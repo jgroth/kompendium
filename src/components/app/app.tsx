@@ -71,6 +71,7 @@ export class App {
                 <kompendium-navigation
                     menu={this.data.menu}
                     header={this.data.title}
+                    logo={this.data.logo}
                 />
                 <main role="main">
                     <stencil-router historyType="hash">
