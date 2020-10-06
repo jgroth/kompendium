@@ -24,7 +24,8 @@ export const config: Config = {
             type: 'docs-custom',
             strict: true,
             generator: kompendium({
-                guides: guides
+                guides: guides,
+                logo: '/collection/assets/logotype.svg'
             })
         },
         {

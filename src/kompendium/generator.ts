@@ -41,6 +41,7 @@ export function kompendiumGenerator(
         const data: KompendiumData = {
             docs: jsonDocs,
             title: title,
+            logo: config.logo,
             menu: createMenu(docs, guides, types),
             readme: readme,
             guides: guides,

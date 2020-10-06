@@ -29,6 +29,12 @@ export class Navigation {
     @Prop()
     public header: string;
 
+    /**
+     * Optional logo to display instead of the header
+     */
+    @Prop()
+    public logo: string;
+
     @State()
     private route = '';
 
@@ -63,14 +69,22 @@ export class Navigation {
                     <span></span>
                 </a>
                 <header class="panel-header">
-                    <h1>
-                        <a href="#"><img alt="home" src="../collection/assets/logotype.svg"/></a>
-                    </h1>
+                    <h1>{this.renderHeader()}</h1>
                     <kompendium-search />
                 </header>
                 {this.renderChapters(this.menu)}
             </nav>
         );
+    }
+
+    private renderHeader() {
+        let content = this.header;
+
+        if (this.logo) {
+            content = <img alt={this.header} src={this.logo} />;
+        }
+
+        return <a href="#">{content}</a>;
     }
 
     private toggleMenu = () => {

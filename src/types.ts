@@ -17,7 +17,15 @@ export interface KompendiumConfig {
      */
     publicPath: string;
 
+    /**
+     * Title to display in the header
+     */
     title?: string;
+
+    /**
+     * Logo to display of the title in the header
+     */
+    logo?: string;
 
     typeRoot: string;
 
@@ -35,6 +43,7 @@ export interface MenuItem {
 
 export interface KompendiumData {
     title: string;
+    logo?: string;
     docs: JsonDocs;
     menu: MenuItem[];
     readme?: string;
