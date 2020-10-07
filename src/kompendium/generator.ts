@@ -1,4 +1,4 @@
-import { JsonDocs } from '@stencil/core/internal';
+import { JsonDocs, Config, Logger } from '@stencil/core/internal';
 import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
@@ -20,22 +20,24 @@ export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
 
 export function kompendiumGenerator(
     config: Partial<KompendiumConfig>
-): (docs: JsonDocs) => Promise<void> {
+): (docs: JsonDocs, stencilConfig: Config) => Promise<void> {
     config = {
         ...defaultConfig,
         ...config,
     };
     initialize(config);
 
-    return async (docs: JsonDocs) => {
-        console.time('kompendium');
+    return async (docs: JsonDocs, stencilConfig: Config) => {
+        const logger = stencilConfig.logger;
+        await startupLog(logger);
+        const timer = logger.createTimeSpan('docs generation started');
 
         const [jsonDocs, title, readme, guides, types] = await Promise.all([
             addSources(docs),
             getProjectTitle(config),
-            getReadme(),
+            getReadme(logger),
             findGuides(config),
-            getTypes(config),
+            getTypes(config, logger),
         ]);
 
         const data: KompendiumData = {
@@ -50,7 +52,7 @@ export function kompendiumGenerator(
 
         await writeData(config, data);
 
-        console.timeEnd('kompendium');
+        timer.finish('docs generation finished');
     };
 }
 
@@ -128,7 +130,7 @@ async function createOutputDirs(config: Partial<KompendiumConfig>) {
     }
 }
 
-async function getReadme(): Promise<string> {
+async function getReadme(logger: Logger): Promise<string> {
     const files = ['readme.md', 'README.md', 'README', 'readme'];
     let data = null;
 
@@ -145,7 +147,7 @@ async function getReadme(): Promise<string> {
     }
 
     if (!data) {
-        console.log('README did not exist');
+        logger.warn('README did not exist');
     }
 
     return data;
@@ -176,14 +178,15 @@ function isProd(): boolean {
 }
 
 async function getTypes(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
+    logger: Logger
 ): Promise<TypeDescription[]> {
-    console.log('Getting type information...');
+    logger.debug('Getting type information...');
     let types = await readTypes(config);
     const cache = await readCache(config);
 
-    if (types.length === 0 || (await isModified(types, cache))) {
-        console.log('Parsing types...');
+    if (types.length === 0 || (await isModified(types, cache, logger))) {
+        logger.debug('Parsing types...');
         const data = parseFile(config.typeRoot);
         await saveData(config, data);
         types = data;
@@ -192,7 +195,11 @@ async function getTypes(
     return types;
 }
 
-async function isModified(types: any[], cache: Record<string, number>) {
+async function isModified(
+    types: any[],
+    cache: Record<string, number>,
+    logger: Logger
+) {
     if (Object.keys(cache).length === 0) {
         return true;
     }
@@ -206,7 +213,7 @@ async function isModified(types: any[], cache: Record<string, number>) {
         const filename = filenames[index];
         const result = cache[filename] !== data.mtimeMs;
 
-        console.log(`${filename} was ${result ? '' : 'not'} modified!`);
+        logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
 
         return result;
     });
@@ -254,4 +261,26 @@ async function readTypes(config: Partial<KompendiumConfig>) {
 
 async function writeTypes(config: Partial<KompendiumConfig>, data: any) {
     await writeFile(`${config.path}/types.json`, JSON.stringify(data));
+}
+
+async function startupLog(logger: Logger) {
+    // eslint-disable-next-line prefer-const
+    let [version, emoji] = await readVersionInfo();
+    emoji = logger.emoji(' ' + emoji);
+    const message = logger.cyan(`kompendium v${version} ${emoji}`);
+
+    logger.info(message);
+}
+
+async function readVersionInfo(): Promise<[string, string]> {
+    const filepath = __filename + '/../CHANGELOG.md';
+    if (!(await exists(filepath))) {
+        return ['DEV', '🦄'];
+    }
+
+    const regex = /# (.+?) \[(.+?)\]/;
+    const data = await readFile(filepath);
+    const match = data.match(regex);
+
+    return [match[1], match[2]];
 }
