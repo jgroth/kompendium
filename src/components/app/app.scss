@@ -14,8 +14,10 @@ main {
 
     margin-left: var(--width-nav-panel);
 
-    kompendium-markdown {
-        width: 50%;
+    kompendium-guide {
+        display: block;
+        width: 100%;
+        max-width: pxToRem(960);
     }
 }
 
@@ -25,18 +27,10 @@ main {
     main {
         padding-top: pxToRem(42);
         margin-left: 0;
-
-        kompendium-markdown {
-            width: 75%;
-        }
     }
 }
 
 
 @media (max-width: $break-point-mini) {
-    main {
-        kompendium-markdown {
-            width: 100%;
-        }
-    }
+    // In case we need to add things here
 }
