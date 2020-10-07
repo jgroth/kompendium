@@ -9,9 +9,17 @@
     display: block;
 }
 
+.docs {
+    kompendium-markdown {
+        display: block;
+        width: calc(50% - 2rem);
+    }
+}
+
 @media (max-width: $break-point-small) {
-    main {
-        padding-top: pxToRem(42);
-        margin-left: 0;
+    .docs {
+        kompendium-markdown {
+            width: 100%;
+        }
     }
 }
