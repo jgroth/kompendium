@@ -1,3 +1,10 @@
+## 🤪 [0.7.1](https://github.com/jgroth/kompendium/compare/v0.7.0...v0.7.1) (2020-10-18)
+
+
+### Bug Fixes
+
+* prevent full-width hard-to-read content on large screens ([614e47d](https://github.com/jgroth/kompendium/commit/614e47dac9283ab6b3982c58c6d41d0e06125d0a))
+
 # 😸 [0.7.0](https://github.com/jgroth/kompendium/compare/v0.6.3...v0.7.0) (2020-10-06)
 
 
