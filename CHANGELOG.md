@@ -1,3 +1,10 @@
+## ⛺️ [0.7.2](https://github.com/jgroth/kompendium/compare/v0.7.1...v0.7.2) (2020-10-18)
+
+
+### Bug Fixes
+
+* prevent multiple menu items to be selected ([3752c82](https://github.com/jgroth/kompendium/commit/3752c823461998ff3ed16ce691e7ba2a3851a5b7))
+
 ## 🤪 [0.7.1](https://github.com/jgroth/kompendium/compare/v0.7.0...v0.7.1) (2020-10-18)
 
 
