@@ -1,3 +1,4 @@
+import { KompendiumGuide, MenuItem } from '../../types';
 import { addGuide } from '../menu';
 
 describe('addGuide', () => {
@@ -10,12 +11,12 @@ describe('addGuide', () => {
             },
             result: [
                 {
-                    path: '/guide',
+                    path: '/guide/',
                     title: 'Guide',
                     children: [
                         {
                             children: [],
-                            path: '/guide/test',
+                            path: '/guide/test/',
                             title: 'My test guide',
                         },
                     ],
@@ -30,17 +31,17 @@ describe('addGuide', () => {
             },
             result: [
                 {
-                    path: '/guide',
+                    path: '/guide/',
                     title: 'Guide',
                     children: [
                         {
-                            path: '/guide/test',
+                            path: '/guide/test/',
                             title: 'Test',
                             children: [
                                 {
                                     children: [],
                                     title: 'My test guide',
-                                    path: '/guide/test/foo',
+                                    path: '/guide/test/foo/',
                                 },
                             ],
                         },
@@ -53,5 +54,40 @@ describe('addGuide', () => {
             addGuide(menu, '')(guide);
             expect(menu).toEqual(result);
         });
+    });
+
+    describe('foo', () => {
+        const guides: KompendiumGuide[] = [
+            {
+                data: { path: '/guide/foo' },
+                content: '# Foo',
+            },
+            {
+                data: { path: '/guide/bar' },
+                content: '# Bar',
+            },
+        ];
+        const menu: MenuItem[] = [];
+        const result: MenuItem[] = [
+            {
+                path: '/guide/',
+                title: 'Guide',
+                children: [
+                    {
+                        path: '/guide/foo/',
+                        title: 'Foo',
+                        children: [],
+                    },
+                    {
+                        path: '/guide/bar/',
+                        title: 'Bar',
+                        children: [],
+                    },
+                ],
+            },
+        ];
+
+        guides.forEach(addGuide(menu, ''));
+        expect(menu).toEqual(result);
     });
 });
