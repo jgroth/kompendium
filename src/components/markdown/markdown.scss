@@ -109,3 +109,11 @@
         --size-of-admonition-icon: 2rem;
     }
 }
+
+blockquote {
+    border-left-color: rgb(var(--contrast-700));
+    border-left-style: solid;
+    border-left-width: 0.25rem;
+    color: rgb(var(--contrast-1100));
+    padding-left: 1rem;
+}
