@@ -1,3 +1,10 @@
+## 🦹 [0.7.3](https://github.com/jgroth/kompendium/compare/v0.7.2...v0.7.3) (2021-01-10)
+
+
+### Bug Fixes
+
+* **markdown:** add styling for blockquotes ([5fd5069](https://github.com/jgroth/kompendium/commit/5fd50699208af49487defc5fb129c5d55dd500dd)), closes [#33](https://github.com/jgroth/kompendium/issues/33)
+
 ## ⛺️ [0.7.2](https://github.com/jgroth/kompendium/compare/v0.7.1...v0.7.2) (2020-10-18)
 
 
