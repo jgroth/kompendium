@@ -1,3 +1,10 @@
+## 😍 [0.7.4](https://github.com/jgroth/kompendium/compare/v0.7.3...v0.7.4) (2021-03-30)
+
+
+### Bug Fixes
+
+* **markdown:** remove margins of admonition-heading ([33b5947](https://github.com/jgroth/kompendium/commit/33b594707c5127ad7ac815fba85a3332ad0523c6))
+
 ## 🦹 [0.7.3](https://github.com/jgroth/kompendium/compare/v0.7.2...v0.7.3) (2021-01-10)
 
 
