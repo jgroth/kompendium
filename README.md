@@ -8,7 +8,7 @@ Kompendium is a simple, fast and elegant tool for generating documentation for c
 
 Just type everything in Markdown, from your code blocks to description texts of example components. Then enjoy a lightning fast responsive compendium of your components, with component API and live playground.
 
-### Please note 
+### Please note
 Kompendium is still in development. Consider this an early preview!
 
 # Features  
@@ -16,43 +16,43 @@ Kompendium is still in development. Consider this an early preview!
 
 * **Elegant design** — Your examples and their description text are displayed on the left part of the documentation, while the code that generates them is resides on the right, and is smartly divided into tabs that show contents of connected files. It goes without saying that the layout is fully responsive and flawlessly adapts to tablets and phones.  
 
-*  **Dark mode** — Kompendium seamless switches between light and dark theme using `prefers-color-scheme` media query. All colors get automatically dimmed in dark mode, to provide a more decent experience and a more accessible user interface. 
+*  **Dark mode** — Kompendium seamless switches between light and dark theme using `prefers-color-scheme` media query. All colors get automatically dimmed in dark mode, to provide a more decent experience and a more accessible user interface.
 
 * **Multi page** — Kompendium divides your documentation into several pages, making sure that linkability is provided.  
 
-* **Markdown support** — Who doesn’t want to write in Markdown? While coding and articulating features, functionalities, and notes. 
+* **Markdown support** — Who doesn’t want to write in Markdown? While coding and articulating features, functionalities, and notes.
 
-* ** Admonitions support** — You can easily add admonitions within your markdown text to generate side content that do not interrupt the document flow. Kompendium comes with custom-made visual support for six types of these call-out blocks (`info`, `warning`, `danger`, `note`, `tip`, and `important`). [read more](https://github.com/elviswolcott/remark-admonitions). 
+* ** Admonitions support** — You can easily add admonitions within your markdown text to generate side content that do not interrupt the document flow. Kompendium comes with custom-made visual support for six types of these call-out blocks (`info`, `warning`, `danger`, `note`, `tip`, and `important`). [read more](https://github.com/elviswolcott/remark-admonitions).
 
-* **Syntax highlighting** — Tabs that show the source code of for example `.tsx` or `.scss` files used in the Stencil example components have inbuilt syntax highlighting for each language. Also, code-blocks inside your documentations can benefit from syntax highlighting, if you specify their respective language. For the highlighting, we have hand-picked colors that look gorgeous both in light- and dark-mode. 
+* **Syntax highlighting** — Tabs that show the source code of for example `.tsx` or `.scss` files used in the Stencil example components have inbuilt syntax highlighting for each language. Also, code-blocks inside your documentations can benefit from syntax highlighting, if you specify their respective language. For the highlighting, we have hand-picked colors that look gorgeous both in light- and dark-mode.
 
 # Demo  
-You can see a live demo of Kompendium, being used by Lime Technologies to create their [component library and design system docs](http://lime-documentation-lime-elements.s3-website-eu-west-1.amazonaws.com/). 
+You can see a live demo of Kompendium, being used by Lime Technologies to create their [component library and design system docs](https://lundalogik.github.io/lime-elements/versions/latest).
 
-**Note:** Make sure click on the latest version in the list to see the latest version of Kompendium. 
+**Note:** Make sure click on the latest version in the list to see the latest version of Kompendium.
 <img width="50%" alt="kompendium-dark" src="https://user-images.githubusercontent.com/35954987/99229802-c540f380-27ee-11eb-935e-ad5cdf0d1059.png"><img width="50%" alt="kompendium-light" src="https://user-images.githubusercontent.com/35954987/99229811-c83be400-27ee-11eb-972a-71ffbf3dd9b8.png">
 
-# Contributing 
-Please see CONTRIBUTING for details. 
+# Contributing
+Please see CONTRIBUTING for details.
 
 # Credits
-* [Johan Groth](https://github.com/jgroth) — Development 
+* [Johan Groth](https://github.com/jgroth) — Development
 * [Kiarokh Moattar](https://github.com/Kiarokh) — Design  
 
- # License 
+ # License
 The MIT License (MIT).  
 _____________
- 
+
 # Documentation  
 ## Getting started
 ### Installation  
-Kompendium is available as a package on NPM and is installed using the NPM CLI 
-```` 
-npm install kompendium 
+Kompendium is available as a package on NPM and is installed using the NPM CLI
+````
+npm install kompendium
 
-```` 
+````
 
-## Configuration 
+## Configuration
 Next, we need to configure Kompendium to generate our documentation. Kompendium runs using the `docs-custom` target in Stencil. We also need to copy the Kompendium components to our `www` folder in order to use them with the Stencil dev server.
 ````ts
 stencil.config.ts
@@ -122,7 +122,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 /**
  * This is a sample component
- * 
+ *
  * Kompendium will parse the doc blocks and render it using Markdown
  */
 @Component({
@@ -152,7 +152,7 @@ import { Component, h, Prop } from '@stencil/core';
 
 /**
  * This is a sample component
- * 
+ *
  * Kompendium will parse the doc blocks and render it using Markdown
  *
  * @exampleComponent my-component-example
@@ -218,7 +218,7 @@ import { MyData } from './my-data.ts';
 
 /**
  * This is a sample component
- * 
+ *
  * Kompendium will parse the doc blocks and render it using Markdown
  */
 @Component({
