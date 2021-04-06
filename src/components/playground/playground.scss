@@ -192,7 +192,11 @@ section.example {
 .show-case_component {
     padding: pxToRem(20);
     border-radius: pxToRem(14);
-    background-color: rgb(var(--color-white));
+    background-color: rgb(var(--contrast-100));
     box-shadow: var(--shadow-showcase);
     border: 1px solid rgb(var(--contrast-300));
+
+    @include in(dark-mode) {
+        background-color: rgb(var(--contrast-200));
+    }
 }
