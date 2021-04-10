@@ -8,6 +8,7 @@ import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
 import { parseFile } from './typedoc';
+import { createSchemas } from './schema';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
@@ -49,6 +50,7 @@ export function kompendiumGenerator(
             readme: readme,
             guides: guides,
             types: types,
+            schemas: createSchemas(docs.components, types),
         };
 
         await writeData(config, data);
