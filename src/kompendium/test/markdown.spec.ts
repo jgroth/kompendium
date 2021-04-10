@@ -37,9 +37,8 @@ describe('markdownToHtml()', () => {
         it('formats the code using the code component', async () => {
             const markdown = '```ts\ncode\n```';
             const html = `
-                <pre><kompendium-code language="ts">
-                    code
-                </kompendium-code></pre>`;
+                <pre><kompendium-code language="ts">code
+</kompendium-code></pre>`;
             const result = await markdownToHtml(markdown);
             expect(result.toString()).toEqualHtml(html);
         });
@@ -49,9 +48,8 @@ describe('markdownToHtml()', () => {
         it('uses normal code formatting for the block', async () => {
             const markdown = '```\ncode\n```';
             const html = `
-                <pre><code>
-                    code
-                </code></pre>`;
+                <pre><code>code
+</code></pre>`;
             const result = await markdownToHtml(markdown);
             expect(result.toString()).toEqualHtml(html);
         });

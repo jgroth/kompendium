@@ -86,11 +86,7 @@ export class Playground {
         const code = source.source.replace(/\/\*\*.+?\*\//gms, '');
 
         return (
-            <kompendium-code
-                random={Math.random()}
-                class={classList}
-                language={source.type}
-            >
+            <kompendium-code class={classList} language={source.type}>
                 {code}
             </kompendium-code>
         );
