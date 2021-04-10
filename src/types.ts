@@ -49,6 +49,7 @@ export interface KompendiumData {
     readme?: string;
     guides: KompendiumGuide[];
     types: TypeDescription[];
+    schemas: Array<Record<string, any>>;
 }
 
 export interface KompendiumGuide {
