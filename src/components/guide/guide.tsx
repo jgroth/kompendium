@@ -20,12 +20,12 @@ export class Guide {
         this.setRoute = this.setRoute.bind(this);
     }
 
-    protected componentWillLoad(): void {
+    protected connectedCallback(): void {
         window.addEventListener('hashchange', this.setRoute);
         this.setRoute();
     }
 
-    protected componentDidUnload(): void {
+    protected disconnectedCallback(): void {
         window.removeEventListener('hashchange', this.setRoute);
     }
 
