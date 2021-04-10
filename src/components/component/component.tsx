@@ -26,6 +26,12 @@ export class KompendiumComponent {
     public docs: JsonDocs;
 
     /**
+     * Component schemas
+     */
+    @Prop()
+    public schemas: Array<Record<string, any>>;
+
+    /**
      * Matched route parameters
      */
     @Prop()
@@ -85,12 +91,17 @@ export class KompendiumComponent {
         const tags = component.docsTags
             .filter(negate(isTag('slot')))
             .filter(negate(isTag('exampleComponent')));
+        const schema = this.schemas.find((s) => s.$id === tag);
 
         return [
             <h1 id={this.getId()}>{title}</h1>,
             <kompendium-markdown text={component.docs} />,
             <kompendium-taglist tags={tags} />,
-            <ExampleList examples={examples} id={this.getId('examples')} />,
+            <ExampleList
+                examples={examples}
+                id={this.getId('examples')}
+                schema={schema}
+            />,
             <PropertyList
                 props={component.props}
                 id={this.getId('properties')}

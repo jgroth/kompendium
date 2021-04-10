@@ -14,6 +14,12 @@ export class Playground {
     @Prop()
     public component: JsonDocsComponent;
 
+    /**
+     * Schema for the component
+     */
+    @Prop()
+    public schema: Record<string, any>;
+
     @State()
     private activeTab: string;
 
@@ -65,6 +71,9 @@ export class Playground {
     private renderResult() {
         const ExampleComponent = this.component.tag;
         const text = '##### ' + this.component.docs;
+        const props = {
+            schema: this.schema,
+        };
 
         return (
             <div class="show-case">
@@ -73,7 +82,7 @@ export class Playground {
                 </div>
                 <div class="show-case_component">
                     {this.renderDebugButton(this.component.tag)}
-                    <ExampleComponent />
+                    <ExampleComponent {...props} />
                 </div>
             </div>
         );
