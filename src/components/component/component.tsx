@@ -38,11 +38,11 @@ export class KompendiumComponent {
         this.handleRouteChange = this.handleRouteChange.bind(this);
     }
 
-    protected componentWillLoad(): void {
+    protected connectedCallback(): void {
         window.addEventListener('hashchange', this.handleRouteChange);
     }
 
-    protected componentDidUnload(): void {
+    protected disconnectedCallback(): void {
         window.removeEventListener('hashchange', this.handleRouteChange);
     }
 
