@@ -1,10 +1,12 @@
-import { Component, h, Prop, Element } from '@stencil/core';
+import { Component, h, Prop, Element, State } from '@stencil/core';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx.js';
 import 'prismjs/components/prism-scss.js';
 import 'prismjs/components/prism-less.js';
 import 'prismjs/components/prism-tsx.js';
 import 'prismjs/components/prism-typescript.js';
+import 'prismjs/plugins/toolbar/prism-toolbar.js';
+import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js';
 
 /**
  * @exampleComponent kompendium-example-code
@@ -22,26 +24,27 @@ export class Code {
     public language: string;
 
     /**
-     * @ignore
-     */
-    @Prop()
-    public random: number;
-
-    /**
      * Source code
      */
-    @Prop()
+    @State()
     public code: string;
 
     @Element()
     private host: HTMLKompendiumCodeElement;
 
-    protected componentDidLoad(): void {
-        this.renderCode();
+    public componentDidLoad(): void {
+        setTimeout(() => {
+            this.code = this.findCode();
+        });
     }
 
-    protected componentDidUpdate(): void {
-        this.renderCode();
+    public componentWillRender(): void {
+        this.code = this.findCode();
+    }
+
+    public componentDidRender(): void {
+        const container = this.host.shadowRoot.querySelector('.root pre code');
+        Prism.highlightElement(container);
     }
 
     render(): HTMLElement {
@@ -49,18 +52,12 @@ export class Code {
         classList[`language-${this.language}`] = true;
 
         return (
-            <pre class={classList}>
+            <div class="root">
                 <slot />
-                <code class="root" />
-            </pre>
-        );
-    }
-
-    private renderCode() {
-        const container = this.host.shadowRoot.querySelector('.root');
-        container.innerHTML = Prism.highlight(
-            this.findCode(),
-            Prism.languages[this.language]
+                <pre class={classList}>
+                    <code>{this.code}</code>
+                </pre>
+            </div>
         );
     }
 
@@ -68,6 +65,10 @@ export class Code {
         const slot: HTMLSlotElement = this.host.shadowRoot.querySelector(
             'slot'
         );
+
+        if (!slot) {
+            return;
+        }
 
         return [...slot.assignedNodes()]
             .map((node) => node.textContent)

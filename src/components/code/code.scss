@@ -1,5 +1,6 @@
 @import '../../style/mixins.scss';
 @import '../../style/functions.scss';
+@import '../../../node_modules/prismjs/plugins/toolbar/prism-toolbar.css';
 
 :host {
   display: flex;
@@ -8,6 +9,33 @@
 
 slot {
     display: none;
+}
+
+.root {
+    width: 100%;
+}
+
+div.code-toolbar {
+    display: flex;
+    height: 100%;
+
+	>.toolbar {
+        padding-right: pxToRem(4);
+
+        .toolbar-item {
+            a,
+    		button,
+    		span {
+                background-color: rgb(var(--contrast-900));
+                color: rgb(var(--contrast-100));
+                padding: pxToRem(2) pxToRem(8);
+                border-radius: pxToRem(6);
+
+                @include is-elevated-clickable();
+
+            }
+        }
+	}
 }
 
 /* PrismJS 1.19.0
