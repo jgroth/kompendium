@@ -72,6 +72,7 @@ export class Playground {
                     <kompendium-markdown text={text} />
                 </div>
                 <div class="show-case_component">
+                    {this.renderDebugButton(this.component.tag)}
                     <ExampleComponent />
                 </div>
             </div>
@@ -89,6 +90,22 @@ export class Playground {
             <kompendium-code class={classList} language={source.type}>
                 {code}
             </kompendium-code>
+        );
+    }
+
+    private renderDebugButton(tag: string) {
+        if (!['localhost', '127.0.0.1'].includes(location.hostname)) {
+            return;
+        }
+
+        const href = `#/debug/${tag}`;
+
+        return (
+            <div class="debug">
+                <a class="debug-link" href={href} title="Debug">
+                    Debug
+                </a>
+            </div>
         );
     }
 

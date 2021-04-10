@@ -99,6 +99,13 @@ export class App {
                                 }}
                             />
                             <stencil-route
+                                url="/debug/:name"
+                                component="kompendium-debug"
+                                componentProps={{
+                                    docs: this.data.docs,
+                                }}
+                            />
+                            <stencil-route
                                 component="kompendium-guide"
                                 componentProps={{
                                     data: this.data,
