@@ -1,5 +1,9 @@
 import { Component, h, Prop } from '@stencil/core';
-import { JsonDocs, JsonDocsComponent } from '@stencil/core/internal';
+import {
+    JsonDocs,
+    JsonDocsComponent,
+    JsonDocsTag,
+} from '@stencil/core/internal';
 import { MatchResults } from '@stencil/router';
 
 @Component({
@@ -12,6 +16,12 @@ export class KompendiumDebug {
      */
     @Prop()
     public docs: JsonDocs;
+
+    /**
+     * Component schemas
+     */
+    @Prop()
+    public schemas: Array<Record<string, any>>;
 
     /**
      * Matched route parameters
@@ -34,11 +44,16 @@ export class KompendiumDebug {
 
     private renderComponent(component: JsonDocsComponent) {
         const ExampleComponent = component.tag;
+        const ownerComponent = this.docs.components.find(isOwnerOf(component));
+        const schema = this.schemas.find((s) => s.$id === ownerComponent.tag);
+        const props = {
+            schema: schema,
+        };
 
         return (
             <div class="show-case">
                 <div class="show-case_component">
-                    <ExampleComponent />
+                    <ExampleComponent {...props} />
                 </div>
             </div>
         );
@@ -48,3 +63,19 @@ export class KompendiumDebug {
 function findComponent(tag: string, docs: JsonDocs) {
     return docs.components.find((doc) => doc.tag === tag);
 }
+
+const isOwnerOf = (example: JsonDocsComponent) => (
+    component: JsonDocsComponent
+) => {
+    return !!component.docsTags
+        .filter(isTag('exampleComponent'))
+        .find(hasText(example.tag));
+};
+
+const isTag = (name: string) => (tag: JsonDocsTag) => {
+    return tag.name === name;
+};
+
+const hasText = (name: string) => (tag: JsonDocsTag) => {
+    return tag.text === name;
+};

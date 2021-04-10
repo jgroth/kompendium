@@ -89,6 +89,7 @@ export class App {
                                 component="kompendium-component"
                                 componentProps={{
                                     docs: this.data.docs,
+                                    schemas: this.data.schemas,
                                 }}
                             />
                             <stencil-route
@@ -103,6 +104,7 @@ export class App {
                                 component="kompendium-debug"
                                 componentProps={{
                                     docs: this.data.docs,
+                                    schemas: this.data.schemas,
                                 }}
                             />
                             <stencil-route
