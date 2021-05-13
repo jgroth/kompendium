@@ -50,6 +50,29 @@ export interface KompendiumData {
     guides: KompendiumGuide[];
     types: TypeDescription[];
     schemas: Array<Record<string, any>>;
+    index: {
+        documents: KompendiumDocument[];
+        data: any;
+    };
+}
+
+export interface KompendiumDocument {
+    tags?: string[];
+    title: string;
+    path: string;
+    text: string | string[];
+    props?: {
+        name: string;
+        text: string;
+        tags: string[];
+        type: string;
+    }[];
+    events?: {
+        name: string;
+        text: string;
+        tags: string[];
+        type: string;
+    }[];
 }
 
 export interface KompendiumGuide {

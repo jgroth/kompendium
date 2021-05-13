@@ -5,9 +5,32 @@
   display: block;
 }
 
+:host(:focus),
+:host(:focus-within) {
+    .result.has-results {
+        display: block;
+    }
+}
+
 .search-box {
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    .result.has-results {
+        position: absolute;
+        background: white;
+        padding: 1rem;
+        margin-top: 2rem;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: var(--button-shadow-normal);
+        display: none;
+
+        li {
+            margin: .5rem 0;
+        }
+    }
 }
 
 input {
@@ -53,5 +76,15 @@ input {
         &:hover {
             background-color: rgb(var(--contrast-1000));
         }
+    }
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+
+    &:hover,
+    &.active {
+        color: rgb(var(--color-blue-default));
     }
 }
