@@ -1,3 +1,20 @@
+# 😤 [0.8.0](https://github.com/jgroth/kompendium/compare/v0.7.4...v0.8.0) (2021-05-13)
+
+
+### Bug Fixes
+
+* trigger release ([000fb2e](https://github.com/jgroth/kompendium/commit/000fb2efd3b988dc90c40182a14b8a761623a27f))
+* **generator:** use Stencil logger and not console ([3202056](https://github.com/jgroth/kompendium/commit/320205653e79621fd2cc4bc4978b9bc751cee34c))
+
+
+### Features
+
+* basic search functionality ([88f74bb](https://github.com/jgroth/kompendium/commit/88f74bbe37bb475df6fc8ea5a39d4b9f8ceb35ca))
+* generate component schema ([3fec4bc](https://github.com/jgroth/kompendium/commit/3fec4bcf764b82918c84363b77315ea242e369f4))
+* provide component schema in examples ([6e5866d](https://github.com/jgroth/kompendium/commit/6e5866d733eb2f16ea03958379bdb0ad6a2a5a67))
+* **code:** add copy button ([a28079a](https://github.com/jgroth/kompendium/commit/a28079a816170e9c2962fe1f18e5dd145e207078)), closes [#14](https://github.com/jgroth/kompendium/issues/14)
+* **playground:** add debug button ([ed15a6a](https://github.com/jgroth/kompendium/commit/ed15a6a83fe618f4ea7e9967eb9ea6611ae3f75c))
+
 # 🧻 [0.8.0](https://github.com/jgroth/kompendium/compare/v0.7.4...v0.8.0) (2021-05-13)
 
 
