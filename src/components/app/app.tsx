@@ -1,6 +1,7 @@
-import { Component, h, State, Prop } from '@stencil/core';
-import { KompendiumData } from '../../types';
+import { Component, h, State, Prop, Watch } from '@stencil/core';
+import { KompendiumData, KompendiumDocument } from '../../types';
 import { setTypes } from '../markdown/markdown-types';
+import Fuse from 'fuse.js';
 
 @Component({
     tag: 'kompendium-app',
@@ -17,6 +18,9 @@ export class App {
     @State()
     public data: KompendiumData;
 
+    @State()
+    private index: Fuse<KompendiumDocument>;
+
     private socket: WebSocket;
 
     constructor() {
@@ -26,6 +30,23 @@ export class App {
     protected componentWillLoad(): void {
         this.createWebSocket();
         this.fetchData();
+    }
+
+    @Watch('data')
+    protected watchData(): void {
+        const options: Fuse.IFuseOptions<KompendiumDocument> = {
+            includeScore: true,
+            includeMatches: true,
+            ignoreLocation: true,
+            threshold: 0.4,
+        };
+        const index = Fuse.parseIndex(this.data.index.data);
+
+        this.index = new Fuse<KompendiumDocument>(
+            this.data.index.documents,
+            options,
+            index
+        );
     }
 
     private createWebSocket() {
@@ -72,6 +93,7 @@ export class App {
                     menu={this.data.menu}
                     header={this.data.title}
                     logo={this.data.logo}
+                    index={this.index}
                 />
                 <main role="main">
                     <stencil-router historyType="hash">

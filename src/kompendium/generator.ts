@@ -9,6 +9,7 @@ import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
 import { parseFile } from './typedoc';
 import { createSchemas } from './schema';
+import { createIndex } from './search';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
@@ -51,7 +52,10 @@ export function kompendiumGenerator(
             guides: guides,
             types: types,
             schemas: createSchemas(docs.components, types),
+            index: null,
         };
+
+        data.index = createIndex(data);
 
         await writeData(config, data);
 

@@ -35,6 +35,12 @@ export class Navigation {
     @Prop()
     public logo: string;
 
+    /**
+     * Index containing searchable documents
+     */
+    @Prop()
+    public index: any;
+
     @State()
     private route = '';
 
@@ -70,7 +76,7 @@ export class Navigation {
                 </a>
                 <header class="panel-header">
                     <h1>{this.renderHeader()}</h1>
-                    <kompendium-search />
+                    <kompendium-search index={this.index} />
                 </header>
                 {this.renderChapters(this.menu)}
             </nav>
