@@ -1,3 +1,10 @@
+## 🐲 [0.8.2](https://github.com/jgroth/kompendium/compare/v0.8.1...v0.8.2) (2021-05-13)
+
+
+### Bug Fixes
+
+* trigger release ([3455869](https://github.com/jgroth/kompendium/commit/345586979a6cf1a7e8577d5627d8db832fa7fb6d))
+
 # 🧻 [0.8.0](https://github.com/jgroth/kompendium/compare/v0.7.4...v0.8.0) (2021-05-13)
 
 
