@@ -65,12 +65,12 @@ blockquote {
 
 a {
     transition: color 0.2s ease;
-  color: rgb(var(--kompendium-color-blue-default));
-  text-decoration: none;
+    color: rgb(var(--kompendium-color-blue-default));
+    text-decoration: none;
 
-  &:hover {
+    &:hover {
       color: rgb(var(--kompendium-color-blue-light));
-  }
+    }
 }
 
 ul {
