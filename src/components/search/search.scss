@@ -36,7 +36,7 @@
     .result.has-results {
         animation: display-search-results 0.28s ease-out forwards;
         position: absolute;
-        background: white;
+        background: rgb(var(--kompendium-contrast-200));
         padding: 0.5rem;
         margin-top: 2rem;
         width: 100%;
@@ -55,6 +55,11 @@
                 width: 100%;
                 padding: 0.5rem 0.75rem;
                 border-radius: 0.25rem;
+            }
+            &:hover {
+                a {
+                    background: rgb(var(--kompendium-contrast-100));
+                }
             }
         }
     }
