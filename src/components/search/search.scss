@@ -1,5 +1,6 @@
 @import '../../style/reset.scss';
 @import '../../style/functions.scss';
+@import '../../style/mixins.scss';
 
 :host {
   display: block;
@@ -20,18 +21,25 @@
     .result.has-results {
         position: absolute;
         background: white;
-        padding: 0.25rem 1rem;
+        padding: 0.5rem;
         margin-top: 2rem;
         width: 100%;
         border-radius: 5px;
-        box-shadow: var(--button-shadow-normal);
+        box-shadow: var(--shadow-depth-16);
         display: none;
 
         max-height: calc(100vh - 6rem);
         overflow-y: auto;
 
         li {
-            margin: .5rem 0;
+            a {
+                @include truncate-text;
+                @include is-flat-clickable;
+                display: block;
+                width: 100%;
+                padding: 0.5rem 0.75rem;
+                border-radius: 0.25rem;
+            }
         }
     }
 }
