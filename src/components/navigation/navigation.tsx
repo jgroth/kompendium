@@ -107,7 +107,19 @@ export class Navigation {
             return;
         }
 
-        return <ul class="panel-list">{menu.map(this.renderMenuItem)}</ul>;
+        return (
+            <ul class="panel-list">
+                {menu.map(this.renderMenuItem)}
+                <div class="powered-by">
+                    <p>
+                        Powered by&nbsp;
+                        <a href="https://github.com/jgroth/kompendium">
+                            Kompendium
+                        </a>
+                    </p>
+                </div>
+            </ul>
+        );
     }
 
     private renderMenuItem(item: MenuItem) {
