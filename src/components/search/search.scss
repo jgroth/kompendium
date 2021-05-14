@@ -13,12 +13,27 @@
     }
 }
 
+@keyframes display-search-results {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -1.25rem, -1rem) rotateX(10deg);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(0, 0, 0) rotateX(0);
+    }
+}
+
 .search-box {
     display: flex;
     flex-direction: column;
     position: relative;
+    perspective: 60rem;
 
     .result.has-results {
+        animation: display-search-results 0.28s ease-out forwards;
         position: absolute;
         background: white;
         padding: 0.5rem;
