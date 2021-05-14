@@ -65,19 +65,19 @@ input {
     border: 0;
     border-radius: .25rem;
     padding: 0 .5rem;
-    color: rgb(var(--contrast-1200));
-    background-color: rgb(var(--contrast-300));
+    color: rgb(var(--kompendium-contrast-1200));
+    background-color: rgb(var(--kompendium-contrast-300));
     height: 2rem;
     line-height: 2rem;
 
     &::placeholder {
-        color: rgb(var(--contrast-800));
+        color: rgb(var(--kompendium-contrast-800));
     }
 
     &:active,
     &:focus,
     &:hover {
-        background-color: rgb(var(--contrast-200));
+        background-color: rgb(var(--kompendium-contrast-200));
     }
 
     &:focus {
@@ -93,7 +93,7 @@ input {
         margin-right: pxToRem(-4);
         cursor: pointer;
         background: {
-            color: rgb(var(--contrast-800));
+            color: rgb(var(--kompendium-contrast-800));
             repeat: no-repeat;
             position: center;
             size: pxToRem(12);
@@ -101,7 +101,7 @@ input {
         }
 
         &:hover {
-            background-color: rgb(var(--contrast-1000));
+            background-color: rgb(var(--kompendium-contrast-1000));
         }
     }
 }
@@ -112,6 +112,6 @@ a {
 
     &:hover,
     &.active {
-        color: rgb(var(--color-blue-default));
+        color: rgb(var(--kompendium-color-blue-default));
     }
 }

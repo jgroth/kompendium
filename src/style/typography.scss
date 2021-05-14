@@ -65,11 +65,11 @@ blockquote {
 
 a {
     transition: color 0.2s ease;
-  color: rgb(var(--color-blue-default));
+  color: rgb(var(--kompendium-color-blue-default));
   text-decoration: none;
 
   &:hover {
-      color: rgb(var(--color-blue-light));
+      color: rgb(var(--kompendium-color-blue-light));
   }
 }
 
@@ -89,7 +89,7 @@ ul {
           height: pxToRem(4);
 
           border-radius: 50%;
-          background-color: rgb(var(--contrast-700));
+          background-color: rgb(var(--kompendium-contrast-700));
           display: block;
       }
   }
@@ -117,7 +117,7 @@ th,
 td {
   padding: pxToRem(12) pxToRem(16);
   text-align: left;
-  border-bottom: 1px solid rgb(var(--contrast-600));
+  border-bottom: 1px solid rgb(var(--kompendium-contrast-600));
 }
 th:first-child,
 td:first-child {
@@ -131,5 +131,5 @@ td:last-child {
 hr {
   margin: pxToRem(28) 0 pxToRem(32) 0;
   border-width: 0;
-  border-top: 1px solid rgb(var(--contrast-600));
+  border-top: 1px solid rgb(var(--kompendium-contrast-600));
 }

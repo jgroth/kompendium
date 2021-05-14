@@ -26,8 +26,8 @@ div.code-toolbar {
             a,
     		button,
     		span {
-                background-color: rgb(var(--contrast-900));
-                color: rgb(var(--contrast-100));
+                background-color: rgb(var(--kompendium-contrast-900));
+                color: rgb(var(--kompendium-contrast-100));
                 padding: pxToRem(2) pxToRem(8);
                 border-radius: pxToRem(6);
 
@@ -52,7 +52,7 @@ pre {
 }
 code[class*="language-"],
 pre[class*="language-"] {
-  color: rgb(var(--color-code-gray-lighter));
+  color: rgb(var(--kompendium-color-code-gray-lighter));
   background: none;
   text-align: left;
   white-space: pre;
@@ -83,7 +83,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  background: rgb(var(--color-code-background));
+  background: rgb(var(--kompendium-color-code-background));
 }
 
 /* Inline code */
@@ -92,42 +92,42 @@ pre[class*="language-"] {
 }
 
 .token.comment {
-    color: var(--color-code-gray-light);
+    color: var(--kompendium-color-code-gray-light);
 }
 
 .token.block-comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--color-code-gray-lighter);
+  color: var(--kompendium-color-code-gray-lighter);
 }
 
 .token.punctuation {
-  color: var(--color-code-gray-dark);
+  color: var(--kompendium-color-code-gray-dark);
 }
 
 .token.tag,
 .token.attr-name,
 .token.namespace,
 .token.deleted {
-  color: rgb(var(--color-code-pink));
+  color: rgb(var(--kompendium-color-code-pink));
 }
 
 .token.function-name {
-  color: rgb(var(--color-code-blue));
+  color: rgb(var(--kompendium-color-code-blue));
 }
 
 .token.boolean,
 .token.number,
 .token.function {
-  color: rgb(var(--color-code-orange));
+  color: rgb(var(--kompendium-color-code-orange));
 }
 
 .token.property,
 .token.class-name,
 .token.constant,
 .token.symbol {
-  color: rgb(var(--color-code-yellow));
+  color: rgb(var(--kompendium-color-code-yellow));
 }
 
 .token.selector,
@@ -135,7 +135,7 @@ pre[class*="language-"] {
 .token.atrule,
 .token.keyword,
 .token.builtin {
-  color: rgb(var(--color-code-purple));
+  color: rgb(var(--kompendium-color-code-purple));
 }
 
 .token.string,
@@ -143,16 +143,16 @@ pre[class*="language-"] {
 .token.attr-value,
 .token.regex,
 .token.variable {
-  color: rgb(var(--color-code-green-light));
+  color: rgb(var(--kompendium-color-code-green-light));
 }
 
 .token.operator {
-    color: rgb(var(--color-code-purple));
+    color: rgb(var(--kompendium-color-code-purple));
 }
 
 .token.entity,
 .token.url {
-  color: rgb(var(--color-code-turquoise));
+  color: rgb(var(--kompendium-color-code-turquoise));
 }
 
 .token.important,
@@ -168,5 +168,5 @@ pre[class*="language-"] {
 }
 
 .token.inserted {
-  color: rgb(var(--color-code-green-dark));
+  color: rgb(var(--kompendium-color-code-green-dark));
 }

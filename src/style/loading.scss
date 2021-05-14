@@ -23,7 +23,7 @@
         radius: 50%;
         style: solid;
         width: pxToRem(2);
-        color: rgb(var(--color-blue-default));
+        color: rgb(var(--kompendium-color-blue-default));
         top-color: transparent;
     }
     display: inline-block;
@@ -34,5 +34,5 @@
 
 .loading-screen-text {
     padding-left: pxToRem(12);
-    color: rgb(var(--contrast-1100));
+    color: rgb(var(--kompendium-contrast-1100));
 }
