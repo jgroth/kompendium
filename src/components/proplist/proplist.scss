@@ -18,12 +18,12 @@ code {
 }
 
 code {
-    background: rgba(var(--contrast-1100), .05);
-    border: 1px solid rgba(var(--contrast-1100), .1);
+    background: rgba(var(--kompendium-contrast-1100), .05);
+    border: 1px solid rgba(var(--kompendium-contrast-1100), .1);
     padding: 0.125rem 0.3125rem;
     margin: 0 0.125rem;
     white-space: nowrap;
-    color: rgb(var(--contrast-1100));
+    color: rgb(var(--kompendium-contrast-1100));
 }
 
 pre {
@@ -36,18 +36,18 @@ pre {
 
 .value--false {
     code {
-        color: rgb(var(--color-code-magenta));
-        border-color: rgba(var(--color-code-magenta), .2);
-        background-color: rgba(var(--color-code-magenta), .1);
+        color: rgb(var(--kompendium-color-code-magenta));
+        border-color: rgba(var(--kompendium-color-code-magenta), .2);
+        background-color: rgba(var(--kompendium-color-code-magenta), .1);
     }
 }
 
 
 .value--true {
     code {
-        color: rgb(var(--color-code-green-dark));
-        border-color: rgba(var(--color-code-green-dark), .2);
-        background-color: rgba(var(--color-code-green-dark), .1);
+        color: rgb(var(--kompendium-color-code-green-dark));
+        border-color: rgba(var(--kompendium-color-code-green-dark), .2);
+        background-color: rgba(var(--kompendium-color-code-green-dark), .1);
     }
 }
 
@@ -56,16 +56,16 @@ dl {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
     margin-bottom: 2rem;
-    border: 1px solid rgb(var(--contrast-500));
+    border: 1px solid rgb(var(--kompendium-contrast-500));
     border-radius: pxToRem(6);
-    background-color: rgb(var(--contrast-300));
+    background-color: rgb(var(--kompendium-contrast-300));
 
     dt, dd {
         padding: pxToRem(6) pxToRem(8);
         font-size: pxToRem(14);
 
         &:nth-of-type(even) {
-            background-color: rgb(var(--contrast-400));
+            background-color: rgb(var(--kompendium-contrast-400));
         }
     }
     dt {

@@ -34,7 +34,7 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
     padding: pxToRem(8) pxToRem(16);
     text-align: center;
     line-height: pxToRem(15);
-    color: rgb(var(--contrast-1000));
+    color: rgb(var(--kompendium-contrast-1000));
     font-size: pxToRem(16);
     border-radius: pxToRem(8) pxToRem(8) 0 0;
     margin: 0 pxToRem(2);
@@ -65,26 +65,26 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
     }
 
     &:hover {
-      background-color: rgb(var(--contrast-100));
+      background-color: rgb(var(--kompendium-contrast-100));
 
       &:before,
       &:after {
-          background-color: rgb(var(--contrast-100));
+          background-color: rgb(var(--kompendium-contrast-100));
 
           @include in(dark-mode) {
-              background-color: rgb(var(--contrast-100));
+              background-color: rgb(var(--kompendium-contrast-100));
           }
       }
     }
 
     &.active {
         z-index: 1;
-        color: rgb(var(--contrast-1100));
-        background: rgb(var(--color-code-background));
+        color: rgb(var(--kompendium-contrast-1100));
+        background: rgb(var(--kompendium-color-code-background));
 
         &:before,
         &:after {
-            background: rgb(var(--color-code-background));
+            background: rgb(var(--kompendium-color-code-background));
         }
     }
  }
@@ -128,19 +128,19 @@ kompendium-code {
   &:before {
       top: pxToRem(39);
       height: pxToRem(24);
-      background-image: linear-gradient(rgb(var(--color-code-background)), rgba(var(--color-code-background), 0));
+      background-image: linear-gradient(rgb(var(--kompendium-color-code-background)), rgba(var(--kompendium-color-code-background), 0));
   }
   &:after {
       bottom: 0;
       height: pxToRem(32);
-      background-image: linear-gradient(rgba(var(--color-code-background), 0), rgb(var(--color-code-background)));
+      background-image: linear-gradient(rgba(var(--kompendium-color-code-background), 0), rgb(var(--kompendium-color-code-background)));
   }
 }
 
 section.example {
     padding-bottom: pxToRem(40);
     margin-bottom: pxToRem(40);
-    border-bottom: 1px solid rgb(var(--contrast-500));
+    border-bottom: 1px solid rgb(var(--kompendium-contrast-500));
 
     .result,
     .code {
@@ -192,9 +192,9 @@ section.example {
 .show-case_component {
     padding: pxToRem(20);
     border-radius: pxToRem(14);
-    background-color: rgb(var(--color-white));
+    background-color: rgb(var(--kompendium-color-white));
     box-shadow: var(--shadow-showcase);
-    border: 1px solid rgb(var(--contrast-300));
+    border: 1px solid rgb(var(--kompendium-contrast-300));
 }
 
 .debug {
@@ -222,7 +222,7 @@ section.example {
 
         &:hover {
             opacity: 1;
-            background-color: rgb(var(--contrast-100));
+            background-color: rgb(var(--kompendium-contrast-100));
         }
     }
 }

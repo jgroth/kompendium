@@ -24,14 +24,14 @@ header {
     width: var(--width-nav-panel);
     height: 100vh;
     position: fixed;
-    background-color: rgb(var(--contrast-400));
+    background-color: rgb(var(--kompendium-contrast-400));
     display: flex;
     flex-direction: column;
 
     .panel-header {
         flex-direction: row;
         padding: 1rem;
-        border-bottom: 1px solid rgb(var(--contrast-600));
+        border-bottom: 1px solid rgb(var(--kompendium-contrast-600));
         margin-bottom: pxToRem(8);
 
         h1 {
@@ -39,7 +39,7 @@ header {
             font-size: pxToRem(16);
             font-weight: normal;
             letter-spacing: 0.5ch;
-            color: rgb(var(--contrast-800));
+            color: rgb(var(--kompendium-contrast-800));
             margin: pxToRem(2) 0 pxToRem(8) 0;
         }
     }
@@ -70,9 +70,9 @@ header {
 
     text-align: center;
     font-weight: bold;
-    background-color: rgba(var(--contrast-200), .7);
+    background-color: rgba(var(--kompendium-contrast-200), .7);
     backdrop-filter: blur(pxToRem(4));
-    color: rgb(var(--contrast-900));
+    color: rgb(var(--kompendium-contrast-900));
 
     span {
         transition: background-color 0.2s ease, transform 0.2s ease 0.3s, opacity 0.15s ease 0.3s;
@@ -84,7 +84,7 @@ header {
         height: pxToRem(2);
         width: pxToRem(16);
         border-radius: pxToRem(4);
-        background-color: rgb(var(--contrast-900));
+        background-color: rgb(var(--kompendium-contrast-900));
 
         &:nth-child(1) {
             top: pxToRem(12);
@@ -103,7 +103,7 @@ header {
 
     &:hover {
         span {
-            background-color: rgb(var(--contrast-1200))
+            background-color: rgb(var(--kompendium-contrast-1200))
         }
     }
 }
@@ -156,13 +156,13 @@ header {
         template-columns: pxToRem(20) 1fr;
     }
     line-height: pxToRem(28);
-    color: rgb(var(--contrast-900));
+    color: rgb(var(--kompendium-contrast-900));
     text-decoration: none;
     border-radius: pxToRem(6);
 
     &:hover,
     &.active {
-        color: rgb(var(--color-blue-default));
+        color: rgb(var(--kompendium-color-blue-default));
     }
 
     &.active {

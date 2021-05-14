@@ -8,14 +8,14 @@ kompendium-playground {
 .docs-layout-section-heading {
     padding-top: pxToRem(40);
     margin: pxToRem(40) 0 pxToRem(20) 0;
-    border-top: 1px solid rgb(var(--contrast-500));
+    border-top: 1px solid rgb(var(--kompendium-contrast-500));
 
     &:before {
         content: '';
         width: pxToRem(2);
         height: pxToRem(12);
         display: inline-block;
-        background-color: rgba(var(--color-code-blue), 0.4);
+        background-color: rgba(var(--kompendium-color-code-blue), 0.4);
         border-radius: pxToRem(1);
         transform: translateX(pxToRem(-8));
     }
@@ -50,14 +50,14 @@ kompendium-playground {
 .methods-layout {
     border-radius: pxToRem(6);
     margin-bottom: pxToRem(40);
-    background-color: rgb(var(--contrast-400));
+    background-color: rgb(var(--kompendium-contrast-400));
 }
 
 .methods-title {
     margin: 0;
     border-radius: pxToRem(6) pxToRem(6) 0 0;
     padding: pxToRem(12) pxToRem(16);
-    background-color: rgb(var(--contrast-500));
+    background-color: rgb(var(--kompendium-contrast-500));
     font-size: pxToRem(17);
 }
 
@@ -74,7 +74,7 @@ kompendium-playground {
 .methods-returns {
     padding: pxToRem(16) pxToRem(20) pxToRem(24) pxToRem(20);
     border-radius: 0 0 pxToRem(6) pxToRem(6);
-    border-top: 1px solid rgb(var(--contrast-600));
+    border-top: 1px solid rgb(var(--kompendium-contrast-600));
 
     h5 {
         margin-top: 0;
@@ -101,12 +101,12 @@ kompendium-playground {
         template-columns: 1fr 1fr;
         gap: 0 pxToRem(12);
     }
-    border: solid rgb(var(--contrast-500));
+    border: solid rgb(var(--kompendium-contrast-500));
     border-width: 1px 1px 0 1px;
 
     padding: pxToRem(8);
 
-    background-color: rgb(var(--contrast-300));
+    background-color: rgb(var(--kompendium-contrast-300));
 
     &:first-of-type { // FIXME: I've tried different ways, but this doesn't seem to apply, while "last-of-type" does.
         border: {
@@ -122,7 +122,7 @@ kompendium-playground {
         }
     }
     &:nth-of-type(odd) {
-        background-color: rgb(var(--contrast-400));
+        background-color: rgb(var(--kompendium-contrast-400));
     }
 }
 
@@ -130,15 +130,15 @@ kompendium-playground {
     code {
         font-family: var(--kompendium-font-code);
         border-radius: pxToRem(4);
-        border: 1px solid rgba(var(--contrast-1100), .1);
+        border: 1px solid rgba(var(--kompendium-contrast-1100), .1);
 
         font-size: pxToRem(11);
         white-space: nowrap;
-        color: rgb(var(--contrast-1100));
+        color: rgb(var(--kompendium-contrast-1100));
 
         padding: 0.125rem 0.3125rem;
         margin: 0 0.125rem;
-        background: rgba(var(--contrast-1100), .05);
+        background: rgba(var(--kompendium-contrast-1100), .05);
     }
 }
 
