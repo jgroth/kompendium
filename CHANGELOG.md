@@ -1,3 +1,16 @@
+## 🌯 [0.8.3](https://github.com/jgroth/kompendium/compare/v0.8.2...v0.8.3) (2021-05-15)
+
+
+### Bug Fixes
+
+* **navigation:** let consumers type their names the way it is actually written ([101a3f0](https://github.com/jgroth/kompendium/commit/101a3f065537d1647372e03ceac3ddc9f6a8db66))
+* **search:** add search icon in search box ([b3140b8](https://github.com/jgroth/kompendium/commit/b3140b8e7dda1a1b6be011436fa1c792e6f5d97d))
+* **search:** animate results list ([b9c5d91](https://github.com/jgroth/kompendium/commit/b9c5d9132381f7e28c5f798ebc704523d3aa4447))
+* **search:** made results list item truncate text, and look more interactive ([7f6b79a](https://github.com/jgroth/kompendium/commit/7f6b79a8561d51715f2b1c74331c4a862e205bf1))
+* **search:** make results list look good in dark mode ([fca7295](https://github.com/jgroth/kompendium/commit/fca72958ee23b63739ebece4dfa1c1fc8fab953c))
+* **search:** make results list scrollable ([97cd60d](https://github.com/jgroth/kompendium/commit/97cd60dbf784bf30700d13021952ca5644879376))
+* **search:** prevent panel list icons to overlap results list ([a15fd54](https://github.com/jgroth/kompendium/commit/a15fd54b78733cc621b429765d8e14c35b03f79c))
+
 ## 🐲 [0.8.2](https://github.com/jgroth/kompendium/compare/v0.8.1...v0.8.2) (2021-05-13)
 
 
