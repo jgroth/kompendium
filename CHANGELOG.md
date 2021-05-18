@@ -1,3 +1,10 @@
+## 🛥️ [0.8.4](https://github.com/jgroth/kompendium/compare/v0.8.3...v0.8.4) (2021-05-18)
+
+
+### Bug Fixes
+
+* make fuse.js a dependency ([9bc2534](https://github.com/jgroth/kompendium/commit/9bc2534fac7d88d6a507eaf919dd6b7ad3190067))
+
 ## 🌯 [0.8.3](https://github.com/jgroth/kompendium/compare/v0.8.2...v0.8.3) (2021-05-15)
 
 
