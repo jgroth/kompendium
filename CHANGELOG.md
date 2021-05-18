@@ -1,3 +1,10 @@
+## 🥑 [0.8.5](https://github.com/jgroth/kompendium/compare/v0.8.4...v0.8.5) (2021-05-18)
+
+
+### Bug Fixes
+
+* **typography:** increase body font size ([3680b4d](https://github.com/jgroth/kompendium/commit/3680b4d9316fd06d41ae4409d880f3108bf523d5))
+
 ## 🛥️ [0.8.4](https://github.com/jgroth/kompendium/compare/v0.8.3...v0.8.4) (2021-05-18)
 
 
