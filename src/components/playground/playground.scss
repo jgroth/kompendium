@@ -192,9 +192,16 @@ section.example {
 .show-case_component {
     padding: pxToRem(20);
     border-radius: pxToRem(14);
-    background-color: rgb(var(--kompendium-color-white));
-    box-shadow: var(--shadow-showcase);
+    background-color: rgb(var(--kompendium-contrast-100));
     border: 1px solid rgb(var(--kompendium-contrast-300));
+    box-shadow: var(--shadow-showcase);
+
+    @include in(dark-mode) {
+        // prevents dark mode to klick in for examples, because Lime Elements doesn't support dark mode yet
+        background-color: rgb(var(--kompendium-contrast-1700));
+        color: rgb(var(--kompendium-contrast-200));
+        border-color: transparent;
+    }
 }
 
 .debug {
