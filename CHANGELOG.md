@@ -1,3 +1,10 @@
+## 🚤 [0.8.6](https://github.com/jgroth/kompendium/compare/v0.8.5...v0.8.6) (2021-05-19)
+
+
+### Bug Fixes
+
+* **playground:** make example showcase text dark even in dark mode ([1158c8b](https://github.com/jgroth/kompendium/commit/1158c8bd7d5bb1919d99e968b1532efde53d66bc))
+
 ## 🥑 [0.8.5](https://github.com/jgroth/kompendium/compare/v0.8.4...v0.8.5) (2021-05-18)
 
 
