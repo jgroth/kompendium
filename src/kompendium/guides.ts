@@ -16,20 +16,20 @@ interface MenuNode {
     filepath: string;
 }
 
-export const createMenuNode = (path: string) => (
-    guide: Guide
-): MenuNode | MenuNode[] => {
-    if (typeof guide !== 'string') {
-        const newPath = path + guide.name + '/';
+export const createMenuNode =
+    (path: string) =>
+    (guide: Guide): MenuNode | MenuNode[] => {
+        if (typeof guide !== 'string') {
+            const newPath = path + guide.name + '/';
 
-        return guide.children.map(createMenuNode(newPath)).flat();
-    }
+            return guide.children.map(createMenuNode(newPath)).flat();
+        }
 
-    return {
-        menupath: path,
-        filepath: guide,
+        return {
+            menupath: path,
+            filepath: guide,
+        };
     };
-};
 
 export const createGuide = async ({
     menupath: path,

@@ -1,6 +1,5 @@
 @import './variables.scss';
 
-
 kompendium-playground {
     width: 100%;
 }
@@ -32,7 +31,6 @@ kompendium-playground {
     }
 }
 
-
 @media (max-width: $break-point-mini) {
     .props-events-layout {
         .markdown-props {
@@ -44,8 +42,6 @@ kompendium-playground {
         }
     }
 }
-
-
 
 .methods-layout {
     border-radius: pxToRem(6);
@@ -81,7 +77,6 @@ kompendium-playground {
     }
 }
 
-
 @media (max-width: $break-point-mini) {
     .methods-content {
         grid: {
@@ -91,8 +86,6 @@ kompendium-playground {
         }
     }
 }
-
-
 
 .styles-layout {
     display: grid;
@@ -108,7 +101,8 @@ kompendium-playground {
 
     background-color: rgb(var(--kompendium-contrast-300));
 
-    &:first-of-type { // FIXME: I've tried different ways, but this doesn't seem to apply, while "last-of-type" does.
+    &:first-of-type {
+        // FIXME: I've tried different ways, but this doesn't seem to apply, while "last-of-type" does.
         border: {
             top-right-radius: pxToRem(6);
             top-left-radius: pxToRem(6);
@@ -130,7 +124,7 @@ kompendium-playground {
     code {
         font-family: var(--kompendium-font-code);
         border-radius: pxToRem(4);
-        border: 1px solid rgba(var(--kompendium-contrast-1100), .1);
+        border: 1px solid rgba(var(--kompendium-contrast-1100), 0.1);
 
         font-size: pxToRem(11);
         white-space: nowrap;
@@ -138,12 +132,11 @@ kompendium-playground {
 
         padding: 0.125rem 0.3125rem;
         margin: 0 0.125rem;
-        background: rgba(var(--kompendium-contrast-1100), .05);
+        background: rgba(var(--kompendium-contrast-1100), 0.05);
     }
 }
 
 .styles-content {
-
 }
 
 @media (max-width: $break-point-mini) {

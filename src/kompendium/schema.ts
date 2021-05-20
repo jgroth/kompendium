@@ -15,7 +15,6 @@ const ID_PATTERN = /^number \| string$|string \| number$/g;
  *
  * @param {JsonDocsComponent[]} components the components
  * @param {TypeDescription[]} types type definitions
- *
  * @returns {*} list of schemas for the components
  */
 export function createSchemas(
@@ -25,29 +24,28 @@ export function createSchemas(
     return components?.filter(negate(isExample)).map(createSchema(types));
 }
 
-const createSchema = (types: TypeDescription[]) => (
-    component: JsonDocsComponent
-) => {
-    const definitions = createDefinitions(types);
-    const properties = createProps(component.props, definitions);
+const createSchema =
+    (types: TypeDescription[]) => (component: JsonDocsComponent) => {
+        const definitions = createDefinitions(types);
+        const properties = createProps(component.props, definitions);
 
-    const schema: any = {
-        type: 'object',
-        $id: component.tag,
-        properties: properties,
+        const schema: any = {
+            type: 'object',
+            $id: component.tag,
+            properties: properties,
+        };
+
+        const data = JSON.stringify(properties);
+        const definitionKeys = Object.keys(definitions).filter(
+            isReferenceUsed(data)
+        );
+
+        if (definitionKeys.length > 0) {
+            schema.definitions = pick(definitions, definitionKeys);
+        }
+
+        return schema;
     };
-
-    const data = JSON.stringify(properties);
-    const definitionKeys = Object.keys(definitions).filter(
-        isReferenceUsed(data)
-    );
-
-    if (definitionKeys.length > 0) {
-        schema.definitions = pick(definitions, definitionKeys);
-    }
-
-    return schema;
-};
 
 function createDefinitions(types: TypeDescription[]): Record<string, any> {
     const interfaces: InterfaceDescription[] = types.filter(
@@ -71,42 +69,41 @@ function createProps(props: JsonDocsProp[], definitions: Record<string, any>) {
     return zipObject(keys, schemas);
 }
 
-const createPropSchema = (definitions: Record<string, any>) => (
-    prop: JsonDocsProp
-) => {
-    const schema: any = {
-        type: getSchemaType(prop.type),
-        title: startCase(prop.name),
+const createPropSchema =
+    (definitions: Record<string, any>) => (prop: JsonDocsProp) => {
+        const schema: any = {
+            type: getSchemaType(prop.type),
+            title: startCase(prop.name),
+        };
+
+        if (prop.default) {
+            schema.default = getDefaultValue(prop.default, schema.type);
+        }
+
+        if (schema.type === 'array') {
+            schema.items = getSchemaItems(prop.type, definitions);
+        }
+
+        if (schema.type === 'object') {
+            const ref = getSchemaPropertiesRef(prop.type, definitions);
+
+            if (ref) {
+                schema.$ref = ref;
+            } else {
+                schema.additionalProperties = true;
+            }
+        }
+
+        if (schema.type === 'string') {
+            const oneOf = getOneOf(prop.type);
+
+            if (oneOf) {
+                schema.oneOf = oneOf;
+            }
+        }
+
+        return schema;
     };
-
-    if (prop.default) {
-        schema.default = getDefaultValue(prop.default, schema.type);
-    }
-
-    if (schema.type === 'array') {
-        schema.items = getSchemaItems(prop.type, definitions);
-    }
-
-    if (schema.type === 'object') {
-        const ref = getSchemaPropertiesRef(prop.type, definitions);
-
-        if (ref) {
-            schema.$ref = ref;
-        } else {
-            schema.additionalProperties = true;
-        }
-    }
-
-    if (schema.type === 'string') {
-        const oneOf = getOneOf(prop.type);
-
-        if (oneOf) {
-            schema.oneOf = oneOf;
-        }
-    }
-
-    return schema;
-};
 
 function getDefaultValue(value: any, type: string) {
     if (type === 'boolean') {

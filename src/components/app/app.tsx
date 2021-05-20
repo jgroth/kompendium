@@ -66,6 +66,7 @@ export class App {
                 this.fetchData();
             }
         } catch (e) {
+            // eslint-disable-next-line no-console
             console.error(e);
         }
     }
@@ -145,5 +146,6 @@ export class App {
 
 function getSocketUrl(location: Location) {
     const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+
     return `${protocol}//${location.hostname}:${location.port}/`;
 }

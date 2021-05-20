@@ -18,8 +18,8 @@ code {
 }
 
 code {
-    background: rgba(var(--kompendium-contrast-1100), .05);
-    border: 1px solid rgba(var(--kompendium-contrast-1100), .1);
+    background: rgba(var(--kompendium-contrast-1100), 0.05);
+    border: 1px solid rgba(var(--kompendium-contrast-1100), 0.1);
     padding: 0.125rem 0.3125rem;
     margin: 0 0.125rem;
     white-space: nowrap;
@@ -28,26 +28,25 @@ code {
 
 pre {
     > code {
-      display: block;
-      padding: .625rem 0.6375rem;
-      white-space: pre;
+        display: block;
+        padding: 0.625rem 0.6375rem;
+        white-space: pre;
     }
 }
 
 .value--false {
     code {
         color: rgb(var(--kompendium-color-code-magenta));
-        border-color: rgba(var(--kompendium-color-code-magenta), .2);
-        background-color: rgba(var(--kompendium-color-code-magenta), .1);
+        border-color: rgba(var(--kompendium-color-code-magenta), 0.2);
+        background-color: rgba(var(--kompendium-color-code-magenta), 0.1);
     }
 }
-
 
 .value--true {
     code {
         color: rgb(var(--kompendium-color-code-green-dark));
-        border-color: rgba(var(--kompendium-color-code-green-dark), .2);
-        background-color: rgba(var(--kompendium-color-code-green-dark), .1);
+        border-color: rgba(var(--kompendium-color-code-green-dark), 0.2);
+        background-color: rgba(var(--kompendium-color-code-green-dark), 0.1);
     }
 }
 
@@ -60,7 +59,8 @@ dl {
     border-radius: pxToRem(6);
     background-color: rgb(var(--kompendium-contrast-300));
 
-    dt, dd {
+    dt,
+    dd {
         padding: pxToRem(6) pxToRem(8);
         font-size: pxToRem(14);
 

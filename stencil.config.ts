@@ -8,10 +8,10 @@ export const config: Config = {
     namespace: 'kompendium',
     plugins: [sass()],
     rollupPlugins: {
-        after: [nodePolyfill()]
+        after: [nodePolyfill()],
     },
     nodeResolve: {
-        preferBuiltins: true
+        preferBuiltins: true,
     },
     globalStyle: 'src/global/kompendium.scss',
 
@@ -25,16 +25,18 @@ export const config: Config = {
             strict: true,
             generator: kompendium({
                 guides: guides,
-                logo: '/collection/assets/logotype.svg'
-            })
+                logo: '/collection/assets/logotype.svg',
+            }),
         },
         {
             type: 'www',
             serviceWorker: null,
-            copy: [{
-                src: 'assets',
-                dest: './collection/assets'
-            }]
-        }
-    ]
+            copy: [
+                {
+                    src: 'assets',
+                    dest: './collection/assets',
+                },
+            ],
+        },
+    ],
 };

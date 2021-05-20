@@ -3,8 +3,8 @@
 @import '../../../node_modules/prismjs/plugins/toolbar/prism-toolbar.css';
 
 :host {
-  display: flex;
-  font-size: 1rem;
+    display: flex;
+    font-size: 1rem;
 }
 
 slot {
@@ -19,23 +19,22 @@ div.code-toolbar {
     display: flex;
     height: 100%;
 
-	>.toolbar {
+    > .toolbar {
         padding-right: pxToRem(4);
 
         .toolbar-item {
             a,
-    		button,
-    		span {
+            button,
+            span {
                 background-color: rgb(var(--kompendium-contrast-900));
                 color: rgb(var(--kompendium-contrast-100));
                 padding: pxToRem(2) pxToRem(8);
                 border-radius: pxToRem(6);
 
                 @include is-elevated-clickable();
-
             }
         }
-	}
+    }
 }
 
 /* PrismJS 1.19.0
@@ -50,45 +49,45 @@ pre {
     font-family: var(--kompendium-font-code);
     font-size: pxToRem(13);
 }
-code[class*="language-"],
-pre[class*="language-"] {
-  color: rgb(var(--kompendium-color-code-gray-lighter));
-  background: none;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: normal;
+code[class*='language-'],
+pre[class*='language-'] {
+    color: rgb(var(--kompendium-color-code-gray-lighter));
+    background: none;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: normal;
 
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
 
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
 /* Code blocks */
-pre[class*="language-"] {
-  padding: pxToRem(24) pxToRem(16) pxToRem(32) pxToRem(16);
-  position: relative;
-  margin: 0;
-  overflow: auto;
-  flex-grow: 1;
-  border-radius: pxToRem(9);
+pre[class*='language-'] {
+    padding: pxToRem(24) pxToRem(16) pxToRem(32) pxToRem(16);
+    position: relative;
+    margin: 0;
+    overflow: auto;
+    flex-grow: 1;
+    border-radius: pxToRem(9);
 }
 
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-  background: rgb(var(--kompendium-color-code-background));
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+    background: rgb(var(--kompendium-color-code-background));
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
-  white-space: normal;
+:not(pre) > code[class*='language-'] {
+    white-space: normal;
 }
 
 .token.comment {
@@ -99,35 +98,35 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: var(--kompendium-color-code-gray-lighter);
+    color: var(--kompendium-color-code-gray-lighter);
 }
 
 .token.punctuation {
-  color: var(--kompendium-color-code-gray-dark);
+    color: var(--kompendium-color-code-gray-dark);
 }
 
 .token.tag,
 .token.attr-name,
 .token.namespace,
 .token.deleted {
-  color: rgb(var(--kompendium-color-code-pink));
+    color: rgb(var(--kompendium-color-code-pink));
 }
 
 .token.function-name {
-  color: rgb(var(--kompendium-color-code-blue));
+    color: rgb(var(--kompendium-color-code-blue));
 }
 
 .token.boolean,
 .token.number,
 .token.function {
-  color: rgb(var(--kompendium-color-code-orange));
+    color: rgb(var(--kompendium-color-code-orange));
 }
 
 .token.property,
 .token.class-name,
 .token.constant,
 .token.symbol {
-  color: rgb(var(--kompendium-color-code-yellow));
+    color: rgb(var(--kompendium-color-code-yellow));
 }
 
 .token.selector,
@@ -135,7 +134,7 @@ pre[class*="language-"] {
 .token.atrule,
 .token.keyword,
 .token.builtin {
-  color: rgb(var(--kompendium-color-code-purple));
+    color: rgb(var(--kompendium-color-code-purple));
 }
 
 .token.string,
@@ -143,7 +142,7 @@ pre[class*="language-"] {
 .token.attr-value,
 .token.regex,
 .token.variable {
-  color: rgb(var(--kompendium-color-code-green-light));
+    color: rgb(var(--kompendium-color-code-green-light));
 }
 
 .token.operator {
@@ -152,21 +151,21 @@ pre[class*="language-"] {
 
 .token.entity,
 .token.url {
-  color: rgb(var(--kompendium-color-code-turquoise));
+    color: rgb(var(--kompendium-color-code-turquoise));
 }
 
 .token.important,
 .token.bold {
-  font-weight: bold;
+    font-weight: bold;
 }
 .token.italic {
-  font-style: italic;
+    font-style: italic;
 }
 
 .token.entity {
-  cursor: help;
+    cursor: help;
 }
 
 .token.inserted {
-  color: rgb(var(--kompendium-color-code-green-dark));
+    color: rgb(var(--kompendium-color-code-green-dark));
 }

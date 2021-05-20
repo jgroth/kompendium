@@ -62,9 +62,8 @@ export class Code {
     }
 
     private findCode() {
-        const slot: HTMLSlotElement = this.host.shadowRoot.querySelector(
-            'slot'
-        );
+        const slot: HTMLSlotElement =
+            this.host.shadowRoot.querySelector('slot');
 
         if (!slot) {
             return;

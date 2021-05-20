@@ -2,7 +2,6 @@
 @import '../../style/colors.scss';
 @import '../../style/mixins.scss';
 
-
 .admonition {
     --size-of-admonition-icon: 2.5rem;
     --border-radius-of-admonition-icon: 0.5rem;
@@ -22,7 +21,8 @@
         top: 0;
         bottom: 0;
         display: block;
-        border-radius: var(--border-radius-of-admonition-icon) 0 0 var(--border-radius-of-admonition-icon);
+        border-radius: var(--border-radius-of-admonition-icon) 0 0
+            var(--border-radius-of-admonition-icon);
 
         background: {
             position: top center;
@@ -87,7 +87,6 @@
             text-transform: capitalize;
         }
     }
-
 }
 
 .admonition-content {
@@ -100,7 +99,6 @@
         &:only-child {
             margin-bottom: 0;
         }
-
     }
 }
 

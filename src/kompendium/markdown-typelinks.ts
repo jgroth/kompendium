@@ -4,42 +4,48 @@ export function typeLinks(options: any = {}): (tree) => any {
     return transformer(options.types);
 }
 
-const transformer = (types: string[] = []) => (tree): any => {
-    if (types.length === 0) {
-        return tree;
-    }
+const transformer =
+    (types: string[] = []) =>
+    (tree): any => {
+        if (types.length === 0) {
+            return tree;
+        }
 
-    return flatMap(tree, mapCodeNode(types));
-};
+        return flatMap(tree, mapCodeNode(types));
+    };
 
-const mapCodeNode = (types: string[] = []) => (node, _, parent) => {
-    if (node.type !== 'text') {
-        return [node];
-    }
+const mapCodeNode =
+    (types: string[] = []) =>
+    (node, _, parent) => {
+        if (node.type !== 'text') {
+            return [node];
+        }
 
-    if (parent.tagName !== 'code') {
-        return [node];
-    }
+        if (parent.tagName !== 'code') {
+            return [node];
+        }
 
-    if (parent.parent?.tagName === 'pre') {
-        return [node];
-    }
+        if (parent.parent?.tagName === 'pre') {
+            return [node];
+        }
 
-    return wrapText(node, types);
-};
+        return wrapText(node, types);
+    };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function wrapText(node: any, types: string[] = []) {
     return splitTypeString(node.value).map(createNode(types));
 }
 
-const createNode = (types: string[] = []) => (type: string) => {
-    if (!types.includes(type)) {
-        return createTextNode(type);
-    }
+const createNode =
+    (types: string[] = []) =>
+    (type: string) => {
+        if (!types.includes(type)) {
+            return createTextNode(type);
+        }
 
-    return createLinkNode(type);
-};
+        return createLinkNode(type);
+    };
 
 function createTextNode(text: string) {
     return {

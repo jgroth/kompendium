@@ -7,7 +7,8 @@
 }
 
 @mixin is-elevated-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.1s ease-out;
 
     box-shadow: var(--kompendium-button-shadow-normal);
 
@@ -23,7 +24,8 @@
 }
 
 @mixin is-flat-clickable() {
-    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.1s ease-out;
 
     &:hover {
         box-shadow: var(--kompendium-button-shadow-hovered);

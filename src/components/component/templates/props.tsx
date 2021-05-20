@@ -7,7 +7,7 @@ export function PropertyList({
     id,
 }: {
     id?: string;
-    props: Partial<JsonDocsProp>[];
+    props: Array<Partial<JsonDocsProp>>;
 }): HTMLElement[] {
     if (!props.length) {
         return;

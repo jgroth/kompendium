@@ -19,7 +19,7 @@ export async function addSources(docs: JsonDocs): Promise<JsonDocs> {
 
     return {
         ...docs,
-        components,
+        components: components,
     };
 }
 
@@ -48,7 +48,7 @@ export async function getSources(
         {
             filename: component.fileName,
             type: 'tsx',
-            source,
+            source: source,
         },
         ...styles,
         ...links,
@@ -75,16 +75,17 @@ export function getStyleFiles(source: string): string[] {
     return result;
 }
 
-const getStyle = (path: string) => async (
-    name: string
-): Promise<JsonDocsSource> => {
-    const source = await readFile([path, name].join('/'));
-    return {
-        filename: name,
-        type: 'scss',
-        source: source,
+const getStyle =
+    (path: string) =>
+    async (name: string): Promise<JsonDocsSource> => {
+        const source = await readFile([path, name].join('/'));
+
+        return {
+            filename: name,
+            type: 'scss',
+            source: source,
+        };
     };
-};
 
 async function getLinks(
     component: JsonDocsComponent
@@ -94,19 +95,19 @@ async function getLinks(
     return Promise.all<JsonDocsSource>(linkTags.map(getLink(component)));
 }
 
-const getLink = (component: JsonDocsComponent) => async (
-    tag: JsonDocsTag
-): Promise<JsonDocsSource> => {
-    let source: string;
-    try {
-        source = await readFile(join(component.dirPath, tag.text));
-    } catch {
-        source = `File ${tag.text} not found`;
-    }
+const getLink =
+    (component: JsonDocsComponent) =>
+    async (tag: JsonDocsTag): Promise<JsonDocsSource> => {
+        let source: string;
+        try {
+            source = await readFile(join(component.dirPath, tag.text));
+        } catch {
+            source = `File ${tag.text} not found`;
+        }
 
-    return {
-        filename: tag.text,
-        type: extname(tag.text).replace('.', '') as any,
-        source: source,
+        return {
+            filename: tag.text,
+            type: extname(tag.text).replace('.', '') as any,
+            source: source,
+        };
     };
-};

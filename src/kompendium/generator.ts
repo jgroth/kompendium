@@ -242,6 +242,7 @@ async function saveData(
 async function readCache(config: Partial<KompendiumConfig>) {
     try {
         const data = await readFile(`${config.path}/cache.json`);
+
         return JSON.parse(data);
     } catch {
         return {};
@@ -255,6 +256,7 @@ async function writeCache(config: Partial<KompendiumConfig>, data: any) {
 async function readTypes(config: Partial<KompendiumConfig>) {
     try {
         const data = await readFile(`${config.path}/types.json`);
+
         return JSON.parse(data);
     } catch {
         return [];

@@ -61,18 +61,18 @@ export interface KompendiumDocument {
     title: string;
     path: string;
     text: string | string[];
-    props?: {
+    props?: Array<{
         name: string;
         text: string;
         tags: string[];
         type: string;
-    }[];
-    events?: {
+    }>;
+    events?: Array<{
         name: string;
         text: string;
         tags: string[];
         type: string;
-    }[];
+    }>;
 }
 
 export interface KompendiumGuide {
@@ -96,7 +96,7 @@ export interface TypeDescription {
 export interface InterfaceDescription extends TypeDescription {
     type: 'interface';
     typeParams: TypeParam[];
-    props: Partial<JsonDocsProp>[];
+    props: Array<Partial<JsonDocsProp>>;
     methods: MethodDescription[];
 }
 

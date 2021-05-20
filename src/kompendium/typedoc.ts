@@ -34,6 +34,7 @@ interface MethodSignature {
 
 export function parseFile(filename: string): TypeDescription[] {
     if (!existsSync(filename)) {
+        // eslint-disable-next-line no-console
         console.warn('typeRoot file does not exist', filename);
 
         return [];
@@ -53,6 +54,7 @@ export function parseFile(filename: string): TypeDescription[] {
 
     const reflection = app.convert([filename]);
     if (!reflection) {
+        // eslint-disable-next-line no-console
         console.warn('Could not find any type information');
 
         return [];

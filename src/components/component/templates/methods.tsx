@@ -12,7 +12,7 @@ export function MethodList({
     id,
 }: {
     id?: string;
-    methods: Partial<JsonDocsMethod>[];
+    methods: Array<Partial<JsonDocsMethod>>;
 }): HTMLElement[] {
     if (!methods.length) {
         return;
@@ -93,6 +93,7 @@ function Returns({ value }: { value: JsonDocsMethodReturn }) {
     }
 
     const type = '`' + value.type + '`';
+
     return [
         <h5>Returns</h5>,
         <kompendium-markdown text={value.docs} />,
