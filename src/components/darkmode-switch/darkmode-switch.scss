@@ -1,0 +1,177 @@
+@import '../../style/functions.scss';
+
+:host {
+    --toggle-size: 1.25rem;
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.mode-toggle {
+    margin: pxToRem(12);
+    position: relative;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+
+    transition: opacity 0.3s ease;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.mode-visualization {
+    pointer-events: none;
+    position: absolute;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+}
+
+.circle {
+    transition: background-color 0.6s ease;
+    border-radius: 50%;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate3d(0, 0, 0); // prevents Safari's graphical defects
+
+    &:after {
+        transition: transform 0.7s ease, background-color 0.4s ease;
+        content: '';
+        display: block;
+        border-radius: 50%;
+        width: calc(var(--toggle-size) - 0.25rem);
+        height: calc(var(--toggle-size) - 0.25rem);
+    }
+}
+
+.ray {
+    transition: opacity 0.6s ease,
+        transform 0.6s cubic-bezier(0.37, -0.03, 0.4, 1.18);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        height: pxToRem(6);
+        width: pxToRem(2);
+        border-radius: var(--toggle-size);
+        background-color: rgba(var(--kompendium-color-orange-light), 1);
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    &:before {
+        top: pxToRem(-8);
+    }
+    &:after {
+        bottom: pxToRem(-8);
+    }
+
+    &.three,
+    &.four {
+        &:before,
+        &:after {
+            height: pxToRem(4);
+        }
+    }
+}
+
+input[type='checkbox'] {
+    -webkit-appearance: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
+    cursor: pointer;
+
+    &:not(:checked) {
+        + .mode-visualization {
+            .circle {
+                background-color: rgba(
+                    var(--kompendium-color-orange-default),
+                    1
+                );
+                box-shadow: 0 0 pxToRem(8) pxToRem(2)
+                        rgba(var(--kompendium-color-orange-light), 0.8),
+                    0 0 pxToRem(4) pxToRem(3) rgb(var(--kompendium-color-white));
+                &:after {
+                    background-color: rgba(
+                        var(--kompendium-color-orange-default),
+                        1
+                    );
+                    transform: translate3d(pxToRem(16), pxToRem(-16), 0);
+                }
+            }
+            .ray {
+                opacity: 0.6;
+
+                &.three,
+                &.four {
+                    opacity: 0.4;
+                }
+
+                &.one {
+                    transform: rotate(0deg) scale(1);
+                }
+                &.two {
+                    transform: rotate(90deg) scale(1);
+                }
+                &.three {
+                    transform: rotate(45deg) scale(1);
+                }
+                &.four {
+                    transform: rotate(-45deg) scale(1);
+                }
+            }
+        }
+    }
+
+    &:checked {
+        + .mode-visualization {
+            .circle {
+                background-color: rgba(var(--kompendium-contrast-1700), 0.7);
+                box-shadow: 0 0 pxToRem(8) pxToRem(2)
+                        rgba(var(--kompendium-color-white), 0.4),
+                    0 0 pxToRem(4) pxToRem(2) rgb(var(--kompendium-color-black));
+
+                &:after {
+                    transform: translate3d(pxToRem(4), pxToRem(-4), 0);
+                    background-color: rgb(
+                        var(--kompendium-contrast-400)
+                    ); // same as sidebar in dark mode
+                }
+            }
+
+            .ray {
+                opacity: 0;
+
+                &.one {
+                    transform: rotate(60deg) scale(0.5);
+                }
+                &.two {
+                    transform: rotate(150deg) scale(0.5);
+                }
+                &.three {
+                    transform: rotate(105deg) scale(0.5);
+                }
+                &.four {
+                    transform: rotate(15deg) scale(0.5);
+                }
+            }
+        }
+    }
+}

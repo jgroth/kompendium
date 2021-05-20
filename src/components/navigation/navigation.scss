@@ -43,14 +43,6 @@ header {
         padding: 1rem;
         border-bottom: 1px solid rgb(var(--kompendium-contrast-600));
         margin-bottom: pxToRem(8);
-
-        h1 {
-            font-size: pxToRem(16);
-            font-weight: normal;
-            letter-spacing: 0.5ch;
-            color: rgb(var(--kompendium-contrast-800));
-            margin: pxToRem(2) 0 pxToRem(8) 0;
-        }
     }
 
     .panel-list {
@@ -58,6 +50,44 @@ header {
 
         &:not(.chapters) {
             padding: 0 pxToRem(4) pxToRem(32) pxToRem(4);
+        }
+    }
+}
+
+.branding-and-mode {
+    display: flex;
+    align-items: center;
+    margin-bottom: pxToRem(12);
+
+    h1 {
+        font-size: pxToRem(16);
+        font-weight: normal;
+        letter-spacing: 0.5ch;
+        color: rgb(var(--kompendium-contrast-800));
+        flex-grow: 1;
+        line-height: 0;
+    }
+
+    kompendium-darkmode-switch {
+        position: relative;
+        flex-shrink: 0;
+        margin-left: pxToRem(12);
+        padding-left: pxToRem(8);
+
+        &:before {
+            transition: background-color 0.3s ease;
+
+            content: '';
+            position: absolute;
+            background-color: rgb(var(--kompendium-contrast-600));
+
+            border-radius: pxToRem(8);
+            height: pxToRem(20);
+            width: pxToRem(2);
+            left: pxToRem(1);
+            top: 0;
+            bottom: 0;
+            margin: auto;
         }
     }
 }

@@ -70,10 +70,6 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
             &:before,
             &:after {
                 background-color: rgb(var(--kompendium-contrast-100));
-
-                @include in(dark-mode) {
-                    background-color: rgb(var(--kompendium-contrast-100));
-                }
             }
         }
 
@@ -197,13 +193,6 @@ section.example {
     background-color: rgb(var(--kompendium-contrast-100));
     border: 1px solid rgb(var(--kompendium-contrast-300));
     box-shadow: var(--shadow-showcase);
-
-    @include in(dark-mode) {
-        // prevents dark mode to klick in for examples, because Lime Elements doesn't support dark mode yet
-        background-color: rgb(var(--kompendium-contrast-1700));
-        color: rgb(var(--kompendium-contrast-200));
-        border-color: transparent;
-    }
 }
 
 .debug {
