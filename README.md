@@ -29,7 +29,6 @@ Kompendium is still in development. Consider this an early preview!
 # Demo  
 You can see a live demo of Kompendium, being used by Lime Technologies to create their [component library and design system docs](https://lundalogik.github.io/lime-elements/versions/latest).
 
-**Note:** Make sure click on the latest version in the list to see the latest version of Kompendium.
 <img width="50%" alt="kompendium-dark" src="https://user-images.githubusercontent.com/35954987/99229802-c540f380-27ee-11eb-935e-ad5cdf0d1059.png"><img width="50%" alt="kompendium-light" src="https://user-images.githubusercontent.com/35954987/99229811-c83be400-27ee-11eb-972a-71ffbf3dd9b8.png">
 
 # Contributing
