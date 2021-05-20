@@ -14,7 +14,7 @@ jobs:
         node-version: 12.x
     - name: npm install
       run: npm ci
-    - run: npm run lint
+    - run: npm run lint:prod
 
   ci:
     name: CI
