@@ -81,7 +81,10 @@ export class Navigation {
                     <span></span>
                 </a>
                 <header class="panel-header">
-                    <h1>{this.renderHeader()}</h1>
+                    <div class="branding-and-mode">
+                        <h1>{this.renderHeader()}</h1>
+                        <kompendium-darkmode-switch />
+                    </div>
                     <kompendium-search index={this.index} />
                 </header>
                 {this.renderChapters(this.menu)}
