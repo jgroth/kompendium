@@ -46,7 +46,8 @@
     "generate": "stencil generate",
     "semantic-release": "semantic-release",
     "update-changelog": "node scripts/update-changelog",
-    "lint": "eslint src/**/*{.ts,.tsx}"
+    "lint": "eslint src/**/*{.ts,.tsx}",
+    "lint:fix": "eslint --fix src/**/*{.ts,.tsx}"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
