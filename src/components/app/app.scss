@@ -21,15 +21,12 @@ main {
     }
 }
 
-
-
 @media (max-width: $break-point-small) {
     main {
         padding-top: pxToRem(42);
         margin-left: 0;
     }
 }
-
 
 @media (max-width: $break-point-mini) {
     // In case we need to add things here

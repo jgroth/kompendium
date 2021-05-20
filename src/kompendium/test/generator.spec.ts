@@ -12,7 +12,7 @@ describe('kompendium()', () => {
     beforeEach(() => {
         tmpObject = tmp.dirSync();
         path = tmpObject.name;
-        kompendium = kompendiumGenerator({ path });
+        kompendium = kompendiumGenerator({ path: path });
         stencilConfig = {
             logger: {
                 createTimeSpan: () => ({

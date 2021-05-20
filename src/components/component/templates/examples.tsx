@@ -22,12 +22,13 @@ export function ExampleList({
     ];
 }
 
-const renderExample = (schema: Record<string, any>) => (
-    example: JsonDocsComponent
-) => {
-    return <kompendium-playground component={example} schema={schema} />;
-};
+const renderExample =
+    (schema: Record<string, any>) => (example: JsonDocsComponent) => {
+        return <kompendium-playground component={example} schema={schema} />;
+    };
 
-export const isExampleTag = (name: string) => (tag: JsonDocsTag): boolean => {
-    return tag.text.startsWith(name);
-};
+export const isExampleTag =
+    (name: string) =>
+    (tag: JsonDocsTag): boolean => {
+        return tag.text.startsWith(name);
+    };

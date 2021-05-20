@@ -118,6 +118,7 @@ export class KompendiumComponent {
 
     private getId(name?: string) {
         const route = this.getRoute().split('/').slice(0, 3).join('/');
+
         return [route, name].filter((item) => !!item).join('/');
     }
 

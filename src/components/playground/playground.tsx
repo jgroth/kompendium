@@ -33,7 +33,7 @@ export class Playground {
             return;
         }
 
-        const sources: JsonDocsSource[] = this.component['sources'] || [];
+        const sources: JsonDocsSource[] = (this.component as any).sources || [];
 
         return (
             <section class="example">

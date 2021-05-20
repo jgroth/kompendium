@@ -22,14 +22,15 @@ function mapCodeNode(node) {
         return node;
     }
 
-    return Object.assign({}, node, {
+    return {
+        ...node,
         type: 'element',
         tagName: 'kompendium-code',
         properties: {
             language: language,
         },
         children: [],
-    });
+    };
 }
 
 function getLanguage(props: { className?: string[] }) {

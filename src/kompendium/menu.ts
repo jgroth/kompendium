@@ -16,35 +16,35 @@ export function createMenu(
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const addGuide = (menu: MenuItem[], path: string) => (
-    guide: KompendiumGuide
-) => {
-    const subPath: string = guide.data.path.replace(path, '');
-    const parts = subPath.split('/');
-    const parentPath = `${path}/${parts[1]}`;
-    let submenu = menu.find((item) => item.path === parentPath + '/');
+export const addGuide =
+    (menu: MenuItem[], path: string) => (guide: KompendiumGuide) => {
+        const subPath: string = guide.data.path.replace(path, '');
+        const parts = subPath.split('/');
+        const parentPath = `${path}/${parts[1]}`;
+        let submenu = menu.find((item) => item.path === parentPath + '/');
 
-    if (!submenu && parts.length === 2) {
-        const title = getGuideTitle(guide);
-        menu.push({
-            path: guide.data.path + '/',
-            title: title,
-            children: [],
-        });
-        return;
-    }
+        if (!submenu && parts.length === 2) {
+            const title = getGuideTitle(guide);
+            menu.push({
+                path: guide.data.path + '/',
+                title: title,
+                children: [],
+            });
 
-    if (!submenu) {
-        submenu = {
-            path: parentPath + '/',
-            title: startCase(parts[1]),
-            children: [],
-        };
-        menu.push(submenu);
-    }
+            return;
+        }
 
-    addGuide(submenu.children, parentPath)(guide);
-};
+        if (!submenu) {
+            submenu = {
+                path: parentPath + '/',
+                title: startCase(parts[1]),
+                children: [],
+            };
+            menu.push(submenu);
+        }
+
+        addGuide(submenu.children, parentPath)(guide);
+    };
 
 function getGuideTitle(guide: KompendiumGuide): string {
     const regex = /^#\s?(.+?)$/m;

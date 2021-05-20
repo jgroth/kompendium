@@ -6,52 +6,57 @@
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
     --kompendium-button-shadow-normal: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0
             rgba(var(--kompendium-color-black), 0.232),
-        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(var(--kompendium-color-black), 0.208);
+        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0
+            rgba(var(--kompendium-color-black), 0.208);
     --kompendium-button-shadow-hovered: 0 #{pxToRem(2)} #{pxToRem(6)}
             rgba(var(--kompendium-color-black), 0.15),
         0 #{pxToRem(6)} #{pxToRem(10)} rgba(var(--kompendium-color-black), 0.05);
     --kompendium-button-shadow-pressed: 0 #{pxToRem(1)} #{pxToRem(3)} 0
             rgba(var(--kompendium-color-black), 0.132),
-        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(var(--kompendium-color-black), 0.108);
+        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0
+            rgba(var(--kompendium-color-black), 0.108);
     --kompendium-button-shadow-inset: 0 #{pxToRem(0.5)} #{pxToRem(3.5)} 0
             rgba(var(--kompendium-color-black), 0.132) inset,
-        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(var(--kompendium-color-black), 0.108)
-            inset,
+        0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0
+            rgba(var(--kompendium-color-black), 0.108) inset,
         0 0 #{pxToRem(4)} rgba(var(--kompendium-color-white), 0.9);
-    --kompendium-button-shadow-inset-pressed: 0 #{pxToRem(0.5)} #{pxToRem(5.5)} 0
-            rgba(var(--kompendium-color-black), 0.132) inset,
-        0 #{pxToRem(0.3)} #{pxToRem(1.9)} 0 rgba(var(--kompendium-color-black), 0.12) inset,
+    --kompendium-button-shadow-inset-pressed: 0 #{pxToRem(0.5)} #{pxToRem(5.5)}
+            0 rgba(var(--kompendium-color-black), 0.132) inset,
+        0 #{pxToRem(0.3)} #{pxToRem(1.9)} 0
+            rgba(var(--kompendium-color-black), 0.12) inset,
         0 0 #{pxToRem(3)} rgba(var(--kompendium-color-white), 0.9);
 
     // Good for Command bars, Command dropdowns, Context menus
     --kompendium-shadow-depth-8: 0 #{pxToRem(3.2)} #{pxToRem(7.2)} 0
-                rgba(var(--kompendium-color-black), 0.132),
-            0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0 rgba(var(--kompendium-color-black), 0.108);
+            rgba(var(--kompendium-color-black), 0.132),
+        0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0
+            rgba(var(--kompendium-color-black), 0.108);
 
     // Good for Teaching callouts, Search results dropdown, cards, Tooltips
     --kompendium-shadow-depth-16: 0 #{pxToRem(6.4)} #{pxToRem(14.4)} 0
             rgba(var(--kompendium-color-black), 0.132),
-        0 #{pxToRem(1.2)} #{pxToRem(3.6)} 0 rgba(var(--kompendium-color-black), 0.108);
+        0 #{pxToRem(1.2)} #{pxToRem(3.6)} 0
+            rgba(var(--kompendium-color-black), 0.108);
 
     // Good for Pop up dialogs
     --kompendium-shadow-depth-64: 0 #{pxToRem(25.6)} #{pxToRem(57.6)} 0
             rgba(var(--kompendium-color-black), 0.22),
-        0 #{pxToRem(4.8)} #{pxToRem(14.4)} 0 rgba(var(--kompendium-color-black), 0.18);
+        0 #{pxToRem(4.8)} #{pxToRem(14.4)} 0
+            rgba(var(--kompendium-color-black), 0.18);
 
-    --shadow-showcase:  #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--kompendium-color-black), 0.01),
+    --shadow-showcase: #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--kompendium-color-black), 0.01),
         #{pxToRem(-10)} #{pxToRem(-10)} #{pxToRem(30)} rgba(var(--kompendium-color-white), 1),
         #{pxToRem(10)} #{pxToRem(10)} #{pxToRem(36)} rgba(var(--kompendium-color-black), 0.06),
         #{pxToRem(2)} #{pxToRem(2)} #{pxToRem(10)} rgba(var(--kompendium-color-white), 0.7),
         -1px -1px 0 1px rgba(var(--kompendium-color-black), 0.07) inset,
         0 0 1px 1px rgba(var(--kompendium-color-white), 0.98) inset;
 
-        @include in(dark-mode) {
-            --shadow-showcase:
-            #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--kompendium-color-black), 0.01),
+    @include in(dark-mode) {
+        --shadow-showcase: #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--kompendium-color-black), 0.01),
             #{pxToRem(-10)} #{pxToRem(-10)} #{pxToRem(30)} rgba(var(--kompendium-color-white), 0.1),
             #{pxToRem(10)} #{pxToRem(10)} #{pxToRem(36)} rgba(var(--kompendium-color-black), 0.06),
             #{pxToRem(2)} #{pxToRem(2)} #{pxToRem(10)} rgba(var(--kompendium-color-white), 0.1),
             -1px -1px 0 1px rgba(var(--kompendium-color-black), 0.07) inset,
             0 0 1px 1px rgba(var(--kompendium-color-white), 0.98) inset;
-        }
+    }
 }

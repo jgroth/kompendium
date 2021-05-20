@@ -64,13 +64,12 @@ function findComponent(tag: string, docs: JsonDocs) {
     return docs.components.find((doc) => doc.tag === tag);
 }
 
-const isOwnerOf = (example: JsonDocsComponent) => (
-    component: JsonDocsComponent
-) => {
-    return !!component.docsTags
-        .filter(isTag('exampleComponent'))
-        .find(hasText(example.tag));
-};
+const isOwnerOf =
+    (example: JsonDocsComponent) => (component: JsonDocsComponent) => {
+        return !!component.docsTags
+            .filter(isTag('exampleComponent'))
+            .find(hasText(example.tag));
+    };
 
 const isTag = (name: string) => (tag: JsonDocsTag) => {
     return tag.name === name;

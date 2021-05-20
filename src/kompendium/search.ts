@@ -157,6 +157,7 @@ function createAliasDocument(
     };
 }
 
+// eslint-disable-next-line sonarjs/no-identical-functions
 function createEnumDocument(
     item: MenuItem,
     type: EnumDescription

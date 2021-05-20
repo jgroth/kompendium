@@ -35,6 +35,7 @@ export class Guide {
 
     render(): HTMLElement {
         this.findGuide();
+
         return <kompendium-markdown text={this.text} />;
     }
 

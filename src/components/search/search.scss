@@ -3,7 +3,7 @@
 @import '../../style/mixins.scss';
 
 :host {
-  display: block;
+    display: block;
 }
 
 :host(:focus),
@@ -68,8 +68,8 @@
 input {
     transition: background-color 0.2s ease;
     border: 0;
-    border-radius: .25rem;
-    padding: 0 .5rem 0 2.25rem;
+    border-radius: 0.25rem;
+    padding: 0 0.5rem 0 2.25rem;
     color: rgb(var(--kompendium-contrast-1200));
 
     height: 2rem;

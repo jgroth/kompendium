@@ -5,136 +5,140 @@
 $tab-active-outer-edge-curve-size: pxToRem(10);
 
 :host {
-  display: block;
+    display: block;
 }
 
 .tab-panel {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .tab-bar {
-  display: flex;
-  padding: pxToRem(3) pxToRem(16) 0 pxToRem(16);
-  overflow-y: auto;
+    display: flex;
+    padding: pxToRem(3) pxToRem(16) 0 pxToRem(16);
+    overflow-y: auto;
 
-  .tab {
-    span {
-      @include truncate-text;
-      display: inline-block;
-      width: 100%;
-      padding: pxToRem(2) 0;
-    }
-    transition: background-color 0.2s ease;
-    cursor: pointer;
-
-    position: relative;
-    display: inline-block;
-    padding: pxToRem(8) pxToRem(16);
-    text-align: center;
-    line-height: pxToRem(15);
-    color: rgb(var(--kompendium-contrast-1000));
-    font-size: pxToRem(16);
-    border-radius: pxToRem(8) pxToRem(8) 0 0;
-    margin: 0 pxToRem(2);
-    min-width: pxToRem(60); // needs to be here for titles to truncate
-
-    &:before,
-    &:after {
+    .tab {
+        span {
+            @include truncate-text;
+            display: inline-block;
+            width: 100%;
+            padding: pxToRem(2) 0;
+        }
         transition: background-color 0.2s ease;
+        cursor: pointer;
 
-        content: '';
-        display: block;
-        width: $tab-active-outer-edge-curve-size;
-        height: $tab-active-outer-edge-curve-size;
-        position: absolute;
-        bottom: 0;
-        -webkit-mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
-        mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>");
-
-        background: transparent;
-    }
-
-    &:before {
-        left: -$tab-active-outer-edge-curve-size;
-        transform: rotateY(180deg);
-    }
-    &:after {
-        right: -$tab-active-outer-edge-curve-size;
-    }
-
-    &:hover {
-      background-color: rgb(var(--kompendium-contrast-100));
-
-      &:before,
-      &:after {
-          background-color: rgb(var(--kompendium-contrast-100));
-
-          @include in(dark-mode) {
-              background-color: rgb(var(--kompendium-contrast-100));
-          }
-      }
-    }
-
-    &.active {
-        z-index: 1;
-        color: rgb(var(--kompendium-contrast-1100));
-        background: rgb(var(--kompendium-color-code-background));
+        position: relative;
+        display: inline-block;
+        padding: pxToRem(8) pxToRem(16);
+        text-align: center;
+        line-height: pxToRem(15);
+        color: rgb(var(--kompendium-contrast-1000));
+        font-size: pxToRem(16);
+        border-radius: pxToRem(8) pxToRem(8) 0 0;
+        margin: 0 pxToRem(2);
+        min-width: pxToRem(60); // needs to be here for titles to truncate
 
         &:before,
         &:after {
+            transition: background-color 0.2s ease;
+
+            content: '';
+            display: block;
+            width: $tab-active-outer-edge-curve-size;
+            height: $tab-active-outer-edge-curve-size;
+            position: absolute;
+            bottom: 0;
+            -webkit-mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>"); //For chrome and Safari the browser prefix is needed. (last checked Apr 2020)
+            mask-image: url("data:image/svg+xml; utf8, <svg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' clip-rule='evenodd' viewBox='0 0 50 50'><defs/><path d='M0 0c0 27.594 22.406 50 50 50H0V0z'/></svg>");
+
+            background: transparent;
+        }
+
+        &:before {
+            left: -$tab-active-outer-edge-curve-size;
+            transform: rotateY(180deg);
+        }
+        &:after {
+            right: -$tab-active-outer-edge-curve-size;
+        }
+
+        &:hover {
+            background-color: rgb(var(--kompendium-contrast-100));
+
+            &:before,
+            &:after {
+                background-color: rgb(var(--kompendium-contrast-100));
+
+                @include in(dark-mode) {
+                    background-color: rgb(var(--kompendium-contrast-100));
+                }
+            }
+        }
+
+        &.active {
+            z-index: 1;
+            color: rgb(var(--kompendium-contrast-1100));
             background: rgb(var(--kompendium-color-code-background));
+
+            &:before,
+            &:after {
+                background: rgb(var(--kompendium-color-code-background));
+            }
         }
     }
- }
 }
 
-
-
 .tab-items {
-  display: flex;
-  max-height: pxToRem(500);
+    display: flex;
+    max-height: pxToRem(500);
 
-  .tab-item {
-    width: 100%;
-    display: none;
+    .tab-item {
+        width: 100%;
+        display: none;
 
-    &.active {
-      display: flex;
+        &.active {
+            display: flex;
+        }
+
+        // &:nth-child(1) {
+        //   flex-direction: column;
+        // }
     }
-
-    // &:nth-child(1) {
-    //   flex-direction: column;
-    // }
-  }
 }
 
 kompendium-code {
-  display: block;
+    display: block;
 
-  &:before,
-  &:after {
-      content: '';
-      z-index: 1;
-      display: block;
-      position: absolute;
-      left: 0;
-      right: 0;
-      border-radius: pxToRem(9);
-      pointer-events: none;
-  }
+    &:before,
+    &:after {
+        content: '';
+        z-index: 1;
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-radius: pxToRem(9);
+        pointer-events: none;
+    }
 
-  &:before {
-      top: pxToRem(39);
-      height: pxToRem(24);
-      background-image: linear-gradient(rgb(var(--kompendium-color-code-background)), rgba(var(--kompendium-color-code-background), 0));
-  }
-  &:after {
-      bottom: 0;
-      height: pxToRem(32);
-      background-image: linear-gradient(rgba(var(--kompendium-color-code-background), 0), rgb(var(--kompendium-color-code-background)));
-  }
+    &:before {
+        top: pxToRem(39);
+        height: pxToRem(24);
+        background-image: linear-gradient(
+            rgb(var(--kompendium-color-code-background)),
+            rgba(var(--kompendium-color-code-background), 0)
+        );
+    }
+    &:after {
+        bottom: 0;
+        height: pxToRem(32);
+        background-image: linear-gradient(
+            rgba(var(--kompendium-color-code-background), 0),
+            rgb(var(--kompendium-color-code-background))
+        );
+    }
 }
 
 section.example {
@@ -180,9 +184,7 @@ section.example {
     }
 }
 
-
 .show-case {
-
 }
 
 .show-case_description {
@@ -210,7 +212,8 @@ section.example {
 
     a.debug-link {
         @include is-flat-clickable();
-        transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease-out, opacity 0.2s ease;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease,
+            transform 0.1s ease-out, opacity 0.2s ease;
 
         width: pxToRem(28);
         height: pxToRem(28);
