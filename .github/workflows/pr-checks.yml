@@ -9,9 +9,11 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
-        node-version: 12.x
+        node-version: '14'
+        check-latest: true
+    - run: npm i -g npm@7.12.1
     - name: npm install
       run: npm ci
     - run: npm run lint:prod
@@ -23,9 +25,11 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
-        node-version: 12.x
+        node-version: '14'
+        check-latest: true
+    - run: npm i -g npm@7.12.1
     - name: npm install
       run: npm ci
     - run: npm run build
