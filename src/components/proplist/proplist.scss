@@ -85,3 +85,9 @@ dl {
         }
     }
 }
+
+dl,
+dt,
+dd {
+    transition: background-color 0.3s ease 0.05s, border-color 0.3s ease 0.05s;
+}
