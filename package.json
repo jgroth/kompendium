@@ -70,7 +70,7 @@
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "copyfiles": "^2.3.0",
-    "eslint": "^7.21.0",
+    "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-jsdoc": "^34.8.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
