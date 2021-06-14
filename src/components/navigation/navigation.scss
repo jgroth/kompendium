@@ -247,19 +247,19 @@ header {
     }
 
     &.active {
-        img {
-            transform: rotate(90deg) scale(0.8);
+        svg {
+            transform: rotate(90deg) scale(0.64);
         }
     }
 
-    img {
+    svg {
         visibility: hidden;
         transition: transform 0.2s ease;
-        transform: scale(0.8);
+        transform: scale(0.64);
         height: pxToRem(32);
     }
 
-    &.has-children img {
+    &.has-children svg {
         visibility: visible;
     }
 }
@@ -324,7 +324,7 @@ header {
         }
     }
 
-    .panel-link.has-children img {
+    .panel-link.has-children svg {
         visibility: hidden;
     }
 
