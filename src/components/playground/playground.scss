@@ -138,6 +138,7 @@ kompendium-code {
 }
 
 section.example {
+    transition: border-color 0.3s ease 0.05s;
     padding-bottom: pxToRem(40);
     margin-bottom: pxToRem(40);
     border-bottom: 1px solid rgb(var(--kompendium-contrast-500));

@@ -5,6 +5,7 @@ kompendium-playground {
 }
 
 .docs-layout-section-heading {
+    transition: border-color 0.3s ease 0.05s;
     padding-top: pxToRem(40);
     margin: pxToRem(40) 0 pxToRem(20) 0;
     border-top: 1px solid rgb(var(--kompendium-contrast-500));
