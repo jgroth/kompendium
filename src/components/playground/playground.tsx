@@ -113,7 +113,30 @@ export class Playground {
         return (
             <div class="debug">
                 <a class="debug-link" href={href} title="Debug">
-                    Debug
+                    <svg
+                        viewBox="0 0 400 400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-miterlimit="1.5"
+                    >
+                        <path fill="none" d="M0 0h400v400H0z" />
+                        <path
+                            d="M194.97 254.84h77.555"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-opacity=".6"
+                            stroke-width="20"
+                        />
+                        <path
+                            d="M127.474 145.16l54.84 54.84M182.315 200l-54.84 54.84"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="20"
+                        />
+                    </svg>
                 </a>
             </div>
         );
