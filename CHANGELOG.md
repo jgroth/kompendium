@@ -1,3 +1,10 @@
+## 🎥 [0.8.7](https://github.com/jgroth/kompendium/compare/v0.8.6...v0.8.7) (2021-06-15)
+
+
+### Bug Fixes
+
+* **package:** update vulnerable sub-dependencies ([ba059e7](https://github.com/jgroth/kompendium/commit/ba059e70f6bcdcd5ea022e2042f11a60bae4d798))
+
 ## 🚤 [0.8.6](https://github.com/jgroth/kompendium/compare/v0.8.5...v0.8.6) (2021-05-19)
 
 
