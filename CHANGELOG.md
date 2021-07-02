@@ -1,3 +1,10 @@
+## 🎸 [0.8.8](https://github.com/jgroth/kompendium/compare/v0.8.7...v0.8.8) (2021-07-02)
+
+
+### Bug Fixes
+
+* **playground:** make sure example code re-renders ([6c118bb](https://github.com/jgroth/kompendium/commit/6c118bbe4b724048f1965ab8c90e820fe6933752))
+
 ## 🎥 [0.8.7](https://github.com/jgroth/kompendium/compare/v0.8.6...v0.8.7) (2021-06-15)
 
 
