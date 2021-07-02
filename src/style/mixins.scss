@@ -8,6 +8,14 @@
         &[data-theme='force-dark'] {
             @content;
         }
+        @media (prefers-color-scheme: dark) {
+            :host(:not([data-theme='force-light'])) & {
+                @content;
+            }
+        }
+        :host([data-theme='force-dark']) & {
+            @content;
+        }
     }
 }
 

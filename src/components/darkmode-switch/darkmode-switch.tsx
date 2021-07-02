@@ -1,11 +1,11 @@
 import { Component, h, State } from '@stencil/core';
+import { Theme, THEME_EVENT_NAME } from './types';
 
 const DEFAULT: Theme = 'system-default';
 const LIGHT: Theme = 'force-light';
 const DARK: Theme = 'force-dark';
 const CHECKBOX_LIGHT = false;
 const CHECKBOX_DARK = true;
-const THEME_EVENT_NAME = 'kompendium-theme';
 const LOCALSTORAGE_KEY = 'kompendium-theme';
 
 /**
@@ -124,5 +124,3 @@ export class DarkmodeSwitch {
         localStorage.setItem(LOCALSTORAGE_KEY, value);
     };
 }
-
-export type Theme = 'system-default' | 'force-light' | 'force-dark';

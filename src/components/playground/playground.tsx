@@ -1,6 +1,7 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 import { JsonDocsComponent } from '@stencil/core/internal';
 import { JsonDocsSource } from '../../kompendium/source';
+import { Theme, THEME_EVENT_NAME } from '../darkmode-switch/types';
 
 @Component({
     tag: 'kompendium-playground',
@@ -23,9 +24,21 @@ export class Playground {
     @State()
     private activeTab: string;
 
+    @State()
+    private theme: Theme;
+
     constructor() {
         this.renderTab = this.renderTab.bind(this);
         this.renderItem = this.renderItem.bind(this);
+    }
+
+    public connectedCallback() {
+        this.theme = document.querySelector('html').dataset.theme as Theme;
+        document.addEventListener(THEME_EVENT_NAME, this.themeListener);
+    }
+
+    public disconnectedCallback() {
+        document.removeEventListener(THEME_EVENT_NAME, this.themeListener);
     }
 
     public render(): HTMLElement {
@@ -36,14 +49,16 @@ export class Playground {
         const sources: JsonDocsSource[] = (this.component as any).sources || [];
 
         return (
-            <section class="example">
-                <div class="result">{this.renderResult()}</div>
+            <Host data-theme={this.theme}>
+                <section class="example">
+                    <div class="result">{this.renderResult()}</div>
 
-                <aside class="code">
-                    <nav class="tab-bar">{this.renderTabs(sources)}</nav>
-                    <div class="tab-items">{this.renderItems(sources)}</div>
-                </aside>
-            </section>
+                    <aside class="code">
+                        <nav class="tab-bar">{this.renderTabs(sources)}</nav>
+                        <div class="tab-items">{this.renderItems(sources)}</div>
+                    </aside>
+                </section>
+            </Host>
         );
     }
 
@@ -154,4 +169,8 @@ export class Playground {
 
         return isActive;
     }
+
+    private themeListener = (event: CustomEvent<Theme>) => {
+        this.theme = event.detail;
+    };
 }

@@ -194,6 +194,10 @@ section.example {
     background-color: rgb(var(--kompendium-contrast-100));
     border: 1px solid rgb(var(--kompendium-contrast-300));
     box-shadow: var(--shadow-showcase);
+
+    @include in(dark-mode) {
+        background-color: rgb(var(--kompendium-contrast-200));
+    }
 }
 
 .debug {
