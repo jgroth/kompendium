@@ -16,7 +16,7 @@ Kompendium is still in development. Consider this an early preview!
 
 * **Elegant design** — Your examples and their description text are displayed on the left part of the documentation, while the code that generates them is resides on the right, and is smartly divided into tabs that show contents of connected files. It goes without saying that the layout is fully responsive and flawlessly adapts to tablets and phones.  
 
-*  **Dark mode** — Kompendium seamless switches between light and dark theme using `prefers-color-scheme` media query. All colors get automatically dimmed in dark mode, to provide a more decent experience and a more accessible user interface.
+*  **Dark mode** — Kompendium seamlessly switches between light and dark theme using `prefers-color-scheme` media query. All colors get automatically dimmed in dark mode, to provide a more decent experience and a more accessible user interface.
 
 * **Multi page** — Kompendium divides your documentation into several pages, making sure that linkability is provided.  
 
