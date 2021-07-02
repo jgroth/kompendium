@@ -94,9 +94,10 @@ export class Playground {
             active: this.isTabActive(source, index),
         };
         const code = source.source.replace(/\/\*\*.+?\*\//gms, '');
+        const key = [this.component.tag, source.filename].join('/');
 
         return (
-            <kompendium-code class={classList} language={source.type}>
+            <kompendium-code class={classList} language={source.type} key={key}>
                 {code}
             </kompendium-code>
         );
