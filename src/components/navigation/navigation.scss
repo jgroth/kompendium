@@ -223,9 +223,14 @@ header {
     }
 
     img {
+        visibility: hidden;
         transition: transform 0.2s ease;
         transform: scale(0.8);
         height: pxToRem(32);
+    }
+
+    &.has-children img {
+        visibility: visible;
     }
 }
 
@@ -289,7 +294,7 @@ header {
         }
     }
 
-    img {
+    .panel-link.has-children img {
         visibility: hidden;
     }
 
