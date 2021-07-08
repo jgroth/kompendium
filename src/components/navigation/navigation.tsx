@@ -129,11 +129,12 @@ export class Navigation {
             chapters: true,
             'panel-list': true,
         };
+        const chapters = item.children || [];
         const anchorClassList = {
             'panel-link': true,
             active: this.isRouteActive(item.path),
+            'has-children': !!chapters.length,
         };
-        const chapters = item.children || [];
         const path = getAssetPath(
             '../collection/assets/icons/arrow-right-s-line.svg'
         );
