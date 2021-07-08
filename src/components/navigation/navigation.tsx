@@ -1,11 +1,4 @@
-import {
-    Component,
-    h,
-    Prop,
-    State,
-    getAssetPath,
-    Element,
-} from '@stencil/core';
+import { Component, h, Prop, State, getAssetPath } from '@stencil/core';
 import { MenuItem } from '../../types';
 
 /**
@@ -44,8 +37,8 @@ export class Navigation {
     @State()
     private route = '';
 
-    @Element()
-    private host: HTMLKompendiumNavigationElement;
+    @State()
+    private displayNavPanel = false;
 
     constructor() {
         this.setRoute = this.setRoute.bind(this);
@@ -65,9 +58,22 @@ export class Navigation {
         this.route = location.hash.substr(1);
     }
 
-    public render(): HTMLElement {
-        return (
-            <nav class="nav-panel">
+    public render(): HTMLElement[] {
+        return [
+            <div
+                class={{
+                    'nav-panel-scrim': true,
+                    'display-nav-panel': this.displayNavPanel,
+                }}
+                onClick={this.toggleMenu}
+            ></div>,
+            <nav
+                class={{
+                    'nav-panel': true,
+                    'display-nav-panel': this.displayNavPanel,
+                }}
+                onClick={this.stopPropagationOfNavClick}
+            >
                 <a class="nav-panel__responsive-menu" onClick={this.toggleMenu}>
                     <span></span>
                     <span></span>
@@ -79,8 +85,8 @@ export class Navigation {
                     <kompendium-search index={this.index} />
                 </header>
                 {this.renderChapters(this.menu)}
-            </nav>
-        );
+            </nav>,
+        ];
     }
 
     private renderHeader() {
@@ -94,12 +100,7 @@ export class Navigation {
     }
 
     private toggleMenu = () => {
-        const panel = this.host.shadowRoot.querySelector('.nav-panel');
-        if (!panel) {
-            return;
-        }
-
-        panel.classList.toggle('display-nav-panel');
+        this.displayNavPanel = !this.displayNavPanel;
     };
 
     private renderChapters(menu: MenuItem[]) {
@@ -151,6 +152,10 @@ export class Navigation {
     private isRouteActive(route: string) {
         return this.route.startsWith(route);
     }
+
+    private stopPropagationOfNavClick = (event: MouseEvent) => {
+        event.stopPropagation();
+    };
 }
 
 // function hasContent(item: MenuItem) {

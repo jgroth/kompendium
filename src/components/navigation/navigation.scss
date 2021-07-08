@@ -17,6 +17,16 @@ header {
     }
 }
 
+.nav-panel-scrim {
+    display: none;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 .nav-panel {
     transition: margin 0.2s ease;
     z-index: 100;
@@ -141,6 +151,12 @@ header {
 }
 
 @media (max-width: $break-point-small) {
+    .nav-panel-scrim {
+        &.display-nav-panel {
+            display: block;
+        }
+    }
+
     .nav-panel {
         margin-left: calc(var(--width-nav-panel) * -1);
 
