@@ -137,10 +137,18 @@ export class Navigation {
         const path = getAssetPath(
             '../collection/assets/icons/arrow-right-s-line.svg'
         );
+        const anchorAdditionalProps: any = {};
+        if (!chapters.length) {
+            anchorAdditionalProps.onClick = this.toggleMenu;
+        }
 
         return (
             <li class="panel-item">
-                <a class={anchorClassList} href={'#' + item.path}>
+                <a
+                    class={anchorClassList}
+                    href={'#' + item.path}
+                    {...anchorAdditionalProps}
+                >
                     <img src={path} />
                     <span class="link-text">{item.title}</span>
                 </a>
