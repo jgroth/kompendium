@@ -1,3 +1,16 @@
+# 🥵 [0.9.0](https://github.com/jgroth/kompendium/compare/v0.8.8...v0.9.0) (2021-07-09)
+
+
+### Bug Fixes
+
+* **nav:** only render chevron for nav items that have children ([0ee58af](https://github.com/jgroth/kompendium/commit/0ee58af4797600964dd587ec9b30fe60e10a5e98))
+
+
+### Features
+
+* **nav:** in narrow mode, clicking on a nav item with no children now closes the menu ([8688f34](https://github.com/jgroth/kompendium/commit/8688f348b51397eeeae823a15131e7187ed814c1)), closes [#29](https://github.com/jgroth/kompendium/issues/29)
+* **nav:** in narrow mode, clicking outside the nav bar now closes it ([888114b](https://github.com/jgroth/kompendium/commit/888114bcdbf180a6e13d07378e6db7220068d886)), closes [#29](https://github.com/jgroth/kompendium/issues/29)
+
 ## 🎸 [0.8.8](https://github.com/jgroth/kompendium/compare/v0.8.7...v0.8.8) (2021-07-02)
 
 
