@@ -40,6 +40,8 @@ export class KompendiumComponent {
     @Element()
     private host: HTMLKompendiumComponentElement;
 
+    private scrollToOnNextUpdate: string = null;
+
     constructor() {
         this.handleRouteChange = this.handleRouteChange.bind(this);
     }
@@ -57,9 +59,16 @@ export class KompendiumComponent {
         this.scrollToElement(route);
     }
 
+    protected componentDidUpdate(): void {
+        if (this.scrollToOnNextUpdate) {
+            this.scrollToElement(this.scrollToOnNextUpdate);
+            this.scrollToOnNextUpdate = null;
+        }
+    }
+
     private handleRouteChange() {
         const route = this.getRoute();
-        this.scrollToElement(route);
+        this.scrollToOnNextUpdate = route;
     }
 
     private scrollToElement(id: string) {
@@ -119,7 +128,7 @@ export class KompendiumComponent {
     private getId(name?: string) {
         const route = this.getRoute().split('/').slice(0, 3).join('/');
 
-        return [route, name].filter((item) => !!item).join('/');
+        return [route, name].filter((item) => !!item).join('/') + '/';
     }
 
     private getRoute() {
