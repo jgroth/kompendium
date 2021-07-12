@@ -52,11 +52,11 @@
         0 0 1px 1px rgba(var(--kompendium-color-white), 0.98) inset;
 
     @include in(dark-mode) {
-        --shadow-showcase: #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--kompendium-color-black), 0.01),
-            #{pxToRem(-10)} #{pxToRem(-10)} #{pxToRem(30)} rgba(var(--kompendium-color-white), 0.1),
-            #{pxToRem(10)} #{pxToRem(10)} #{pxToRem(36)} rgba(var(--kompendium-color-black), 0.06),
-            #{pxToRem(2)} #{pxToRem(2)} #{pxToRem(10)} rgba(var(--kompendium-color-white), 0.1),
+        --shadow-showcase: #{pxToRem(-10)} #{pxToRem(-10)} #{pxToRem(30)} rgba(var(--kompendium-color-white), 0.01),
+            #{pxToRem(2)} #{pxToRem(2)} #{pxToRem(10)} rgba(var(--kompendium-color-white), 0.01),
+            #{pxToRem(-3)} #{pxToRem(-3)} #{pxToRem(6)} rgba(var(--kompendium-color-black), 0.01),
+            #{pxToRem(10)} #{pxToRem(10)} #{pxToRem(36)} rgba(var(--kompendium-color-black), 0.4),
             -1px -1px 0 1px rgba(var(--kompendium-color-black), 0.07) inset,
-            0 0 1px 1px rgba(var(--kompendium-color-white), 0.98) inset;
+            0 0 1px 1px rgba(var(--kompendium-color-white), 0.08) inset;
     }
 }
