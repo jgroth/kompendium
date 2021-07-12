@@ -16,6 +16,7 @@ slot {
 }
 
 div.code-toolbar {
+    z-index: 1; // puts it over the gradient effect of kompendium-code
     display: flex;
     height: 100%;
 
@@ -23,15 +24,19 @@ div.code-toolbar {
         padding-right: pxToRem(4);
 
         .toolbar-item {
-            a,
             button,
             span {
-                background-color: rgb(var(--kompendium-contrast-900));
-                color: rgb(var(--kompendium-contrast-100));
+                all: unset; // resets Prism's messy CSS
+            }
+            button {
+                cursor: pointer;
+                @include is-elevated-clickable();
+
+                background-color: rgb(var(--kompendium-contrast-100));
+                color: rgb(var(--kompendium-contrast-1100));
                 padding: pxToRem(2) pxToRem(8);
                 border-radius: pxToRem(6);
-
-                @include is-elevated-clickable();
+                font-size: pxToRem(12);
             }
         }
     }
