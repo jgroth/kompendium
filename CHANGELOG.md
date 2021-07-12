@@ -1,3 +1,19 @@
+# 📆 [0.10.0](https://github.com/jgroth/kompendium/compare/v0.9.1...v0.10.0) (2021-07-12)
+
+
+### Bug Fixes
+
+* **navigation:** increase contrast of branding title & its background to improve readability ([dc75f72](https://github.com/jgroth/kompendium/commit/dc75f72420ae238e54fc6ec7cd13e0f3c14b6528))
+* **playground:** improve background in dark-mode ([28997a3](https://github.com/jgroth/kompendium/commit/28997a3bc1edb636db8b82cd482f09bd2d892275))
+* **playground:** make the debug icon visible in dark mode ([fccc9f8](https://github.com/jgroth/kompendium/commit/fccc9f80e12dd4abf182eba1f2aaf8a78f3bcea6))
+* nicely transition to dark-mode with smooth visual changes ([a79a935](https://github.com/jgroth/kompendium/commit/a79a9353ef0044433ad2a19686ca1f07b4854a9e))
+* **nav:** make the chevron visible in dark mode too ([3cace52](https://github.com/jgroth/kompendium/commit/3cace527933ed61610842edcf8579159d9aa982e))
+
+
+### Features
+
+* add config for light- and dark-mode ([2a41477](https://github.com/jgroth/kompendium/commit/2a4147711066ee805997362c409ad0100fb58647))
+
 ## 🌹 [0.9.1](https://github.com/jgroth/kompendium/compare/v0.9.0...v0.9.1) (2021-07-12)
 
 
