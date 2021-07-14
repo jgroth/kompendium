@@ -16,7 +16,7 @@ Kompendium is still in development. Consider this an early preview!
 
 * **Elegant design** — Your examples and their description text are displayed on the left part of the documentation, while the code that generates them is resides on the right, and is smartly divided into tabs that show contents of connected files. It goes without saying that the layout is fully responsive and flawlessly adapts to tablets and phones.  
 
-*  **Dark mode** — Kompendium seamlessly switches between light and dark theme using `prefers-color-scheme` media query. All colors get automatically dimmed in dark mode, to provide a more decent experience and a more accessible user interface.
+*  **Dark mode** — Kompendium seamlessly switches between light and dark theme using `prefers-color-scheme` media query. All colors get automatically dimmed in dark mode, to provide a more decent experience and a more accessible user interface. Additionally, users can easily switch to their desired theme and Kompendium will remember their choice.
 
 * **Multi page** — Kompendium divides your documentation into several pages, making sure that linkability is provided.  
 
@@ -25,6 +25,12 @@ Kompendium is still in development. Consider this an early preview!
 * ** Admonitions support** — You can easily add admonitions within your markdown text to generate side content that do not interrupt the document flow. Kompendium comes with custom-made visual support for six types of these call-out blocks (`info`, `warning`, `danger`, `note`, `tip`, and `important`). [read more](https://github.com/elviswolcott/remark-admonitions).
 
 * **Syntax highlighting** — Tabs that show the source code of for example `.tsx` or `.scss` files used in the Stencil example components have inbuilt syntax highlighting for each language. Also, code-blocks inside your documentations can benefit from syntax highlighting, if you specify their respective language. For the highlighting, we have hand-picked colors that look gorgeous both in light- and dark-mode.
+
+* **Debug mode** — You can isolate individual examples of the components which are showcased in the documentation, simply by pressing a button. This feature helps cleaning up the DOM and therefore an easier debugging experience.
+
+* **Search** — Kompendium has a simple search engine that makes finding information easier for users.
+
+
 
 # Demo  
 You can see a live demo of Kompendium, being used by Lime Technologies to create their [component library and design system docs](https://lundalogik.github.io/lime-elements/versions/latest).
