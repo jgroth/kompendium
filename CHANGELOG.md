@@ -1,3 +1,11 @@
+## 🚗 [0.10.1](https://github.com/jgroth/kompendium/compare/v0.10.0...v0.10.1) (2021-07-15)
+
+
+### Bug Fixes
+
+* **code:** improve look'n feel of the `copy` code button ([eb65a55](https://github.com/jgroth/kompendium/commit/eb65a55ed7c259e05678084fd80b982b44bf52d1))
+* **shadows:** improve `show-case` shadow effect for dark mode ([6b9633e](https://github.com/jgroth/kompendium/commit/6b9633ecb176eede445a9fa5ce6a0d0110127b33))
+
 # 📆 [0.10.0](https://github.com/jgroth/kompendium/compare/v0.9.1...v0.10.0) (2021-07-12)
 
 
