@@ -19,9 +19,9 @@ export function MethodList({
     }
 
     return [
-        <h3 class="docs-layout-section-heading" id={id}>
+        <h2 class="docs-layout-section-heading" id={id}>
             Methods
-        </h3>,
+        </h2>,
         ...methods.map(renderMethod),
     ];
 }
@@ -36,7 +36,7 @@ function renderMethod(method: JsonDocsMethod) {
 
     return (
         <div class="methods-layout">
-            <h4 class="methods-title">{method.name}</h4>
+            <h3 class="methods-title">{method.name}</h3>
             <div class="methods-content">
                 <div>
                     <kompendium-markdown text={method.docs} />
@@ -59,7 +59,7 @@ function ParamList({ params }: { params: JsonDocMethodParameter[] }) {
         return;
     }
 
-    return [<h5>Parameters</h5>, ...params.map(renderParam)];
+    return [<h4>Parameters</h4>, ...params.map(renderParam)];
 }
 
 function renderParam(param: ParameterDescription) {
@@ -80,7 +80,7 @@ function renderParam(param: ParameterDescription) {
 
     return (
         <div>
-            <h6>{param.name}</h6>
+            <h5>{param.name}</h5>
             <kompendium-markdown text={param.docs} />
             <kompendium-proplist items={items} />
         </div>
@@ -95,7 +95,7 @@ function Returns({ value }: { value: JsonDocsMethodReturn }) {
     const type = '`' + value.type + '`';
 
     return [
-        <h5>Returns</h5>,
+        <h4>Returns</h4>,
         <kompendium-markdown text={value.docs} />,
         <kompendium-markdown text={type} />,
     ];

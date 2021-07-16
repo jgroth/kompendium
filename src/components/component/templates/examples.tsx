@@ -15,9 +15,9 @@ export function ExampleList({
     }
 
     return [
-        <h3 class="docs-layout-section-heading" id={id}>
+        <h2 class="docs-layout-section-heading" id={id}>
             Examples
-        </h3>,
+        </h2>,
         examples.map(renderExample(schema)),
     ];
 }

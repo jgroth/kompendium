@@ -16,7 +16,7 @@ function MemberList({ members }: { members: EnumMember[] }): HTMLElement[] {
         return;
     }
 
-    return [<h3>Members</h3>, ...members.map(renderMember)];
+    return [<h2>Members</h2>, ...members.map(renderMember)];
 }
 
 function renderMember(member: EnumMember) {
@@ -29,7 +29,7 @@ function renderMember(member: EnumMember) {
 
     return (
         <div>
-            <h4>{member.name}</h4>
+            <h3>{member.name}</h3>
             <kompendium-markdown text={member.docs} />
             <kompendium-taglist tags={member.docsTags} />
             <kompendium-proplist items={items} />

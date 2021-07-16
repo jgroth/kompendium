@@ -14,9 +14,9 @@ export function EventList({
     }
 
     return [
-        <h3 class="docs-layout-section-heading" id={id}>
+        <h2 class="docs-layout-section-heading" id={id}>
             Events
-        </h3>,
+        </h2>,
         ...events.map(renderEvent),
     ];
 }
@@ -43,7 +43,7 @@ function renderEvent(event: JsonDocsEvent) {
 
     return (
         <div class="props-events-layout">
-            <h4>{event.event}</h4>
+            <h3>{event.event}</h3>
             <kompendium-taglist tags={event.docsTags} />
             <div class="markdown-props">
                 <kompendium-markdown text={event.docs} />
