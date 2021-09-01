@@ -1,3 +1,10 @@
+## 🏉 [0.10.2](https://github.com/jgroth/kompendium/compare/v0.10.1...v0.10.2) (2021-09-01)
+
+
+### Bug Fixes
+
+* **typography:** style `kbd` element ([23c8c41](https://github.com/jgroth/kompendium/commit/23c8c418602071eb74a426a7816796938807a6d9))
+
 ## 🚗 [0.10.1](https://github.com/jgroth/kompendium/compare/v0.10.0...v0.10.1) (2021-07-15)
 
 
