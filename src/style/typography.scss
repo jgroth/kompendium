@@ -134,3 +134,24 @@ hr {
     border-width: 0;
     border-top: 1px solid rgb(var(--kompendium-contrast-600));
 }
+
+kbd {
+    font-family: var(--kompendium-font-code);
+    font-size: pxToRem(14);
+    font-weight: 600;
+    color: rgb(var(--kompendium-contrast-1000));
+    background-color: rgb(var(--kompendium-contrast-200));
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: normal;
+    padding: pxToRem(2) pxToRem(8);
+    margin: 0 pxToRem(4);
+    border-radius: pxToRem(4);
+    box-shadow: var(--kompendium-button-shadow-normal),
+        0 #{pxToRem(0.5)} #{pxToRem(3.5)} 0
+            rgba(var(--kompendium-contrast-100), 0.5) inset;
+    border: solid rgba(var(--kompendium-contrast-600), 0.8);
+    border-width: 0 pxToRem(1) pxToRem(2) pxToRem(1);
+}
