@@ -42,6 +42,7 @@ Please see CONTRIBUTING for details.
 
 # Credits
 * [Johan Groth](https://github.com/jgroth) — Development
+* [Adrian Schmidt](https://github.com/adrianschmidt) — Development
 * [Kiarokh Moattar](https://github.com/Kiarokh) — Design  
 
  # License
