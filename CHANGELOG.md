@@ -1,3 +1,10 @@
+## 👞 [0.10.3](https://github.com/jgroth/kompendium/compare/v0.10.2...v0.10.3) (2022-01-19)
+
+
+### Bug Fixes
+
+* **variables:** decrease layout breakpoints ([4fef581](https://github.com/jgroth/kompendium/commit/4fef5816f8d7ae08e82443df95c6346c95b79025))
+
 ## 🏉 [0.10.2](https://github.com/jgroth/kompendium/compare/v0.10.1...v0.10.2) (2021-09-01)
 
 
