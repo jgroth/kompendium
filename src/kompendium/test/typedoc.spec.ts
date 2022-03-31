@@ -32,6 +32,73 @@ describe('parseFile()', () => {
                 ],
             },
             {
+                type: 'class',
+                name: 'Zap',
+                docs: 'The Zap class',
+                docsTags: [
+                    {
+                        name: 'deprecated',
+                        text: '',
+                    },
+                ],
+                sources: ['src/kompendium/test/fixtures/basic.ts'],
+                props: [
+                    {
+                        default: undefined,
+                        docs: 'set if bar',
+                        docsTags: [],
+                        name: 'bar',
+                        optional: true,
+                        type: 'boolean',
+                    },
+                    {
+                        default: undefined,
+                        docs: 'foo is a string',
+                        docsTags: [
+                            {
+                                name: 'deprecated',
+                                text: 'this is not used',
+                            },
+                        ],
+                        name: 'foo',
+                        optional: false,
+                        type: 'string',
+                    },
+                ],
+                methods: [
+                    {
+                        docs: 'Do something\nFrom string to number',
+                        docsTags: [
+                            {
+                                name: 'foobar',
+                                text: 'baz',
+                            },
+                        ],
+                        name: 'baz',
+                        parameters: [
+                            {
+                                default: undefined,
+                                docs: 'the string',
+                                name: 'args',
+                                optional: false,
+                                type: 'string',
+                            },
+                        ],
+                        returns: {
+                            docs: 'the number',
+                            type: 'number',
+                        },
+                    },
+                ],
+                typeParams: [],
+                decorators: [
+                    {
+                        name: 'CustomDecorator',
+                        arguments: { _config: "{ name: 'gg' }" },
+                    },
+                ],
+            },
+            {
                 type: 'interface',
                 name: 'Foo',
                 typeParams: [],
