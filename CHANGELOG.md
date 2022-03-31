@@ -1,3 +1,10 @@
+# 👻 [0.11.0](https://github.com/jgroth/kompendium/compare/v0.10.3...v0.11.0) (2022-03-31)
+
+
+### Features
+
+* **types:** add support to generate docs for classes ([651cd6b](https://github.com/jgroth/kompendium/commit/651cd6b8b34a9e699b215a882550fb046de120e9))
+
 ## 👞 [0.10.3](https://github.com/jgroth/kompendium/compare/v0.10.2...v0.10.3) (2022-01-19)
 
 
