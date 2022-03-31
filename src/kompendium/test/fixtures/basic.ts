@@ -1,3 +1,20 @@
+type DecoratorConfig = {
+    /**
+     * This is the name
+     */
+    name: string;
+};
+
+/**
+ * Use this!
+ *
+ * @param {DecoratorConfig} _config how to use it
+ * @returns {ClassDecorator} the decorator
+ */
+const CustomDecorator = (_config: DecoratorConfig): ClassDecorator => {
+    return () => {};
+};
+
 /**
  * This is Foo
  *
@@ -53,4 +70,27 @@ export enum Color {
      * Almost blue
      */
     Blue = 'blue',
+}
+
+/**
+ * The Zap class
+ *
+ * @deprecated
+ */
+@CustomDecorator({ name: 'gg' })
+export class Zap implements Foo {
+    /**
+     * @inheritdoc
+     */
+    foo: string;
+
+    /**
+     * @inheritdoc
+     */
+    bar?: boolean;
+
+    /**
+     * @inheritdoc
+     */
+    baz: (args: string) => number;
 }

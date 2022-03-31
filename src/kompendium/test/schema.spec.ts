@@ -1,10 +1,14 @@
 import { JsonDocsComponent } from '@stencil/core/internal';
-import { InterfaceDescription } from '../../types';
+import {
+    ClassDescription,
+    InterfaceDescription,
+    TypeDescription,
+} from '../../types';
 import { createSchemas } from '../schema';
 
 describe('createSchemas()', () => {
     let components: JsonDocsComponent[] = [];
-    let types: InterfaceDescription[] = [];
+    let types: TypeDescription[] = [];
 
     describe('with empty inputs', () => {
         it('returns empty schemas', () => {
@@ -424,6 +428,100 @@ describe('createSchemas()', () => {
                     'ListItem',
                 ]);
             });
+        });
+    });
+
+    describe('with a class', () => {
+        beforeEach(() => {
+            types = [
+                {
+                    name: 'Option',
+                    type: 'interface',
+                    props: [
+                        {
+                            name: 'name',
+                            type: 'string',
+                        },
+                    ],
+                },
+                {
+                    name: 'FooClass',
+                    type: 'class',
+                    typeParams: [],
+                    props: [
+                        {
+                            name: 'options',
+                            type: 'Option',
+                        },
+                        {
+                            name: 'optionalOptions',
+                            type: 'Partial<Option>',
+                        },
+                        {
+                            name: 'manyOptions',
+                            type: 'Option[]',
+                        },
+                        {
+                            name: 'moreOptions',
+                            type: 'Array<Partial<Option>>',
+                        },
+                    ],
+                    decorators: [],
+                },
+            ] as Array<ClassDescription | InterfaceDescription>;
+        });
+
+        it('returns a valid schema', () => {
+            expect(createSchemas([], types)).toEqual([
+                {
+                    $id: 'FooClass',
+                    type: 'object',
+                    definitions: {
+                        Option: {
+                            properties: {
+                                name: {
+                                    description: undefined,
+                                    title: 'Name',
+                                    type: 'string',
+                                },
+                            },
+                            type: 'object',
+                        },
+                    },
+                    properties: {
+                        manyOptions: {
+                            description: undefined,
+                            items: {
+                                $ref: '#/definitions/Option',
+                                type: 'object',
+                            },
+                            title: 'Many Options',
+                            type: 'array',
+                        },
+                        moreOptions: {
+                            description: undefined,
+                            items: {
+                                $ref: '#/definitions/Option',
+                                type: 'object',
+                            },
+                            title: 'More Options',
+                            type: 'array',
+                        },
+                        optionalOptions: {
+                            $ref: '#/definitions/Option',
+                            description: undefined,
+                            title: 'Optional Options',
+                            type: 'object',
+                        },
+                        options: {
+                            $ref: '#/definitions/Option',
+                            description: undefined,
+                            title: 'Options',
+                            type: 'object',
+                        },
+                    },
+                },
+            ]);
         });
     });
 });
