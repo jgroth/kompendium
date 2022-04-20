@@ -1,3 +1,10 @@
+## 🍢 [0.11.1](https://github.com/jgroth/kompendium/compare/v0.11.0...v0.11.1) (2022-04-20)
+
+
+### Bug Fixes
+
+* **search:** remove double magnifying glass icon from the search input field on iOS ([27af2f9](https://github.com/jgroth/kompendium/commit/27af2f92b15a83187246ff4dc6392850fbea8346))
+
 # 👻 [0.11.0](https://github.com/jgroth/kompendium/compare/v0.10.3...v0.11.0) (2022-03-31)
 
 
