@@ -272,9 +272,9 @@ header {
 
 .chapters {
     height: 0;
-    transition: height 0.2s ease;
 
     &.active {
+        transition: height 0.2s ease;
         height: 100%;
 
         .panel-item {
