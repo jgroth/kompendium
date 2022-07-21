@@ -12,14 +12,7 @@
 .docs {
     kompendium-markdown {
         display: block;
-        width: calc(50% - 2rem);
-    }
-}
-
-@media (max-width: $break-point-small) {
-    .docs {
-        kompendium-markdown {
-            width: 100%;
-        }
+        width: 100%;
+        max-width: pxToRem(960);
     }
 }
