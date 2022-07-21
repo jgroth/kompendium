@@ -127,7 +127,7 @@ export class Navigation {
     }
 
     private renderMenuItem(item: MenuItem) {
-        const classList = {
+        const chapterClassList = {
             active: this.isRouteActive(item.path),
             chapters: true,
             'panel-list': true,
@@ -166,7 +166,9 @@ export class Navigation {
 
                     <span class="link-text">{item.title}</span>
                 </a>
-                <ul class={classList}>{chapters.map(this.renderMenuItem)}</ul>
+                <ul class={chapterClassList}>
+                    {chapters.map(this.renderMenuItem)}
+                </ul>
             </li>
         );
     }
