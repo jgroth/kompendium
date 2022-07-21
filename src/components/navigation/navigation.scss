@@ -50,7 +50,7 @@ header {
         overflow-y: auto;
 
         &:not(.chapters) {
-            padding: 0 pxToRem(4) pxToRem(32) pxToRem(4);
+            padding: 0 pxToRem(12) pxToRem(32) pxToRem(4);
         }
     }
 }
@@ -228,7 +228,6 @@ header {
 .panel-item {
     transition: opacity 0.2s ease;
     width: 100%;
-    padding-right: pxToRem(12);
 }
 
 .panel-link {
@@ -277,7 +276,6 @@ header {
 
     &.active {
         height: 100%;
-        padding-left: pxToRem(20);
 
         .panel-item {
             opacity: 1;
@@ -320,7 +318,7 @@ header {
                 transition-delay: 0.19s;
             }
             &:last-child {
-                margin-bottom: pxToRem(16);
+                margin-bottom: pxToRem(28);
             }
         }
     }
@@ -338,10 +336,6 @@ header {
 
             &:first-child {
                 margin-top: pxToRem(4);
-            }
-
-            &:last-child {
-                margin-bottom: pxToRem(8);
             }
         }
     }
