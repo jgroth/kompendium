@@ -50,7 +50,7 @@ header {
         overflow-y: auto;
 
         &:not(.chapters) {
-            padding: 0 pxToRem(12) pxToRem(32) pxToRem(4);
+            padding: 0 pxToRem(12) pxToRem(32) pxToRem(12);
         }
     }
 }
@@ -228,13 +228,18 @@ header {
 .panel-item {
     transition: opacity 0.2s ease;
     width: 100%;
+    border-radius: pxToRem(6);
+
+    &.active {
+        background-color: rgb(var(--kompendium-contrast-100), 0.5);
+    }
 }
 
 .panel-link {
     display: grid;
     grid: {
         auto-flow: column;
-        template-columns: pxToRem(20) 1fr;
+        template-columns: 1fr pxToRem(28);
     }
     line-height: pxToRem(28);
     color: rgb(var(--kompendium-contrast-900));
@@ -248,14 +253,14 @@ header {
 
     &.active {
         svg {
-            transform: rotate(90deg) scale(0.64);
+            transform: scale(0.64) rotate(-90deg);
         }
     }
 
     svg {
         visibility: hidden;
         transition: transform 0.2s ease;
-        transform: scale(0.64);
+        transform: scale(0.64) rotate(90deg);
         height: pxToRem(32);
     }
 
@@ -272,6 +277,10 @@ header {
 
 .chapters {
     height: 0;
+
+    > .panel-item {
+        padding-left: pxToRem(8);
+    }
 
     &.active {
         transition: height 0.2s ease;
@@ -318,7 +327,7 @@ header {
                 transition-delay: 0.19s;
             }
             &:last-child {
-                margin-bottom: pxToRem(28);
+                margin-bottom: pxToRem(8);
             }
         }
     }
