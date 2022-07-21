@@ -127,6 +127,10 @@ export class Navigation {
     }
 
     private renderMenuItem(item: MenuItem) {
+        const itemClassList = {
+            active: this.isRouteActive(item.path),
+            'panel-item': true,
+        };
         const chapterClassList = {
             active: this.isRouteActive(item.path),
             chapters: true,
@@ -144,12 +148,13 @@ export class Navigation {
         }
 
         return (
-            <li class="panel-item">
+            <li class={itemClassList}>
                 <a
                     class={anchorClassList}
                     href={'#' + item.path}
                     {...anchorAdditionalProps}
                 >
+                    <span class="link-text">{item.title}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -163,8 +168,6 @@ export class Navigation {
                             fill="currentColor"
                         />
                     </svg>
-
-                    <span class="link-text">{item.title}</span>
                 </a>
                 <ul class={chapterClassList}>
                     {chapters.map(this.renderMenuItem)}
