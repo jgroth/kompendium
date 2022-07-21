@@ -1,3 +1,10 @@
+## 🤹 [0.11.2](https://github.com/jgroth/kompendium/compare/v0.11.1...v0.11.2) (2022-07-21)
+
+
+### Bug Fixes
+
+* **style:** make markdown in props stretch within available width ([bff320e](https://github.com/jgroth/kompendium/commit/bff320ea5c1044c263b5490c9f1817d7c332b290))
+
 ## 🍢 [0.11.1](https://github.com/jgroth/kompendium/compare/v0.11.0...v0.11.1) (2022-04-20)
 
 
