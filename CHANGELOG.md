@@ -1,3 +1,12 @@
+## 🌲 [0.11.3](https://github.com/jgroth/kompendium/compare/v0.11.2...v0.11.3) (2022-08-01)
+
+
+### Bug Fixes
+
+* **navigation:** make it more compact ([651b920](https://github.com/jgroth/kompendium/commit/651b920f5770e855be006c514c91ccad49f69b17))
+* **navigation:** more clearly show which navigation item is being displayed ([f8161fa](https://github.com/jgroth/kompendium/commit/f8161fa53bd573598ae672d822faee2cc27af783))
+* **navigation:** remove transition glitch when switching chapters ([eb10ab4](https://github.com/jgroth/kompendium/commit/eb10ab42e791a4c8eb9c355458069353b74eec3f))
+
 ## 🤹 [0.11.2](https://github.com/jgroth/kompendium/compare/v0.11.1...v0.11.2) (2022-07-21)
 
 
