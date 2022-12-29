@@ -28,7 +28,7 @@
     --kompendium-contrast-1400: 39, 39, 57; // #272739
     --kompendium-contrast-1500: 35, 35, 53; // #232335
     --kompendium-contrast-1600: 25, 25, 44; // #19192c
-    --kompendium-contrast-1700: 0, 0, 0; // #000
+    --kompendium-contrast-1700: 20, 20, 37; // #141425
 
     // Colors swatches that get slightly dimmer in dark mode
     --kompendium-color-red-light: 229, 115, 115; // #e57373;
@@ -47,7 +47,7 @@
     --kompendium-color-orange-default: 255, 152, 0; // #ff9800
 
     @include in(dark-mode) {
-        --kompendium-contrast-100: 0, 0, 0; // #000
+        --kompendium-contrast-100: 20, 20, 37; // #141425
         --kompendium-contrast-200: 25, 25, 44; // #19192c
         --kompendium-contrast-300: 35, 35, 53; // #232335
         --kompendium-contrast-400: 39, 39, 57; // #272739
