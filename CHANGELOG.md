@@ -1,3 +1,12 @@
+## 🦏 [0.11.4](https://github.com/jgroth/kompendium/compare/v0.11.3...v0.11.4) (2023-01-11)
+
+
+### Bug Fixes
+
+* **colors:** slightly lighten up the darkest `--contrast-` swatch ([7726362](https://github.com/jgroth/kompendium/commit/772636224c98fb8d2c213748d3b13be24abfec01))
+* **playground:** use the darkest contrast swatch for the bg of examples in `dark` mode ([d826cc0](https://github.com/jgroth/kompendium/commit/d826cc0c7af2b16a6575fdfada67640549d938c9))
+* **typography:** make `kbd` render better in dark mode ([e48764d](https://github.com/jgroth/kompendium/commit/e48764d719d7d7f57ab7588f7e4066db94311c5b))
+
 ## 🌲 [0.11.3](https://github.com/jgroth/kompendium/compare/v0.11.2...v0.11.3) (2022-08-01)
 
 
