@@ -257,6 +257,8 @@ header {
         }
     }
 
+    @include visualize-keyboard-focus();
+
     svg {
         visibility: hidden;
         transition: transform 0.2s ease;
@@ -279,7 +281,7 @@ header {
     height: 0;
 
     > .panel-item {
-        padding-left: pxToRem(8);
+        padding: 0 pxToRem(8);
     }
 
     &.active {
