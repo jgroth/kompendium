@@ -284,6 +284,10 @@ header {
         padding: 0 pxToRem(8);
     }
 
+    &:not(.active) {
+        visibility: hidden; // prevents focus and selection of invisible items using tab
+    }
+
     &.active {
         transition: height 0.2s ease;
         height: 100%;
