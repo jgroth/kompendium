@@ -3,6 +3,12 @@
 
 :root {
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
+    // Could be useful for highlighting areas or elements that are focused, using a box-shadow.
+    --kompendium-focused-state: 0 0 0 #{pxToRem(2)} rgb(var(--kompendium-color-primary));
+
+    // Could be useful for highlighting areas or elements that contain errors, using a box-shadow.
+    --kompendium-error-state: 0 0 0 #{pxToRem(2)} rgb(var(--kompendium-color-error));
+
     // Good for buttons and clickables such as select dropdowns, or slider grabbers
     --kompendium-button-shadow-normal: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0
             rgba(var(--kompendium-color-black), 0.232),
@@ -31,6 +37,12 @@
             rgba(var(--kompendium-color-black), 0.132),
         0 #{pxToRem(0.6)} #{pxToRem(1.8)} 0
             rgba(var(--kompendium-color-black), 0.108);
+    // Same as above, but when element is focused
+    --kompendium-shadow-depth-8-focused: var(--kompendium-shadow-depth-8),
+        var(--kompendium-focused-state);
+    // Same as above, but when element is indicating error or warning
+    --kompendium-shadow-depth-8-error: var(--kompendium-shadow-depth-8),
+        var(--kompendium-error-state);
 
     // Good for Teaching callouts, Search results dropdown, cards, Tooltips
     --kompendium-shadow-depth-16: 0 #{pxToRem(6.4)} #{pxToRem(14.4)} 0
