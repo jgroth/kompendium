@@ -69,6 +69,11 @@ header {
         line-height: 0;
     }
 
+    a {
+        border-radius: 0.125rem;
+        @include visualize-keyboard-focus();
+    }
+
     kompendium-darkmode-switch {
         position: relative;
         flex-shrink: 0;
