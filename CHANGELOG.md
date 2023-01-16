@@ -1,3 +1,10 @@
+## 🚂 [0.12.1](https://github.com/jgroth/kompendium/compare/v0.12.0...v0.12.1) (2023-01-16)
+
+
+### Bug Fixes
+
+* **navigation:** fix location of the watermark ([fbb5540](https://github.com/jgroth/kompendium/commit/fbb5540ca3d60ae8ad770fdbf42b1decaafec96e))
+
 # 🤯 [0.12.0](https://github.com/jgroth/kompendium/compare/v0.11.4...v0.12.0) (2023-01-16)
 
 
