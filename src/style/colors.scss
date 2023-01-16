@@ -10,6 +10,9 @@
     // The accent color of the app. Written in RGB, in case we need to use it with an alpha value
     --kompendium-color-primary: 33, 150, 243; // #2196f3, same as --kompendium-color-blue-default
 
+    // The error color within the app. Written in RGB, in case we need to use it with an alpha value
+    --kompendium-color-error: 229, 115, 115; // #e57373, same as --kompendium-color-red-default
+
     // Absolute white and black (Does not have dark/light mode variants)
     --kompendium-color-white: 255, 255, 255; // #fff
     --kompendium-color-black: 0, 0, 0; // #000
@@ -51,6 +54,7 @@
 
     @include in(dark-mode) {
         --kompendium-color-primary: 30, 136, 229; // #1e88e5 same as --kompendium-color-blue-default
+        --kompendium-color-error: 229, 57, 53; // #e53935, same as --kompendium-color-red-default
 
         --kompendium-contrast-100: 20, 20, 37; // #141425
         --kompendium-contrast-200: 25, 25, 44; // #19192c
