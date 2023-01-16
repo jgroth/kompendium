@@ -1,3 +1,14 @@
+@mixin visualize-keyboard-focus {
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--kompendium-shadow-depth-8-focused);
+    }
+}
+
 @mixin in($media) {
     @if $media == dark-mode {
         @media (prefers-color-scheme: dark) {
@@ -34,6 +45,8 @@
 
         transform: translate3d(0, 0.08rem, 0);
     }
+
+    @include visualize-keyboard-focus();
 }
 
 @mixin is-flat-clickable() {
@@ -49,6 +62,8 @@
 
         transform: translate3d(0, 0.08rem, 0);
     }
+
+    @include visualize-keyboard-focus();
 }
 
 @mixin truncate-text() {
