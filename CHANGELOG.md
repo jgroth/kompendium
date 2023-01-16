@@ -1,3 +1,22 @@
+# 🤯 [0.12.0](https://github.com/jgroth/kompendium/compare/v0.11.4...v0.12.0) (2023-01-16)
+
+
+### Bug Fixes
+
+* **darkmode-switch:** highlight keyboard focused switch using our focus style ([db828bc](https://github.com/jgroth/kompendium/commit/db828bcf838ff4e681177242ab416b88f8865bd2))
+* **navigation:** highlight items using our focus style ([02244b0](https://github.com/jgroth/kompendium/commit/02244b00a904817a414baa9843cb7cf670804769))
+* **navigation:** highlight keyboard focused header using our focus style ([e57eb08](https://github.com/jgroth/kompendium/commit/e57eb08fa1e829f44761df1bf383271e42122028))
+* **navigation:** prevent focus and selection of invisible items using tab ([a5395bb](https://github.com/jgroth/kompendium/commit/a5395bb03704da16bfe643cccd1d3ca5a9b013b2))
+* **style:** highlight all links using our focus style ([11b937c](https://github.com/jgroth/kompendium/commit/11b937cb5493d766421be222cc94675eb23b192e))
+* **style:** highlight clickable items that use our mixins, using our accent color ([589b9bf](https://github.com/jgroth/kompendium/commit/589b9bfc18f168a68af9658628d79be0d1bc6bff))
+
+
+### Features
+
+* **shadows:** add variables for indicating focus and error states ([41fa971](https://github.com/jgroth/kompendium/commit/41fa9713b637d7e5ad741707b716ca5e63b26407))
+* **style:** add an accent color for the app called `--kompendium-color-primary` ([5675f10](https://github.com/jgroth/kompendium/commit/5675f10b1abf69b271ab8cf51d8c04b0145e6dc6))
+* **style:** add an error color for the app called `--kompendium-color-error` ([aaaa1ea](https://github.com/jgroth/kompendium/commit/aaaa1ea5a3f748b3c8bb3a1f3e289213ae714938))
+
 ## 🦏 [0.11.4](https://github.com/jgroth/kompendium/compare/v0.11.3...v0.11.4) (2023-01-11)
 
 
