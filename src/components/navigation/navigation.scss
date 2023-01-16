@@ -101,12 +101,12 @@ header {
 .powered-by {
     position: absolute;
     bottom: 0;
+    left: 0;
     font-size: pxToRem(12);
     padding: pxToRem(8) pxToRem(12);
     background-color: rgba(var(--kompendium-contrast-100), 0.4);
     backdrop-filter: blur(pxToRem(4));
     width: 100%;
-    margin-left: pxToRem(-4);
 
     p {
         padding-left: pxToRem(28);
