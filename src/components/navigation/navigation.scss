@@ -61,12 +61,12 @@ header {
     margin-bottom: pxToRem(12);
 
     h1 {
+        all: unset;
         font-size: pxToRem(16);
         font-weight: normal;
-        letter-spacing: 0.5ch;
         color: rgb(var(--kompendium-contrast-900));
         flex-grow: 1;
-        line-height: 0;
+        line-height: 1;
     }
 
     a {
