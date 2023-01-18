@@ -1,3 +1,10 @@
+## 😽 [0.12.2](https://github.com/jgroth/kompendium/compare/v0.12.1...v0.12.2) (2023-01-18)
+
+
+### Bug Fixes
+
+* **navigation:** render long titles correctly ([98af22a](https://github.com/jgroth/kompendium/commit/98af22a37b409e1f2fa5a7e821e56b5b91064f8e))
+
 ## 🚂 [0.12.1](https://github.com/jgroth/kompendium/compare/v0.12.0...v0.12.1) (2023-01-16)
 
 
