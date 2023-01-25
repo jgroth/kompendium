@@ -128,7 +128,7 @@ kompendium-playground {
         border: 1px solid rgba(var(--kompendium-contrast-1100), 0.1);
 
         font-size: pxToRem(11);
-        white-space: nowrap;
+        white-space: pre-wrap;
         color: rgb(var(--kompendium-contrast-1100));
 
         padding: 0.125rem 0.3125rem;
