@@ -1,18 +1,17 @@
 import { Component, h } from '@stencil/core';
-import { bacon } from './bacon';
+import { markdownExample } from './markdown-example';
 
 /**
  * This is a simple example of how the `kompendium-markdown` component is used
  *
- * @link bacon.ts
+ * @link markdown-example.ts
  */
 @Component({
     tag: 'kompendium-example-markdown',
     shadow: true,
-    styleUrl: 'markdown.scss',
 })
 export class MarkdownExample {
     public render(): HTMLElement {
-        return <kompendium-markdown text={bacon} />;
+        return <kompendium-markdown text={markdownExample} />;
     }
 }
