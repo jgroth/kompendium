@@ -1,3 +1,10 @@
+## 🕶️ [0.12.3](https://github.com/jgroth/kompendium/compare/v0.12.2...v0.12.3) (2023-05-10)
+
+
+### Bug Fixes
+
+* **style:** allow long `<code />` blocks to render in multi lines ([5b05d39](https://github.com/jgroth/kompendium/commit/5b05d392f49cc8bb264aaa99181283573da3d8a2))
+
 ## 😽 [0.12.2](https://github.com/jgroth/kompendium/compare/v0.12.1...v0.12.2) (2023-01-18)
 
 
