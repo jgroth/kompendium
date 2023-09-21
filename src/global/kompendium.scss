@@ -29,4 +29,6 @@ body {
     color: rgb(var(--kompendium-contrast-1200));
     line-height: 1.5;
     background-color: rgb(var(--kompendium-contrast-300));
+    perspective: 60rem;
+    perspective-origin: top;
 }
