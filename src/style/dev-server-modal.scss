@@ -1,0 +1,17 @@
+div#dev-server-modal {
+    display: flex !important;
+    max-height: calc(100% - 4rem) !important;
+    flex-direction: column;
+
+    position: fixed !important;
+    margin: 2rem auto !important;
+    width: calc(100% - min(4rem, 4vw)) !important;
+    height: fit-content !important;
+    box-shadow: var(--kompendium-shadow-depth-64),
+        var(--kompendium-shadow-depth-8-error);
+    border-radius: 0.75rem;
+
+    #dev-server-modal-inner {
+        overflow-x: auto;
+    }
+}
