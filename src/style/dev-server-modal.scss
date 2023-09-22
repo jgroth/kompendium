@@ -1,19 +1,24 @@
 div#dev-server-modal {
-    animation: fade-in-modal 0.6s cubic-bezier(0.45, -0.01, 0.15, 1.47) forwards;
+    perspective: 60rem;
+    perspective-origin: top;
     display: flex !important;
-    max-height: calc(100% - 4rem) !important;
     flex-direction: column;
 
     position: fixed !important;
-    margin: 2rem auto !important;
-    width: calc(100% - min(4rem, 4vw)) !important;
-    height: fit-content !important;
-    box-shadow: var(--kompendium-shadow-depth-64),
-        var(--kompendium-shadow-depth-8-error);
-    border-radius: 0.75rem;
+
+    padding: 2rem min(4rem, 4vw) !important;
+    background-color: transparent !important;
 
     #dev-server-modal-inner {
+        animation: fade-in-modal 0.6s cubic-bezier(0.45, -0.01, 0.15, 1.47)
+            forwards;
         overflow-x: auto;
+        height: fit-content !important;
+        box-shadow: var(--kompendium-shadow-depth-64),
+            var(--kompendium-shadow-depth-8-error);
+        border-radius: 0.75rem;
+        padding-bottom: 0 !important;
+        background-color: white;
     }
 }
 
