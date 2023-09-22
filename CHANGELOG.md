@@ -1,3 +1,12 @@
+## 💷 [0.12.4](https://github.com/jgroth/kompendium/compare/v0.12.3...v0.12.4) (2023-09-22)
+
+
+### Bug Fixes
+
+* **style:** display error modals more gracefully ([57c2116](https://github.com/jgroth/kompendium/commit/57c2116f0a522f7c43af412b46990e938cc74ab5))
+* **style:** keep Dev Server Progress Bar visible, after scrolling ([7610b94](https://github.com/jgroth/kompendium/commit/7610b94852a77d4e3c7433cad6b8bbeff60fedd5))
+* **style:** visualize build errors in a better way ([1091992](https://github.com/jgroth/kompendium/commit/10919925bed5630575d5865b825229f52ef0f365))
+
 ## 🕶️ [0.12.3](https://github.com/jgroth/kompendium/compare/v0.12.2...v0.12.3) (2023-05-10)
 
 
