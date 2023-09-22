@@ -1,3 +1,10 @@
+## 😼 [0.12.5](https://github.com/jgroth/kompendium/compare/v0.12.4...v0.12.5) (2023-09-22)
+
+
+### Bug Fixes
+
+* **style:** prevent scrolling static elements away ([790998d](https://github.com/jgroth/kompendium/commit/790998d9f4b75f7fd296e814f6d81d924743e779))
+
 ## 💷 [0.12.4](https://github.com/jgroth/kompendium/compare/v0.12.3...v0.12.4) (2023-09-22)
 
 
