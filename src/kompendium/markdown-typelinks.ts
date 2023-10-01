@@ -59,7 +59,7 @@ function createLinkNode(type: string) {
         type: 'element',
         tagName: 'a',
         properties: {
-            href: `#/type/${type}`,
+            href: `#/type/${type}/`,
         },
         children: [
             {

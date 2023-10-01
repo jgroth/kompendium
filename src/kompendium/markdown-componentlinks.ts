@@ -82,7 +82,7 @@ function createLinkNode(component: string) {
         type: 'element',
         tagName: 'a',
         properties: {
-            href: `#/component/${component}`,
+            href: `#/component/${component}/`,
         },
         children: [
             {
