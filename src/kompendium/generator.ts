@@ -177,11 +177,7 @@ function isProd(): boolean {
         return false;
     }
 
-    if (process.argv.find((arg) => arg.includes('jest-worker'))) {
-        return false;
-    }
-
-    return true;
+    return !process.argv.find((arg) => arg.includes('jest-worker'));
 }
 
 async function getTypes(
