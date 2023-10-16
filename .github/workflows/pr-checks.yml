@@ -9,13 +9,14 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Read .nvmrc
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvm
+    - uses: actions/setup-node@v3
       with:
-        node-version: '14'
-        check-latest: true
-    - run: npm i -g npm@7.12.1
-    - name: npm install
-      run: npm ci
+        node-version: "${{ steps.nvm.outputs.NVMRC }}"
+    - run: node -v && npm -v
+    - run: npm ci
     - run: npm run lint:prod
 
   ci:
@@ -25,13 +26,14 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - name: Read .nvmrc
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvm
+    - uses: actions/setup-node@v3
       with:
-        node-version: '14'
-        check-latest: true
-    - run: npm i -g npm@7.12.1
-    - name: npm install
-      run: npm ci
+        node-version: "${{ steps.nvm.outputs.NVMRC }}"
+    - run: node -v && npm -v
+    - run: npm ci
     - run: npm run build
     - run: npm test --if-present
 
