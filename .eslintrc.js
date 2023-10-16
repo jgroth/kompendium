@@ -141,7 +141,6 @@ module.exports = {
         },
         {
             files: ['src/**/*.{ts,tsx}'],
-            extends: ['plugin:@stencil/recommended'],
             parser: '@typescript-eslint/parser',
             parserOptions: {
                 parserOption: {
@@ -150,9 +149,6 @@ module.exports = {
                 project: 'tsconfig.json',
             },
             rules: {
-                '@stencil/decorators-style': 'off',
-                '@stencil/strict-boolean-conditions': 'off',
-                '@stencil/render-returns-host': 'off',
                 '@typescript-eslint/dot-notation': 'error',
             },
         },
@@ -165,7 +161,6 @@ module.exports = {
                 'src/**/*.e2e.{ts,tsx}',
                 'src/**/*.test-wrapper.{ts,tsx}',
             ],
-            extends: ['plugin:@stencil/recommended'],
             parserOptions: {
                 parserOption: {
                     jsx: true,
@@ -173,10 +168,6 @@ module.exports = {
                 project: 'tsconfig.json',
             },
             rules: {
-                '@stencil/decorators-style': 'off',
-                '@stencil/strict-boolean-conditions': 'off',
-                '@stencil/render-returns-host': 'off',
-                '@stencil/required-jsdoc': 'off',
                 '@typescript-eslint/dot-notation': 'error',
                 'sonarjs/no-duplicate-string': 'off',
                 'sonarjs/no-identical-functions': 'off',
