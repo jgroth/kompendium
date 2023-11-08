@@ -28,7 +28,8 @@ header {
 }
 
 .nav-panel {
-    transition: margin 0.2s ease, background-color 0.3s ease;
+    transition: transform 0.44s cubic-bezier(1, 0.12, 0.2, 0.88),
+        background-color 0.3s ease;
 
     width: var(--width-nav-panel);
     height: 100vh;
@@ -197,10 +198,10 @@ header {
     }
 
     .nav-panel {
-        margin-left: calc(var(--width-nav-panel) * -1);
+        transform: translate3d(calc(var(--width-nav-panel) * -1), 0, 0);
 
         &.display-nav-panel {
-            margin-left: 0;
+            transform: translate3d(0, 0, 0);
             box-shadow: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232),
                 0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(0, 0, 0, 0.208);
 
