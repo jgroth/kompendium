@@ -29,7 +29,6 @@ header {
 
 .nav-panel {
     transition: margin 0.2s ease, background-color 0.3s ease;
-    z-index: 100;
 
     width: var(--width-nav-panel);
     height: 100vh;
@@ -52,6 +51,10 @@ header {
         &:not(.chapters) {
             padding: 0 pxToRem(12) pxToRem(32) pxToRem(12);
         }
+    }
+
+    &.display-nav-panel {
+        z-index: 100;
     }
 }
 
