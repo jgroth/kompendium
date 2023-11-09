@@ -1,3 +1,11 @@
+## 🥁 [0.12.6](https://github.com/jgroth/kompendium/compare/v0.12.5...v0.12.6) (2023-11-09)
+
+
+### Bug Fixes
+
+* **navigation:** prevent nav-panel from covering things with `z-index` ([adf2bcc](https://github.com/jgroth/kompendium/commit/adf2bccadeab3f571bf2e555a1b018bcd8ca24e7))
+* **navigation:** smoothen animation of showing & hiding the nav panel ([dad368b](https://github.com/jgroth/kompendium/commit/dad368bf37b3b11fe6e450ea6c365dca39ea7eeb))
+
 ## 😼 [0.12.5](https://github.com/jgroth/kompendium/compare/v0.12.4...v0.12.5) (2023-09-22)
 
 
