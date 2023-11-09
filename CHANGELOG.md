@@ -1,3 +1,10 @@
+## 🍬 [0.12.7](https://github.com/jgroth/kompendium/compare/v0.12.6...v0.12.7) (2023-11-09)
+
+
+### Bug Fixes
+
+* deprecate non-standard use of `[@link](https://github.com/link)` and use `[@source](https://github.com/source)File` instead ([c57786a](https://github.com/jgroth/kompendium/commit/c57786ae7f5d36b42605eca5236f343a5c39a8ff))
+
 ## 🥁 [0.12.6](https://github.com/jgroth/kompendium/compare/v0.12.5...v0.12.6) (2023-11-09)
 
 
