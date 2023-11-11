@@ -1,6 +1,7 @@
 import { Component, h, Prop, Element } from '@stencil/core';
 import { markdownToHtml } from '../../kompendium/markdown';
 import { getTypes } from './markdown-types';
+import { getComponents } from './markdown-components';
 
 /**
  * This component renders markdown
@@ -32,7 +33,8 @@ export class Markdown {
 
     private async renderMarkdown() {
         const types = getTypes();
-        const file = await markdownToHtml(this.text, types);
+        const components = getComponents();
+        const file = await markdownToHtml(this.text, types, components);
         this.host.shadowRoot.querySelector('#root').innerHTML = file.toString();
     }
 

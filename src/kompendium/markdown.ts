@@ -9,6 +9,7 @@ import html from 'rehype-stringify';
 import { saveFrontmatter } from './markdown-frontmatter';
 import { kompendiumCode } from './markdown-code';
 import { typeLinks } from './markdown-typelinks';
+import { componentLinks } from './markdown-componentlinks';
 
 export interface File {
     data: {
@@ -19,7 +20,11 @@ export interface File {
     toString(): string;
 }
 
-export async function markdownToHtml(text: string, types = []): Promise<File> {
+export async function markdownToHtml(
+    text: string,
+    types = [],
+    components = []
+): Promise<File> {
     return new Promise((resolve) => {
         unified()
             .use(markdown)
@@ -30,6 +35,7 @@ export async function markdownToHtml(text: string, types = []): Promise<File> {
             .use(remark2rehype, { allowDangerousHtml: true })
             .use(raw)
             .use(typeLinks, { types: types })
+            .use(componentLinks, { components: components })
             .use(kompendiumCode)
             .use(html)
             .process(text, (_, file) => {

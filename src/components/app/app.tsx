@@ -2,6 +2,7 @@ import { Component, h, State, Prop, Watch } from '@stencil/core';
 import { KompendiumData, KompendiumDocument } from '../../types';
 import { setTypes } from '../markdown/markdown-types';
 import Fuse from 'fuse.js';
+import { setComponents } from '../markdown/markdown-components';
 
 @Component({
     tag: 'kompendium-app',
@@ -76,6 +77,10 @@ export class App {
         this.data = await data.json();
         const typeNames = this.data.types.map((type) => type.name);
         setTypes(typeNames);
+        const componentNames = this.data.docs.components.map(
+            (component) => component.tag
+        );
+        setComponents(componentNames);
     }
 
     protected render(): HTMLElement {
