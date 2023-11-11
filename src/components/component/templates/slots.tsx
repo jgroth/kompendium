@@ -13,9 +13,9 @@ export function SlotList({
     }
 
     return [
-        <h3 class="docs-layout-section-heading" id={id}>
+        <h2 class="docs-layout-section-heading" id={id}>
             Slots
-        </h3>,
+        </h2>,
         ...slots.map(renderSlot),
     ];
 }
@@ -23,7 +23,7 @@ export function SlotList({
 function renderSlot(slot: JsonDocsSlot) {
     return (
         <div>
-            <h4>{slot.name}</h4>
+            <h3>{slot.name}</h3>
             <kompendium-markdown text={slot.docs} />
         </div>
     );

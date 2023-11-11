@@ -14,9 +14,9 @@ export function PropertyList({
     }
 
     return [
-        <h3 class="docs-layout-section-heading" id={id}>
+        <h2 class="docs-layout-section-heading" id={id}>
             Properties
-        </h3>,
+        </h2>,
         ...props.map(renderProperty),
     ];
 }
@@ -47,7 +47,7 @@ function renderProperty(property: JsonDocsProp) {
 
     return (
         <div class="props-events-layout">
-            <h4>{property.name}</h4>
+            <h3>{property.name}</h3>
             <kompendium-taglist tags={property.docsTags} />
             <div class="markdown-props">
                 <kompendium-markdown text={property.docs} />
