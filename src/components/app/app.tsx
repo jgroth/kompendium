@@ -2,6 +2,7 @@ import { Component, h, State, Prop, Watch } from '@stencil/core';
 import { KompendiumData, KompendiumDocument } from '../../types';
 import { setTypes } from '../markdown/markdown-types';
 import Fuse from 'fuse.js';
+import { PropsFactory } from '../playground/playground.types';
 
 @Component({
     tag: 'kompendium-app',
@@ -14,6 +15,12 @@ export class App {
      */
     @Prop()
     public path = '/kompendium.json';
+
+    /**
+     * Factory for creating props for example components
+     */
+    @Prop()
+    public examplePropsFactory?: PropsFactory;
 
     @State()
     public data: KompendiumData;
@@ -113,6 +120,8 @@ export class App {
                                 componentProps={{
                                     docs: this.data.docs,
                                     schemas: this.data.schemas,
+                                    examplePropsFactory:
+                                        this.examplePropsFactory,
                                 }}
                             />
                             <stencil-route

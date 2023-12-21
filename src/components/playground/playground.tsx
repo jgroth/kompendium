@@ -2,6 +2,7 @@ import { Component, h, Host, Prop, State } from '@stencil/core';
 import { JsonDocsComponent } from '@stencil/core/internal';
 import { JsonDocsSource } from '../../kompendium/source';
 import { Theme, THEME_EVENT_NAME } from '../darkmode-switch/types';
+import { PropsFactory } from './playground.types';
 
 @Component({
     tag: 'kompendium-playground',
@@ -20,6 +21,14 @@ export class Playground {
      */
     @Prop()
     public schema: Record<string, any>;
+
+    /**
+     * Factory for creating props for example components
+     *
+     * @returns {Record<string, unknown>} props
+     */
+    @Prop()
+    public propsFactory?: PropsFactory = () => ({});
 
     @State()
     private activeTab: string;
@@ -86,8 +95,10 @@ export class Playground {
     private renderResult() {
         const ExampleComponent = this.component.tag;
         const text = '##### ' + this.component.docs;
+        const factory = this.propsFactory;
         const props = {
             schema: this.schema,
+            ...factory(ExampleComponent),
         };
 
         return (
