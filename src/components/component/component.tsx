@@ -12,6 +12,7 @@ import { SlotList } from './templates/slots';
 import { StyleList } from './templates/style';
 import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
+import { PropsFactory } from '../playground/playground.types';
 
 @Component({
     tag: 'kompendium-component',
@@ -36,6 +37,12 @@ export class KompendiumComponent {
      */
     @Prop()
     public match: MatchResults;
+
+    /**
+     * Factory for creating props for example components
+     */
+    @Prop()
+    public examplePropsFactory: PropsFactory;
 
     @Element()
     private host: HTMLKompendiumComponentElement;
@@ -110,6 +117,7 @@ export class KompendiumComponent {
                 examples={examples}
                 id={this.getId('examples')}
                 schema={schema}
+                propsFactory={this.examplePropsFactory}
             />,
             <PropertyList
                 props={component.props}
