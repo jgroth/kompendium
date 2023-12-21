@@ -1,3 +1,10 @@
+# 🔬 [0.13.0](https://github.com/jgroth/kompendium/compare/v0.12.7...v0.13.0) (2023-12-21)
+
+
+### Features
+
+* **examples:** enable consumers to supply props for example components ([4f6d72f](https://github.com/jgroth/kompendium/commit/4f6d72f109b9e98e22efc76ff54debf76799f08f))
+
 ## 🍬 [0.12.7](https://github.com/jgroth/kompendium/compare/v0.12.6...v0.12.7) (2023-11-09)
 
 
