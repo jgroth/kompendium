@@ -56,11 +56,9 @@ The MIT License (MIT).
 
 ---
 
-# Documentation
+# Getting started
 
-## Getting started
-
-### Installation
+## 1. Installation
 
 Kompendium is available as a package on NPM and is installed using the NPM CLI
 
@@ -69,7 +67,7 @@ npm install kompendium
 
 ```
 
-## Configuration
+## 2. Configuration
 
 Next, we need to configure Kompendium to generate our documentation. Kompendium runs using the `docs-custom` target in Stencil. We also need to copy the Kompendium components to our `www` folder in order to use them with the Stencil dev server.
 
@@ -138,7 +136,7 @@ index.html
 </html>
 ```
 
-### Running the dev server
+## 3. Running the dev server
 
 Next, we can start the dev server by running
 
@@ -146,7 +144,7 @@ Next, we can start the dev server by running
 stencil build --dev --watch --serve --docs
 ```
 
-## Writing documentation
+## 4. Writing documentation
 
 The generated documentation is fetched from the doc blocks inside the components source files. If we would have a component like the one below, it would generate the corresponding documentation. Kompendium understands how to read Markdown, so any additional markup will automatically be parsed.
 
@@ -176,9 +174,10 @@ export class MyComponent {
 }
 ```
 
-## Adding examples
+### 4.1. Adding examples
 
 To improve the documentation even more, you can add examples of how to use your components. An example component is just another component that displays how your component is used. The example will be displayed both live and with the source code for the example.
+
 To include an example, the custom `@exampleComponent` doc block decorator should be used together with the name of the component. There is no limit to the number of components you can include.
 
 ```tsx
@@ -231,11 +230,11 @@ export class MyComponentExample {
 
 It's recomended to either name all the examples in a similar fashion, or to place them in an examples/ folder or similar. This way, it's very easy to exclude them from the production build by excluding them in the Stencil configuration.
 
-## Type information
+### 4.2. Type information
 
 Kompendium can generate documentation about any custom Typescript types that you use in your components. You might have props or events that implement a custom interface and this should be documented as well so it is easy for the consumer of your components to use them.
 
-### Configuration
+#### Configurations for types
 
 All types needs to be exported from a single file. The default name of this file is ./src/types.ts, but this can be configured if needed.
 
@@ -252,7 +251,7 @@ stencil.config.ts
 
 **Note:** This file should also be exported from the `index.ts` file so type hints will be available when consuming the components in a code editor.
 
-### Example
+#### Example
 
 ```tsx
 my - component.tsx;
@@ -298,6 +297,8 @@ export interface MyData {
 interface.d.ts;
 export * from './my-component/my-data.ts';
 ```
+
+---
 
 ## Configuration options
 
