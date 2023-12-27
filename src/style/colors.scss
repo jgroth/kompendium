@@ -6,6 +6,18 @@
 
 @import 'mixins';
 
+:root[data-theme='system-default'] {
+    color-scheme: dark light;
+}
+
+:root[data-theme='force-light'] {
+    color-scheme: light;
+}
+
+:root[data-theme='force-dark'] {
+    color-scheme: dark;
+}
+
 :root {
     // The accent color of the app. Written in RGB, in case we need to use it with an alpha value
     --kompendium-color-primary: 33, 150, 243; // #2196f3, same as --kompendium-color-blue-default
