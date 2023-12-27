@@ -320,6 +320,24 @@ interface.d.ts;
 export * from './my-component/my-data.ts';
 ```
 
+### 4.4. Documenting styles variables
+
+As well as publishing documentations of the component's public props, Kompendium publishes even the documentations that you provide in the doc blocks inside the component's styles file. This information will be displayed to the consumers, right after the props block, at the bottom of the component's page.
+
+This is typically useful for adding documentations about [CSS Custom Properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), which act as public APIs of the component, and empower consumers to manipulate or customize the component's UI design.
+
+Here is an example of how the styles docs would be published together with the other props:
+
+```scss
+/**
+* @prop --my-component-icon-color: Color of the icon. Defaults to `#000`.
+*/
+
+.icon {
+    color: var(--my-component-icon-color, #000);
+}
+```
+
 ---
 
 ## Configuration options
