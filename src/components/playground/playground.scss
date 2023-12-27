@@ -189,6 +189,11 @@ section.example {
 }
 
 .show-case_component {
+    font-family: var(--kompendium-example-font-family, inherit);
+    font-size: var(--kompendium-example-font-size, inherit);
+    line-height: var(--kompendium-example-line-height, inherit);
+    color: var(--kompendium-example-color, inherit);
+
     padding: pxToRem(20);
     border-radius: pxToRem(14);
     background-color: rgb(var(--kompendium-contrast-100));

@@ -266,3 +266,42 @@ export * from './my-component/my-data.ts';
 | `publicPath` 	| The public web distribution directory used by Stencil.        	| `www`                       	|
 | `title`      	| Title to display on top of the documentation                  	| Fetched from `package.json` 	|
 | `typeRoot`   	| Entry point for type information                              	| `./src/types.ts`            	|
+
+---
+
+## Inheritance of styles and overriding them
+
+You will be using Kompendium to generate documentation for your Stencil components and show both you and your consumers a preview of these components. Web components are inherently isolated, carrying their own styles that are not easily manipulated externally. However, it's important to note that Kompendium introduces its own styles, some of which are inherited by the web components displayed on the documentation page.
+
+In most scenarios, this style-inheritance is inconsequential. However, when developing a comprehensive component library, certain generic CSS properties require careful attention to prevent them from being inherited from Kompendium. These typically include font-related styles such as `font-family`, `font-size`, `line-height`, and `color`.
+
+Exactly because these are inherited properties, these are usually set at the `:root` level in the application consuming your web components, eliminating the need to specify them individually in each web component. To maintain style consistency, you can override these properties on the documentation page.
+
+Kompendium offers a few CSS Custom Properties which enables you to do so.
+
+-   `--kompendium-example-color`: Overrides the inherited `color` affecting text color in your web components.
+-   `--kompendium-example-font-family`: Overrides the inherited `font-family` in your web components.
+-   `--kompendium-example-font-size`: Optionally overrides the inherited `font-size`, depending on the font-family in use.
+-   `--kompendium-example-line-height`: Optionally overrides the inherited `line-height`, depending on the font-family in use.
+
+You can define these properties for your instance of Kompendium as shown below:
+
+```html
+<!DOCTYPE html>
+<html dir="ltr">
+    <head>
+        <!-- other stuff in the `head` section -->
+        <style>
+            :root {
+                --kompendium-example-color: #1d1d1d;
+                --kompendium-example-font-family: 'Roboto', sans-serif;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- other stuff in the `body` section -->
+        <kompendium-app path="/kompendium.json"></kompendium-app>
+    </body>
+</html>
+```
