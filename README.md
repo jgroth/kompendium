@@ -146,7 +146,7 @@ stencil build --dev --watch --serve --docs
 
 ## 4. Writing documentation
 
-The generated documentation is fetched from the doc blocks inside the components source files. If we would have a component like the one below, it would generate the corresponding documentation. Kompendium understands how to read Markdown, so any additional markup will automatically be parsed.
+The generated documentation is fetched from the doc blocks inside the components' source files. If we would have a component like the one below, it would generate the corresponding documentation. Kompendium understands how to read Markdown, so any additional markup will automatically be parsed.
 
 ```tsx
 my - component.tsx;
@@ -228,7 +228,7 @@ export class MyComponentExample {
 }
 ```
 
-It's recomended to either name all the examples in a similar fashion, or to place them in an examples/ folder or similar. This way, it's very easy to exclude them from the production build by excluding them in the Stencil configuration.
+It's recommended to either name all the examples in a similar fashion, or to place them in an examples/ folder or similar. This way, it's very easy to exclude them from the production build by excluding them in the Stencil configuration.
 
 ### 4.2. Type information
 
@@ -236,7 +236,7 @@ Kompendium can generate documentation about any custom Typescript types that you
 
 #### Configurations for types
 
-All types needs to be exported from a single file. The default name of this file is ./src/types.ts, but this can be configured if needed.
+All types needs to be exported from a single file. The default name of this file is `./src/types.ts`, but this can be configured if needed.
 
 ```ts
 stencil.config.ts
