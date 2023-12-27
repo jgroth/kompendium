@@ -226,7 +226,33 @@ export class MyComponentExample {
 
 It's recommended to either name all the examples in a similar fashion, or to place them in an examples/ folder or similar. This way, it's very easy to exclude them from the production build by excluding them in the Stencil configuration.
 
-### 4.2. Type information
+### 4.2. Displaying styles of the example components
+
+Kompendium provides an automatic detection feature for style files associated with example components. When such a file is detected, Kompendium generates a dedicated tab for styles. This tab is conveniently located adjacent to the area where users can preview the source code of the example component.
+
+To leverage this feature, no specific action is required on your part. Simply add the style file and declare it in the example component as demonstrated below:
+
+```tsx
+import { Component, h } from '@stencil/core';
+
+/**
+ * This is an example for the `my-component` component,
+ * which also has its own styles that I want to display
+ * in the documentations, together with the source code.
+ */
+@Component({
+    tag: 'my-component-example',
+    shadow: true,
+    styleUrl: 'my-component-example.scss',
+})
+export class MyComponentExample {
+    render() {
+        return <my-component name="World" />;
+    }
+}
+```
+
+### 4.3. Type information
 
 Kompendium can generate documentation about any custom Typescript types that you use in your components. You might have props or events that implement a custom interface and this should be documented as well so it is easy for the consumer of your components to use them.
 
