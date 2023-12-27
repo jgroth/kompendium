@@ -10,10 +10,6 @@ Kompendium is a simple, fast and elegant tool for generating documentation for c
 
 Just type everything in Markdown, from your code blocks to description texts of example components. Then enjoy a lightning fast responsive compendium of your components, with component API and live playground.
 
-### Please note
-
-Kompendium is still in development. Consider this an early preview!
-
 # Features
 
 -   **Live playground** — No matter if you are updating your docs, working on your examples, or tweaking css, Kompendium will instantly auto-refresh and you will see the latest changes right away. No need for manual rebuilding and refreshing the browser!
