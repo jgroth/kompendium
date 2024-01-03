@@ -1,3 +1,10 @@
+## 🦡 [0.13.1](https://github.com/jgroth/kompendium/compare/v0.13.0...v0.13.1) (2024-01-03)
+
+
+### Bug Fixes
+
+* **style:** add meta tag to better support dark mode ([9fba2cf](https://github.com/jgroth/kompendium/commit/9fba2cf63ab2ce388f574543d2d3a7d44ad79bda))
+
 # 🔬 [0.13.0](https://github.com/jgroth/kompendium/compare/v0.12.7...v0.13.0) (2023-12-21)
 
 
