@@ -1,3 +1,10 @@
+# 🔮 [0.14.0](https://github.com/jgroth/kompendium/compare/v0.13.1...v0.14.0) (2024-01-04)
+
+
+### Features
+
+* **playground:** enable consumers to override inherited font-related styles ([e9f51bd](https://github.com/jgroth/kompendium/commit/e9f51bd5f09979101b3b19f20fcb4d1533fffbfd))
+
 ## 🦡 [0.13.1](https://github.com/jgroth/kompendium/compare/v0.13.0...v0.13.1) (2024-01-03)
 
 
