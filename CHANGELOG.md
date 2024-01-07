@@ -1,3 +1,10 @@
+## 🍸 [0.14.1](https://github.com/jgroth/kompendium/compare/v0.14.0...v0.14.1) (2024-01-07)
+
+
+### Bug Fixes
+
+* **README.md:** update screenshots of Lime Elements ([6727997](https://github.com/jgroth/kompendium/commit/67279975036b6561c5f76d575d171af75727689c))
+
 # 🔮 [0.14.0](https://github.com/jgroth/kompendium/compare/v0.13.1...v0.14.0) (2024-01-04)
 
 
