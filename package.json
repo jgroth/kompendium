@@ -1,6 +1,6 @@
 {
   "name": "kompendium",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "Documentation generator for Stencil components",
   "keywords": [
     "stencil",

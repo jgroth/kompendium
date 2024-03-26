@@ -1,3 +1,10 @@
+## 🧭 [0.14.2](https://github.com/jgroth/kompendium/compare/v0.14.1...v0.14.2) (2024-03-26)
+
+
+### Bug Fixes
+
+* **taglist:** better visualize component tags ([9d899b9](https://github.com/jgroth/kompendium/commit/9d899b9e56788dc6f2d0daa5b758f472e8413b91))
+
 ## 🍸 [0.14.1](https://github.com/jgroth/kompendium/compare/v0.14.0...v0.14.1) (2024-01-07)
 
 
