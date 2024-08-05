@@ -5,7 +5,7 @@ import { MenuItem, KompendiumGuide, TypeDescription } from '../types';
 export function createMenu(
     docs: JsonDocs,
     guides: KompendiumGuide[],
-    types: TypeDescription[]
+    types: TypeDescription[],
 ): MenuItem[] {
     let menu = [];
 
@@ -76,7 +76,7 @@ function isNotExample(component: JsonDocsComponent) {
 
 export function isPublic(component: JsonDocsComponent): boolean {
     return !component.docsTags.find((tag) =>
-        ['internal', 'private', 'ignore'].includes(tag.name)
+        ['internal', 'private', 'ignore'].includes(tag.name),
     );
 }
 

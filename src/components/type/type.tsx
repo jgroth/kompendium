@@ -54,7 +54,7 @@ export class Type {
 
     private findType() {
         const type = this.types.find(
-            (type) => type.name === this.match.params.name
+            (type) => type.name === this.match.params.name,
         );
 
         if (type) {

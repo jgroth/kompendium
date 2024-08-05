@@ -43,10 +43,10 @@ xdescribe('Array.from(new Menu())', () => {
 
     tests.forEach(({ input, output }) => {
         it(`returns ${JSON.stringify(output)} when called with ${JSON.stringify(
-            input
+            input,
         )}`, async () => {
             expect(Array.from(createDocuments(input, {} as any))).toEqual(
-                output
+                output,
             );
         });
     });

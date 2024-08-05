@@ -3,7 +3,6 @@ import { markdownExample } from './markdown-example';
 
 /**
  * This is a simple example of how the `kompendium-markdown` component is used
- *
  * @link markdown-example.ts
  */
 @Component({

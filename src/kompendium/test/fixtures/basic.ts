@@ -7,7 +7,6 @@ type DecoratorConfig = {
 
 /**
  * Use this!
- *
  * @param {DecoratorConfig} _config how to use it
  * @returns {ClassDecorator} the decorator
  */
@@ -19,13 +18,11 @@ const CustomDecorator = (_config: DecoratorConfig): ClassDecorator => {
  * This is Foo
  *
  * Foo is good
- *
  * @foo foobar
  */
 export interface Foo {
     /**
      * foo is a string
-     *
      * @deprecated this is not used
      */
     foo: string;
@@ -39,7 +36,6 @@ export interface Foo {
      * Do something
      *
      * From string to number
-     *
      * @param {string} args the string
      * @returns {number} the number
      * @foobar baz
@@ -74,7 +70,6 @@ export enum Color {
 
 /**
  * The Zap class
- *
  * @deprecated
  */
 @CustomDecorator({ name: 'gg' })

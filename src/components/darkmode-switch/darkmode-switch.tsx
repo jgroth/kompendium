@@ -41,14 +41,14 @@ export class DarkmodeSwitch {
     public connectedCallback() {
         this.colorSchemeMediaQuery.addEventListener(
             'change',
-            this.handleSystemThemeChange
+            this.handleSystemThemeChange,
         );
     }
 
     public disconnectedCallback() {
         this.colorSchemeMediaQuery.removeEventListener(
             'change',
-            this.handleSystemThemeChange
+            this.handleSystemThemeChange,
         );
     }
 
@@ -56,7 +56,7 @@ export class DarkmodeSwitch {
         this.systemSettingIsDark = this.colorSchemeMediaQuery.matches;
 
         this.setTheme(
-            (localStorage.getItem(LOCALSTORAGE_KEY) || DEFAULT) as Theme
+            (localStorage.getItem(LOCALSTORAGE_KEY) || DEFAULT) as Theme,
         );
     }
 
@@ -114,7 +114,7 @@ export class DarkmodeSwitch {
 
         this.setTheme(newTheme);
         document.dispatchEvent(
-            new CustomEvent<Theme>(THEME_EVENT_NAME, { detail: newTheme })
+            new CustomEvent<Theme>(THEME_EVENT_NAME, { detail: newTheme }),
         );
     };
 
