@@ -33,7 +33,8 @@ export class Markdown {
     private async renderMarkdown() {
         const types = getTypes();
         const file = await markdownToHtml(this.text, types);
-        this.host.shadowRoot.querySelector('#root').innerHTML = file.toString();
+        this.host.shadowRoot.querySelector('#root').innerHTML =
+            file?.toString();
     }
 
     render(): HTMLElement {
