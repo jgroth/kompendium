@@ -33,7 +33,7 @@ module.exports = {
         quotes: ['error', 'single', { avoidEscape: true }],
         semi: ['error', 'always'],
         'prettier/prettier': 'error',
-        '@typescript-eslint/no-unused-vars-experimental': 'error',
+        '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/array-type': [
             'error',
             {
