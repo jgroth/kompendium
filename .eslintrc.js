@@ -11,6 +11,15 @@ module.exports = {
         'plugin:sonarjs/recommended',
         'plugin:jsdoc/recommended',
     ],
+    ignorePatterns: [
+        '.kompendium/',
+        '.github/',
+        '.vscode/',
+        'dist/',
+        'node_modules/',
+        'www/',
+        'loader/',
+    ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
