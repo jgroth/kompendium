@@ -15,7 +15,6 @@ export function createMenu(
     return menu;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const addGuide =
     (menu: MenuItem[], path: string) => (guide: KompendiumGuide) => {
         const subPath: string = guide.data.path.replace(path, '');
