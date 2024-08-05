@@ -11,7 +11,6 @@ import { parseFile } from './typedoc';
 import { createSchemas } from './schema';
 import { createIndex } from './search';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
     if (!generateDocs()) {
         return () => null;
