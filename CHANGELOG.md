@@ -1,3 +1,10 @@
+## 🥓 [0.14.3](https://github.com/jgroth/kompendium/compare/v0.14.2...v0.14.3) (2024-08-05)
+
+
+### Bug Fixes
+
+* **markdown:** avoid "TypeError: Cannot read properties of undefined (reading toString)" ([eaf807a](https://github.com/jgroth/kompendium/commit/eaf807a249b13bac19c4d1374544d0e5158d61f9))
+
 ## 🧭 [0.14.2](https://github.com/jgroth/kompendium/compare/v0.14.1...v0.14.2) (2024-03-26)
 
 
