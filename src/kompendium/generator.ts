@@ -23,7 +23,7 @@ export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
 let logger: Logger;
 
 export function kompendiumGenerator(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): (docs: JsonDocs, stencilConfig: Config) => Promise<void> {
     config = {
         ...defaultConfig,
@@ -93,7 +93,7 @@ async function createSymlink(config: Partial<KompendiumConfig>) {
 }
 
 async function getProjectTitle(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): Promise<string> {
     if (config.title) {
         return config.title;
@@ -110,7 +110,7 @@ async function getProjectTitle(
 
 async function writeData(
     config: Partial<KompendiumConfig>,
-    data: KompendiumData
+    data: KompendiumData,
 ) {
     let filePath = `${config.path}/kompendium.json`;
 
@@ -185,7 +185,7 @@ function isProd(): boolean {
 }
 
 async function getTypes(
-    config: Partial<KompendiumConfig>
+    config: Partial<KompendiumConfig>,
 ): Promise<TypeDescription[]> {
     logger.debug('Getting type information...');
     let types = await readTypes(config);
@@ -223,7 +223,7 @@ async function isModified(types: any[], cache: Record<string, number>) {
 
 async function saveData(
     config: Partial<KompendiumConfig>,
-    types: TypeDescription[]
+    types: TypeDescription[],
 ) {
     let filenames = types.map((t) => t.sources).flat();
     filenames = [...new Set(filenames)];

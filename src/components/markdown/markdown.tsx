@@ -4,7 +4,6 @@ import { getTypes } from './markdown-types';
 
 /**
  * This component renders markdown
- *
  * @exampleComponent kompendium-example-markdown
  */
 @Component({

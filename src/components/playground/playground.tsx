@@ -24,7 +24,6 @@ export class Playground {
 
     /**
      * Factory for creating props for example components
-     *
      * @returns {Record<string, unknown>} props
      */
     @Prop()

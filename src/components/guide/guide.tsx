@@ -41,7 +41,7 @@ export class Guide {
 
     private findGuide() {
         const guide = this.data.guides.find(
-            (g) => g.data.path + '/' === this.route
+            (g) => g.data.path + '/' === this.route,
         );
 
         if (guide) {

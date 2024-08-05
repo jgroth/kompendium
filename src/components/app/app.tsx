@@ -52,7 +52,7 @@ export class App {
         this.index = new Fuse<KompendiumDocument>(
             this.data.index.documents,
             options,
-            index
+            index,
         );
     }
 
