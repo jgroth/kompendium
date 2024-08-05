@@ -41,7 +41,9 @@
     transform: translate3d(0, 0, 0); // prevents Safari's graphical defects
 
     &:after {
-        transition: transform 0.7s ease, background-color 0.4s ease;
+        transition:
+            transform 0.7s ease,
+            background-color 0.4s ease;
         content: '';
         display: block;
         border-radius: 50%;
@@ -51,7 +53,8 @@
 }
 
 .ray {
-    transition: opacity 0.6s ease,
+    transition:
+        opacity 0.6s ease,
         transform 0.6s cubic-bezier(0.37, -0.03, 0.4, 1.18);
     position: absolute;
     top: 0;
@@ -108,7 +111,8 @@ input[type='checkbox'] {
                     var(--kompendium-color-orange-default),
                     1
                 );
-                box-shadow: 0 0 pxToRem(8) pxToRem(2)
+                box-shadow:
+                    0 0 pxToRem(8) pxToRem(2)
                         rgba(var(--kompendium-color-orange-light), 0.8),
                     0 0 pxToRem(4) pxToRem(3) rgb(var(--kompendium-color-white));
                 &:after {
@@ -147,7 +151,8 @@ input[type='checkbox'] {
         + .mode-visualization {
             .circle {
                 background-color: rgba(var(--kompendium-contrast-1700), 0.7);
-                box-shadow: 0 0 pxToRem(8) pxToRem(2)
+                box-shadow:
+                    0 0 pxToRem(8) pxToRem(2)
                         rgba(var(--kompendium-color-white), 0.4),
                     0 0 pxToRem(4) pxToRem(2) rgb(var(--kompendium-color-black));
 

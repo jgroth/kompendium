@@ -152,7 +152,8 @@ kbd {
     line-height: normal;
     padding: pxToRem(2) pxToRem(8);
     margin: 0 pxToRem(4);
-    box-shadow: var(--kompendium-button-shadow-normal),
+    box-shadow:
+        var(--kompendium-button-shadow-normal),
         0 #{pxToRem(0.5)} #{pxToRem(3.5)} 0
             rgba(var(--kompendium-contrast-100), 0.5) inset;
 

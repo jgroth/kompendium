@@ -28,7 +28,8 @@ header {
 }
 
 .nav-panel {
-    transition: transform 0.44s cubic-bezier(1, 0.12, 0.2, 0.88),
+    transition:
+        transform 0.44s cubic-bezier(1, 0.12, 0.2, 0.88),
         background-color 0.3s ease;
 
     width: var(--width-nav-panel);
@@ -156,7 +157,9 @@ header {
     color: rgb(var(--kompendium-contrast-900));
 
     span {
-        transition: background-color 0.2s ease, transform 0.2s ease 0.3s,
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease 0.3s,
             opacity 0.15s ease 0.3s;
         display: block;
         position: absolute;
@@ -202,7 +205,8 @@ header {
 
         &.display-nav-panel {
             transform: translate3d(0, 0, 0);
-            box-shadow: 0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232),
+            box-shadow:
+                0 #{pxToRem(1.5)} #{pxToRem(3.6)} 0 rgba(0, 0, 0, 0.232),
                 0 #{pxToRem(0.3)} #{pxToRem(0.9)} 0 rgba(0, 0, 0, 0.208);
 
             .nav-panel__responsive-menu {
