@@ -204,8 +204,11 @@ section.example {
 
     a.debug-link {
         @include is-flat-clickable();
-        transition: background-color 0.2s ease, box-shadow 0.2s ease,
-            transform 0.1s ease-out, opacity 0.2s ease;
+        transition:
+            background-color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.1s ease-out,
+            opacity 0.2s ease;
 
         width: pxToRem(28);
         height: pxToRem(28);
