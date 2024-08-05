@@ -1,4 +1,3 @@
-/* eslint-env node */
 const { argv } = require('yargs');
 const fs = require('fs');
 

@@ -1,4 +1,3 @@
-/* eslint-env node */
 const generateVermoji = require('./scripts/utils/vermoji');
 const vermoji = generateVermoji('./CHANGELOG.md');
 
