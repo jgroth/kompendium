@@ -169,19 +169,11 @@ function isWatcher(): boolean {
 }
 
 function isProd(): boolean {
-    if (process.argv.includes('--dev')) {
-        return false;
-    }
-
-    if (process.argv.includes('test')) {
-        return false;
-    }
-
-    if (process.argv.find((arg) => arg.includes('jest-worker'))) {
-        return false;
-    }
-
-    return true;
+    return !(
+        process.argv.includes('--dev') ||
+        process.argv.includes('test') ||
+        process.argv.find((arg) => arg.includes('jest-worker'))
+    );
 }
 
 async function getTypes(
