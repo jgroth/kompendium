@@ -52,7 +52,7 @@ module.exports = {
             'error',
             {
                 arrays: 'always-multiline',
-                functions: 'never',
+                functions: 'always-multiline',
                 objects: 'always-multiline',
                 imports: 'always-multiline',
                 exports: 'always-multiline',
