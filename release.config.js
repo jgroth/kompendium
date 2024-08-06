@@ -2,6 +2,11 @@ const generateVermoji = require('./scripts/utils/vermoji');
 const vermoji = generateVermoji('./CHANGELOG.md');
 
 module.exports = {
+    branches: [
+        'main',
+        { name: 'beta', prerelease: true },
+        { name: 'next', prerelease: true },
+    ],
     plugins: [
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
