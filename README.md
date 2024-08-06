@@ -1,7 +1,7 @@
 <img width="100%" alt="hero" src="https://user-images.githubusercontent.com/35954987/99229931-f5889200-27ee-11eb-934e-6284b6978b07.png">
 
 # Kompendium
-![CI](https://github.com/jgroth/kompendium/workflows/CI/badge.svg?branch=master) [![Version](https://img.shields.io/npm/v/kompendium.svg)](https://www.npmjs.com/package/kompendium) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+![CI](https://github.com/jgroth/kompendium/workflows/CI/badge.svg?branch=main) [![Version](https://img.shields.io/npm/v/kompendium.svg)](https://www.npmjs.com/package/kompendium) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # Introduction  
 Kompendium is a simple, fast and elegant tool for generating documentation for components made with Stencil.   
