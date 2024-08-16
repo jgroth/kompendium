@@ -4,7 +4,17 @@ import { getTypes } from './markdown-types';
 
 /**
  * This component renders markdown
- * @exampleComponent kompendium-example-markdown
+ * @exampleComponent kompendium-example-markdown-headings
+ * @exampleComponent kompendium-example-markdown-emphasis
+ * @exampleComponent kompendium-example-markdown-lists
+ * @exampleComponent kompendium-example-markdown-links
+ * @exampleComponent kompendium-example-markdown-images
+ * @exampleComponent kompendium-example-markdown-code
+ * @exampleComponent kompendium-example-markdown-tables
+ * @exampleComponent kompendium-example-markdown-blockquotes
+ * @exampleComponent kompendium-example-markdown-horizontal-rule
+ * @exampleComponent kompendium-example-markdown-callout
+ * @exampleComponent kompendium-example-markdown-other
  */
 @Component({
     tag: 'kompendium-markdown',
