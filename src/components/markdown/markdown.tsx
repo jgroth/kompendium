@@ -42,8 +42,16 @@ export class Markdown {
     private async renderMarkdown() {
         const types = getTypes();
         const file = await markdownToHtml(this.text, types);
-        this.host.shadowRoot.querySelector('#root').innerHTML =
-            file?.toString();
+
+        let fileContent = typeof file === 'string' ? file : file.toString();
+
+        fileContent = fileContent.replace(/<h5>(.*?)<\/h5>/g, (_match, p1) => {
+            const id = p1.toLowerCase().replace(/\s+/g, '-');
+
+            return `<h5 id="${id}">${p1}</h5>`;
+        });
+
+        this.host.shadowRoot.querySelector('#root').innerHTML = fileContent;
     }
 
     render(): HTMLElement {
