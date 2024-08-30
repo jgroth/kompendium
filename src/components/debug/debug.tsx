@@ -5,6 +5,7 @@ import {
     JsonDocsTag,
 } from '@stencil/core/internal';
 import { MatchResults } from '@stencil/router';
+import { PropsFactory } from '../playground/playground.types';
 
 @Component({
     tag: 'kompendium-debug',
@@ -29,6 +30,13 @@ export class KompendiumDebug {
     @Prop()
     public match: MatchResults;
 
+    /**
+     * Factory for creating props for example components
+     * @returns {Record<string, unknown>} props
+     */
+    @Prop()
+    public examplePropsFactory?: PropsFactory = () => ({});
+
     public render(): HTMLElement {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
@@ -46,8 +54,10 @@ export class KompendiumDebug {
         const ExampleComponent = component.tag;
         const ownerComponent = this.docs.components.find(isOwnerOf(component));
         const schema = this.schemas.find((s) => s.$id === ownerComponent.tag);
+        const factory = this.examplePropsFactory;
         const props = {
             schema: schema,
+            ...factory(ExampleComponent),
         };
 
         return (
