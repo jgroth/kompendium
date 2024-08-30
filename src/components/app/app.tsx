@@ -137,6 +137,8 @@ export class App {
                                 componentProps={{
                                     docs: this.data.docs,
                                     schemas: this.data.schemas,
+                                    examplePropsFactory:
+                                        this.examplePropsFactory,
                                 }}
                             />
                             <stencil-route
