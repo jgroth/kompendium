@@ -1,3 +1,10 @@
+# 🙏 [0.15.0](https://github.com/jgroth/kompendium/compare/v0.14.3...v0.15.0) (2024-08-30)
+
+
+### Features
+
+* **debug:** add the props factory to the debug route ([65e6fa6](https://github.com/jgroth/kompendium/commit/65e6fa6d326a9358a6d213de1ebfbe3492d50bee))
+
 ## 🥓 [0.14.3](https://github.com/jgroth/kompendium/compare/v0.14.2...v0.14.3) (2024-08-05)
 
 
