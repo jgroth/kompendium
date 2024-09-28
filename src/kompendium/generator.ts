@@ -7,7 +7,7 @@ import { exists, mkdir, readFile, writeFile, stat } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
-import { parseFile } from './typedoc';
+import { parseFile } from './typedoc-generator';
 import { createSchemas } from './schema';
 import { createIndex } from './search';
 

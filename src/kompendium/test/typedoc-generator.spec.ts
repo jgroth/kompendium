@@ -1,4 +1,4 @@
-import { parseFile } from '../typedoc';
+import { parseFile } from '../typedoc-generator';
 
 describe('parseFile()', () => {
     it('returns the expected data when given basic input', () => {
