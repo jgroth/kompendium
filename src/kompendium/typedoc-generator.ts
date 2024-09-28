@@ -1,22 +1,20 @@
+import * as path from 'path';
 import {
     Application,
-    Decorator,
-    Reflection,
-    ReflectionKind,
     DeclarationReflection,
-    TypeDocAndTSOptions,
-} from 'typedoc';
-import {
-    CommentTag,
-    ParameterReflection,
+    ReflectionKind,
     SignatureReflection,
-} from 'typedoc/dist/lib/models';
+    Reflection,
+    TSConfigReader,
+    TypeDocReader,
+    TypeDocOptions,
+    Decorator,
+} from 'typedoc';
 import {
     JsonDocsTag,
     JsonDocsProp,
     JsonDocsMethodReturn,
 } from '@stencil/core/internal';
-import negate from 'lodash/negate';
 import {
     InterfaceDescription,
     AliasDescription,
@@ -29,11 +27,6 @@ import {
 } from '../types';
 import { existsSync } from 'fs';
 
-interface MethodSignature {
-    parameters: ParameterDescription[];
-    returns: JsonDocsMethodReturn;
-}
-
 export function parseFile(filename: string): TypeDescription[] {
     if (!existsSync(filename)) {
         // eslint-disable-next-line no-console
@@ -43,19 +36,23 @@ export function parseFile(filename: string): TypeDescription[] {
     }
 
     const app = new Application();
-    const options: Partial<TypeDocAndTSOptions> = {
+
+    app.options.addReader(new TSConfigReader());
+    app.options.addReader(new TypeDocReader());
+
+    const options: Partial<TypeDocOptions> = {
         readme: 'none',
-        ignoreCompilerErrors: true,
     };
 
     if (filename.endsWith('.d.ts')) {
-        options.includeDeclarations = true;
         options.exclude = ['**/+(*test*|node_modules)/**'];
     }
 
     app.bootstrap(options);
 
-    const reflection = app.convert([filename]);
+    app.options.setValue('entryPoints', [filename]);
+
+    const reflection = app.convert();
     if (!reflection) {
         // eslint-disable-next-line no-console
         console.warn('Could not find any type information');
@@ -72,8 +69,6 @@ export function parseFile(filename: string): TypeDescription[] {
 const fns = {
     [ReflectionKind.Interface]: addInterface,
     [ReflectionKind.Class]: addClass,
-    [ReflectionKind.CallSignature]: addSignature,
-    [ReflectionKind.Parameter]: addParam,
     [ReflectionKind.TypeAlias]: addType,
     // [ReflectionKind.TypeLiteral]: addType,
     [ReflectionKind.Enum]: addEnum,
@@ -93,10 +88,6 @@ function addInterface(
     reflection: DeclarationReflection,
     data: InterfaceDescription[],
 ) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
-
     data.push({
         type: 'interface',
         name: reflection.name,
@@ -110,10 +101,6 @@ function addInterface(
 }
 
 function addClass(reflection: DeclarationReflection, data: ClassDescription[]) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
-
     data.push({
         type: 'class',
         name: reflection.name,
@@ -127,40 +114,7 @@ function addClass(reflection: DeclarationReflection, data: ClassDescription[]) {
     });
 }
 
-function addSignature(reflection: SignatureReflection, data: MethodSignature) {
-    if (Array.isArray(data)) {
-        return;
-    }
-
-    data.parameters = [];
-    data.returns = {
-        type: reflection.type.toString(),
-        docs:
-            reflection.parent.parent.comment?.tags?.find(isReturns)?.text || '',
-    };
-
-    reflection.traverse(traverseCallback(data));
-}
-
-function addParam(reflection: ParameterReflection, data: MethodSignature) {
-    data.parameters.push({
-        name: reflection.name,
-        type: reflection.type.toString(),
-        docs:
-            reflection.parent.parent.parent.comment?.tags
-                ?.filter(isParam)
-                .find((tag) => tag.paramName === reflection.name)
-                ?.text.trim() || '',
-        default: reflection.defaultValue,
-        optional: reflection.flags.isOptional,
-    });
-}
-
 function addType(reflection: DeclarationReflection, data: AliasDescription[]) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
-
     data.push({
         type: 'alias',
         name: reflection.name,
@@ -172,10 +126,6 @@ function addType(reflection: DeclarationReflection, data: AliasDescription[]) {
 }
 
 function addEnum(reflection: DeclarationReflection, data: EnumDescription[]) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
-
     const members = [];
     reflection.traverse(traverseCallback(members));
 
@@ -200,19 +150,23 @@ function addEnumMember(reflection: DeclarationReflection, data: EnumMember[]) {
 
 function getDocs(reflection: Reflection): string {
     return [reflection.comment?.shortText, reflection.comment?.text]
+        .filter(Boolean)
         .join('\n')
         .trim();
 }
 
-function getDocsTags(reflection: DeclarationReflection) {
-    return reflection.comment?.tags?.map(getTag) || [];
-}
-
-function getTag(tag: CommentTag): JsonDocsTag {
-    return {
-        name: tag.tagName,
-        text: tag.text.trim(),
-    };
+function getDocsTags(reflection: Reflection): JsonDocsTag[] {
+    return (
+        reflection.comment?.tags
+            ?.filter(
+                (tag: any) =>
+                    tag.tagName !== 'param' && tag.tagName !== 'returns',
+            )
+            .map((tag: any) => ({
+                name: tag.tagName,
+                text: tag.text.trim(),
+            })) || []
+    );
 }
 
 function isProperty(reflection: DeclarationReflection): boolean {
@@ -229,14 +183,6 @@ function isMethod(reflection: DeclarationReflection): boolean {
     );
 }
 
-function isParam(tag: CommentTag): boolean {
-    return tag.tagName === 'param';
-}
-
-function isReturns(tag: CommentTag): boolean {
-    return tag.tagName === 'returns';
-}
-
 function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
     return {
         name: reflection.name,
@@ -249,24 +195,65 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
 }
 
 function getMethod(reflection: DeclarationReflection): MethodDescription {
-    const signature = getSignature(reflection);
+    let parameters: ParameterDescription[] = [];
+    let returns: JsonDocsMethodReturn = { type: '', docs: '' };
+
+    if (reflection.type && reflection.type.type === 'reflection') {
+        const declaration = (reflection.type as any).declaration;
+        if (
+            declaration &&
+            declaration.signatures &&
+            declaration.signatures.length > 0
+        ) {
+            const signature = declaration.signatures[0];
+            parameters = getParameters(signature, reflection.comment);
+            returns = getReturns(signature, reflection.comment);
+        }
+    }
 
     return {
         name: reflection.name,
         docs: getDocs(reflection),
-        docsTags: reflection.comment?.tags
-            ?.filter(negate(isParam))
-            .filter(negate(isReturns))
-            .map(getTag),
-        ...signature,
+        docsTags: getDocsTags(reflection),
+        parameters: parameters,
+        returns: returns,
     };
 }
 
-function getSignature(reflection: Reflection): MethodSignature {
-    const signature: Partial<MethodSignature> = {};
-    reflection.traverse(traverseCallback(signature));
+function getParameters(
+    signature: SignatureReflection,
+    comment: any,
+): ParameterDescription[] {
+    return (
+        signature.parameters?.map((param) => {
+            const paramDoc = comment?.tags?.find(
+                (tag: any) =>
+                    tag.tagName === 'param' && tag.paramName === param.name,
+            );
 
-    return signature as MethodSignature;
+            return {
+                name: param.name,
+                type: param.type?.toString() || '',
+                docs: paramDoc?.text.trim() || '',
+                default: param.defaultValue,
+                optional: param.flags.isOptional,
+            };
+        }) || []
+    );
+}
+
+function getReturns(
+    signature: SignatureReflection,
+    comment: any,
+): JsonDocsMethodReturn {
+    const returnDoc = comment?.tags?.find(
+        (tag: any) => tag.tagName === 'returns',
+    );
+
+    return {
+        type: signature.type?.toString() || '',
+        docs: returnDoc?.text.trim() || '',
+    };
 }
 
 function getTypeParams(reflection: DeclarationReflection) {
@@ -278,7 +265,11 @@ function getTypeParams(reflection: DeclarationReflection) {
 }
 
 function getSources(reflection: DeclarationReflection) {
-    return reflection.sources.map((source) => source.file.fullFileName);
+    return (
+        reflection.sources?.map((source) =>
+            path.relative(process.cwd(), source.file.fullFileName),
+        ) || []
+    );
 }
 
 function getDecorator(decorator: Decorator) {
