@@ -99,7 +99,7 @@
     "remark-parse": "^8.0.2",
     "remark-parse-yaml": "0.0.3",
     "remark-rehype": "^7.0.0",
-    "typedoc": "^0.18.0",
+    "typedoc": "^0.19.2",
     "typescript": "4.0.x",
     "unified": "^9.0.0",
     "unist-util-flatmap": "^1.0.0",
