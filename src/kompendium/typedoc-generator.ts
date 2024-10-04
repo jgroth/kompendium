@@ -26,6 +26,8 @@ import {
     ClassDescription,
 } from '../types';
 import { existsSync } from 'fs';
+// @ts-ignore
+import * as util from 'util';
 
 export function parseFile(filename: string): TypeDescription[] {
     if (!existsSync(filename)) {
@@ -156,6 +158,9 @@ function getDocs(reflection: Reflection): string {
 }
 
 function getDocsTags(reflection: Reflection): JsonDocsTag[] {
+    console.log(`\n--- getDocsTags for ${reflection.name} ---`);
+    logReflection(reflection.comment);
+
     return (
         reflection.comment?.tags
             ?.filter(
@@ -195,35 +200,50 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
 }
 
 function getMethod(reflection: DeclarationReflection): MethodDescription {
+    console.log(`\n--- getMethod for ${reflection.name} ---`);
+    logReflection(reflection, 3);
+
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
 
     if (reflection.type && reflection.type.type === 'reflection') {
+        console.log('\n--- is reflection ---');
         const declaration = (reflection.type as any).declaration;
         if (
             declaration &&
             declaration.signatures &&
             declaration.signatures.length > 0
         ) {
+            console.log(
+                '\n--- getting parameters and returns from declaration.signatures[0] ---',
+            );
             const signature = declaration.signatures[0];
+            logReflection(signature);
             parameters = getParameters(signature, reflection.comment);
             returns = getReturns(signature, reflection.comment);
         }
     }
 
-    return {
+    const result = {
         name: reflection.name,
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
         parameters: parameters,
         returns: returns,
     };
+    console.log('getMethod returns', JSON.stringify(result, null, 2));
+
+    return result;
 }
 
+// @ts-ignore
 function getParameters(
     signature: SignatureReflection,
     comment: any,
 ): ParameterDescription[] {
+    console.log('\n--- getParameters for signature ---');
+    logReflection(signature);
+
     return (
         signature.parameters?.map((param) => {
             const paramDoc = comment?.tags?.find(
@@ -242,10 +262,14 @@ function getParameters(
     );
 }
 
+// @ts-ignore
 function getReturns(
     signature: SignatureReflection,
     comment: any,
 ): JsonDocsMethodReturn {
+    console.log('\n--- getReturns for signature ---');
+    logReflection(signature);
+
     const returnDoc = comment?.tags?.find(
         (tag: any) => tag.tagName === 'returns',
     );
@@ -277,4 +301,9 @@ function getDecorator(decorator: Decorator) {
         name: decorator.name,
         arguments: decorator.arguments,
     };
+}
+
+// @ts-ignore
+function logReflection(reflection: any, depth: number = 2) {
+    console.log(util.inspect(reflection, { depth: depth, colors: true }));
 }
