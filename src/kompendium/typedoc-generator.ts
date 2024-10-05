@@ -150,30 +150,6 @@ function addEnumMember(reflection: DeclarationReflection, data: EnumMember[]) {
     });
 }
 
-function getDocs(reflection: Reflection): string {
-    return [reflection.comment?.shortText, reflection.comment?.text]
-        .filter(Boolean)
-        .join('\n')
-        .trim();
-}
-
-function getDocsTags(reflection: Reflection): JsonDocsTag[] {
-    console.log(`\n--- getDocsTags for ${reflection.name} ---`);
-    logReflection(reflection.comment);
-
-    return (
-        reflection.comment?.tags
-            ?.filter(
-                (tag: any) =>
-                    tag.tagName !== 'param' && tag.tagName !== 'returns',
-            )
-            .map((tag: any) => ({
-                name: tag.tagName,
-                text: tag.text.trim(),
-            })) || []
-    );
-}
-
 function isProperty(reflection: DeclarationReflection): boolean {
     return (
         reflection.kind === ReflectionKind.Property &&
@@ -278,6 +254,30 @@ function getReturns(
         type: signature.type?.toString() || '',
         docs: returnDoc?.text.trim() || '',
     };
+}
+
+function getDocs(reflection: Reflection): string {
+    return [reflection.comment?.shortText, reflection.comment?.text]
+        .filter(Boolean)
+        .join('\n')
+        .trim();
+}
+
+function getDocsTags(reflection: Reflection): JsonDocsTag[] {
+    console.log(`\n--- getDocsTags for ${reflection.name} ---`);
+    logReflection(reflection.comment);
+
+    return (
+        reflection.comment?.tags
+            ?.filter(
+                (tag: any) =>
+                    tag.tagName !== 'param' && tag.tagName !== 'returns',
+            )
+            .map((tag: any) => ({
+                name: tag.tagName,
+                text: tag.text.trim(),
+            })) || []
+    );
 }
 
 function getTypeParams(reflection: DeclarationReflection) {
