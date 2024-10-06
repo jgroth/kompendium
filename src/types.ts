@@ -105,7 +105,6 @@ export interface ClassDescription extends TypeDescription {
     typeParams: TypeParam[];
     props: Array<Partial<JsonDocsProp>>;
     methods: MethodDescription[];
-    decorators: DecoratorDescription[];
 }
 
 export interface TypeParam {
@@ -136,9 +135,4 @@ export interface MethodDescription extends Partial<JsonDocsMethod> {
 export interface ParameterDescription extends JsonDocMethodParameter {
     default: string;
     optional: boolean;
-}
-
-export interface DecoratorDescription {
-    name: string;
-    arguments: any;
 }

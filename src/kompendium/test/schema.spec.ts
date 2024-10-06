@@ -466,7 +466,6 @@ describe('createSchemas()', () => {
                             type: 'Array<Partial<Option>>',
                         },
                     ],
-                    decorators: [],
                 },
             ] as Array<ClassDescription | InterfaceDescription>;
         });

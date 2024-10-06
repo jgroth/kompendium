@@ -8,7 +8,6 @@ import {
     TSConfigReader,
     TypeDocReader,
     TypeDocOptions,
-    Decorator,
 } from 'typedoc';
 import {
     JsonDocsTag,
@@ -112,7 +111,6 @@ function addClass(reflection: DeclarationReflection, data: ClassDescription[]) {
         props: reflection.children?.filter(isProperty).map(getProperty),
         methods: reflection.children?.filter(isMethod).map(getMethod),
         sources: getSources(reflection),
-        decorators: reflection.decorators?.map(getDecorator),
     });
 }
 
@@ -257,10 +255,7 @@ function getReturns(
 }
 
 function getDocs(reflection: Reflection): string {
-    return [reflection.comment?.shortText, reflection.comment?.text]
-        .filter(Boolean)
-        .join('\n')
-        .trim();
+    return [reflection.comment?.summary].filter(Boolean).join('\n').trim();
 }
 
 function getDocsTags(reflection: Reflection): JsonDocsTag[] {
@@ -268,14 +263,14 @@ function getDocsTags(reflection: Reflection): JsonDocsTag[] {
     logReflection(reflection.comment);
 
     return (
-        reflection.comment?.tags
+        reflection.comment?.blockTags
             ?.filter(
                 (tag: any) =>
                     tag.tagName !== 'param' && tag.tagName !== 'returns',
             )
             .map((tag: any) => ({
                 name: tag.tagName,
-                text: tag.text.trim(),
+                text: tag.text?.trim() || '',
             })) || []
     );
 }
@@ -291,16 +286,9 @@ function getTypeParams(reflection: DeclarationReflection) {
 function getSources(reflection: DeclarationReflection) {
     return (
         reflection.sources?.map((source) =>
-            path.relative(process.cwd(), source.file.fullFileName),
+            path.relative(process.cwd(), source.fullFileName),
         ) || []
     );
-}
-
-function getDecorator(decorator: Decorator) {
-    return {
-        name: decorator.name,
-        arguments: decorator.arguments,
-    };
 }
 
 // @ts-ignore
