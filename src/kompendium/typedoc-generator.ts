@@ -174,25 +174,20 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
 }
 
 function getMethod(reflection: DeclarationReflection): MethodDescription {
-    console.log(`\n--- getMethod for ${reflection.name} ---`);
-    logReflection(reflection, 3);
+    logReflection(`--- getMethod for ${reflection.name} ---`, reflection, 3);
 
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
 
     if (reflection.type && reflection.type.type === 'reflection') {
-        console.log('\n--- is reflection ---');
         const declaration = (reflection.type as any).declaration;
         if (
             declaration &&
             declaration.signatures &&
             declaration.signatures.length > 0
         ) {
-            console.log(
-                '\n--- getting parameters and returns from declaration.signatures[0] ---',
-            );
             const signature = declaration.signatures[0];
-            logReflection(signature);
+            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature);
             parameters = getParameters(signature, reflection.comment);
             returns = getReturns(signature, reflection.comment);
         }
@@ -215,8 +210,7 @@ function getParameters(
     signature: SignatureReflection,
     comment: any,
 ): ParameterDescription[] {
-    console.log('\n--- getParameters for signature ---');
-    logReflection(signature);
+    logReflection('--- getParameters for signature ---', signature);
 
     return (
         signature.parameters?.map((param) => {
@@ -241,8 +235,7 @@ function getReturns(
     signature: SignatureReflection,
     comment: any,
 ): JsonDocsMethodReturn {
-    console.log('\n--- getReturns for signature ---');
-    logReflection(signature);
+    logReflection('--- getReturns for signature ---', signature);
 
     const returnDoc = comment?.tags?.find(
         (tag: any) => tag.tagName === 'returns',
@@ -255,12 +248,12 @@ function getReturns(
 }
 
 function getDocs(reflection: Reflection): string {
+    logReflection(`--- getDocs for ${reflection.name} ---`, reflection.comment);
     return [reflection.comment?.summary].filter(Boolean).join('\n').trim();
 }
 
 function getDocsTags(reflection: Reflection): JsonDocsTag[] {
-    console.log(`\n--- getDocsTags for ${reflection.name} ---`);
-    logReflection(reflection.comment);
+    logReflection(`--- getDocsTags for ${reflection.name} ---`, reflection);
 
     return (
         reflection.comment?.blockTags
@@ -292,6 +285,6 @@ function getSources(reflection: DeclarationReflection) {
 }
 
 // @ts-ignore
-function logReflection(reflection: any, depth: number = 2) {
-    console.log(util.inspect(reflection, { depth: depth, colors: true }));
+function logReflection(description: string, reflection: any, depth: number = 2) {
+    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }
