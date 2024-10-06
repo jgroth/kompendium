@@ -33,17 +33,17 @@ export interface Foo {
  */
 export class Zap implements Foo {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     foo: string;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     bar?: boolean;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     baz: (args: string) => number;
 }
