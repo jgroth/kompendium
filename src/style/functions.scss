@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @function pxToRem($px) {
-    @return #{$px/16}rem;
+    @return #{math.div($px, 16)}rem;
 }
