@@ -8,6 +8,7 @@ import {
     TSConfigReader,
     TypeDocReader,
     TypeDocOptions,
+    CommentDisplayPart,
 } from 'typedoc';
 import {
     JsonDocsTag,
@@ -140,11 +141,12 @@ function addEnum(reflection: DeclarationReflection, data: EnumDescription[]) {
 }
 
 function addEnumMember(reflection: DeclarationReflection, data: EnumMember[]) {
+    logReflection('--- addEnumMember ---', reflection);
     data.push({
         name: reflection.name,
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
-        value: reflection.defaultValue,
+        value: reflection.type.type === 'literal' ? `"${reflection.type.value.toString()}"` : '',
     });
 }
 
@@ -249,11 +251,11 @@ function getReturns(
 
 function getDocs(reflection: Reflection): string {
     logReflection(`--- getDocs for ${reflection.name} ---`, reflection.comment);
-    return [reflection.comment?.summary].filter(Boolean).join('\n').trim();
+    return [reflection.comment?.summary.find((value: CommentDisplayPart) => value.kind === 'text')?.text].filter(Boolean).join('\n').trim();
 }
 
 function getDocsTags(reflection: Reflection): JsonDocsTag[] {
-    logReflection(`--- getDocsTags for ${reflection.name} ---`, reflection);
+    logReflection(`--- getDocsTags for ${reflection.name} ---`, reflection.comment);
 
     return (
         reflection.comment?.blockTags

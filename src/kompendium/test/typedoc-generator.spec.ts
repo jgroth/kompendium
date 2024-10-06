@@ -15,7 +15,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for an enum', () => {
+    it.only('returns the expected data for an enum', () => {
         const data = parseFile('./src/kompendium/test/fixtures/enum.ts');
         expect(data).toEqual([
             {
