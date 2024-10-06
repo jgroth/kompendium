@@ -9,6 +9,7 @@ import {
     TypeDocReader,
     TypeDocOptions,
     CommentDisplayPart,
+    CommentTag,
 } from 'typedoc';
 import {
     JsonDocsTag,
@@ -153,14 +154,14 @@ function addEnumMember(reflection: DeclarationReflection, data: EnumMember[]) {
 function isProperty(reflection: DeclarationReflection): boolean {
     return (
         reflection.kind === ReflectionKind.Property &&
-        reflection.type.toString() !== 'function'
+        reflection.type.toString().toLowerCase() !== 'function'
     );
 }
 
 function isMethod(reflection: DeclarationReflection): boolean {
     return (
         reflection.kind === ReflectionKind.Property &&
-        reflection.type.toString() === 'function'
+        reflection.type.toString().toLowerCase() === 'function'
     );
 }
 
@@ -190,8 +191,8 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
         ) {
             const signature = declaration.signatures[0];
             logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature);
-            parameters = getParameters(signature, reflection.comment);
-            returns = getReturns(signature, reflection.comment);
+            parameters = getParameters(signature);
+            returns = getReturns(signature);
         }
     }
 
@@ -210,16 +211,14 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
 // @ts-ignore
 function getParameters(
     signature: SignatureReflection,
-    comment: any,
 ): ParameterDescription[] {
     logReflection('--- getParameters for signature ---', signature);
 
     return (
         signature.parameters?.map((param) => {
-            const paramDoc = comment?.tags?.find(
-                (tag: any) =>
-                    tag.tagName === 'param' && tag.paramName === param.name,
-            );
+            logReflection('--- getParameters param ---', param);
+            logReflection('--- getParameters param.comment ---', param.comment);
+            const paramDoc = param.comment?.summary.find((value: CommentDisplayPart) => value.kind === 'text');
 
             return {
                 name: param.name,
@@ -235,13 +234,11 @@ function getParameters(
 // @ts-ignore
 function getReturns(
     signature: SignatureReflection,
-    comment: any,
 ): JsonDocsMethodReturn {
     logReflection('--- getReturns for signature ---', signature);
+    logReflection('--- getReturns for signature.comment ---', signature.comment);
 
-    const returnDoc = comment?.tags?.find(
-        (tag: any) => tag.tagName === 'returns',
-    );
+    const returnDoc = signature.comment?.blockTags?.find((tag: CommentTag) => tag.tag === '@returns')?.content.find((value: CommentDisplayPart) => value.kind === 'text');
 
     return {
         type: signature.type?.toString() || '',
@@ -260,12 +257,12 @@ function getDocsTags(reflection: Reflection): JsonDocsTag[] {
     return (
         reflection.comment?.blockTags
             ?.filter(
-                (tag: any) =>
-                    tag.tagName !== 'param' && tag.tagName !== 'returns',
+                (tag: CommentTag) =>
+                    tag.tag !== '@param' && tag.tag !== '@returns',
             )
-            .map((tag: any) => ({
-                name: tag.tagName,
-                text: tag.text?.trim() || '',
+            .map((tag: CommentTag) => ({
+                name: tag.tag.replace(/^@/, '').trim(),
+                text: tag.content?.find(value => value.kind === 'text')?.text?.trim() || '',
             })) || []
     );
 }
