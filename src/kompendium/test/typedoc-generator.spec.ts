@@ -122,7 +122,7 @@ describe('parseFile()', () => {
                 type: 'interface',
                 name: 'Foo',
                 typeParams: [],
-                docs: 'This is Foo\nFoo is good',
+                docs: 'This is Foo\n\nFoo is good',
                 sources: ['src/kompendium/test/fixtures/interface.ts'],
                 docsTags: [
                     {
@@ -165,7 +165,7 @@ describe('parseFile()', () => {
                                 default: undefined,
                             },
                         ],
-                        docs: 'Do something\nFrom string to number',
+                        docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
                                 name: 'foobar',
@@ -316,7 +316,7 @@ describe('parseFile()', () => {
                 ],
                 methods: [
                     {
-                        docs: 'Do something\nFrom string to number',
+                        docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
                                 name: 'foobar',
@@ -346,7 +346,7 @@ describe('parseFile()', () => {
                 type: 'interface',
                 name: 'Foo',
                 typeParams: [],
-                docs: 'This is Foo\nFoo is good',
+                docs: 'This is Foo\n\nFoo is good',
                 sources: [
                     'src/kompendium/test/fixtures/class-implementing-interface.ts',
                 ],
@@ -391,7 +391,7 @@ describe('parseFile()', () => {
                                 default: undefined,
                             },
                         ],
-                        docs: 'Do something\nFrom string to number',
+                        docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
                                 name: 'foobar',
@@ -474,7 +474,7 @@ describe('parseFile()', () => {
                 ],
                 methods: [
                     {
-                        docs: 'Do something\nFrom string to number',
+                        docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
                                 name: 'foobar',
@@ -509,7 +509,7 @@ describe('parseFile()', () => {
                 type: 'interface',
                 name: 'Foo',
                 typeParams: [],
-                docs: 'This is Foo\nFoo is good',
+                docs: 'This is Foo\n\nFoo is good',
                 sources: ['src/kompendium/test/fixtures/basic.ts'],
                 docsTags: [
                     {
@@ -552,7 +552,7 @@ describe('parseFile()', () => {
                                 default: undefined,
                             },
                         ],
-                        docs: 'Do something\nFrom string to number',
+                        docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
                                 name: 'foobar',
