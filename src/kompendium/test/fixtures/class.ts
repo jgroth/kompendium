@@ -18,7 +18,7 @@ export class Zap {
      * Convert string to number
      * @param {string} args the string
      * @returns {number} the number
-     * @foobar baz
+     * @foobar luhrmann
      */
     baz: (args: string) => number;
 }

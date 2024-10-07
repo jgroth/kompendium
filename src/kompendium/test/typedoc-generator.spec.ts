@@ -91,7 +91,7 @@ describe('parseFile()', () => {
                         docsTags: [
                             {
                                 name: 'foobar',
-                                text: 'baz',
+                                text: 'luhrmann',
                             },
                         ],
                         name: 'baz',
