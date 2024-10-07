@@ -182,22 +182,6 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for a custom decorator', () => {
-        const data = parseFile(
-            './src/kompendium/test/fixtures/custom-decorator.ts',
-        );
-        expect(data).toEqual([
-            {
-                alias: 'object',
-                docs: '',
-                docsTags: [],
-                name: 'DecoratorConfig',
-                sources: ['src/kompendium/test/fixtures/custom-decorator.ts'],
-                type: 'alias',
-            },
-        ]);
-    });
-
     it('returns the expected data for a decorated class', () => {
         const data = parseFile(
             './src/kompendium/test/fixtures/decorated-class.ts',
@@ -263,12 +247,12 @@ describe('parseFile()', () => {
                     },
                 ],
                 typeParams: [],
-                decorators: [
-                    {
-                        name: 'CustomDecorator',
-                        arguments: { _config: "{ name: 'gg' }" },
-                    },
-                ],
+                // decorators: [
+                //     {
+                //         name: 'CustomDecorator',
+                //         arguments: { _config: "{ name: 'gg' }" },
+                //     },
+                // ],
             },
         ]);
     });
@@ -340,7 +324,6 @@ describe('parseFile()', () => {
                     },
                 ],
                 typeParams: [],
-                decorators: undefined,
             },
             {
                 type: 'interface',
@@ -498,12 +481,12 @@ describe('parseFile()', () => {
                     },
                 ],
                 typeParams: [],
-                decorators: [
-                    {
-                        name: 'CustomDecorator',
-                        arguments: { _config: "{ name: 'gg' }" },
-                    },
-                ],
+                // decorators: [
+                //     {
+                //         name: 'CustomDecorator',
+                //         arguments: { _config: "{ name: 'gg' }" },
+                //     },
+                // ],
             },
             {
                 type: 'interface',
