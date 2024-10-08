@@ -79,7 +79,7 @@ const fns = {
 };
 
 const traverseCallback = (data: any) => (reflection: Reflection) => {
-    logReflection('--- traverseCallback reflection.kindString ---', reflection.kindString);
+    logReflection('--- traverseCallback reflection.kind ---', ReflectionKind.singularString(reflection.kind));
     logReflection('--- traverseCallback reflection.name ---', reflection.name);
     logReflection('--- traverseCallback reflection ---', reflection);
     const fn = fns[reflection.kind];
@@ -296,5 +296,5 @@ function getSources(reflection: DeclarationReflection) {
 
 // @ts-ignore
 function logReflection(description: string, reflection: any, depth: number = 2) {
-    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
+    // console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }

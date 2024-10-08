@@ -39,4 +39,9 @@ export const config: Config = {
             ],
         },
     ],
+    testing: {
+        moduleNameMapper: {
+            "^typedoc$": "<rootDir>/node_modules/typedoc/dist/index.js"
+        }
+    },
 };
