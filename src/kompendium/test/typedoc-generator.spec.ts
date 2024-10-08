@@ -257,7 +257,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for a class implementing an interface', () => {
+    it.only('returns the expected data for a class implementing an interface', () => {
         const data = parseFile(
             './src/kompendium/test/fixtures/class-implementing-interface.ts',
         );

@@ -79,6 +79,9 @@ const fns = {
 };
 
 const traverseCallback = (data: any) => (reflection: Reflection) => {
+    logReflection('--- traverseCallback reflection.kindString ---', reflection.kindString);
+    logReflection('--- traverseCallback reflection.name ---', reflection.name);
+    logReflection('--- traverseCallback reflection ---', reflection);
     const fn = fns[reflection.kind];
     if (fn) {
         fn(reflection, data);
@@ -177,7 +180,9 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
 }
 
 function getMethod(reflection: DeclarationReflection): MethodDescription {
-    logReflection(`--- getMethod for ${reflection.name} ---`, reflection, 3);
+    logReflection(`--- getMethod reflection for ${reflection.name} ---`, reflection);
+    logReflection(`--- getMethod reflection.comment for ${reflection.name} ---`, reflection.comment, 3);
+    logReflection(`--- getMethod reflection.implementationOf for ${reflection.name} ---`, reflection.implementationOf);
 
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
@@ -192,12 +197,15 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
             declaration.signatures.length > 0
         ) {
             signature = declaration.signatures[0];
-            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature, 3);
+            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature);
             parameters = getParameters(signature);
             returns = getReturns(signature);
             docs = signature.comment?.summary.map((value: CommentDisplayPart) => value.text?.trim()).join(' ') || '';
         }
     }
+
+    logReflection(`--- getMethod signature for ${reflection.name} ---`, signature);
+    logReflection(`--- getMethod signature.comment for ${reflection.name} ---`, signature.comment, 3);
 
     const result = {
         name: reflection.name,
@@ -206,6 +214,8 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
         parameters: parameters,
         returns: returns,
     };
+
+    logReflection('--- getMethod result ---', result, 3);
 
     return result;
 }
@@ -286,5 +296,5 @@ function getSources(reflection: DeclarationReflection) {
 
 // @ts-ignore
 function logReflection(description: string, reflection: any, depth: number = 2) {
-    // console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
+    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }
