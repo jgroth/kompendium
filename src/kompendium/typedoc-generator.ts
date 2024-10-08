@@ -181,6 +181,8 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
 
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
+    let signature: SignatureReflection;
+    let docs: string = '';
 
     if (reflection.type && reflection.type.type === 'reflection') {
         const declaration = (reflection.type as any).declaration;
@@ -189,21 +191,21 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
             declaration.signatures &&
             declaration.signatures.length > 0
         ) {
-            const signature = declaration.signatures[0];
-            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature);
+            signature = declaration.signatures[0];
+            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature, 3);
             parameters = getParameters(signature);
             returns = getReturns(signature);
+            docs = signature.comment?.summary.map((value: CommentDisplayPart) => value.text?.trim()).join(' ') || '';
         }
     }
 
     const result = {
         name: reflection.name,
-        docs: getDocs(reflection),
-        docsTags: getDocsTags(reflection),
+        docs: docs || getDocs(reflection),
+        docsTags: getDocsTags(signature || reflection),
         parameters: parameters,
         returns: returns,
     };
-    console.log('getMethod returns', JSON.stringify(result, null, 2));
 
     return result;
 }
@@ -218,12 +220,12 @@ function getParameters(
         signature.parameters?.map((param) => {
             logReflection('--- getParameters param ---', param);
             logReflection('--- getParameters param.comment ---', param.comment);
-            const paramDoc = param.comment?.summary.find((value: CommentDisplayPart) => value.kind === 'text');
+            const paramDoc = param.comment?.summary.map((value: CommentDisplayPart) => value.text?.trim()).join(' ') || '';
 
             return {
                 name: param.name,
                 type: param.type?.toString() || '',
-                docs: paramDoc?.text.trim() || '',
+                docs: paramDoc,
                 default: param.defaultValue,
                 optional: param.flags.isOptional,
             };
@@ -238,17 +240,16 @@ function getReturns(
     logReflection('--- getReturns for signature ---', signature);
     logReflection('--- getReturns for signature.comment ---', signature.comment);
 
-    const returnDoc = signature.comment?.blockTags?.find((tag: CommentTag) => tag.tag === '@returns')?.content.find((value: CommentDisplayPart) => value.kind === 'text');
+    const returnDoc = signature.comment?.blockTags?.find((tag: CommentTag) => tag.tag === '@returns')?.content.map((value: CommentDisplayPart) => value.text?.trim()).join(' ') || '';
 
     return {
         type: signature.type?.toString() || '',
-        docs: returnDoc?.text.trim() || '',
+        docs: returnDoc,
     };
 }
 
 function getDocs(reflection: Reflection): string {
-    logReflection(`--- getDocs for ${reflection.name} ---`, reflection.comment);
-    return [reflection.comment?.summary.find((value: CommentDisplayPart) => value.kind === 'text')?.text].filter(Boolean).join('\n').trim();
+    return [reflection.comment?.summary.map((value: CommentDisplayPart) => value.text?.trim()).join(' ')].filter(Boolean).join('\n').trim();
 }
 
 function getDocsTags(reflection: Reflection): JsonDocsTag[] {
@@ -262,7 +263,7 @@ function getDocsTags(reflection: Reflection): JsonDocsTag[] {
             )
             .map((tag: CommentTag) => ({
                 name: tag.tag.replace(/^@/, '').trim(),
-                text: tag.content?.find(value => value.kind === 'text')?.text?.trim() || '',
+                text: tag.content?.map(val => val.text?.trim()).join(' ') || '',
             })) || []
     );
 }
@@ -285,5 +286,5 @@ function getSources(reflection: DeclarationReflection) {
 
 // @ts-ignore
 function logReflection(description: string, reflection: any, depth: number = 2) {
-    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
+    // console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }

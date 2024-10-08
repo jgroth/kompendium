@@ -48,7 +48,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data for a simple class', () => {
+    it('returns the expected data for a simple class', () => {
         const data = parseFile('./src/kompendium/test/fixtures/class.ts');
         expect(data).toEqual([
             {
