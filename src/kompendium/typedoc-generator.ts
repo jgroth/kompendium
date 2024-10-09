@@ -191,15 +191,18 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
         reflection.comment,
         6,
     );
-    logReflection(
-        `--- getMethod reflection.implementationOf for ${reflection.name} ---`,
-        reflection.implementationOf,
-    );
+    // logReflection(
+    //     `--- getMethod reflection.implementationOf for ${reflection.name} ---`,
+    //     reflection.implementationOf,
+    // );
+    if ('declaration' in reflection.type) {
+        logReflection('--- getMethod reflection.type.declaration ---', reflection.type.declaration);
+    }
 
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
     let signature: SignatureReflection;
-    let docs: string = '';
+    let docs: string;
 
     if (reflection.type && reflection.type.type === 'reflection') {
         const declaration = (reflection.type as any).declaration;
@@ -214,7 +217,7 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
                 signature,
             );
             parameters = getParameters(signature);
-            returns = getReturns(signature);
+            returns = getReturns(reflection, signature);
             docs =
                 signature.comment?.summary
                     .map((value: CommentDisplayPart) => value.text?.trim())
@@ -231,11 +234,12 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
         signature.comment,
         3,
     );
+    logReflection('--- getMethod docs ---', docs, 3);
 
     const result = {
         name: reflection.name,
-        docs: docs || getDocs(reflection),
-        docsTags: getDocsTags(signature || reflection),
+        docs: getDocs(reflection),
+        docsTags: getDocsTags(reflection),
         parameters: parameters,
         returns: returns,
     };
@@ -270,15 +274,15 @@ function getParameters(signature: SignatureReflection): ParameterDescription[] {
 }
 
 // @ts-ignore
-function getReturns(signature: SignatureReflection): JsonDocsMethodReturn {
+function getReturns(reflection: DeclarationReflection, signature: SignatureReflection): JsonDocsMethodReturn {
     logReflection('--- getReturns for signature ---', signature);
     logReflection(
         '--- getReturns for signature.comment ---',
-        signature.comment,
+        reflection.comment,
     );
 
     const returnDoc =
-        signature.comment?.blockTags
+        reflection.comment?.blockTags
             ?.find((tag: CommentTag) => tag.tag === '@returns')
             ?.content.map((value: CommentDisplayPart) => value.text?.trim())
             .join(' ') || '';
@@ -348,5 +352,5 @@ function logReflection(
     // @ts-ignore
     depth: number = 3,
 ) {
-    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
+    // console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }

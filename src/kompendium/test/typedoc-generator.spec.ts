@@ -50,7 +50,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data for a simple class', async () => {
+    it('returns the expected data for a simple class', async () => {
         const data = await parseFile('./src/kompendium/test/fixtures/class.ts');
         expect(data).toEqual([
             {
