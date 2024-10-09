@@ -50,7 +50,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for a simple class', async () => {
+    it.only('returns the expected data for a simple class', async () => {
         const data = await parseFile('./src/kompendium/test/fixtures/class.ts');
         expect(data).toEqual([
             {
@@ -261,7 +261,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data for a class implementing an interface', async () => {
+    it('returns the expected data for a class implementing an interface', async () => {
         const data = await parseFile(
             './src/kompendium/test/fixtures/class-implementing-interface.ts',
         );

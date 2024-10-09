@@ -189,7 +189,7 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
     logReflection(
         `--- getMethod reflection.comment for ${reflection.name} ---`,
         reflection.comment,
-        3,
+        6,
     );
     logReflection(
         `--- getMethod reflection.implementationOf for ${reflection.name} ---`,
@@ -303,6 +303,10 @@ function getDocs(reflection: Reflection): string {
 function getDocsTags(reflection: Reflection): JsonDocsTag[] {
     logReflection(
         `--- getDocsTags for ${reflection.name} ---`,
+        reflection,
+    );
+    logReflection(
+        `--- getDocsTags for ${reflection.name} ---`,
         reflection.comment,
     );
 
@@ -342,7 +346,7 @@ function logReflection(
     // @ts-ignore
     reflection: any,
     // @ts-ignore
-    depth: number = 2,
+    depth: number = 3,
 ) {
-    // console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
+    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }
