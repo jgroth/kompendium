@@ -13,7 +13,9 @@ import { createIndex } from './search';
 
 export const kompendium = (config: Partial<KompendiumConfig> = {}) => {
     if (!generateDocs()) {
-        return () => null;
+        return (_: JsonDocs, __: Config): Promise<void> => {
+            return Promise.resolve();
+        };
     }
 
     return kompendiumGenerator(config);
@@ -184,7 +186,7 @@ async function getTypes(
 
     if (types.length === 0 || (await isModified(types, cache))) {
         logger.debug('Parsing types...');
-        const data = parseFile(config.typeRoot);
+        const data = await parseFile(config.typeRoot);
         await saveData(config, data);
         types = data;
     }

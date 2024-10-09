@@ -1,8 +1,10 @@
 import { parseFile } from '../typedoc-generator';
 
 describe('parseFile()', () => {
-    it('returns the expected data for a simple type alias', () => {
-        const data = parseFile('./src/kompendium/test/fixtures/type-alias.ts');
+    it('returns the expected data for a simple type alias', async () => {
+        const data = await parseFile(
+            './src/kompendium/test/fixtures/type-alias.ts',
+        );
         expect(data).toEqual([
             {
                 type: 'alias',
@@ -15,8 +17,8 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for an enum', () => {
-        const data = parseFile('./src/kompendium/test/fixtures/enum.ts');
+    it('returns the expected data for an enum', async () => {
+        const data = await parseFile('./src/kompendium/test/fixtures/enum.ts');
         expect(data).toEqual([
             {
                 type: 'enum',
@@ -48,8 +50,8 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for a simple class', () => {
-        const data = parseFile('./src/kompendium/test/fixtures/class.ts');
+    it('returns the expected data for a simple class', async () => {
+        const data = await parseFile('./src/kompendium/test/fixtures/class.ts');
         expect(data).toEqual([
             {
                 type: 'class',
@@ -115,8 +117,10 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for an interface', () => {
-        const data = parseFile('./src/kompendium/test/fixtures/interface.ts');
+    it('returns the expected data for an interface', async () => {
+        const data = await parseFile(
+            './src/kompendium/test/fixtures/interface.ts',
+        );
         expect(data).toEqual([
             {
                 type: 'interface',
@@ -182,8 +186,8 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for a decorated class', () => {
-        const data = parseFile(
+    it('returns the expected data for a decorated class', async () => {
+        const data = await parseFile(
             './src/kompendium/test/fixtures/decorated-class.ts',
         );
         expect(data).toEqual([
@@ -257,8 +261,8 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data for a class implementing an interface', () => {
-        const data = parseFile(
+    it.only('returns the expected data for a class implementing an interface', async () => {
+        const data = await parseFile(
             './src/kompendium/test/fixtures/class-implementing-interface.ts',
         );
         expect(data).toEqual([
@@ -391,8 +395,8 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data when given basic input', () => {
-        const data = parseFile('./src/kompendium/test/fixtures/basic.ts');
+    it('returns the expected data when given basic input', async () => {
+        const data = await parseFile('./src/kompendium/test/fixtures/basic.ts');
         expect(data).toEqual([
             {
                 type: 'enum',
@@ -560,8 +564,8 @@ describe('parseFile()', () => {
         ]);
     });
 
-    // it('returns the expected data when given advanced input', () => {
-    //     const data = parseFile('./src/kompendium/test/fixtures/advanced.ts');
+    // it('returns the expected data when given advanced input', async () => {
+    //     const data = await parseFile('./src/kompendium/test/fixtures/advanced.ts');
     //     console.log(JSON.stringify(data, null, '    '))
     // });
 });
