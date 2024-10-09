@@ -24,6 +24,7 @@
       "name": "Kiarokh Moattar"
     }
   ],
+  "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -41,8 +42,8 @@
     "postbuild": "copyfiles -f src/kompendium/*.ts dist",
     "start": "stencil build --dev --watch --serve --docs",
     "dev": "stencil build --dev --docs",
-    "test": "stencil test --spec",
-    "test:watch": "stencil test --spec --watchAll",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" stencil test --spec",
+    "test:watch": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" stencil test --spec --watchAll",
     "generate": "stencil generate",
     "semantic-release": "semantic-release",
     "update-changelog": "node scripts/update-changelog",
