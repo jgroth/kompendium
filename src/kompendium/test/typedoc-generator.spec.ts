@@ -92,8 +92,8 @@ describe('parseFile()', () => {
                         docs: 'Convert string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'luhrmann',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/class.ts',
                             },
                         ],
                         name: 'baz',
@@ -130,7 +130,7 @@ describe('parseFile()', () => {
                 sources: ['src/kompendium/test/fixtures/interface.ts'],
                 docsTags: [
                     {
-                        name: 'foo',
+                        name: 'sourceFile',
                         text: 'foobar',
                     },
                 ],
@@ -172,8 +172,8 @@ describe('parseFile()', () => {
                         docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'baz',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/interface.ts',
                             },
                         ],
                         returns: {
@@ -230,8 +230,8 @@ describe('parseFile()', () => {
                         docs: 'Convert string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'baz',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/decorated-class.ts',
                             },
                         ],
                         name: 'baz',
@@ -307,8 +307,8 @@ describe('parseFile()', () => {
                         docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'baz',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/class-implementing-interface.ts',
                             },
                         ],
                         name: 'baz',
@@ -339,7 +339,7 @@ describe('parseFile()', () => {
                 ],
                 docsTags: [
                     {
-                        name: 'foo',
+                        name: 'sourceFile',
                         text: 'foobar',
                     },
                 ],
@@ -381,8 +381,8 @@ describe('parseFile()', () => {
                         docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'baz',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/class-implementing-interface.ts',
                             },
                         ],
                         returns: {
@@ -464,8 +464,8 @@ describe('parseFile()', () => {
                         docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'baz',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/basic.ts',
                             },
                         ],
                         name: 'baz',
@@ -500,7 +500,7 @@ describe('parseFile()', () => {
                 sources: ['src/kompendium/test/fixtures/basic.ts'],
                 docsTags: [
                     {
-                        name: 'foo',
+                        name: 'sourceFile',
                         text: 'foobar',
                     },
                 ],
@@ -542,8 +542,8 @@ describe('parseFile()', () => {
                         docs: 'Do something\n\nFrom string to number',
                         docsTags: [
                             {
-                                name: 'foobar',
-                                text: 'baz',
+                                name: 'sourceFile',
+                                text: 'src/kompendium/test/fixtures/basic.ts',
                             },
                         ],
                         returns: {

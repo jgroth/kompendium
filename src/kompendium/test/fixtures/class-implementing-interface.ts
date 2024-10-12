@@ -2,7 +2,7 @@
  * This is Foo
  *
  * Foo is good
- * @foo foobar
+ * @sourceFile foobar
  */
 export interface Foo {
     /**
@@ -22,7 +22,7 @@ export interface Foo {
      * From string to number
      * @param {string} args the string
      * @returns {number} the number
-     * @foobar baz
+     * @sourceFile src/kompendium/test/fixtures/class-implementing-interface.ts
      */
     baz: (args: string) => number;
 }

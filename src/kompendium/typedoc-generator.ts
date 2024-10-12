@@ -10,6 +10,7 @@ import {
     TypeDocOptions,
     CommentDisplayPart,
     CommentTag,
+    OptionDefaults,
 } from 'typedoc';
 import {
     JsonDocsTag,
@@ -40,6 +41,7 @@ export async function parseFile(filename: string): Promise<TypeDescription[]> {
 
     const options: Partial<TypeDocOptions> = {
         readme: 'none',
+        blockTags: [...OptionDefaults.blockTags, '@sourceFile'],
     };
 
     if (filename.endsWith('.d.ts')) {
