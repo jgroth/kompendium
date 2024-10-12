@@ -193,10 +193,27 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
         reflection.comment,
         6,
     );
-    // logReflection(
-    //     `--- getMethod reflection.implementationOf for ${reflection.name} ---`,
-    //     reflection.implementationOf,
-    // );
+    if (reflection.implementationOf?.reflection) {
+        const superReflection = reflection.implementationOf?.reflection;
+        logReflection(
+            `--- getMethod reflection.implementationOf?.reflection for ${reflection.name} ---`,
+            reflection.implementationOf?.reflection,
+        );
+        if ('isDeclaration' in superReflection && superReflection.isDeclaration()) {
+            logReflection(
+                `--- getMethod superReflection.type for ${reflection.name} ---`,
+                superReflection.type,
+            )
+            if (superReflection.type?.type === 'reflection') {
+                logReflection(
+                    `--- getMethod superReflection.type.declaration.signatures for ${reflection.name} ---`,
+                    superReflection.type.declaration.signatures,
+                    6
+                );
+            }
+        }
+    }
+
     if ('declaration' in reflection.type) {
         logReflection('--- getMethod reflection.type.declaration ---', reflection.type.declaration);
     }
@@ -348,5 +365,5 @@ function logReflection(
     // @ts-ignore
     depth: number = 3,
 ) {
-    // console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
+    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
 }

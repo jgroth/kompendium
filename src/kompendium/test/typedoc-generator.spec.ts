@@ -261,7 +261,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data for a class implementing an interface', async () => {
+    it.only('returns the expected data for a class implementing an interface', async () => {
         const data = await parseFile(
             './src/kompendium/test/fixtures/class-implementing-interface.ts',
         );
@@ -395,7 +395,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data when given basic input', async () => {
+    it('returns the expected data when given basic input', async () => {
         const data = await parseFile('./src/kompendium/test/fixtures/basic.ts');
         expect(data).toEqual([
             {
