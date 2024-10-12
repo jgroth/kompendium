@@ -184,88 +184,72 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
 }
 
 function getMethod(reflection: DeclarationReflection): MethodDescription {
-    logReflection(
-        `--- getMethod reflection for ${reflection.name} ---`,
-        reflection,
-    );
-    logReflection(
-        `--- getMethod reflection.comment for ${reflection.name} ---`,
-        reflection.comment,
-        6,
-    );
-    if (reflection.implementationOf?.reflection) {
-        const superReflection = reflection.implementationOf?.reflection;
-        logReflection(
-            `--- getMethod reflection.implementationOf?.reflection for ${reflection.name} ---`,
-            reflection.implementationOf?.reflection,
-        );
-        if ('isDeclaration' in superReflection && superReflection.isDeclaration()) {
-            logReflection(
-                `--- getMethod superReflection.type for ${reflection.name} ---`,
-                superReflection.type,
-            )
-            if (superReflection.type?.type === 'reflection') {
-                logReflection(
-                    `--- getMethod superReflection.type.declaration.signatures for ${reflection.name} ---`,
-                    superReflection.type.declaration.signatures,
-                    6
-                );
-            }
-        }
-    }
-
-    if ('declaration' in reflection.type) {
-        logReflection('--- getMethod reflection.type.declaration ---', reflection.type.declaration);
-    }
+    logReflection(`--- getMethod reflection for ${reflection.name} ---`, reflection);
 
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
     let signature: SignatureReflection;
     let docs: string;
 
+    // Check if the method is inheriting documentation
+    const inheritedReflection = getInheritedReflection(reflection);
+
     if (reflection.type && reflection.type.type === 'reflection') {
         const declaration = (reflection.type as any).declaration;
-        if (
-            declaration &&
-            declaration.signatures &&
-            declaration.signatures.length > 0
-        ) {
+        if (declaration && declaration.signatures && declaration.signatures.length > 0) {
             signature = declaration.signatures[0];
-            logReflection(
-                '--- getting parameters and returns from declaration.signatures[0] ---',
-                signature,
-            );
+            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature);
             parameters = getParameters(signature);
             returns = getReturns(reflection, signature);
-            docs =
-                signature.comment?.summary
-                    .map((value: CommentDisplayPart) => value.text?.trim())
-                    .join(' ') || '';
+            docs = getDocsFromSignature(signature);
         }
     }
 
-    logReflection(
-        `--- getMethod signature for ${reflection.name} ---`,
-        signature,
-    );
-    logReflection(
-        `--- getMethod signature.comment for ${reflection.name} ---`,
-        signature.comment,
-        3,
-    );
-    logReflection('--- getMethod docs ---', docs, 3);
+    // Fallback to inherited documentation if no docs are found on the current reflection
+    if (!docs && inheritedReflection) {
+        logReflection(`--- Using inherited documentation for ${reflection.name} ---`, inheritedReflection);
+        // @ts-ignore
+        const inheritedSignature = inheritedReflection.type.declaration.signatures[0];
+        parameters = getParameters(inheritedSignature);
+        returns = getReturns(inheritedReflection, inheritedSignature);
+        docs = getDocsFromSignature(inheritedSignature);
+    }
 
     const result = {
         name: reflection.name,
-        docs: getDocs(reflection),
+        docs,
         docsTags: getDocsTags(reflection),
-        parameters: parameters,
-        returns: returns,
+        parameters,
+        returns,
     };
 
     logReflection('--- getMethod result ---', result, 3);
 
     return result;
+}
+
+// Helper function to retrieve inherited reflection
+function getInheritedReflection(reflection: DeclarationReflection): DeclarationReflection | undefined {
+    if (reflection.implementationOf?.reflection) {
+        const superReflection = reflection.implementationOf.reflection;
+        // @ts-ignore
+        if ('type' in superReflection && superReflection.type?.type === 'reflection') {
+            // @ts-ignore
+            const declaration = superReflection.type.declaration;
+            if (declaration && declaration.signatures && declaration.signatures.length > 0) {
+                // @ts-ignore
+                return superReflection;
+            }
+        }
+    }
+    return undefined;
+}
+
+// Helper function to extract docs from a signature
+function getDocsFromSignature(signature: SignatureReflection): string {
+    return signature.comment?.summary
+        .map((value: CommentDisplayPart) => value.text?.trim())
+        .join(' ') || '';
 }
 
 // @ts-ignore
