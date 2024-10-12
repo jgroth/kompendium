@@ -277,14 +277,8 @@ function getParameters(signature: SignatureReflection): ParameterDescription[] {
 
 // @ts-ignore
 function getReturns(reflection: DeclarationReflection, signature: SignatureReflection): JsonDocsMethodReturn {
-    logReflection('--- getReturns for signature ---', signature);
-    logReflection(
-        '--- getReturns for signature.comment ---',
-        reflection.comment,
-    );
-
     const returnDoc =
-        reflection.comment?.blockTags
+        signature.comment?.blockTags
             ?.find((tag: CommentTag) => tag.tag === '@returns')
             ?.content.map((value: CommentDisplayPart) => value.text?.trim())
             .join(' ') || '';
