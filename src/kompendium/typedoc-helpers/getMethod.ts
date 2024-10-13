@@ -8,50 +8,63 @@ import { getInheritedReflection } from "./getInheritedReflection";
 import { getParameters } from "./getParameters";
 import { getReturns } from "./getReturns";
 import { log } from "./logger";
+import { compileGetMethodOutput } from "./compileGetMethodOutput";
 
 export function getMethod(reflection: DeclarationReflection): MethodDescription {
-    log(`--- getMethod reflection for ${reflection.name} ---`, reflection);
     let parameters: ParameterDescription[] = [];
     let returns: JsonDocsMethodReturn = { type: '', docs: '' };
-    let signature: SignatureReflection;
-    let docs: string = getDocs(reflection); // Direct docs from reflection
+    let docs: string = getDocs(reflection);
+    let signatureDocs;
+    let inheritedSignatureDocs;
 
-    // Check if the method is inheriting documentation
     const inheritedReflection = getInheritedReflection(reflection);
 
-    if (reflection.type && reflection.type.type === 'reflection') {
-        const declaration = (reflection.type as any).declaration;
-        if (
-            declaration &&
-            declaration.signatures &&
-            declaration.signatures.length > 0
-        ) {
-            signature = declaration.signatures[0];
-            log('--- getting parameters and returns from declaration.signatures[0] ---', signature);
-            parameters = getParameters(signature);
-            returns = getReturns(signature);
-            docs = getDocsFromSignature(signature); // Try to extract docs from signature
+    const signature = getSignatureFromReflection(reflection);
+    if (signature) {
+        signatureDocs = getFromSignature(signature);
+    }
+
+    if (inheritedReflection) {
+        if (inheritedReflection.type?.type === 'reflection') {
+            const inheritedSignature =
+                inheritedReflection.type.declaration.signatures[0];
+            inheritedSignatureDocs = getFromSignature(inheritedSignature);
         }
     }
 
-    // Fallback to inherited documentation if no docs are found on the current reflection
-    if (!docs && inheritedReflection) {
-        log(`--- Using inherited documentation for ${reflection.name} ---`, inheritedReflection);
-        const inheritedSignature =
-            // @ts-ignore
-            inheritedReflection.type.declaration.signatures[0];
-        parameters = getParameters(inheritedSignature);
-        returns = getReturns(inheritedSignature);
-        docs = getDocsFromSignature(inheritedSignature); // Get docs from inherited signature
-    }
-
-    const result = {
+    const all = {
         name: reflection.name,
-        docs: docs, // Using the fallback docs if needed
+        docs: docs,
         docsTags: getDocsTags(reflection),
         parameters: parameters,
         returns: returns,
+        signatureParameters: signatureDocs?.parameters,
+        signatureReturns: signatureDocs?.returns,
+        signatureDocs: signatureDocs?.docs,
+        inheritedSignatureParameters: inheritedSignatureDocs?.parameters,
+        inheritedSignatureReturns: inheritedSignatureDocs?.returns,
+        inheritedSignatureDocs: inheritedSignatureDocs?.docs,
     };
-    log('--- getMethod result ---', result, 3);
+    log('getMethod all', all, 6);
+    const result = compileGetMethodOutput(all);
+    log('getMethod result', result, 6);
     return result;
+}
+
+function getSignatureFromReflection(reflection: DeclarationReflection) {
+    if (reflection.type?.type === 'reflection') {
+        const declaration = (reflection.type as any).declaration;
+        if (declaration?.signatures?.length > 0) {
+            return declaration.signatures[0];
+        }
+    }
+    return undefined;
+}
+
+function getFromSignature(signature: SignatureReflection) {
+    return {
+        parameters: getParameters(signature),
+        returns: getReturns(signature),
+        docs: getDocsFromSignature(signature),
+    };
 }

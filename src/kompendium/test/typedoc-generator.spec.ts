@@ -395,7 +395,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data when given basic input', async () => {
+    it('returns the expected data when given basic input', async () => {
         const data = await parseFile('./src/kompendium/test/fixtures/basic.ts');
         expect(data).toEqual([
             {
