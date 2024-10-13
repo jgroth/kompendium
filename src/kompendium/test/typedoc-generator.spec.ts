@@ -261,7 +261,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it.only('returns the expected data for a class implementing an interface', async () => {
+    it('returns the expected data for a class implementing an interface', async () => {
         const data = await parseFile(
             './src/kompendium/test/fixtures/class-implementing-interface.ts',
         );
@@ -395,7 +395,7 @@ describe('parseFile()', () => {
         ]);
     });
 
-    it('returns the expected data when given basic input', async () => {
+    it.only('returns the expected data when given basic input', async () => {
         const data = await parseFile('./src/kompendium/test/fixtures/basic.ts');
         expect(data).toEqual([
             {
@@ -422,6 +422,40 @@ describe('parseFile()', () => {
                         value: '"red"',
                         docs: 'The red color',
                         docsTags: [],
+                    },
+                ],
+            },
+            {
+                docs: 'This is a generic class with two type parameters',
+                docsTags: [],
+                methods: [],
+                name: 'Pair',
+                props: [
+                    {
+                        default: undefined,
+                        docs: 'the first value',
+                        docsTags: [],
+                        name: 'first',
+                        optional: false,
+                        type: 'T',
+                    },
+                    {
+                        default: undefined,
+                        docs: 'the second value',
+                        docsTags: [],
+                        name: 'second',
+                        optional: false,
+                        type: 'U',
+                    },
+                ],
+                sources: ['src/kompendium/test/fixtures/basic.ts'],
+                type: 'class',
+                typeParams: [
+                    {
+                        name: 'T',
+                    },
+                    {
+                        name: 'U',
                     },
                 ],
             },
@@ -491,6 +525,29 @@ describe('parseFile()', () => {
                 //         arguments: { _config: "{ name: 'gg' }" },
                 //     },
                 // ],
+            },
+            {
+                docs: 'This is a generic interface with a type parameter',
+                docsTags: [],
+                methods: [],
+                name: 'Container',
+                props: [
+                    {
+                        default: undefined,
+                        docs: '',
+                        docsTags: [],
+                        name: 'value',
+                        optional: false,
+                        type: 'T',
+                    },
+                ],
+                sources: ['src/kompendium/test/fixtures/basic.ts'],
+                type: 'interface',
+                typeParams: [
+                    {
+                        name: 'T',
+                    },
+                ],
             },
             {
                 type: 'interface',

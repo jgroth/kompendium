@@ -1,35 +1,28 @@
-import * as path from 'path';
 import {
     Application,
     DeclarationReflection,
     ReflectionKind,
-    SignatureReflection,
     Reflection,
     TSConfigReader,
     TypeDocReader,
     TypeDocOptions,
-    CommentDisplayPart,
-    CommentTag,
     OptionDefaults,
 } from 'typedoc';
-import {
-    JsonDocsTag,
-    JsonDocsProp,
-    JsonDocsMethodReturn,
-} from '@stencil/core/internal';
+import { JsonDocsProp } from '@stencil/core/internal';
 import {
     InterfaceDescription,
     AliasDescription,
     EnumDescription,
     EnumMember,
     TypeDescription,
-    MethodDescription,
-    ParameterDescription,
     ClassDescription,
 } from '../types';
 import { existsSync } from 'fs';
-// @ts-ignore
-import * as util from 'util';
+import { getDocs } from './typedoc-helpers/getDocs';
+import { getDocsTags } from './typedoc-helpers/getDocsTags';
+import { getSources } from './typedoc-helpers/getSources';
+import { getTypeParams } from './typedoc-helpers/getTypeParams';
+import { getMethod } from './typedoc-helpers/getMethod';
 
 export async function parseFile(filename: string): Promise<TypeDescription[]> {
     if (!existsSync(filename)) {
@@ -79,12 +72,12 @@ const fns = {
 };
 
 const traverseCallback = (data: any) => (reflection: Reflection) => {
-    logReflection(
-        '--- traverseCallback reflection.kind ---',
-        ReflectionKind.singularString(reflection.kind),
-    );
-    logReflection('--- traverseCallback reflection.name ---', reflection.name);
-    logReflection('--- traverseCallback reflection ---', reflection);
+    // log(
+    //     '--- traverseCallback reflection.kind ---',
+    //     ReflectionKind.singularString(reflection.kind),
+    // );
+    // log('--- traverseCallback reflection.name ---', reflection.name);
+    // log('--- traverseCallback reflection ---', reflection);
     const fn = fns[reflection.kind];
     if (fn) {
         fn(reflection, data);
@@ -148,13 +141,17 @@ function addEnum(reflection: DeclarationReflection, data: EnumDescription[]) {
 }
 
 function addEnumMember(reflection: DeclarationReflection, data: EnumMember[]) {
-    logReflection('--- addEnumMember ---', reflection);
+    // log('--- addEnumMember ---', reflection);
+    let value = '';
+    if (reflection.type.type === 'literal') {
+        value = `"${reflection.type.value.toString()}"`;
+    }
+
     data.push({
         name: reflection.name,
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
-        value:
-            reflection.type.type === 'literal'? `"${reflection.type.value.toString()}"`: '',
+        value: value,
     });
 }
 
@@ -183,171 +180,4 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
     };
 }
 
-function getMethod(reflection: DeclarationReflection): MethodDescription {
-    logReflection(`--- getMethod reflection for ${reflection.name} ---`, reflection);
 
-    let parameters: ParameterDescription[] = [];
-    let returns: JsonDocsMethodReturn = { type: '', docs: '' };
-    let signature: SignatureReflection;
-    let docs: string;
-
-    // Check if the method is inheriting documentation
-    const inheritedReflection = getInheritedReflection(reflection);
-
-    if (reflection.type && reflection.type.type === 'reflection') {
-        const declaration = (reflection.type as any).declaration;
-        if (declaration && declaration.signatures && declaration.signatures.length > 0) {
-            signature = declaration.signatures[0];
-            logReflection('--- getting parameters and returns from declaration.signatures[0] ---', signature);
-            parameters = getParameters(signature);
-            returns = getReturns(reflection, signature);
-            docs = getDocsFromSignature(signature);
-        }
-    }
-
-    // Fallback to inherited documentation if no docs are found on the current reflection
-    if (!docs && inheritedReflection) {
-        logReflection(`--- Using inherited documentation for ${reflection.name} ---`, inheritedReflection);
-        // @ts-ignore
-        const inheritedSignature = inheritedReflection.type.declaration.signatures[0];
-        parameters = getParameters(inheritedSignature);
-        returns = getReturns(inheritedReflection, inheritedSignature);
-        docs = getDocsFromSignature(inheritedSignature);
-    }
-
-    const result = {
-        name: reflection.name,
-        docs,
-        docsTags: getDocsTags(reflection),
-        parameters,
-        returns,
-    };
-
-    logReflection('--- getMethod result ---', result, 3);
-
-    return result;
-}
-
-// Helper function to retrieve inherited reflection
-function getInheritedReflection(reflection: DeclarationReflection): DeclarationReflection | undefined {
-    if (reflection.implementationOf?.reflection) {
-        const superReflection = reflection.implementationOf.reflection;
-        // @ts-ignore
-        if ('type' in superReflection && superReflection.type?.type === 'reflection') {
-            // @ts-ignore
-            const declaration = superReflection.type.declaration;
-            if (declaration && declaration.signatures && declaration.signatures.length > 0) {
-                // @ts-ignore
-                return superReflection;
-            }
-        }
-    }
-    return undefined;
-}
-
-// Helper function to extract docs from a signature
-function getDocsFromSignature(signature: SignatureReflection): string {
-    return signature.comment?.summary
-        .map((value: CommentDisplayPart) => value.text?.trim())
-        .join(' ') || '';
-}
-
-// @ts-ignore
-function getParameters(signature: SignatureReflection): ParameterDescription[] {
-    logReflection('--- getParameters for signature ---', signature);
-
-    return (
-        signature.parameters?.map((param) => {
-            logReflection('--- getParameters param ---', param);
-            logReflection('--- getParameters param.comment ---', param.comment);
-            const paramDoc =
-                param.comment?.summary
-                    .map((value: CommentDisplayPart) => value.text?.trim())
-                    .join(' ') || '';
-
-            return {
-                name: param.name,
-                type: param.type?.toString() || '',
-                docs: paramDoc,
-                default: param.defaultValue,
-                optional: param.flags.isOptional,
-            };
-        }) || []
-    );
-}
-
-// @ts-ignore
-function getReturns(reflection: DeclarationReflection, signature: SignatureReflection): JsonDocsMethodReturn {
-    const returnDoc =
-        signature.comment?.blockTags
-            ?.find((tag: CommentTag) => tag.tag === '@returns')
-            ?.content.map((value: CommentDisplayPart) => value.text?.trim())
-            .join(' ') || '';
-
-    return {
-        type: signature.type?.toString() || '',
-        docs: returnDoc,
-    };
-}
-
-function getDocs(reflection: Reflection): string {
-    return [
-        reflection.comment?.summary
-            .map((value: CommentDisplayPart) => value.text?.trim())
-            .join(' '),
-    ]
-        .filter(Boolean)
-        .join('\n')
-        .trim();
-}
-
-function getDocsTags(reflection: Reflection): JsonDocsTag[] {
-    logReflection(
-        `--- getDocsTags for ${reflection.name} ---`,
-        reflection,
-    );
-    logReflection(
-        `--- getDocsTags for ${reflection.name} ---`,
-        reflection.comment,
-    );
-
-    return (
-        reflection.comment?.blockTags
-            ?.filter(
-                (tag: CommentTag) =>
-                    tag.tag !== '@param' && tag.tag !== '@returns',
-            )
-            .map((tag: CommentTag) => ({
-                name: tag.tag.replace(/^@/, '').trim(),
-                text:
-                    tag.content?.map((val) => val.text?.trim()).join(' ') || '',
-            })) || []
-    );
-}
-
-function getTypeParams(reflection: DeclarationReflection) {
-    return (
-        reflection.typeParameters?.map((param) => ({
-            name: param.name,
-        })) || []
-    );
-}
-
-function getSources(reflection: DeclarationReflection) {
-    return (
-        reflection.sources?.map((source) =>
-            path.relative(process.cwd(), source.fullFileName),
-        ) || []
-    );
-}
-
-function logReflection(
-    // @ts-ignore
-    description: string,
-    // @ts-ignore
-    reflection: any,
-    // @ts-ignore
-    depth: number = 3,
-) {
-    console.log(`\n${description}\n\n`, util.inspect(reflection, { depth: depth, colors: true }));
-}

@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 type DecoratorConfig = {
     /**
      * This is the name
@@ -89,4 +91,46 @@ export class Zap implements Foo {
      * @inheritDoc
      */
     baz: (args: string) => number;
+}
+
+/**
+ * This is a generic interface with a type parameter
+ * @template T the type
+ */
+export interface Container<T> {
+    value: T;
+}
+
+/**
+ * This is a generic class with two type parameters
+ * @template T the first type
+ * @template U the second type
+ */
+export class Pair<T, U> {
+    /**
+     * The constructor
+     * @param {T} first the first value
+     * @param {U} second the second value
+     */
+    constructor(
+        public first: T,
+        public second: U,
+    ) {}
+
+    /**
+     * Get the first value
+     * @returns {T} the first value
+     */
+    public getFirst(): T {
+        return this.first;
+    }
+}
+
+/**
+ * This is a function with a type parameter
+ * @param {T} arg the argument
+ * @returns {T} the same argument
+ */
+export function identity<T>(arg: T): T {
+    return arg;
 }
