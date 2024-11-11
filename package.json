@@ -61,7 +61,6 @@
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.8.0",
     "@stencil/core": "^4.22.2",
-    "@stencil/router": "^1.0.1",
     "@stencil/sass": "^3.0.12",
     "@types/jest": "^29.5.13",
     "@types/prismjs": "^1.16.5",
@@ -83,6 +82,7 @@
     "puppeteer": "^23.5.1",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "tmp": "^0.1.0",
+    "urlpattern-polyfill": "^10.0.0",
     "yargs": "^15.4.0"
   },
   "dependencies": {

@@ -95,6 +95,46 @@ export class App {
             );
         }
 
+        const routes = [
+            {
+                path: '/',
+                name: 'kompendium-markdown',
+                props: { text: this.data.readme },
+            },
+            {
+                path: '/component/:name/:section?',
+                name: 'kompendium-component',
+                props: {
+                    docs: this.data.docs,
+                    schemas: this.data.schemas,
+                    examplePropsFactory: this.examplePropsFactory,
+                },
+            },
+            {
+                path: '/type/:name',
+                name: 'kompendium-type',
+                props: {
+                    types: this.data.types,
+                },
+            },
+            {
+                path: '/debug/:name',
+                name: 'kompendium-debug',
+                props: {
+                    docs: this.data.docs,
+                    schemas: this.data.schemas,
+                    examplePropsFactory: this.examplePropsFactory,
+                },
+            },
+            {
+                path: '',
+                name: 'kompendium-guide',
+                props: {
+                    data: this.data,
+                },
+            },
+        ];
+
         return (
             <div class="kompendium-body">
                 <kompendium-navigation
@@ -104,51 +144,7 @@ export class App {
                     index={this.index}
                 />
                 <main role="main">
-                    <stencil-router historyType="hash">
-                        <stencil-route-switch scrollTopOffset={0}>
-                            <stencil-route
-                                url="/"
-                                component="kompendium-markdown"
-                                componentProps={{
-                                    text: this.data.readme,
-                                }}
-                                exact={true}
-                            />
-                            <stencil-route
-                                url="/component/:name/:section?"
-                                component="kompendium-component"
-                                componentProps={{
-                                    docs: this.data.docs,
-                                    schemas: this.data.schemas,
-                                    examplePropsFactory:
-                                        this.examplePropsFactory,
-                                }}
-                            />
-                            <stencil-route
-                                url="/type/:name"
-                                component="kompendium-type"
-                                componentProps={{
-                                    types: this.data.types,
-                                }}
-                            />
-                            <stencil-route
-                                url="/debug/:name"
-                                component="kompendium-debug"
-                                componentProps={{
-                                    docs: this.data.docs,
-                                    schemas: this.data.schemas,
-                                    examplePropsFactory:
-                                        this.examplePropsFactory,
-                                }}
-                            />
-                            <stencil-route
-                                component="kompendium-guide"
-                                componentProps={{
-                                    data: this.data,
-                                }}
-                            />
-                        </stencil-route-switch>
-                    </stencil-router>
+                    <kompendium-router routes={routes} />
                 </main>
             </div>
         );

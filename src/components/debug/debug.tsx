@@ -4,7 +4,6 @@ import {
     JsonDocsComponent,
     JsonDocsTag,
 } from '@stencil/core/internal';
-import { MatchResults } from '@stencil/router';
 import { PropsFactory } from '../playground/playground.types';
 
 @Component({
@@ -24,11 +23,8 @@ export class KompendiumDebug {
     @Prop()
     public schemas: Array<Record<string, any>>;
 
-    /**
-     * Matched route parameters
-     */
     @Prop()
-    public match: MatchResults;
+    public name: string;
 
     /**
      * Factory for creating props for example components
@@ -38,7 +34,7 @@ export class KompendiumDebug {
     public examplePropsFactory?: PropsFactory = () => ({});
 
     public render(): HTMLElement {
-        const tag = this.match.params.name;
+        const tag = this.name;
         const component = findComponent(tag, this.docs);
 
         return (

@@ -4,7 +4,6 @@ import {
     JsonDocsComponent,
     JsonDocsTag,
 } from '@stencil/core/internal';
-import { MatchResults } from '@stencil/router';
 import { PropertyList } from './templates/props';
 import { EventList } from './templates/events';
 import { MethodList } from './templates/methods';
@@ -32,11 +31,8 @@ export class KompendiumComponent {
     @Prop()
     public schemas: Array<Record<string, any>>;
 
-    /**
-     * Matched route parameters
-     */
     @Prop()
-    public match: MatchResults;
+    public name: string;
 
     /**
      * Factory for creating props for example components
@@ -88,7 +84,7 @@ export class KompendiumComponent {
     }
 
     public render(): HTMLElement {
-        const tag = this.match.params.name;
+        const tag = this.name;
         const component = findComponent(tag, this.docs);
 
         return (
