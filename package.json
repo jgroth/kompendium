@@ -60,7 +60,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.8.0",
-    "@stencil/core": "^4.22.1",
+    "@stencil/core": "^4.22.2",
     "@stencil/router": "^1.0.1",
     "@stencil/sass": "^3.0.12",
     "@types/jest": "^29.5.13",
