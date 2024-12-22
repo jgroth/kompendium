@@ -32,9 +32,23 @@ export class Router {
     @State()
     private matchedComponent: MatchedComponent | undefined;
 
+    private hashChangeHandler = () => {
+        this.setMatchedComponent(window.location);
+    };
+
     public componentWillLoad() {
-        const location = window.location;
-        this.setMatchedComponent(location);
+        // Set it once now
+        this.setMatchedComponent(window.location);
+    }
+
+    public componentDidLoad() {
+        // Listen for subsequent changes
+        window.addEventListener('hashchange', this.hashChangeHandler);
+    }
+
+    public disconnectedCallback() {
+        // Clean up
+        window.removeEventListener('hashchange', this.hashChangeHandler);
     }
 
     public render() {
@@ -74,9 +88,7 @@ export class Router {
     }
 
     private isMatched = (location: Location) => (route: RoutedComponent) => {
-        const pattern = new URLPattern({
-            hash: route.path,
-        });
+        const pattern = new URLPattern({ hash: route.path });
 
         return pattern.test(location.href);
     };
