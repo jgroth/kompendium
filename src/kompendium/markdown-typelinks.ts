@@ -7,6 +7,8 @@ export function typeLinks(options: any = {}): (tree) => any {
 const transformer =
     (types: string[] = []) =>
     (tree): any => {
+        console.log('typeLinks transformer -> types', types,);
+        console.log('typeLinks transformer -> tree', tree);
         if (types.length === 0) {
             return tree;
         }
@@ -17,6 +19,8 @@ const transformer =
 const mapCodeNode =
     (types: string[] = []) =>
     (node, _, parent) => {
+        console.log('typeLinks mapCodeNode -> node', node);
+        console.log('typeLinks mapCodeNode -> parent', parent);
         if (node.type !== 'text') {
             return [node];
         }
@@ -33,6 +37,8 @@ const mapCodeNode =
     };
 
 export function wrapText(node: any, types: string[] = []) {
+    console.log('wrapText -> node', node);
+    console.log('wrapText -> types', types);
     return splitTypeString(node.value).map(createNode(types));
 }
 
@@ -47,14 +53,16 @@ const createNode =
     };
 
 function createTextNode(text: string) {
-    return {
+    const result = {
         type: 'text',
         value: text,
     };
+    console.log('createTextNode -> result', result);
+    return result;
 }
 
 function createLinkNode(type: string) {
-    return {
+    const result = {
         type: 'element',
         tagName: 'a',
         properties: {
@@ -67,9 +75,12 @@ function createLinkNode(type: string) {
             },
         ],
     };
+    console.log('createLinkNode -> result', result);
+    return result;
 }
 
 export function splitTypeString(typeString: string): string[] {
+    console.log('splitTypeString -> typeString', typeString);
     const pattern = /(\b\w+\b)+/g;
     const types = typeString.match(pattern);
     const result: string[] = [];
@@ -88,6 +99,6 @@ export function splitTypeString(typeString: string): string[] {
     if (currentString.length > 0) {
         result.push(currentString);
     }
-
+    console.log('splitTypeString -> result', result);
     return result;
 }

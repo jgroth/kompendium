@@ -58,6 +58,9 @@ export class KompendiumComponent {
     }
 
     protected componentDidLoad(): void {
+        console.log('KompendiumComponent -> componentDidLoad -> this.docs', this.docs);
+        console.log('KompendiumComponent -> componentDidLoad -> this.schemas', this.schemas);
+        console.log('KompendiumComponent -> componentDidLoad -> this.name', this.name);
         const route = this.getRoute();
         this.scrollToElement(route);
     }
@@ -86,6 +89,8 @@ export class KompendiumComponent {
     public render(): HTMLElement {
         const tag = this.name;
         const component = findComponent(tag, this.docs);
+        console.log('KompendiumComponent -> render -> tag', tag);
+        console.log('KompendiumComponent -> render -> component', component);
 
         return (
             <article class="component">
@@ -104,6 +109,8 @@ export class KompendiumComponent {
             .filter(negate(isTag('slot')))
             .filter(negate(isTag('exampleComponent')));
         const schema = this.schemas.find((s) => s.$id === tag);
+
+        console.log('KompendiumComponent -> renderDocs -> component.docs', component.docs);
 
         return [
             <h1 id={this.getId()}>{title}</h1>,

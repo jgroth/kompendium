@@ -33,6 +33,8 @@ export async function markdownToHtml(text: string, types = []): Promise<File> {
             .use(kompendiumCode)
             .use(html)
             .process(text, (_, file) => {
+                console.log(' markdownToHtml -> file', file,);
+                console.log(' markdownToHtml -> text', text);
                 resolve(file);
             });
     });

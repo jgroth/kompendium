@@ -5,10 +5,12 @@ export function kompendiumCode(): (tree) => any {
 }
 
 function transformer(tree) {
+    console.log('kompendiumCode transformer -> tree', tree);
     return map(tree, mapCodeNode);
 }
 
 function mapCodeNode(node) {
+    console.log('kompendiumCode mapCodeNode -> node', node);
     if (node.type !== 'element') {
         return node;
     }
@@ -22,7 +24,7 @@ function mapCodeNode(node) {
         return node;
     }
 
-    return {
+    const result = {
         ...node,
         type: 'element',
         tagName: 'kompendium-code',
@@ -31,9 +33,12 @@ function mapCodeNode(node) {
         },
         children: [],
     };
+    console.log('kompendiumCode mapCodeNode -> result', result);
+    return result;
 }
 
 function getLanguage(props: { className?: string[] }) {
+    console.log('getLanguage -> props', props);
     if (!props) {
         return;
     }
@@ -48,6 +53,6 @@ function getLanguage(props: { className?: string[] }) {
     if (!languageClass) {
         return;
     }
-
+    console.log('getLanguage -> languageClass', languageClass);
     return languageClass.replace('language-', '');
 }
