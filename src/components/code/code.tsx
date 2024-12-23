@@ -9,6 +9,8 @@ import 'prismjs/plugins/toolbar/prism-toolbar.js';
 import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js';
 
 /**
+ * This component is used to render source-code in a nicely formatted way.
+ *
  * @exampleComponent kompendium-example-code
  */
 @Component({

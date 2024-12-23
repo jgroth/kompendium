@@ -6,6 +6,9 @@ import foo from 'foo';
 foo();
 `;
 
+/**
+ * Very simple example of a code snippet
+ */
 @Component({
     tag: 'kompendium-example-code',
     shadow: true,
