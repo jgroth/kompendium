@@ -40,7 +40,7 @@ export function kompendiumGenerator(
             getProjectTitle(config),
             getReadme(),
             findGuides(config),
-            getTypes(config),
+            getTypes(config, stencilConfig.tsconfig),
         ]);
 
         const data: KompendiumData = {
@@ -190,6 +190,7 @@ function isProd(): boolean {
 
 async function getTypes(
     config: Partial<KompendiumConfig>,
+    tsconfig?: string,
 ): Promise<TypeDescription[]> {
     logger.debug('Getting type information...');
     let types = await readTypes(config);
@@ -197,7 +198,7 @@ async function getTypes(
 
     if (types.length === 0 || (await isModified(types, cache))) {
         logger.debug('Parsing types...');
-        const data = parseFile(config.typeRoot);
+        const data = parseFile(config.typeRoot, tsconfig);
         await saveData(config, data);
         types = data;
     }
@@ -213,10 +214,21 @@ async function isModified(types: any[], cache: Record<string, number>) {
     let filenames = types.map((t) => t.sources).flat();
     filenames = [...new Set(filenames)];
 
-    const stats = await Promise.all(filenames.map(stat));
+    // Handle stat errors gracefully - if a file can't be stat'd, assume it's modified
+    const stats = await Promise.all(
+        filenames.map((filename) => stat(filename).catch(() => null)),
+    );
 
     return stats.some((data, index) => {
         const filename = filenames[index];
+
+        // If stat failed, consider the file modified
+        if (!data) {
+            logger.debug(`${filename} cannot be accessed, marking as modified`);
+
+            return true;
+        }
+
         const result = cache[filename] !== data.mtimeMs;
 
         logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
@@ -232,12 +244,17 @@ async function saveData(
     let filenames = types.map((t) => t.sources).flat();
     filenames = [...new Set(filenames)];
 
-    const stats = await Promise.all(filenames.map(stat));
+    // Handle stat errors gracefully - skip files that can't be accessed
+    const stats = await Promise.all(
+        filenames.map((filename) => stat(filename).catch(() => null)),
+    );
 
     const cache = {};
     stats.forEach((data, index) => {
-        const filename = filenames[index];
-        cache[filename] = data.mtimeMs;
+        if (data) {
+            const filename = filenames[index];
+            cache[filename] = data.mtimeMs;
+        }
     });
 
     await Promise.all([writeCache(config, cache), writeTypes(config, types)]);

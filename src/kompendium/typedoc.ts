@@ -1,22 +1,14 @@
 import {
     Application,
-    Decorator,
     Reflection,
     ReflectionKind,
     DeclarationReflection,
-    TypeDocAndTSOptions,
-} from 'typedoc';
-import {
+    TypeDocOptions,
     CommentTag,
-    ParameterReflection,
-    SignatureReflection,
-} from 'typedoc/dist/lib/models';
-import {
-    JsonDocsTag,
-    JsonDocsProp,
-    JsonDocsMethodReturn,
-} from '@stencil/core/internal';
-import negate from 'lodash/negate';
+    TypeDocReader,
+    TSConfigReader,
+} from 'typedoc';
+import { JsonDocsTag, JsonDocsProp } from '@stencil/core/internal';
 import {
     InterfaceDescription,
     AliasDescription,
@@ -26,15 +18,15 @@ import {
     MethodDescription,
     ParameterDescription,
     ClassDescription,
+    DecoratorDescription,
 } from '../types';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
+import * as ts from 'typescript';
 
-interface MethodSignature {
-    parameters: ParameterDescription[];
-    returns: JsonDocsMethodReturn;
-}
-
-export function parseFile(filename: string): TypeDescription[] {
+export function parseFile(
+    filename: string,
+    tsconfig?: string,
+): TypeDescription[] {
     if (!existsSync(filename)) {
         // eslint-disable-next-line no-console
         console.warn('typeRoot file does not exist', filename);
@@ -42,21 +34,33 @@ export function parseFile(filename: string): TypeDescription[] {
         return [];
     }
 
+    // TypeDoc 0.23 still uses the synchronous API with new Application()
     const app = new Application();
-    const options: Partial<TypeDocAndTSOptions> = {
-        readme: 'none',
-        ignoreCompilerErrors: true,
+
+    // Use current working directory as TypeDoc's base path for clean relative paths
+    const projectRoot = process.cwd();
+
+    const options: Partial<TypeDocOptions> = {
+        entryPoints: [filename],
+        skipErrorChecking: true,
+        basePath: projectRoot,
     };
 
+    if (tsconfig) {
+        options.tsconfig = tsconfig;
+    }
+
     if (filename.endsWith('.d.ts')) {
-        options.includeDeclarations = true;
+        // TypeDoc 0.23+ handles .d.ts files automatically
         options.exclude = ['**/+(*test*|node_modules)/**'];
     }
 
+    app.options.addReader(new TypeDocReader());
+    app.options.addReader(new TSConfigReader());
     app.bootstrap(options);
 
-    const reflection = app.convert([filename]);
-    if (!reflection) {
+    const project = app.convert();
+    if (!project) {
         // eslint-disable-next-line no-console
         console.warn('Could not find any type information');
 
@@ -64,7 +68,42 @@ export function parseFile(filename: string): TypeDescription[] {
     }
 
     const data: TypeDescription[] = [];
-    reflection.traverse(traverseCallback(data));
+
+    // TypeDoc 0.23.28 traverse() only visits top-level exports from entry points.
+    // For files with re-exports (like dist/types/index.d.ts that re-exports from
+    // ./components and ./interface), nested types won't be visited.
+    // Use getReflectionsByKind() to get ALL types regardless of module nesting.
+    const interfaces = project.getReflectionsByKind(ReflectionKind.Interface);
+    const classes = project.getReflectionsByKind(ReflectionKind.Class);
+    const typeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
+    const enums = project.getReflectionsByKind(ReflectionKind.Enum);
+
+    interfaces.forEach((reflection) =>
+        addInterface(reflection as DeclarationReflection, data as any),
+    );
+    classes.forEach((reflection) =>
+        addClass(reflection as DeclarationReflection, data as any),
+    );
+    typeAliases.forEach((reflection) =>
+        addType(reflection as DeclarationReflection, data as any),
+    );
+    enums.forEach((reflection) => {
+        const members: EnumMember[] = [];
+        const enumReflection = reflection as DeclarationReflection;
+        enumReflection.children?.forEach((child) => {
+            if (child.kind === ReflectionKind.EnumMember) {
+                addEnumMember(child as DeclarationReflection, members);
+            }
+        });
+        data.push({
+            type: 'enum',
+            name: enumReflection.name,
+            docs: getDocs(enumReflection),
+            docsTags: getDocsTags(enumReflection),
+            members: members,
+            sources: getSources(enumReflection),
+        } as EnumDescription);
+    });
 
     return data;
 }
@@ -72,10 +111,7 @@ export function parseFile(filename: string): TypeDescription[] {
 const fns = {
     [ReflectionKind.Interface]: addInterface,
     [ReflectionKind.Class]: addClass,
-    [ReflectionKind.CallSignature]: addSignature,
-    [ReflectionKind.Parameter]: addParam,
     [ReflectionKind.TypeAlias]: addType,
-    // [ReflectionKind.TypeLiteral]: addType,
     [ReflectionKind.Enum]: addEnum,
     [ReflectionKind.EnumMember]: addEnumMember,
 };
@@ -93,9 +129,7 @@ function addInterface(
     reflection: DeclarationReflection,
     data: InterfaceDescription[],
 ) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
+    // TypeDoc 0.23+ handles exports differently, removed isExported check
 
     data.push({
         type: 'interface',
@@ -103,16 +137,20 @@ function addInterface(
         typeParams: getTypeParams(reflection),
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
-        props: reflection.children.filter(isProperty).map(getProperty),
-        methods: reflection.children.filter(isMethod).map(getMethod),
+        props: reflection.children?.filter(isProperty).map(getProperty) || [],
+        methods: reflection.children?.filter(isMethod).map(getMethod) || [],
         sources: getSources(reflection),
     });
 }
 
 function addClass(reflection: DeclarationReflection, data: ClassDescription[]) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
+    // TypeDoc 0.23+ handles exports differently, removed isExported check
+
+    // Get decorators from AST if available, otherwise return empty array
+    const decorators = getDecorators(reflection);
+
+    // Get implemented interfaces for @inheritDoc resolution
+    const implementedInterfaces = getImplementedInterfaces(reflection);
 
     data.push({
         type: 'class',
@@ -120,46 +158,25 @@ function addClass(reflection: DeclarationReflection, data: ClassDescription[]) {
         typeParams: getTypeParams(reflection),
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
-        props: reflection.children?.filter(isProperty).map(getProperty),
-        methods: reflection.children?.filter(isMethod).map(getMethod),
+        props:
+            reflection.children
+                ?.filter(isProperty)
+                .map((prop) =>
+                    getPropertyWithInheritDoc(prop, implementedInterfaces),
+                ) || [],
+        methods:
+            reflection.children
+                ?.filter(isMethod)
+                .map((method) =>
+                    getMethodWithInheritDoc(method, implementedInterfaces),
+                ) || [],
         sources: getSources(reflection),
-        decorators: reflection.decorators?.map(getDecorator),
-    });
-}
-
-function addSignature(reflection: SignatureReflection, data: MethodSignature) {
-    if (Array.isArray(data)) {
-        return;
-    }
-
-    data.parameters = [];
-    data.returns = {
-        type: reflection.type.toString(),
-        docs:
-            reflection.parent.parent.comment?.tags?.find(isReturns)?.text || '',
-    };
-
-    reflection.traverse(traverseCallback(data));
-}
-
-function addParam(reflection: ParameterReflection, data: MethodSignature) {
-    data.parameters.push({
-        name: reflection.name,
-        type: reflection.type.toString(),
-        docs:
-            reflection.parent.parent.parent.comment?.tags
-                ?.filter(isParam)
-                .find((tag) => tag.paramName === reflection.name)
-                ?.text.trim() || '',
-        default: reflection.defaultValue,
-        optional: reflection.flags.isOptional,
+        decorators: decorators,
     });
 }
 
 function addType(reflection: DeclarationReflection, data: AliasDescription[]) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
+    // TypeDoc 0.23+ handles exports differently, removed isExported check
 
     data.push({
         type: 'alias',
@@ -172,9 +189,7 @@ function addType(reflection: DeclarationReflection, data: AliasDescription[]) {
 }
 
 function addEnum(reflection: DeclarationReflection, data: EnumDescription[]) {
-    if (!reflection.flags.isExported) {
-        return;
-    }
+    // TypeDoc 0.23+ handles exports differently, removed isExported check
 
     const members = [];
     reflection.traverse(traverseCallback(members));
@@ -190,51 +205,93 @@ function addEnum(reflection: DeclarationReflection, data: EnumDescription[]) {
 }
 
 function addEnumMember(reflection: DeclarationReflection, data: EnumMember[]) {
+    // TypeDoc 0.23+ stores enum values in type.value instead of defaultValue
+    let value: string;
+    // TypeDoc 0.23 types don't include 'type' and 'value' properties on reflection types
+    // These properties exist at runtime for literal types but aren't in TypeScript definitions
+    if (reflection.type && (reflection.type as any).type === 'literal') {
+        const literalValue = (reflection.type as any).value;
+        if (typeof literalValue === 'string') {
+            value = `"${literalValue}"`;
+        } else {
+            value = String(literalValue);
+        }
+    } else {
+        value = reflection.defaultValue;
+    }
+
     data.push({
         name: reflection.name,
         docs: getDocs(reflection),
         docsTags: getDocsTags(reflection),
-        value: reflection.defaultValue,
+        value: value,
     });
 }
 
 function getDocs(reflection: Reflection): string {
-    return [reflection.comment?.shortText, reflection.comment?.text]
-        .join('\n')
-        .trim();
+    if (!reflection.comment) {
+        return '';
+    }
+
+    // TypeDoc 0.23+ uses summary instead of shortText/text
+    const text =
+        reflection.comment.summary
+            ?.map((part: any) => part.text)
+            .join('')
+            .trim() || '';
+
+    // Normalize multiple newlines to single newlines
+    return text.replace(/\n\n+/g, '\n');
 }
 
 function getDocsTags(reflection: DeclarationReflection) {
-    return reflection.comment?.tags?.map(getTag) || [];
+    // TypeDoc 0.23+ uses blockTags instead of tags
+    return reflection.comment?.blockTags?.map(getTag) || [];
 }
 
 function getTag(tag: CommentTag): JsonDocsTag {
+    // TypeDoc 0.23+ uses tag and content instead of tagName and text
+    // tag already has @ prefix in TypeDoc 0.23, so remove it
+    const tagName = (tag.tag as string).replace(/^@+/, '');
+
     return {
-        name: tag.tagName,
-        text: tag.text.trim(),
+        name: tagName,
+        text:
+            tag.content
+                ?.map((part: any) => part.text)
+                .join('')
+                .trim() || '',
     };
 }
 
 function isProperty(reflection: DeclarationReflection): boolean {
-    return (
-        reflection.kind === ReflectionKind.Property &&
-        reflection.type.toString() !== 'function'
+    // TypeDoc 0.23+ uses ReflectionType with signatures for functions
+    if (reflection.kind !== ReflectionKind.Property) {
+        return false;
+    }
+
+    // TypeDoc types don't expose 'type' and 'declaration' properties on reflection.type
+    // These exist at runtime but require type assertion to access
+    const type = reflection.type as any;
+
+    return !(
+        type &&
+        type.type === 'reflection' &&
+        type.declaration?.signatures
     );
 }
 
 function isMethod(reflection: DeclarationReflection): boolean {
-    return (
-        reflection.kind === ReflectionKind.Property &&
-        reflection.type.toString() === 'function'
-    );
-}
+    // TypeDoc 0.23+ uses ReflectionType with signatures for functions
+    if (reflection.kind !== ReflectionKind.Property) {
+        return false;
+    }
 
-function isParam(tag: CommentTag): boolean {
-    return tag.tagName === 'param';
-}
+    // TypeDoc types don't expose 'type' and 'declaration' properties on reflection.type
+    // These exist at runtime but require type assertion to access
+    const type = reflection.type as any;
 
-function isReturns(tag: CommentTag): boolean {
-    return tag.tagName === 'returns';
+    return type && type.type === 'reflection' && type.declaration?.signatures;
 }
 
 function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
@@ -249,24 +306,257 @@ function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
 }
 
 function getMethod(reflection: DeclarationReflection): MethodDescription {
-    const signature = getSignature(reflection);
+    // TypeDoc 0.23+ stores method signatures in type.declaration.signatures
+    // TypeDoc types don't expose declaration property, but it exists at runtime
+    const type = reflection.type as any;
+    const signature = type?.declaration?.signatures?.[0];
+
+    if (!signature) {
+        return {
+            name: reflection.name,
+            docs: getDocs(reflection),
+            docsTags: [],
+            parameters: [],
+            returns: { type: 'void', docs: '' },
+        };
+    }
+
+    // Get docs from signature, not from the property
+    let docs =
+        signature.comment?.summary
+            ?.map((part: any) => part.text)
+            .join('')
+            .trim() || '';
+    // Normalize multiple newlines to single newlines
+    docs = docs.replace(/\n\n+/g, '\n');
+
+    // Get parameters
+    const parameters: ParameterDescription[] =
+        signature.parameters?.map((param: any) => ({
+            name: param.name,
+            type: param.type?.toString() || 'any',
+            docs:
+                param.comment?.summary
+                    ?.map((part: any) => part.text)
+                    .join('')
+                    .trim() || '',
+            default: param.defaultValue,
+            optional: param.flags?.isOptional || false,
+        })) || [];
+
+    // Get return type
+    const returnsTag = signature.comment?.blockTags?.find(
+        (tag: any) => tag.tag === '@returns',
+    );
+    const returnsText =
+        returnsTag?.content
+            ?.map((part: any) => part.text)
+            .join('')
+            .trim() || '';
+
+    const returns = {
+        type: signature.type?.toString() || 'void',
+        docs: returnsText,
+    };
+
+    // Get other tags (excluding @param and @returns)
+    const docsTags =
+        signature.comment?.blockTags
+            ?.filter(
+                (tag: any) => tag.tag !== '@param' && tag.tag !== '@returns',
+            )
+            .map(getTag) || [];
 
     return {
         name: reflection.name,
-        docs: getDocs(reflection),
-        docsTags: reflection.comment?.tags
-            ?.filter(negate(isParam))
-            .filter(negate(isReturns))
-            .map(getTag),
-        ...signature,
+        docs: docs,
+        docsTags: docsTags,
+        parameters: parameters,
+        returns: returns,
     };
 }
 
-function getSignature(reflection: Reflection): MethodSignature {
-    const signature: Partial<MethodSignature> = {};
-    reflection.traverse(traverseCallback(signature));
+function getImplementedInterfaces(
+    reflection: DeclarationReflection,
+): DeclarationReflection[] {
+    const interfaces: DeclarationReflection[] = [];
 
-    return signature as MethodSignature;
+    // Check if class implements any interfaces
+    // implementedTypes exists on DeclarationReflection at runtime but not in type definitions
+    const implemented = (reflection as any).implementedTypes;
+    if (implemented) {
+        implemented.forEach((type: any) => {
+            if (type.reflection) {
+                interfaces.push(type.reflection);
+            }
+        });
+    }
+
+    return interfaces;
+}
+
+function getPropertyWithInheritDoc(
+    reflection: DeclarationReflection,
+    interfaces: DeclarationReflection[],
+): Partial<JsonDocsProp> {
+    const prop = getProperty(reflection);
+
+    // Check for @inheritDoc tag in blockTags
+    const hasInheritDoc = reflection.comment?.blockTags?.some(
+        (tag: any) => tag.tag.toLowerCase() === '@inheritdoc',
+    );
+
+    if (hasInheritDoc && interfaces.length > 0) {
+        // Try to find the property in implemented interfaces
+        for (const iface of interfaces) {
+            const interfaceProp = iface.children?.find(
+                (child) => child.name === reflection.name,
+            );
+            if (interfaceProp) {
+                return {
+                    ...prop,
+                    docs: getDocs(interfaceProp),
+                    docsTags: getDocsTags(interfaceProp),
+                };
+            }
+        }
+    }
+
+    return prop;
+}
+
+function getMethodWithInheritDoc(
+    reflection: DeclarationReflection,
+    interfaces: DeclarationReflection[],
+): MethodDescription {
+    // Check for @inheritDoc in the method signature blockTags
+    // TypeDoc types don't expose declaration property, but it exists at runtime
+    const type = reflection.type as any;
+    const signature = type?.declaration?.signatures?.[0];
+    const hasInheritDoc = signature?.comment?.blockTags?.some(
+        (tag: any) => tag.tag.toLowerCase() === '@inheritdoc',
+    );
+
+    if (hasInheritDoc && interfaces.length > 0) {
+        // Try to find the method in implemented interfaces and return its parsed version
+        for (const iface of interfaces) {
+            const interfaceMethod = iface.children?.find(
+                (child) => child.name === reflection.name,
+            );
+            if (interfaceMethod) {
+                return getMethod(interfaceMethod);
+            }
+        }
+    }
+
+    // If no inheritDoc or interface not found, return the method as-is
+    return getMethod(reflection);
+}
+
+/**
+ * Extract decorator information from TypeScript source code using AST parsing
+ *
+ * TypeDoc 0.23 removed the decorators property from DeclarationReflection,
+ * which was present in 0.17. This function works around that limitation by
+ * parsing the original TypeScript source files to extract decorator information.
+ * @param {DeclarationReflection} reflection - The TypeDoc reflection to extract decorators from
+ * @returns {DecoratorDescription[]} Array of decorator descriptions with names and arguments
+ * @remarks
+ * This is a workaround for incomplete TypeDoc 0.23 API. TypeDoc removed
+ * decorator information from their reflection model, but decorators are
+ * essential for documenting Stencil components (e.g., @Component, @Prop).
+ *
+ * Performance considerations:
+ * - Reads and parses source files on demand (I/O + parsing overhead)
+ * - Caches nothing - each call re-parses the file
+ * - For large codebases, consider caching parsed source files
+ *
+ * Known limitations:
+ * - Only extracts class-level decorators, not property/method decorators
+ * - Decorator arguments are captured as raw text, not parsed
+ * - Fails silently if source file is unavailable or parsing fails
+ * - Depends on TypeScript AST structure (may break with TS version changes)
+ * @example
+ * ```typescript
+ * // For a class like:
+ * @Component({ tag: 'my-component' })
+ * class MyComponent { }
+ *
+ * // Returns:
+ * [{
+ *   name: 'Component',
+ *   arguments: { _config: "{ tag: 'my-component' }" }
+ * }]
+ * ```
+ */
+function getDecorators(
+    reflection: DeclarationReflection,
+): DecoratorDescription[] {
+    // TypeDoc 0.23+ removed the decorators property
+    // We need to parse decorators from the TypeScript AST
+    if (!reflection.sources || reflection.sources.length === 0) {
+        return [];
+    }
+
+    const source = reflection.sources[0];
+    const fileName = source.fullFileName || source.fileName;
+
+    if (!existsSync(fileName)) {
+        return [];
+    }
+
+    try {
+        const sourceFile = ts.createSourceFile(
+            fileName,
+            readFileSync(fileName, 'utf8'),
+            ts.ScriptTarget.Latest,
+            true,
+        );
+
+        let decorators: DecoratorDescription[] = [];
+
+        const visit = (node: ts.Node): void => {
+            if (
+                ts.isClassDeclaration(node) &&
+                node.name?.getText() === reflection.name
+            ) {
+                // TypeScript 4.x decorators property exists at runtime but varies across TS versions
+                // Using 'as any' because decorator API changed between TS 4.x and 5.x
+                const nodeDecorators = (node as any).decorators;
+                if (nodeDecorators) {
+                    decorators = nodeDecorators.map((decorator: any) => {
+                        const expression = decorator.expression;
+                        let name = '';
+                        let args: any = {};
+
+                        if (ts.isCallExpression(expression)) {
+                            name = expression.expression.getText();
+                            if (expression.arguments.length > 0) {
+                                args = {
+                                    _config: expression.arguments[0].getText(),
+                                };
+                            }
+                        } else {
+                            name = expression.getText();
+                        }
+
+                        return { name: name, arguments: args };
+                    });
+                }
+            }
+
+            ts.forEachChild(node, visit);
+        };
+
+        visit(sourceFile);
+
+        return decorators;
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to parse decorators:', error);
+
+        return [];
+    }
 }
 
 function getTypeParams(reflection: DeclarationReflection) {
@@ -278,12 +568,7 @@ function getTypeParams(reflection: DeclarationReflection) {
 }
 
 function getSources(reflection: DeclarationReflection) {
-    return reflection.sources.map((source) => source.file.fullFileName);
-}
-
-function getDecorator(decorator: Decorator) {
-    return {
-        name: decorator.name,
-        arguments: decorator.arguments,
-    };
+    // TypeDoc 0.23+ has both fileName (short) and fullFileName (full path)
+    // With basePath set correctly, fileName is relative to project root
+    return reflection.sources?.map((source) => source.fileName) || [];
 }
