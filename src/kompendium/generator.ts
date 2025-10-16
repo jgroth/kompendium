@@ -40,7 +40,7 @@ export function kompendiumGenerator(
             getProjectTitle(config),
             getReadme(),
             findGuides(config),
-            getTypes(config),
+            getTypes(config, stencilConfig.tsconfig),
         ]);
 
         const data: KompendiumData = {
@@ -190,6 +190,7 @@ function isProd(): boolean {
 
 async function getTypes(
     config: Partial<KompendiumConfig>,
+    tsconfig?: string,
 ): Promise<TypeDescription[]> {
     logger.debug('Getting type information...');
     let types = await readTypes(config);
@@ -197,7 +198,7 @@ async function getTypes(
 
     if (types.length === 0 || (await isModified(types, cache))) {
         logger.debug('Parsing types...');
-        const data = parseFile(config.typeRoot);
+        const data = parseFile(config.typeRoot, tsconfig);
         await saveData(config, data);
         types = data;
     }
@@ -210,37 +211,66 @@ async function isModified(types: any[], cache: Record<string, number>) {
         return true;
     }
 
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
 
-    const stats = await Promise.all(filenames.map(stat));
+    return stats.some((fileStat, index) =>
+        hasFileChangedSinceCached(filenames[index], fileStat, cache),
+    );
+}
 
-    return stats.some((data, index) => {
-        const filename = filenames[index];
-        const result = cache[filename] !== data.mtimeMs;
+function getUniqueSourceFilenames(types: any[]): string[] {
+    const filenames = types.map((t) => t.sources).flat();
 
-        logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+    return [...new Set(filenames)];
+}
 
-        return result;
-    });
+function tryStatFile(filename: string) {
+    return stat(filename).catch(() => null);
+}
+
+function hasFileChangedSinceCached(
+    filename: string,
+    fileStat: Awaited<ReturnType<typeof stat>> | null,
+    cache: Record<string, number>,
+): boolean {
+    if (!fileStat) {
+        logger.debug(`${filename} cannot be accessed, marking as modified`);
+
+        return true;
+    }
+
+    const result = cache[filename] !== fileStat.mtimeMs;
+
+    logger.debug(`${filename} was ${result ? '' : 'not'} modified!`);
+
+    return result;
 }
 
 async function saveData(
     config: Partial<KompendiumConfig>,
     types: TypeDescription[],
 ) {
-    let filenames = types.map((t) => t.sources).flat();
-    filenames = [...new Set(filenames)];
-
-    const stats = await Promise.all(filenames.map(stat));
-
-    const cache = {};
-    stats.forEach((data, index) => {
-        const filename = filenames[index];
-        cache[filename] = data.mtimeMs;
-    });
+    const filenames = getUniqueSourceFilenames(types);
+    const stats = await Promise.all(filenames.map(tryStatFile));
+    const cache = buildCacheFromFileStats(filenames, stats);
 
     await Promise.all([writeCache(config, cache), writeTypes(config, types)]);
+}
+
+function buildCacheFromFileStats(
+    filenames: string[],
+    stats: Array<Awaited<ReturnType<typeof stat>> | null>,
+): Record<string, number> {
+    const cache: Record<string, number> = {};
+
+    stats.forEach((fileStat, index) => {
+        if (fileStat) {
+            cache[filenames[index]] = fileStat.mtimeMs;
+        }
+    });
+
+    return cache;
 }
 
 async function readCache(config: Partial<KompendiumConfig>) {
