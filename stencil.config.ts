@@ -1,17 +1,17 @@
 import { Config } from '@stencil/core';
 import { kompendium } from './src/kompendium';
 import { sass } from '@stencil/sass';
-import nodePolyfill from 'rollup-plugin-node-polyfills';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 import guides from './guides';
 
 export const config: Config = {
     namespace: 'kompendium',
     plugins: [sass()],
     rollupPlugins: {
-        after: [nodePolyfill()],
+        after: [nodePolyfills()],
     },
     nodeResolve: {
-        preferBuiltins: true,
+        preferBuiltins: false,
     },
     globalStyle: 'src/global/kompendium.scss',
 
