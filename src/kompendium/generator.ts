@@ -3,7 +3,8 @@ import { defaultConfig } from './config';
 import { addSources } from './source';
 import lnk from 'lnk';
 import { createMenu } from './menu';
-import { exists, mkdir, readFile, writeFile, stat } from './filesystem';
+import { copyFile, mkdir, readFile, stat, writeFile } from 'fs/promises';
+import { exists } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
 import { KompendiumConfig, KompendiumData, TypeDescription } from '../types';
@@ -98,7 +99,7 @@ async function getProjectTitle(
         return config.title;
     }
 
-    const json = await readFile('./package.json');
+    const json = await readFile('./package.json', 'utf8');
     const data = JSON.parse(json);
 
     return data.name
@@ -111,13 +112,25 @@ async function writeData(
     config: Partial<KompendiumConfig>,
     data: KompendiumData,
 ) {
-    let filePath = `${config.path}/kompendium.json`;
+    // Always write to the kompendium config folder (typically `.kompendium` in
+    // the root of the project) to avoid Stencil deleting the file during build.
+    const filePath = `${config.path}/kompendium.json`;
+
+    await writeFile(filePath, JSON.stringify(data), 'utf8');
 
     if (isProd()) {
-        filePath = `${config.publicPath}/kompendium.json`;
-    }
+        // In production, we used to write the kompendium.json file to the
+        // public path. We now copy the file to the public path for backwards
+        // compatibility with projects that do not have problems with Stencil
+        // deleting the file during build. For projects that do have this
+        // problem, they can always copy the file from the config folder.
+        const publicFilePath = `${config.publicPath}/kompendium.json`;
+        if (!(await exists(config.publicPath))) {
+            await mkdir(config.publicPath, { recursive: true });
+        }
 
-    await writeFile(filePath, JSON.stringify(data));
+        await copyFile(filePath, publicFilePath);
+    }
 
     if (isWatcher()) {
         createSymlink(config);
@@ -149,7 +162,7 @@ async function getReadme(): Promise<string> {
             continue;
         }
 
-        data = await readFile(file);
+        data = await readFile(file, 'utf8');
     }
 
     if (!data) {
@@ -232,7 +245,7 @@ async function saveData(
 
 async function readCache(config: Partial<KompendiumConfig>) {
     try {
-        const data = await readFile(`${config.path}/cache.json`);
+        const data = await readFile(`${config.path}/cache.json`, 'utf8');
 
         return JSON.parse(data);
     } catch {
@@ -241,12 +254,12 @@ async function readCache(config: Partial<KompendiumConfig>) {
 }
 
 async function writeCache(config: Partial<KompendiumConfig>, data: any) {
-    await writeFile(`${config.path}/cache.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/cache.json`, JSON.stringify(data), 'utf8');
 }
 
 async function readTypes(config: Partial<KompendiumConfig>) {
     try {
-        const data = await readFile(`${config.path}/types.json`);
+        const data = await readFile(`${config.path}/types.json`, 'utf8');
 
         return JSON.parse(data);
     } catch {
@@ -255,5 +268,5 @@ async function readTypes(config: Partial<KompendiumConfig>) {
 }
 
 async function writeTypes(config: Partial<KompendiumConfig>, data: any) {
-    await writeFile(`${config.path}/types.json`, JSON.stringify(data));
+    await writeFile(`${config.path}/types.json`, JSON.stringify(data), 'utf8');
 }
