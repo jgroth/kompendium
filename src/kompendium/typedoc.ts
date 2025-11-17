@@ -67,11 +67,27 @@ export function parseFile(
 
     const data: TypeDescription[] = [];
 
-    // Use getReflectionsByKind() to get all types regardless of module nesting
-    const interfaces = project.getReflectionsByKind(ReflectionKind.Interface);
-    const classes = project.getReflectionsByKind(ReflectionKind.Class);
-    const typeAliases = project.getReflectionsByKind(ReflectionKind.TypeAlias);
-    const enums = project.getReflectionsByKind(ReflectionKind.Enum);
+    const allInterfaces = project.getReflectionsByKind(
+        ReflectionKind.Interface,
+    );
+    const allClasses = project.getReflectionsByKind(ReflectionKind.Class);
+    const allTypeAliases = project.getReflectionsByKind(
+        ReflectionKind.TypeAlias,
+    );
+    const allEnums = project.getReflectionsByKind(ReflectionKind.Enum);
+
+    const interfaces = allInterfaces.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
+    const classes = allClasses.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
+    const typeAliases = allTypeAliases.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
+    const enums = allEnums.filter((r) =>
+        shouldIncludeType(r as DeclarationReflection),
+    );
 
     interfaces.forEach((reflection) =>
         addInterface(reflection as DeclarationReflection, data as any),
@@ -101,6 +117,127 @@ export function parseFile(
     });
 
     return data;
+}
+
+/**
+ * Determines if a type should be included in the documentation based on its source location
+ * and documentation tags.
+ *
+ * Excludes types from:
+ * - node_modules (third-party dependencies)
+ * - examples directories
+ * - test files (.test., .spec., /test/, /tests/)
+ * - Types marked with @private or @internal tags
+ * - Stencil auto-generated types (components.d.ts, Components namespace, CustomEvent wrappers)
+ * @param {DeclarationReflection} reflection - The TypeDoc reflection to check
+ * @returns {boolean} true if the type should be documented, false otherwise
+ */
+function shouldIncludeType(reflection: DeclarationReflection): boolean {
+    if (!reflection.sources || reflection.sources.length === 0) {
+        // No source information - include by default
+        return true;
+    }
+
+    for (const source of reflection.sources) {
+        const sourcePath = source.fullFileName || source.fileName || '';
+
+        if (shouldExcludeSource(sourcePath)) {
+            return false;
+        }
+    }
+
+    // Exclude CustomEvent wrapper types
+    // These are generic wrappers around CustomEvent<T> that don't add useful
+    // documentation
+    if (reflection.name.endsWith('CustomEvent')) {
+        return false;
+    }
+
+    // Exclude HTML element interface types
+    // These are DOM element interfaces (HTMLLimelButtonElement, etc.) already
+    // documented in the Components section
+    if (
+        reflection.name.startsWith('HTML') &&
+        reflection.name.endsWith('Element')
+    ) {
+        return false;
+    }
+
+    // Exclude types in Stencil's Components namespace
+    // Belt-and-suspenders: catches any component interfaces that were not
+    // excluded based on source location
+    if (isInComponentsNamespace(reflection)) {
+        return false;
+    }
+
+    // Don't include anything marked @private or @internal
+    if (reflection.comment?.blockTags) {
+        const hasPrivateTag = reflection.comment.blockTags.some(
+            (tag: any) => tag.tag === '@private' || tag.tag === '@internal',
+        );
+        if (hasPrivateTag) {
+            return false;
+        }
+    }
+
+    // Include this type
+    return true;
+}
+
+/**
+ * Checks if a source path should be excluded from documentation.
+ * @param {string} sourcePath - The file path to check
+ * @returns {boolean} true if the source should be excluded, false otherwise
+ */
+function shouldExcludeSource(sourcePath: string): boolean {
+    const normalizedPath = sourcePath.replace(/\\/g, '/');
+
+    if (normalizedPath.includes('node_modules/')) {
+        return true;
+    }
+
+    if (
+        normalizedPath.includes('/examples/') ||
+        normalizedPath.includes('/example/')
+    ) {
+        return true;
+    }
+
+    if (
+        normalizedPath.includes('.test.') ||
+        normalizedPath.includes('.spec.')
+    ) {
+        return true;
+    }
+
+    // This file contains component prop interfaces and HTML element types that
+    // are already documented in the Components section
+    return normalizedPath.endsWith('components.d.ts');
+}
+
+/**
+ * Checks if a TypeDoc reflection is defined within Stencil's Components namespace.
+ *
+ * Stencil generates a Components namespace in components.d.ts containing interfaces
+ * for component props. These types are already documented in the Components section
+ * and should not be duplicated in the Types section.
+ * @param {DeclarationReflection} reflection - The TypeDoc reflection to check
+ * @returns {boolean} true if the reflection is in a Components namespace, false otherwise
+ */
+function isInComponentsNamespace(reflection: DeclarationReflection): boolean {
+    let current: Reflection | undefined = reflection.parent;
+    while (current) {
+        if (
+            current.kind === ReflectionKind.Namespace &&
+            current.name === 'Components'
+        ) {
+            return true;
+        }
+
+        current = current.parent;
+    }
+
+    return false;
 }
 
 const fns = {
