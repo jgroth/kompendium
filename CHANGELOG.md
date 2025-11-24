@@ -1,3 +1,10 @@
+# 🧧 [0.16.0](https://github.com/jgroth/kompendium/compare/v0.15.0...v0.16.0) (2025-11-24)
+
+
+### Features
+
+* **menu:** sort types alphabetically in navbar ([546288e](https://github.com/jgroth/kompendium/commit/546288ed9ce435c3afaefa27a0126b580241670b))
+
 # 🙏 [0.15.0](https://github.com/jgroth/kompendium/compare/v0.14.3...v0.15.0) (2024-08-30)
 
 
