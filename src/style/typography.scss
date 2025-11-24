@@ -1,5 +1,5 @@
-@import './functions.scss';
-@import './mixins.scss';
+@use 'functions.scss';
+@use 'mixins.scss';
 
 body {
 }
@@ -7,7 +7,7 @@ body {
 p,
 a,
 li {
-    font-size: pxToRem(15);
+    font-size: functions.pxToRem(15);
 }
 
 h1,
@@ -16,49 +16,49 @@ h3,
 h4,
 h5,
 h6 {
-    margin-bottom: pxToRem(8);
+    margin-bottom: functions.pxToRem(8);
     font-weight: normal;
     font-weight: 500;
 }
 
 h1 {
-    font-size: pxToRem(32);
-    line-height: pxToRem(36);
-    margin-top: pxToRem(24);
-    letter-spacing: pxToRem(-1);
+    font-size: functions.pxToRem(32);
+    line-height: functions.pxToRem(36);
+    margin-top: functions.pxToRem(24);
+    letter-spacing: functions.pxToRem(-1);
     font-weight: 400;
 }
 h2 {
-    font-size: pxToRem(26);
-    line-height: pxToRem(20);
-    margin-top: pxToRem(20);
-    margin-bottom: pxToRem(16);
+    font-size: functions.pxToRem(26);
+    line-height: functions.pxToRem(20);
+    margin-top: functions.pxToRem(20);
+    margin-bottom: functions.pxToRem(16);
 }
 h3 {
-    font-size: pxToRem(22);
-    line-height: pxToRem(24);
-    margin-top: pxToRem(16);
+    font-size: functions.pxToRem(22);
+    line-height: functions.pxToRem(24);
+    margin-top: functions.pxToRem(16);
 }
 h4 {
-    font-size: pxToRem(20);
-    line-height: pxToRem(20);
-    margin-top: pxToRem(16);
+    font-size: functions.pxToRem(20);
+    line-height: functions.pxToRem(20);
+    margin-top: functions.pxToRem(16);
 }
 h5 {
-    font-size: pxToRem(18);
-    line-height: pxToRem(18);
-    margin-top: pxToRem(12);
+    font-size: functions.pxToRem(18);
+    line-height: functions.pxToRem(18);
+    margin-top: functions.pxToRem(12);
 }
 h6 {
-    font-size: pxToRem(16);
+    font-size: functions.pxToRem(16);
     font-variant: all-small-caps;
-    letter-spacing: pxToRem(1);
+    letter-spacing: functions.pxToRem(1);
 }
 
 p,
 blockquote {
     margin-top: 0;
-    margin-bottom: pxToRem(8);
+    margin-bottom: functions.pxToRem(8);
 
     &:only-child {
         margin-bottom: 0;
@@ -75,23 +75,23 @@ a {
         color: rgb(var(--kompendium-color-blue-light));
     }
 
-    @include visualize-keyboard-focus();
+    @include mixins.visualize-keyboard-focus();
 }
 
 ul {
     list-style: none;
     li {
         position: relative;
-        margin-left: pxToRem(12);
+        margin-left: functions.pxToRem(12);
 
         &:before {
             content: '';
             position: absolute;
-            left: pxToRem(-8);
-            top: pxToRem(10);
+            left: functions.pxToRem(-8);
+            top: functions.pxToRem(10);
 
-            width: pxToRem(4);
-            height: pxToRem(4);
+            width: functions.pxToRem(4);
+            height: functions.pxToRem(4);
 
             border-radius: 50%;
             background-color: rgb(var(--kompendium-contrast-700));
@@ -120,7 +120,7 @@ li {
 
 th,
 td {
-    padding: pxToRem(12) pxToRem(16);
+    padding: functions.pxToRem(12) functions.pxToRem(16);
     text-align: left;
     border-bottom: 1px solid rgb(var(--kompendium-contrast-600));
 }
@@ -134,14 +134,14 @@ td:last-child {
 }
 
 hr {
-    margin: pxToRem(28) 0 pxToRem(32) 0;
+    margin: functions.pxToRem(28) 0 functions.pxToRem(32) 0;
     border-width: 0;
     border-top: 1px solid rgb(var(--kompendium-contrast-600));
 }
 
 kbd {
     font-family: var(--kompendium-font-code);
-    font-size: pxToRem(14);
+    font-size: functions.pxToRem(14);
     font-weight: 600;
     color: rgb(var(--kompendium-contrast-1000));
     background-color: rgb(var(--kompendium-contrast-200));
@@ -150,21 +150,21 @@ kbd {
     word-break: normal;
     word-wrap: normal;
     line-height: normal;
-    padding: pxToRem(2) pxToRem(8);
-    margin: 0 pxToRem(4);
+    padding: functions.pxToRem(2) functions.pxToRem(8);
+    margin: 0 functions.pxToRem(4);
     box-shadow:
         var(--kompendium-button-shadow-normal),
-        0 #{pxToRem(0.5)} #{pxToRem(3.5)} 0
+        0 #{functions.pxToRem(0.5)} #{functions.pxToRem(3.5)} 0
             rgba(var(--kompendium-contrast-100), 0.5) inset;
 
     border: {
-        radius: pxToRem(4);
+        radius: functions.pxToRem(4);
         style: solid;
         color: rgba(var(--kompendium-contrast-600), 0.8);
-        width: 0 1px pxToRem(2) 1px;
+        width: 0 1px functions.pxToRem(2) 1px;
     }
 
-    @include in(dark-mode) {
+    @include mixins.in(dark-mode) {
         background-color: rgb(var(--kompendium-contrast-200));
         color: rgb(var(--kompendium-contrast-1100));
         border-color: rgba(var(--kompendium-contrast-500), 0.8);
