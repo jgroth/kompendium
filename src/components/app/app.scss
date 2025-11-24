@@ -1,7 +1,7 @@
-@import '../../style/reset.scss';
-@import '../../style/variables.scss';
-@import '../../style/functions.scss';
-@import '../../style/loading.scss';
+@use '../../style/reset.scss';
+@use '../../style/variables.scss';
+@use '../../style/functions.scss';
+@use '../../style/loading.scss';
 
 :host {
     display: block;
@@ -10,24 +10,24 @@
 }
 
 main {
-    padding: pxToRem(20) pxToRem(32);
+    padding: functions.pxToRem(20) functions.pxToRem(32);
 
     margin-left: var(--width-nav-panel);
 
     kompendium-guide {
         display: block;
         width: 100%;
-        max-width: pxToRem(960);
+        max-width: functions.pxToRem(960);
     }
 }
 
-@media (max-width: $break-point-small) {
+@media (max-width: variables.$break-point-small) {
     main {
-        padding-top: pxToRem(42);
+        padding-top: functions.pxToRem(42);
         margin-left: 0;
     }
 }
 
-@media (max-width: $break-point-mini) {
+@media (max-width: variables.$break-point-mini) {
     // In case we need to add things here
 }
