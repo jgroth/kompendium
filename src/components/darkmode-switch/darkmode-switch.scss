@@ -1,5 +1,5 @@
-@import '../../style/functions.scss';
-@import '../../style/mixins.scss';
+@use '../../style/functions.scss';
+@use '../../style/mixins.scss';
 
 :host {
     --toggle-size: 1.25rem;
@@ -9,7 +9,7 @@
 }
 
 .mode-toggle {
-    margin: pxToRem(12);
+    margin: functions.pxToRem(12);
     position: relative;
     width: var(--toggle-size);
     height: var(--toggle-size);
@@ -66,8 +66,8 @@
     &:after {
         content: '';
         display: block;
-        height: pxToRem(6);
-        width: pxToRem(2);
+        height: functions.pxToRem(6);
+        width: functions.pxToRem(2);
         border-radius: var(--toggle-size);
         background-color: rgba(var(--kompendium-color-orange-light), 1);
 
@@ -78,17 +78,17 @@
     }
 
     &:before {
-        top: pxToRem(-8);
+        top: functions.pxToRem(-8);
     }
     &:after {
-        bottom: pxToRem(-8);
+        bottom: functions.pxToRem(-8);
     }
 
     &.three,
     &.four {
         &:before,
         &:after {
-            height: pxToRem(4);
+            height: functions.pxToRem(4);
         }
     }
 }
@@ -102,7 +102,7 @@ input[type='checkbox'] {
 
     cursor: pointer;
     border-radius: 0.125rem;
-    @include visualize-keyboard-focus();
+    @include mixins.visualize-keyboard-focus();
 
     &:not(:checked) {
         + .mode-visualization {
@@ -112,15 +112,20 @@ input[type='checkbox'] {
                     1
                 );
                 box-shadow:
-                    0 0 pxToRem(8) pxToRem(2)
+                    0 0 functions.pxToRem(8) functions.pxToRem(2)
                         rgba(var(--kompendium-color-orange-light), 0.8),
-                    0 0 pxToRem(4) pxToRem(3) rgb(var(--kompendium-color-white));
+                    0 0 functions.pxToRem(4) functions.pxToRem(3)
+                        rgb(var(--kompendium-color-white));
                 &:after {
                     background-color: rgba(
                         var(--kompendium-color-orange-default),
                         1
                     );
-                    transform: translate3d(pxToRem(16), pxToRem(-16), 0);
+                    transform: translate3d(
+                        functions.pxToRem(16),
+                        functions.pxToRem(-16),
+                        0
+                    );
                 }
             }
             .ray {
@@ -152,12 +157,17 @@ input[type='checkbox'] {
             .circle {
                 background-color: rgba(var(--kompendium-contrast-1700), 0.7);
                 box-shadow:
-                    0 0 pxToRem(8) pxToRem(2)
+                    0 0 functions.pxToRem(8) functions.pxToRem(2)
                         rgba(var(--kompendium-color-white), 0.4),
-                    0 0 pxToRem(4) pxToRem(2) rgb(var(--kompendium-color-black));
+                    0 0 functions.pxToRem(4) functions.pxToRem(2)
+                        rgb(var(--kompendium-color-black));
 
                 &:after {
-                    transform: translate3d(pxToRem(4), pxToRem(-4), 0);
+                    transform: translate3d(
+                        functions.pxToRem(4),
+                        functions.pxToRem(-4),
+                        0
+                    );
                     background-color: rgb(
                         var(--kompendium-contrast-400)
                     ); // same as sidebar in dark mode

@@ -1,6 +1,7 @@
-@import '../proplist/proplist.scss';
-@import '../../style/colors.scss';
-@import '../../style/mixins.scss';
+@use '../proplist/proplist.scss';
+@use '../../style/colors.scss';
+@use '../../style/mixins.scss';
+@use '../../style/functions.scss';
 
 .admonition {
     --size-of-admonition-icon: 2.5rem;
@@ -9,8 +10,9 @@
     // Styles for block elements from https://github.com/elviswolcott/remark-admonitions
     border-radius: var(--border-radius-of-admonition-icon);
     background-color: rgb(var(--kompendium-contrast-400));
-    margin: pxToRem(12) 0 pxToRem(16) 0;
-    padding: pxToRem(8) pxToRem(8) pxToRem(12) pxToRem(8);
+    margin: functions.pxToRem(12) 0 functions.pxToRem(16) 0;
+    padding: functions.pxToRem(8) functions.pxToRem(8) functions.pxToRem(12)
+        functions.pxToRem(8);
     position: relative;
 
     &:before {
@@ -75,13 +77,13 @@
 }
 
 .admonition-heading {
-    margin-bottom: pxToRem(6);
+    margin-bottom: functions.pxToRem(6);
 
     h5 {
         color: rgb(var(--kompendium-contrast-1100));
         margin: 0;
-        font-size: pxToRem(15);
-        padding: pxToRem(2) 0 0 var(--size-of-admonition-icon);
+        font-size: functions.pxToRem(15);
+        padding: functions.pxToRem(2) 0 0 var(--size-of-admonition-icon);
 
         &::first-letter {
             text-transform: capitalize;
