@@ -1,3 +1,10 @@
+## 🧽 [0.16.1](https://github.com/jgroth/kompendium/compare/v0.16.0...v0.16.1) (2025-11-27)
+
+
+### Bug Fixes
+
+* write `kompendium.json` to config folder first, copy to public path in production ([fd4a489](https://github.com/jgroth/kompendium/commit/fd4a489b7e40af281d895ad588591f80ece01b20))
+
 # 🧧 [0.16.0](https://github.com/jgroth/kompendium/compare/v0.15.0...v0.16.0) (2025-11-24)
 
 
