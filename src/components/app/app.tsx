@@ -104,7 +104,7 @@ export class App {
                     index={this.index}
                 />
                 <main role="main">
-                    <kompendium-router historyType="hash">
+                    <kompendium-router>
                         <kompendium-route-switch scrollTopOffset={0}>
                             <kompendium-route
                                 url="/"

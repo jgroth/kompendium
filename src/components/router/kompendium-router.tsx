@@ -9,9 +9,6 @@ import { Component, h, Prop } from '@stencil/core';
     shadow: false,
 })
 export class KompendiumRouter {
-    @Prop()
-    public historyType: 'hash' | 'browser' = 'hash';
-
     render() {
         return <slot />;
     }
