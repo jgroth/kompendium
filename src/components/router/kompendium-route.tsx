@@ -28,9 +28,6 @@ export class KompendiumRoute {
     public componentProps?: Record<string, any>;
 
     @Prop()
-    public exact?: boolean = false;
-
-    @Prop()
     public routeRender?: (props: { match: MatchResults }) => any;
 
     constructor() {

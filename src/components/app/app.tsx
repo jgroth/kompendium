@@ -112,7 +112,6 @@ export class App {
                                 componentProps={{
                                     text: this.data.readme,
                                 }}
-                                exact={true}
                             />
                             <kompendium-route
                                 url="/component/:name/:section?"
