@@ -48,18 +48,15 @@ export class KompendiumRoute {
     }
 
     render() {
-        // Use current path from state (updated by hashchange listener)
-        const currentPath = this.currentPath;
-
         // Check if a previous sibling route matches (first-match wins)
-        if (hasPreviousMatchingSibling(this.el, currentPath)) {
+        if (hasPreviousMatchingSibling(this.el, this.currentPath)) {
             return null;
         }
 
         // Check if this route matches
         let match: MatchResults | null;
         if (this.url) {
-            match = matchRoute(currentPath, this.url);
+            match = matchRoute(this.currentPath, this.url);
         } else {
             match = { params: {} }; // Catch-all route
         }
