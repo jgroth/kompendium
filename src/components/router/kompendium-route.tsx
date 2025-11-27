@@ -60,7 +60,7 @@ export class KompendiumRoute {
         }
 
         // Check if this route matches
-        let match: MatchResults;
+        let match: MatchResults | null;
         if (this.url) {
             match = matchRoute(currentPath, this.url);
         } else {
