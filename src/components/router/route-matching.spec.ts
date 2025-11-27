@@ -1,6 +1,6 @@
 import { parseRoute, matchRoute, getHashPath } from './route-matching';
 
-describe('router-utils', () => {
+describe('route-matching', () => {
     describe('parseRoute()', () => {
         it('parses basic path without parameters', () => {
             const result = parseRoute('/users');
