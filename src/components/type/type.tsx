@@ -1,6 +1,6 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { TypeDescription, TypeDescriptionType } from '../../types';
-import { MatchResults } from '@stencil/router';
+import { MatchResults } from '../router/route-matching';
 import { Interface } from './templates/interface';
 import { Alias } from './templates/alias';
 import { Enum } from './templates/enum';
