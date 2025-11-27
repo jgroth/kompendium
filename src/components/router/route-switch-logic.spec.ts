@@ -26,7 +26,7 @@ describe('route-switch-logic', () => {
             expect(isRouteElement(element)).toBe(false);
         });
 
-        it('returns false for route element without url property in prototype', () => {
+        it('returns true for route element regardless of url property presence', () => {
             const element = document.createElement('kompendium-route');
 
             expect(isRouteElement(element)).toBe(true);
