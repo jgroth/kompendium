@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use 'variables.scss';
 
 kompendium-playground {
     width: 100%;
@@ -32,7 +32,7 @@ kompendium-playground {
     }
 }
 
-@media (max-width: $break-point-mini) {
+@media (max-width: variables.$break-point-mini) {
     .props-events-layout {
         .markdown-props {
             grid: {
@@ -78,7 +78,7 @@ kompendium-playground {
     }
 }
 
-@media (max-width: $break-point-mini) {
+@media (max-width: variables.$break-point-mini) {
     .methods-content {
         grid: {
             gap: pxToRem(12);
@@ -140,7 +140,7 @@ kompendium-playground {
 .styles-content {
 }
 
-@media (max-width: $break-point-mini) {
+@media (max-width: variables.$break-point-mini) {
     .styles-layout {
         grid: {
             auto-flow: row;

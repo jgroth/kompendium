@@ -1,6 +1,6 @@
-@import '../../style/reset.scss';
-@import '../../style/functions.scss';
-@import '../../style/typography.scss';
+@use '../../style/reset.scss';
+@use '../../style/functions.scss';
+@use '../../style/typography.scss';
 
 :host {
     display: block;
