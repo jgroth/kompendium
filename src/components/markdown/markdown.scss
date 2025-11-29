@@ -1,6 +1,6 @@
-@import '../proplist/proplist.scss';
-@import '../../style/colors.scss';
-@import '../../style/mixins.scss';
+@use '../proplist/proplist.scss';
+@use '../../style/colors.scss';
+@use '../../style/mixins.scss';
 
 .admonition {
     --size-of-admonition-icon: 2.5rem;

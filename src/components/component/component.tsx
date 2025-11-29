@@ -4,7 +4,7 @@ import {
     JsonDocsComponent,
     JsonDocsTag,
 } from '@stencil/core/internal';
-import { MatchResults } from '@stencil/router';
+import { MatchResults } from '../router/route-matching';
 import { PropertyList } from './templates/props';
 import { EventList } from './templates/events';
 import { MethodList } from './templates/methods';

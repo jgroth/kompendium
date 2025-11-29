@@ -60,7 +60,7 @@ export class Search {
         );
     };
 
-    private handleChangeInput = (event: KeyboardEvent) => {
+    private handleChangeInput = (event: InputEvent) => {
         const query = (event.target as HTMLInputElement).value;
         this.search(query);
     };
