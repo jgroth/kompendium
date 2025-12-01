@@ -104,17 +104,16 @@ export class App {
                     index={this.index}
                 />
                 <main role="main">
-                    <stencil-router historyType="hash">
-                        <stencil-route-switch scrollTopOffset={0}>
-                            <stencil-route
+                    <kompendium-router>
+                        <kompendium-route-switch scrollTopOffset={0}>
+                            <kompendium-route
                                 url="/"
                                 component="kompendium-markdown"
                                 componentProps={{
                                     text: this.data.readme,
                                 }}
-                                exact={true}
                             />
-                            <stencil-route
+                            <kompendium-route
                                 url="/component/:name/:section?"
                                 component="kompendium-component"
                                 componentProps={{
@@ -124,14 +123,14 @@ export class App {
                                         this.examplePropsFactory,
                                 }}
                             />
-                            <stencil-route
+                            <kompendium-route
                                 url="/type/:name"
                                 component="kompendium-type"
                                 componentProps={{
                                     types: this.data.types,
                                 }}
                             />
-                            <stencil-route
+                            <kompendium-route
                                 url="/debug/:name"
                                 component="kompendium-debug"
                                 componentProps={{
@@ -141,14 +140,14 @@ export class App {
                                         this.examplePropsFactory,
                                 }}
                             />
-                            <stencil-route
+                            <kompendium-route
                                 component="kompendium-guide"
                                 componentProps={{
                                     data: this.data,
                                 }}
                             />
-                        </stencil-route-switch>
-                    </stencil-router>
+                        </kompendium-route-switch>
+                    </kompendium-router>
                 </main>
             </div>
         );

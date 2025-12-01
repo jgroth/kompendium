@@ -1,9 +1,9 @@
-@import '../../style/reset.scss';
-@import '../../style/variables.scss';
-@import '../../style/mixins.scss';
-@import '../../style/functions.scss';
-@import '../../style/typography.scss';
-@import '../../style/global-layout-rules.scss';
+@use '../../style/reset.scss';
+@use '../../style/variables.scss';
+@use '../../style/mixins.scss';
+@use '../../style/functions.scss';
+@use '../../style/typography.scss';
+@use '../../style/global-layout-rules.scss';
 
 :host {
     display: block;
