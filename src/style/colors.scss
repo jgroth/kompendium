@@ -4,7 +4,7 @@
 // solid: `color: rgb(var(--kompendium-contrast-100))`
 // transparent: `color: rgba(var(--kompendium-contrast-100), 0.5)`
 
-@import 'mixins';
+@use 'mixins';
 
 :root[data-theme='system-default'] {
     color-scheme: dark light;
@@ -64,7 +64,7 @@
     --kompendium-color-orange-light: 255, 183, 77; // #ffb74d
     --kompendium-color-orange-default: 255, 152, 0; // #ff9800
 
-    @include in(dark-mode) {
+    @include mixins.in(dark-mode) {
         --kompendium-color-primary: 30, 136, 229; // #1e88e5 same as --kompendium-color-blue-default
         --kompendium-color-error: 229, 57, 53; // #e53935, same as --kompendium-color-red-default
 
@@ -121,7 +121,7 @@
     --kompendium-color-code-gray-dark: var(--kompendium-contrast-1200);
     --kompendium-color-code-background: var(--kompendium-contrast-200);
 
-    @include in(dark-mode) {
+    @include mixins.in(dark-mode) {
         // Code colors
         --kompendium-color-code-pink: 226, 119, 122; // #e2777a
         --kompendium-color-code-magenta: 232, 62, 140; // #e83e8c

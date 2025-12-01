@@ -1,8 +1,8 @@
-@import '../../style/functions.scss';
-@import '../../style/variables.scss';
-@import '../../style/mixins.scss';
+@use '../../style/functions.scss';
+@use '../../style/variables.scss';
+@use '../../style/mixins.scss';
 
-$tab-active-outer-edge-curve-size: pxToRem(10);
+$tab-active-outer-edge-curve-size: functions.pxToRem(10);
 
 :host {
     display: block;
@@ -16,29 +16,31 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
 
 .tab-bar {
     display: flex;
-    padding: pxToRem(3) pxToRem(16) 0 pxToRem(16);
+    padding: functions.pxToRem(3) functions.pxToRem(16) 0 functions.pxToRem(16);
     overflow-y: auto;
 
     .tab {
         span {
-            @include truncate-text;
+            @include mixins.truncate-text;
             display: inline-block;
             width: 100%;
-            padding: pxToRem(2) 0;
+            padding: functions.pxToRem(2) 0;
         }
         transition: background-color 0.2s ease;
         cursor: pointer;
 
         position: relative;
         display: inline-block;
-        padding: pxToRem(8) pxToRem(16);
+        padding: functions.pxToRem(8) functions.pxToRem(16);
         text-align: center;
-        line-height: pxToRem(15);
+        line-height: functions.pxToRem(15);
         color: rgb(var(--kompendium-contrast-1000));
-        font-size: pxToRem(16);
-        border-radius: pxToRem(8) pxToRem(8) 0 0;
-        margin: 0 pxToRem(2);
-        min-width: pxToRem(60); // needs to be here for titles to truncate
+        font-size: functions.pxToRem(16);
+        border-radius: functions.pxToRem(8) functions.pxToRem(8) 0 0;
+        margin: 0 functions.pxToRem(2);
+        min-width: functions.pxToRem(
+            60
+        ); // needs to be here for titles to truncate
 
         &:before,
         &:after {
@@ -88,7 +90,7 @@ $tab-active-outer-edge-curve-size: pxToRem(10);
 
 .tab-items {
     display: flex;
-    max-height: pxToRem(500);
+    max-height: functions.pxToRem(500);
 
     .tab-item {
         width: 100%;
@@ -115,13 +117,13 @@ kompendium-code {
         position: absolute;
         left: 0;
         right: 0;
-        border-radius: pxToRem(9);
+        border-radius: functions.pxToRem(9);
         pointer-events: none;
     }
 
     &:before {
-        top: pxToRem(39);
-        height: pxToRem(24);
+        top: functions.pxToRem(39);
+        height: functions.pxToRem(24);
         background-image: linear-gradient(
             rgb(var(--kompendium-color-code-background)),
             rgba(var(--kompendium-color-code-background), 0)
@@ -129,7 +131,7 @@ kompendium-code {
     }
     &:after {
         bottom: 0;
-        height: pxToRem(32);
+        height: functions.pxToRem(32);
         background-image: linear-gradient(
             rgba(var(--kompendium-color-code-background), 0),
             rgb(var(--kompendium-color-code-background))
@@ -139,8 +141,8 @@ kompendium-code {
 
 section.example {
     transition: border-color 0.3s ease 0.05s;
-    padding-bottom: pxToRem(40);
-    margin-bottom: pxToRem(40);
+    padding-bottom: functions.pxToRem(40);
+    margin-bottom: functions.pxToRem(40);
     border-bottom: 1px solid rgb(var(--kompendium-contrast-500));
 
     .result,
@@ -152,10 +154,10 @@ section.example {
     }
 
     .result {
-        padding-right: pxToRem(40);
+        padding-right: functions.pxToRem(40);
 
         kompendium-markdown {
-            margin-bottom: pxToRem(32);
+            margin-bottom: functions.pxToRem(32);
         }
     }
 
@@ -165,24 +167,24 @@ section.example {
     }
 }
 
-@media (max-width: $break-point-small) {
+@media (max-width: variables.$break-point-small) {
     section.example {
         .result,
         .code {
             width: 100%;
             padding-right: 0;
-            margin-bottom: pxToRem(80);
+            margin-bottom: functions.pxToRem(80);
         }
 
         .code {
             position: relative;
-            margin-bottom: pxToRem(40);
+            margin-bottom: functions.pxToRem(40);
         }
     }
 }
 
 .show-case_description {
-    padding: pxToRem(12);
+    padding: functions.pxToRem(12);
 }
 
 .show-case_component {
@@ -191,8 +193,8 @@ section.example {
     line-height: var(--kompendium-example-line-height, inherit);
     color: var(--kompendium-example-color, inherit);
 
-    padding: pxToRem(20);
-    border-radius: pxToRem(14);
+    padding: functions.pxToRem(20);
+    border-radius: functions.pxToRem(14);
     background-color: rgb(var(--kompendium-contrast-100));
     border: 1px solid rgb(var(--kompendium-contrast-300));
     box-shadow: var(--shadow-showcase);
@@ -203,17 +205,17 @@ section.example {
     justify-content: flex-end;
 
     a.debug-link {
-        @include is-flat-clickable();
+        @include mixins.is-flat-clickable();
         transition:
             background-color 0.2s ease,
             box-shadow 0.2s ease,
             transform 0.1s ease-out,
             opacity 0.2s ease;
 
-        width: pxToRem(28);
-        height: pxToRem(28);
+        width: functions.pxToRem(28);
+        height: functions.pxToRem(28);
         font-size: 0;
-        margin: pxToRem(-52) pxToRem(-16) 0 0;
+        margin: functions.pxToRem(-52) functions.pxToRem(-16) 0 0;
         border-radius: 50%;
 
         color: rgb(var(--kompendium-contrast-1200));
