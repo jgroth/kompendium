@@ -1,4 +1,5 @@
 @use 'variables.scss';
+@use 'functions.scss';
 
 kompendium-playground {
     width: 100%;
@@ -6,18 +7,18 @@ kompendium-playground {
 
 .docs-layout-section-heading {
     transition: border-color 0.3s ease 0.05s;
-    padding-top: pxToRem(40);
-    margin: pxToRem(40) 0 pxToRem(20) 0;
+    padding-top: functions.pxToRem(40);
+    margin: functions.pxToRem(40) 0 functions.pxToRem(20) 0;
     border-top: 1px solid rgb(var(--kompendium-contrast-500));
 
     &:before {
         content: '';
-        width: pxToRem(2);
-        height: pxToRem(12);
+        width: functions.pxToRem(2);
+        height: functions.pxToRem(12);
         display: inline-block;
         background-color: rgba(var(--kompendium-color-code-blue), 0.4);
-        border-radius: pxToRem(1);
-        transform: translateX(pxToRem(-8));
+        border-radius: functions.pxToRem(1);
+        transform: translateX(functions.pxToRem(-8));
     }
 }
 
@@ -25,7 +26,7 @@ kompendium-playground {
     .markdown-props {
         display: grid;
         grid: {
-            gap: pxToRem(20);
+            gap: functions.pxToRem(20);
             auto-flow: column;
             template-columns: 1fr 1fr;
         }
@@ -36,7 +37,7 @@ kompendium-playground {
     .props-events-layout {
         .markdown-props {
             grid: {
-                gap: pxToRem(12);
+                gap: functions.pxToRem(12);
                 auto-flow: row;
                 template-columns: unset;
             }
@@ -45,32 +46,34 @@ kompendium-playground {
 }
 
 .methods-layout {
-    border-radius: pxToRem(6);
-    margin-bottom: pxToRem(40);
+    border-radius: functions.pxToRem(6);
+    margin-bottom: functions.pxToRem(40);
     background-color: rgb(var(--kompendium-contrast-400));
 }
 
 .methods-title {
     margin: 0;
-    border-radius: pxToRem(6) pxToRem(6) 0 0;
-    padding: pxToRem(12) pxToRem(16);
+    border-radius: functions.pxToRem(6) functions.pxToRem(6) 0 0;
+    padding: functions.pxToRem(12) functions.pxToRem(16);
     background-color: rgb(var(--kompendium-contrast-500));
-    font-size: pxToRem(17);
+    font-size: functions.pxToRem(17);
 }
 
 .methods-content {
     display: grid;
     grid: {
-        gap: pxToRem(20);
+        gap: functions.pxToRem(20);
         auto-flow: column;
         template-columns: 1fr 1fr;
     }
-    padding: pxToRem(16) pxToRem(20) pxToRem(24) pxToRem(20);
+    padding: functions.pxToRem(16) functions.pxToRem(20) functions.pxToRem(24)
+        functions.pxToRem(20);
 }
 
 .methods-returns {
-    padding: pxToRem(16) pxToRem(20) pxToRem(24) pxToRem(20);
-    border-radius: 0 0 pxToRem(6) pxToRem(6);
+    padding: functions.pxToRem(16) functions.pxToRem(20) functions.pxToRem(24)
+        functions.pxToRem(20);
+    border-radius: 0 0 functions.pxToRem(6) functions.pxToRem(6);
     border-top: 1px solid rgb(var(--kompendium-contrast-600));
 
     h5 {
@@ -81,7 +84,7 @@ kompendium-playground {
 @media (max-width: variables.$break-point-mini) {
     .methods-content {
         grid: {
-            gap: pxToRem(12);
+            gap: functions.pxToRem(12);
             auto-flow: row;
             template-columns: unset;
         }
@@ -93,26 +96,26 @@ kompendium-playground {
     grid: {
         auto-flow: column;
         template-columns: 1fr 1fr;
-        gap: 0 pxToRem(12);
+        gap: 0 functions.pxToRem(12);
     }
     border: solid rgb(var(--kompendium-contrast-500));
     border-width: 1px 1px 0 1px;
 
-    padding: pxToRem(8);
+    padding: functions.pxToRem(8);
 
     background-color: rgb(var(--kompendium-contrast-300));
 
     &:first-of-type {
         // FIXME: I've tried different ways, but this doesn't seem to apply, while "last-of-type" does.
         border: {
-            top-right-radius: pxToRem(6);
-            top-left-radius: pxToRem(6);
+            top-right-radius: functions.pxToRem(6);
+            top-left-radius: functions.pxToRem(6);
         }
     }
     &:last-of-type {
         border: {
-            bottom-right-radius: pxToRem(6);
-            bottom-left-radius: pxToRem(6);
+            bottom-right-radius: functions.pxToRem(6);
+            bottom-left-radius: functions.pxToRem(6);
             bottom-width: 1px;
         }
     }
@@ -124,10 +127,10 @@ kompendium-playground {
 .styles-title {
     code {
         font-family: var(--kompendium-font-code);
-        border-radius: pxToRem(4);
+        border-radius: functions.pxToRem(4);
         border: 1px solid rgba(var(--kompendium-contrast-1100), 0.1);
 
-        font-size: pxToRem(11);
+        font-size: functions.pxToRem(11);
         white-space: pre-wrap;
         color: rgb(var(--kompendium-contrast-1100));
 
@@ -145,7 +148,7 @@ kompendium-playground {
         grid: {
             auto-flow: row;
             template-columns: unset;
-            gap: pxToRem(12) 0;
+            gap: functions.pxToRem(12) 0;
         }
     }
 }
