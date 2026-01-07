@@ -104,7 +104,7 @@ export class App {
                     index={this.index}
                 />
                 <main role="main">
-                    <stencil-router historyType="hash">
+                    <stencil-router>
                         <stencil-route-switch scrollTopOffset={0}>
                             <stencil-route
                                 url="/"
@@ -112,7 +112,6 @@ export class App {
                                 componentProps={{
                                     text: this.data.readme,
                                 }}
-                                exact={true}
                             />
                             <stencil-route
                                 url="/component/:name/:section?"
