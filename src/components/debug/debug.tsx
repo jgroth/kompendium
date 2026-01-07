@@ -4,7 +4,7 @@ import {
     JsonDocsComponent,
     JsonDocsTag,
 } from '@stencil/core/internal';
-import { MatchResults } from '@stencil/router';
+import { MatchResults } from '@limetech/stencil-router';
 import { PropsFactory } from '../playground/playground.types';
 
 @Component({
