@@ -21,7 +21,7 @@ import {
     DecoratorDescription,
 } from '../types';
 import { existsSync, readFileSync } from 'fs';
-import * as ts from 'typescript';
+import ts from 'typescript';
 
 export function parseFile(
     filename: string,
@@ -103,7 +103,7 @@ export function parseFile(
         const enumReflection = reflection as DeclarationReflection;
         enumReflection.children?.forEach((child) => {
             if (child.kind === ReflectionKind.EnumMember) {
-                addEnumMember(child as DeclarationReflection, members);
+                addEnumMember(child, members);
             }
         });
         data.push({
@@ -190,7 +190,7 @@ function shouldIncludeType(reflection: DeclarationReflection): boolean {
  * @returns {boolean} true if the source should be excluded, false otherwise
  */
 function shouldExcludeSource(sourcePath: string): boolean {
-    const normalizedPath = sourcePath.replace(/\\/g, '/');
+    const normalizedPath = sourcePath.replaceAll('\\', '/');
 
     if (normalizedPath.includes('node_modules/')) {
         return true;
@@ -359,7 +359,7 @@ function getDocs(reflection: Reflection): string {
             .trim() || '';
 
     // Normalize multiple newlines to single newlines
-    return text.replace(/\n\n+/g, '\n');
+    return text.replaceAll(/\n\n+/g, '\n');
 }
 
 function getDocsTags(reflection: DeclarationReflection) {
@@ -387,11 +387,7 @@ function isProperty(reflection: DeclarationReflection): boolean {
 
     const type = reflection.type as any;
 
-    return !(
-        type &&
-        type.type === 'reflection' &&
-        type.declaration?.signatures
-    );
+    return !(type?.type === 'reflection' && type.declaration?.signatures);
 }
 
 function isMethod(reflection: DeclarationReflection): boolean {
@@ -401,7 +397,7 @@ function isMethod(reflection: DeclarationReflection): boolean {
 
     const type = reflection.type as any;
 
-    return type && type.type === 'reflection' && type.declaration?.signatures;
+    return type?.type === 'reflection' && type.declaration?.signatures;
 }
 
 function getProperty(reflection: DeclarationReflection): Partial<JsonDocsProp> {
@@ -435,7 +431,7 @@ function getMethod(reflection: DeclarationReflection): MethodDescription {
             .join('')
             .trim() || '';
     // Normalize multiple newlines to single newlines
-    docs = docs.replace(/\n\n+/g, '\n');
+    docs = docs.replaceAll(/\n\n+/g, '\n');
 
     const parameters: ParameterDescription[] =
         signature.parameters?.map((param: any) => ({
