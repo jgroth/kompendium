@@ -5,6 +5,9 @@ on:
       - main
       - beta
       - next
+permissions:
+  id-token: write
+  contents: read
 jobs:
   release:
     name: Run Semantic Release
