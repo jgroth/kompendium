@@ -1,3 +1,20 @@
+# 🧩 [1.0.0](https://github.com/jgroth/kompendium/compare/v0.16.1...v1.0.0) (2026-01-16)
+
+
+* feat!: upgrade TypeDoc to v0.23.28 for Stencil v4 project support ([bd1af0c](https://github.com/jgroth/kompendium/commit/bd1af0ce6e5f296afeea56820a7fa4c4eb15ae24))
+
+
+### Features
+
+* **typedoc:** filter unwanted types from documentation ([add5e0b](https://github.com/jgroth/kompendium/commit/add5e0b1cde6fa6cc35d26cca5a9270da5d305b0))
+
+
+### BREAKING CHANGES
+
+* Kompendium now requires consumers to use TypeScript
+4.6.x or higher (previously >= 3.8.3). Projects using TypeScript 3.x
+or 4.0-4.5 must upgrade their TypeScript version to generate docs.
+
 ## 🧽 [0.16.1](https://github.com/jgroth/kompendium/compare/v0.16.0...v0.16.1) (2025-11-27)
 
 
