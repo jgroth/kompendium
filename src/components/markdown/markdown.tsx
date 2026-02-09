@@ -1,6 +1,7 @@
 import { Component, h, Prop, Element } from '@stencil/core';
 import { markdownToHtml } from '../../kompendium/markdown';
 import { getTypes } from './markdown-types';
+import { scrollToAnchor } from '../anchor-scroll';
 
 /**
  * This component renders markdown
@@ -12,6 +13,8 @@ import { getTypes } from './markdown-types';
     styleUrl: 'markdown.scss',
 })
 export class Markdown {
+    private renderSeq = 0;
+
     /**
      * The text to render
      */
@@ -42,45 +45,25 @@ export class Markdown {
     }
 
     private handleHashChange(): void {
-        this.scrollToAnchor();
+        scrollToAnchor(this.host.shadowRoot);
     }
 
     private async renderMarkdown() {
+        const renderSeq = ++this.renderSeq;
+        const currentText = this.text;
         const types = getTypes();
-        const file = await markdownToHtml(this.text, types);
+        const file = await markdownToHtml(currentText, types);
+
+        // Abort if a newer render has started or text has changed
+        if (renderSeq !== this.renderSeq || currentText !== this.text) {
+            return;
+        }
+
         this.host.shadowRoot.querySelector('#root').innerHTML =
             file?.toString();
 
         // After content renders, scroll to anchor if present in URL
-        this.scrollToAnchor();
-    }
-
-    private scrollToAnchor(): void {
-        const hash = window.location.hash;
-        if (!hash) {
-            return;
-        }
-
-        // Extract anchor ID from hash (remove leading #)
-        // Handle both simple anchors (#section) and route-based anchors (#/guide/page#section)
-        const anchorMatch = hash.match(/#([^#]+)$/);
-        if (!anchorMatch) {
-            return;
-        }
-
-        const anchorId = anchorMatch[1];
-
-        // Wait for next frame to ensure DOM is ready, then scroll
-        requestAnimationFrame(() => {
-            this.scrollToElement(anchorId, 'auto');
-        });
-    }
-
-    private scrollToElement(id: string, behavior: ScrollBehavior): void {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior });
-        }
+        scrollToAnchor(this.host.shadowRoot);
     }
 
     render(): HTMLElement {

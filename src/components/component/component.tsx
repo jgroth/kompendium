@@ -13,6 +13,7 @@ import { StyleList } from './templates/style';
 import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
 import { PropsFactory } from '../playground/playground.types';
+import { getRoute, scrollToElement } from '../anchor-scroll';
 
 @Component({
     tag: 'kompendium-component',
@@ -62,29 +63,20 @@ export class KompendiumComponent {
     }
 
     protected componentDidLoad(): void {
-        const route = this.getRoute();
-        this.scrollToElement(route);
+        const route = getRoute().split('#')[0];
+        scrollToElement(this.host.shadowRoot, route);
     }
 
     protected componentDidUpdate(): void {
         if (this.scrollToOnNextUpdate) {
-            this.scrollToElement(this.scrollToOnNextUpdate);
+            const route = this.scrollToOnNextUpdate.split('#')[0];
+            scrollToElement(this.host.shadowRoot, route);
             this.scrollToOnNextUpdate = null;
         }
     }
 
     private handleRouteChange() {
-        const route = this.getRoute();
-        this.scrollToOnNextUpdate = route;
-    }
-
-    private scrollToElement(id: string) {
-        const element = this.host.shadowRoot.getElementById(id);
-        if (!element) {
-            return;
-        }
-
-        element.scrollIntoView();
+        this.scrollToOnNextUpdate = getRoute().split('#')[0];
     }
 
     public render(): HTMLElement {
@@ -134,13 +126,9 @@ export class KompendiumComponent {
     }
 
     private getId(name?: string) {
-        const route = this.getRoute().split('/').slice(0, 3).join('/');
+        const route = getRoute().split('#')[0].split('/').slice(0, 3).join('/');
 
         return [route, name].filter((item) => !!item).join('/') + '/';
-    }
-
-    private getRoute() {
-        return location.hash.substr(1);
     }
 }
 
