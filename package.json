@@ -93,6 +93,7 @@
     "lodash": "^4.17.23",
     "node-cleanup": "^2.1.2",
     "rehype-raw": "^4.0.2",
+    "rehype-slug": "^4.0.1",
     "rehype-stringify": "^8.0.0",
     "remark-admonitions": "^1.2.1",
     "remark-frontmatter": "^2.0.0",
