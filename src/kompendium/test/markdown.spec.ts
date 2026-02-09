@@ -10,7 +10,7 @@ describe('markdownToHtml()', () => {
 
         it('does not return the frontmatter in the html', async () => {
             const markdown = '---\nkey: value\n---\n# Test';
-            const html = '<h1>Test</h1>';
+            const html = '<h1 id="test">Test</h1>';
             const result = await markdownToHtml(markdown);
             expect(result.toString()).toEqual(html);
         });
@@ -22,7 +22,7 @@ describe('markdownToHtml()', () => {
             const html = `
                 <div class="admonition admonition-note alert alert--secondary">
                     <div class="admonition-heading">
-                        <h5>test</h5>
+                        <h5 id="test">test</h5>
                     </div>
                     <div class="admonition-content">
                         <p>Hello, World!</p>
@@ -41,6 +41,21 @@ describe('markdownToHtml()', () => {
 </kompendium-code></pre>`;
             const result = await markdownToHtml(markdown);
             expect(result.toString()).toEqualHtml(html);
+        });
+    });
+
+    describe('when markdown contains headings', () => {
+        it('adds id attributes based on heading text', async () => {
+            const markdown = '# Hello World\n\n## Getting Started';
+            const result = await markdownToHtml(markdown);
+            expect(result.toString()).toContain('id="hello-world"');
+            expect(result.toString()).toContain('id="getting-started"');
+        });
+
+        it('handles special characters in headings', async () => {
+            const markdown = "# What's New in v2.0?";
+            const result = await markdownToHtml(markdown);
+            expect(result.toString()).toContain('id="whats-new-in-v20"');
         });
     });
 
