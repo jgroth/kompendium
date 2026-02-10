@@ -10,7 +10,7 @@ describe('kompendium()', () => {
     let stencilConfig: Config;
 
     beforeEach(() => {
-        tmpObject = tmp.dirSync();
+        tmpObject = tmp.dirSync({ unsafeCleanup: true });
         path = tmpObject.name;
         kompendium = kompendiumGenerator({ path: path });
         stencilConfig = {
