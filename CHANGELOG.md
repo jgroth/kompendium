@@ -1,3 +1,10 @@
+# 🥥 [1.1.0](https://github.com/jgroth/kompendium/compare/v1.0.1...v1.1.0) (2026-02-11)
+
+
+### Features
+
+* **markdown:** add support for cross-page anchor links ([a7f04b5](https://github.com/jgroth/kompendium/commit/a7f04b53264e83037958fc3c2cca5a641d0794b7)), closes [guide/changelog#v2-features](https://github.com/guide/changelog/issues/v2-features)
+
 ## 🍽️ [1.0.1](https://github.com/jgroth/kompendium/compare/v1.0.0...v1.0.1) (2026-02-11)
 
 
