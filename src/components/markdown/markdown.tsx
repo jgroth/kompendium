@@ -107,15 +107,17 @@ export class Markdown {
         event.preventDefault();
 
         const url = this.getAnchorHref(id);
-        const fullUrl = `${window.location.origin}${window.location.pathname}${url}`;
+        const fullUrl = `${window.location.origin}${window.location.pathname}${window.location.search}${url}`;
 
         // Update the URL
         window.history.pushState(null, '', url);
 
         // Copy to clipboard
-        navigator.clipboard.writeText(fullUrl).catch(() => {
-            // Fallback: just navigate if clipboard fails
-        });
+        if (navigator.clipboard?.writeText) {
+            navigator.clipboard.writeText(fullUrl).catch(() => {
+                // Silently fail if clipboard write fails
+            });
+        }
     }
 
     render(): HTMLElement {
