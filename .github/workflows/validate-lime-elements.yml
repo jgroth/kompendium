@@ -1,0 +1,159 @@
+name: Validate lime-elements
+
+on:
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs for the same PR
+concurrency:
+  group: lime-elements-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build lime-elements docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout kompendium PR
+        uses: actions/checkout@v4
+        with:
+          path: kompendium
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: kompendium/.nvmrc
+          cache: 'npm'
+          cache-dependency-path: kompendium/package-lock.json
+
+      # Build kompendium and register for linking
+      - name: Build kompendium
+        working-directory: kompendium
+        run: |
+          npm ci
+          npm run build
+          npm link
+
+      # Checkout lime-elements
+      - name: Checkout lime-elements
+        uses: actions/checkout@v4
+        with:
+          repository: Lundalogik/lime-elements
+          ref: main
+          path: lime-elements
+
+      # Cache lime-elements dependencies (include runner and node version for compatibility)
+      # Using separate restore/save to avoid caching symlinks from npm link
+      - name: Restore lime-elements node_modules cache
+        uses: actions/cache/restore@v4
+        id: cache-le
+        with:
+          path: lime-elements/node_modules
+          key: lime-elements-${{ runner.os }}-node${{ hashFiles('kompendium/.nvmrc') }}-${{ hashFiles('lime-elements/package-lock.json') }}
+          restore-keys: |
+            lime-elements-${{ runner.os }}-node${{ hashFiles('kompendium/.nvmrc') }}-
+
+      - name: Install lime-elements dependencies
+        if: steps.cache-le.outputs.cache-hit != 'true'
+        working-directory: lime-elements
+        run: npm ci
+
+      - name: Save lime-elements node_modules cache
+        if: steps.cache-le.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: lime-elements/node_modules
+          key: lime-elements-${{ runner.os }}-node${{ hashFiles('kompendium/.nvmrc') }}-${{ hashFiles('lime-elements/package-lock.json') }}
+
+      # Stage 1: Baseline - verify lime-elements builds with published kompendium
+      - name: Baseline - Build docs with published kompendium
+        id: baseline
+        working-directory: lime-elements
+        continue-on-error: true
+        run: |
+          echo "::group::Building with published kompendium"
+          npm run docs:build
+          echo "::endgroup::"
+
+      # Clean up baseline build
+      - name: Clean baseline build
+        working-directory: lime-elements
+        run: rm -rf www/ .kompendium/
+
+      # Stage 2: Link PR kompendium and rebuild
+      - name: Link kompendium from PR
+        working-directory: lime-elements
+        run: npm link kompendium
+
+      - name: Build docs with PR kompendium
+        id: pr-build
+        working-directory: lime-elements
+        continue-on-error: true
+        run: npm run docs:build
+
+      # Validate output (only if PR build succeeded)
+      - name: Validate kompendium.json
+        id: validation
+        if: steps.pr-build.outcome == 'success'
+        working-directory: lime-elements
+        run: |
+          KOMPENDIUM_JSON=".kompendium/kompendium.json"
+          
+          if [ ! -f "$KOMPENDIUM_JSON" ]; then
+            echo "::error::kompendium.json was not generated"
+            exit 1
+          fi
+
+          # Validate it's valid JSON
+          if ! jq empty "$KOMPENDIUM_JSON" 2>/dev/null; then
+            echo "::error::kompendium.json is not valid JSON"
+            exit 1
+          fi
+
+          # Check for expected structure (kompendium.json has .docs.components)
+          if ! jq -e '.docs.components' "$KOMPENDIUM_JSON" > /dev/null; then
+            echo "::error::kompendium.json missing 'docs.components' field"
+            exit 1
+          fi
+
+          # Report stats
+          COMPONENT_COUNT=$(jq '.docs.components | length' "$KOMPENDIUM_JSON")
+          echo "✅ kompendium.json validated: $COMPONENT_COUNT components"
+
+          if [ "$COMPONENT_COUNT" -lt 50 ]; then
+            echo "::warning::Unexpectedly few components: $COMPONENT_COUNT (expected 50+)"
+          fi
+
+      # Report results
+      - name: Report results
+        if: always()
+        run: |
+          echo "## lime-elements Integration Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.baseline.outcome }}" == "failure" ]; then
+            echo "⚠️ **Baseline build failed:** lime-elements \`main\` doesn't build with the published kompendium." >> $GITHUB_STEP_SUMMARY
+            echo "This indicates a pre-existing issue, not a problem with this PR." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ "${{ steps.pr-build.outcome }}" == "success" ]; then
+            if [ "${{ steps.validation.outcome }}" == "success" ]; then
+              echo "✅ **PR build succeeded:** lime-elements docs build correctly with this kompendium PR." >> $GITHUB_STEP_SUMMARY
+            elif [ "${{ steps.validation.outcome }}" == "failure" ]; then
+              echo "⚠️ **PR build succeeded but validation failed:** Docs built but kompendium.json has issues." >> $GITHUB_STEP_SUMMARY
+            else
+              echo "✅ **PR build succeeded:** lime-elements docs build correctly with this kompendium PR." >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "❌ **PR build failed:** This kompendium PR may break lime-elements docs." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # Fail only if this is a regression (baseline passed, PR failed/invalid)
+      - name: Check for regression
+        if: steps.baseline.outcome == 'success' && (steps.pr-build.outcome == 'failure' || steps.validation.outcome == 'failure')
+        run: |
+          echo "::error::Regression detected - lime-elements docs built with published kompendium but fail with this PR"
+          exit 1
