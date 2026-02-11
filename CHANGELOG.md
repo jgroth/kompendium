@@ -1,3 +1,11 @@
+## 🍽️ [1.0.1](https://github.com/jgroth/kompendium/compare/v1.0.0...v1.0.1) (2026-02-11)
+
+
+### Bug Fixes
+
+* **deps:** move typescript to devDependencies and update to ^4.9.5 ([4c52908](https://github.com/jgroth/kompendium/commit/4c529086bf205fcb1a00b724163e466c59d01f73))
+* **typedoc:** use ts.getDecorators() API for TypeScript 4.8+ ([bc22e0f](https://github.com/jgroth/kompendium/commit/bc22e0f45e2627fa209874d2bd93f9e56ab351cc))
+
 # 🧩 [1.0.0](https://github.com/jgroth/kompendium/compare/v0.16.1...v1.0.0) (2026-01-16)
 
 
