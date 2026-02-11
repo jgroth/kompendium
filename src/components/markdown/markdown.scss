@@ -3,6 +3,36 @@
 @use '../../style/mixins.scss';
 @use '../../style/functions.scss';
 
+// Anchor links on headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+
+    .anchor-link {
+        position: absolute;
+        left: -1.5em;
+        padding-right: 0.5em;
+        color: rgb(var(--kompendium-contrast-700));
+        text-decoration: none;
+        font-weight: normal;
+        opacity: 0;
+        transition: opacity 0.15s ease-in-out;
+
+        &:hover {
+            color: rgb(var(--kompendium-color-turquoise));
+        }
+    }
+
+    &:hover .anchor-link,
+    .anchor-link:focus {
+        opacity: 1;
+    }
+}
+
 .admonition {
     --size-of-admonition-icon: 2.5rem;
     --border-radius-of-admonition-icon: 0.5rem;
