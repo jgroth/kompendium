@@ -100,6 +100,10 @@ export class Markdown {
         const route = getRoute();
         const routeWithoutAnchor = route.split('#')[0];
 
+        if (!routeWithoutAnchor) {
+            return `#${id}`;
+        }
+
         return `#${routeWithoutAnchor}#${id}`;
     }
 
