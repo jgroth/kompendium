@@ -15,6 +15,16 @@ export const config: Config = {
     },
     globalStyle: 'src/global/kompendium.scss',
 
+    testing: {
+        transform: {
+            '^.+\\.(ts|tsx|jsx|js|css)$':
+                '<rootDir>/node_modules/@stencil/core/testing/jest-preprocessor.js',
+        },
+        transformIgnorePatterns: [
+            '/node_modules/(@stencil|@types|typedoc|typescript)/',
+        ],
+    },
+
     outputTargets: [
         {
             type: 'dist',
