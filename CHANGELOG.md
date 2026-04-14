@@ -1,3 +1,10 @@
+## 🏮 [1.1.1](https://github.com/jgroth/kompendium/compare/v1.1.0...v1.1.1) (2026-04-14)
+
+
+### Bug Fixes
+
+* **markdown:** migrate to unified v11 ecosystem ([d1c9c0f](https://github.com/jgroth/kompendium/commit/d1c9c0f1dfc735a346fc510535f3034fb5b5f986))
+
 # 🥥 [1.1.0](https://github.com/jgroth/kompendium/compare/v1.0.1...v1.1.0) (2026-02-11)
 
 
