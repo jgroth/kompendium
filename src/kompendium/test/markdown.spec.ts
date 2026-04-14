@@ -17,19 +17,34 @@ describe('markdownToHtml()', () => {
     });
 
     describe('when markdown contains admonitions', () => {
-        it('returns the correct markup for the sections', async () => {
+        const expectedHtml = `
+            <div class="admonition admonition-note alert alert--secondary">
+                <div class="admonition-heading">
+                    <h5 id="test">test</h5>
+                </div>
+                <div class="admonition-content">
+                    <p>Hello, World!</p>
+                </div>
+            </div>`;
+
+        it('supports the legacy space syntax', async () => {
             const markdown = ':::note test\nHello, World!\n:::';
-            const html = `
-                <div class="admonition admonition-note alert alert--secondary">
-                    <div class="admonition-heading">
-                        <h5 id="test">test</h5>
-                    </div>
-                    <div class="admonition-content">
-                        <p>Hello, World!</p>
-                    </div>
-                </div>`;
             const result = await markdownToHtml(markdown);
-            expect(result.toString()).toEqualHtml(html);
+            expect(result.toString()).toEqualHtml(expectedHtml);
+        });
+
+        it('supports the bracket syntax', async () => {
+            const markdown = ':::note[test]\nHello, World!\n:::';
+            const result = await markdownToHtml(markdown);
+            expect(result.toString()).toEqualHtml(expectedHtml);
+        });
+
+        it('does not consume body as label when no label is given', async () => {
+            const markdown = ':::note\nHello, World!\n:::';
+            const result = await markdownToHtml(markdown);
+            const html = result.toString();
+            expect(html).toContain('admonition-note');
+            expect(html).toContain('Hello, World!');
         });
     });
 
@@ -56,6 +71,22 @@ describe('markdownToHtml()', () => {
             const markdown = "# What's New in v2.0?";
             const result = await markdownToHtml(markdown);
             expect(result.toString()).toContain('id="whats-new-in-v20"');
+        });
+    });
+
+    describe('when inline code contains a known type', () => {
+        it('wraps the type name in a link', async () => {
+            const markdown = 'The type is `MyType`';
+            const result = await markdownToHtml(markdown, ['MyType']);
+            const html = result.toString();
+            expect(html).toContain('<a href="#/type/MyType">MyType</a>');
+        });
+
+        it('does not link types inside code blocks', async () => {
+            const markdown = '```\nMyType\n```';
+            const result = await markdownToHtml(markdown, ['MyType']);
+            const html = result.toString();
+            expect(html).not.toContain('<a href="#/type/MyType">');
         });
     });
 
