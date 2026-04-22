@@ -1,7 +1,7 @@
 import { JsonDocsComponent, JsonDocsTag } from '@stencil/core/internal';
 import { h } from '@stencil/core';
 import { PropsFactory } from '../../playground/playground.types';
-import { exampleAnchorId } from '../anchors';
+import { uniqueExampleSlugs } from '../anchors';
 
 export function ExampleList({
     examples,
@@ -20,20 +20,22 @@ export function ExampleList({
         return;
     }
 
+    const slugs = uniqueExampleSlugs(examples);
+
     return [
         <span class="section-anchor" id={slugId} aria-hidden="true"></span>,
         <h3 class="docs-layout-section-heading" id={id}>
             Examples
             <kompendium-anchor slug={slugId} label="Examples" />
         </h3>,
-        examples.map(renderExample(schema, propsFactory)),
+        examples.map(renderExample(slugs, schema, propsFactory)),
     ];
 }
 
 const renderExample =
-    (schema: Record<string, any>, factory: PropsFactory) =>
-    (example: JsonDocsComponent) => {
-        const slug = exampleAnchorId(example.docs, example.tag);
+    (slugs: string[], schema: Record<string, any>, factory: PropsFactory) =>
+    (example: JsonDocsComponent, index: number) => {
+        const slug = slugs[index];
 
         return (
             <div class="example-wrapper" id={slug}>

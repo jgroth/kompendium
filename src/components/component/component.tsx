@@ -22,8 +22,8 @@ import {
 import {
     SECTION_SLUGS,
     entrySlug,
-    exampleAnchorId,
     firstLine,
+    uniqueExampleSlugs,
 } from './anchors';
 import { TocEntry } from '../toc/toc.types';
 
@@ -195,13 +195,14 @@ function buildTocEntries(
 
     const resolvedExamples = examples.filter(Boolean);
     if (resolvedExamples.length) {
+        const slugs = uniqueExampleSlugs(resolvedExamples);
         entries.push({
             id: SECTION_SLUGS.examples,
             title: 'Examples',
             collapsible: true,
             defaultExpanded: true,
-            children: resolvedExamples.map((example) => {
-                const id = exampleAnchorId(example.docs, example.tag);
+            children: resolvedExamples.map((example, index) => {
+                const id = slugs[index];
                 const title = exampleTitle(example) || prettifyTag(id);
 
                 return { id: id, title: title };

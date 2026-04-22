@@ -84,3 +84,24 @@ export function slugify(name: string): string {
 export function entrySlug(sectionSlug: string, name: string): string {
     return `${sectionSlug}-${slugify(name)}`;
 }
+
+/**
+ * Compute unique anchor ids for a list of example components, appending
+ * `-2`, `-3`, ... suffixes when two examples would otherwise collide on
+ * the same slug (e.g. two examples share a title).
+ * @param {Array<{docs: string; tag: string}>} examples the examples in render order
+ * @returns {string[]} unique slugs in the same order
+ */
+export function uniqueExampleSlugs(
+    examples: Array<{ docs: string; tag: string }>,
+): string[] {
+    const counts = new Map<string, number>();
+
+    return examples.map((example) => {
+        const base = exampleAnchorId(example.docs, example.tag);
+        const count = counts.get(base) || 0;
+        counts.set(base, count + 1);
+
+        return count === 0 ? base : `${base}-${count + 1}`;
+    });
+}
