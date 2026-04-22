@@ -29,6 +29,12 @@ export class Playground {
     @Prop()
     public propsFactory?: PropsFactory = () => ({});
 
+    /**
+     * Slug used as the URL anchor for linking to this example.
+     */
+    @Prop()
+    public anchorSlug?: string;
+
     @State()
     private activeTab: string;
 
@@ -93,17 +99,26 @@ export class Playground {
 
     private renderResult() {
         const ExampleComponent = this.component.tag;
-        const text = '##### ' + this.component.docs;
         const factory = this.propsFactory;
         const props = {
             schema: this.schema,
             ...factory(ExampleComponent),
         };
+        const { title, body } = splitDocs(this.component.docs);
 
         return (
             <div class="show-case">
                 <div class="show-case_description">
-                    <kompendium-markdown text={text} />
+                    <h5 class="example-heading">
+                        {title}
+                        {this.anchorSlug ? (
+                            <kompendium-anchor
+                                slug={this.anchorSlug}
+                                label={title}
+                            />
+                        ) : null}
+                    </h5>
+                    {body ? <kompendium-markdown text={body} /> : null}
                 </div>
                 <div class="show-case_component">
                     {this.renderDebugButton(this.component.tag)}
@@ -182,5 +197,18 @@ export class Playground {
 
     private themeListener = (event: CustomEvent<Theme>) => {
         this.theme = event.detail;
+    };
+}
+
+function splitDocs(docs: string): { title: string; body: string } {
+    const text = docs || '';
+    const newlineIndex = text.indexOf('\n');
+    if (newlineIndex === -1) {
+        return { title: text.trim(), body: '' };
+    }
+
+    return {
+        title: text.substring(0, newlineIndex).trim(),
+        body: text.substring(newlineIndex + 1).trim(),
     };
 }
