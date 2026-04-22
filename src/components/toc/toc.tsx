@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, h, Prop, State, Watch } from '@stencil/core';
 import { TocEntry } from './toc.types';
 import { anchorHref } from '../component/anchors';
 import { getAnchorId } from '../anchor-scroll';
@@ -28,6 +28,9 @@ export class Toc {
     @State()
     private userToggles = new Map<string, boolean>();
 
+    @Element()
+    private host: HTMLKompendiumTocElement;
+
     constructor() {
         this.handleKeydown = this.handleKeydown.bind(this);
         this.handleHashChange = this.handleHashChange.bind(this);
@@ -45,8 +48,41 @@ export class Toc {
     }
 
     @Watch('entries')
-    protected onEntriesChange(): void {
+    protected onEntriesChange(newEntries: TocEntry[]): void {
+        const validIds = collectIds(newEntries || []);
+        const pruned = new Map<string, boolean>();
+        for (const [id, value] of this.userToggles) {
+            if (validIds.has(id)) {
+                pruned.set(id, value);
+            }
+        }
+
+        this.userToggles = pruned;
         this.expandSectionForActiveAnchor();
+    }
+
+    @Watch('open')
+    protected onOpenChange(isOpen: boolean, wasOpen: boolean): void {
+        if (isOpen === wasOpen) {
+            return;
+        }
+
+        const shadow = this.host.shadowRoot;
+        if (!shadow) {
+            return;
+        }
+
+        if (isOpen) {
+            requestAnimationFrame(() => {
+                const first = shadow.querySelector<HTMLElement>(
+                    '.panel a, .panel button',
+                );
+                first?.focus();
+            });
+        } else {
+            const fab = shadow.querySelector<HTMLElement>('.fab');
+            fab?.focus();
+        }
     }
 
     public render(): HTMLElement {
@@ -64,6 +100,7 @@ export class Toc {
                 <div
                     class="panel"
                     role="dialog"
+                    aria-modal="true"
                     aria-label="Table of contents"
                     onClick={stopPropagation}
                 >
@@ -108,7 +145,7 @@ export class Toc {
                     <a
                         class="link"
                         href={anchorHref(entry.id)}
-                        onClick={this.close}
+                        onClick={this.handleLinkClick}
                     >
                         {entry.title}
                     </a>
@@ -126,6 +163,20 @@ export class Toc {
 
     private close = (): void => {
         this.open = false;
+    };
+
+    private handleLinkClick = (event: MouseEvent): void => {
+        if (
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey ||
+            event.button !== 0
+        ) {
+            return;
+        }
+
+        this.close();
     };
 
     private toggleExpanded =
@@ -178,6 +229,18 @@ export class Toc {
         next.set(parent.id, true);
         this.userToggles = next;
     }
+}
+
+function collectIds(
+    entries: TocEntry[],
+    acc: Set<string> = new Set(),
+): Set<string> {
+    for (const entry of entries) {
+        acc.add(entry.id);
+        collectIds(entry.children || [], acc);
+    }
+
+    return acc;
 }
 
 function findEntryById(id: string, entries: TocEntry[]): TocEntry | null {
