@@ -22,10 +22,14 @@ export function MethodList({
     }
 
     return [
-        <span class="section-anchor" id={slugId} aria-hidden="true"></span>,
+        slugId ? (
+            <span class="section-anchor" id={slugId} aria-hidden="true"></span>
+        ) : null,
         <h3 class="docs-layout-section-heading" id={id}>
             Methods
-            <kompendium-anchor slug={slugId} label="Methods" />
+            {slugId ? (
+                <kompendium-anchor slug={slugId} label="Methods" />
+            ) : null}
         </h3>,
         ...methods.map(renderMethod(slugId)),
     ];

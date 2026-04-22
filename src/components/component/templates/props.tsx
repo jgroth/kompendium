@@ -17,10 +17,14 @@ export function PropertyList({
     }
 
     return [
-        <span class="section-anchor" id={slugId} aria-hidden="true"></span>,
+        slugId ? (
+            <span class="section-anchor" id={slugId} aria-hidden="true"></span>
+        ) : null,
         <h3 class="docs-layout-section-heading" id={id}>
             Properties
-            <kompendium-anchor slug={slugId} label="Properties" />
+            {slugId ? (
+                <kompendium-anchor slug={slugId} label="Properties" />
+            ) : null}
         </h3>,
         ...props.map(renderProperty(slugId)),
     ];
