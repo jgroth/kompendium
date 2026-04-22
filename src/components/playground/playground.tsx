@@ -105,16 +105,17 @@ export class Playground {
             ...factory(ExampleComponent),
         };
         const { title, body } = splitDocs(this.component.docs);
+        const heading = title || this.component.tag;
 
         return (
             <div class="show-case">
                 <div class="show-case_description">
                     <h5 class="example-heading">
-                        {title}
+                        {heading}
                         {this.anchorSlug ? (
                             <kompendium-anchor
                                 slug={this.anchorSlug}
-                                label={title}
+                                label={heading}
                             />
                         ) : null}
                     </h5>
@@ -201,14 +202,17 @@ export class Playground {
 }
 
 function splitDocs(docs: string): { title: string; body: string } {
-    const text = docs || '';
-    const newlineIndex = text.indexOf('\n');
-    if (newlineIndex === -1) {
-        return { title: text.trim(), body: '' };
+    const lines = (docs || '').split('\n');
+    const titleIndex = lines.findIndex((line) => line.trim().length > 0);
+    if (titleIndex === -1) {
+        return { title: '', body: '' };
     }
 
     return {
-        title: text.substring(0, newlineIndex).trim(),
-        body: text.substring(newlineIndex + 1).trim(),
+        title: lines[titleIndex].trim(),
+        body: lines
+            .slice(titleIndex + 1)
+            .join('\n')
+            .trim(),
     };
 }

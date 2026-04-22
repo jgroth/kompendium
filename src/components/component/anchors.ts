@@ -15,6 +15,20 @@ export const SECTION_SLUGS = {
 export type SectionSlug = (typeof SECTION_SLUGS)[keyof typeof SECTION_SLUGS];
 
 /**
+ * Return the first non-empty line of a text blob, trimmed. Returns an
+ * empty string if no non-empty line is found.
+ * @param {string} text the input text
+ * @returns {string} the first non-empty line
+ */
+export function firstLine(text: string): string {
+    const found = (text || '')
+        .split('\n')
+        .find((line) => line.trim().length > 0);
+
+    return found ? found.trim() : '';
+}
+
+/**
  * Derive an anchor id for an example component from its title (first line
  * of its docs). Falls back to the example's tag if no title is available.
  * @param {string} docs the example's docs text
@@ -22,10 +36,7 @@ export type SectionSlug = (typeof SECTION_SLUGS)[keyof typeof SECTION_SLUGS];
  * @returns {string} the anchor id to use in the URL hash
  */
 export function exampleAnchorId(docs: string, fallbackTag: string): string {
-    const title = (docs || '').split('\n')[0].trim();
-    const slug = title ? slugify(title) : '';
-
-    return slug || slugify(fallbackTag);
+    return slugify(firstLine(docs)) || slugify(fallbackTag);
 }
 
 /**

@@ -19,7 +19,12 @@ import {
     scrollToAnchor,
     scrollToElement,
 } from '../anchor-scroll';
-import { SECTION_SLUGS, entrySlug, exampleAnchorId } from './anchors';
+import {
+    SECTION_SLUGS,
+    entrySlug,
+    exampleAnchorId,
+    firstLine,
+} from './anchors';
 import { TocEntry } from '../toc/toc.types';
 
 @Component({
@@ -274,9 +279,7 @@ function collapsibleSection(
 }
 
 function exampleTitle(example: JsonDocsComponent): string {
-    const firstLine = (example.docs || '').split('\n')[0];
-
-    return firstLine.trim();
+    return firstLine(example.docs);
 }
 
 function prettifyTag(slug: string): string {
