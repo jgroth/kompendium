@@ -6,12 +6,15 @@ import {
 import { h } from '@stencil/core';
 import { ProplistItem } from '../../proplist/proplist';
 import { ParameterDescription } from '../../../types';
+import { entrySlug } from '../anchors';
 
 export function MethodList({
     methods,
     id,
+    slugId,
 }: {
     id?: string;
+    slugId?: string;
     methods: Array<Partial<JsonDocsMethod>>;
 }): HTMLElement[] {
     if (!methods.length) {
@@ -19,24 +22,32 @@ export function MethodList({
     }
 
     return [
+        <span class="section-anchor" id={slugId} aria-hidden="true"></span>,
         <h3 class="docs-layout-section-heading" id={id}>
             Methods
+            <kompendium-anchor slug={slugId} label="Methods" />
         </h3>,
-        ...methods.map(renderMethod),
+        ...methods.map(renderMethod(slugId)),
     ];
 }
 
-function renderMethod(method: JsonDocsMethod) {
+const renderMethod = (sectionSlug: string) => (method: JsonDocsMethod) => {
     const items: ProplistItem[] = [
         {
             key: 'Signature',
             value: method.signature,
         },
     ].filter((item) => item.value !== undefined);
+    const slug = sectionSlug ? entrySlug(sectionSlug, method.name) : null;
 
     return (
         <div class="methods-layout">
-            <h4 class="methods-title">{method.name}</h4>
+            <h4 class="methods-title" id={slug}>
+                {method.name}
+                {slug ? (
+                    <kompendium-anchor slug={slug} label={method.name} />
+                ) : null}
+            </h4>
             <div class="methods-content">
                 <div>
                     <kompendium-markdown text={method.docs} />
@@ -52,7 +63,7 @@ function renderMethod(method: JsonDocsMethod) {
             </div>
         </div>
     );
-}
+};
 
 function ParamList({ params }: { params: JsonDocMethodParameter[] }) {
     if (!params.length) {

@@ -1,12 +1,15 @@
 import { JsonDocsEvent } from '@stencil/core/internal';
 import { h } from '@stencil/core';
 import { ProplistItem } from '../../proplist/proplist';
+import { entrySlug } from '../anchors';
 
 export function EventList({
     events,
     id,
+    slugId,
 }: {
     id: string;
+    slugId: string;
     events: JsonDocsEvent[];
 }): HTMLElement[] {
     if (!events.length) {
@@ -14,14 +17,16 @@ export function EventList({
     }
 
     return [
+        <span class="section-anchor" id={slugId} aria-hidden="true"></span>,
         <h3 class="docs-layout-section-heading" id={id}>
             Events
+            <kompendium-anchor slug={slugId} label="Events" />
         </h3>,
-        ...events.map(renderEvent),
+        ...events.map(renderEvent(slugId)),
     ];
 }
 
-function renderEvent(event: JsonDocsEvent) {
+const renderEvent = (sectionSlug: string) => (event: JsonDocsEvent) => {
     const items: ProplistItem[] = [
         {
             key: 'Detail',
@@ -41,9 +46,16 @@ function renderEvent(event: JsonDocsEvent) {
         },
     ];
 
+    const slug = sectionSlug ? entrySlug(sectionSlug, event.event) : null;
+
     return (
         <div class="props-events-layout">
-            <h4>{event.event}</h4>
+            <h4 id={slug}>
+                {event.event}
+                {slug ? (
+                    <kompendium-anchor slug={slug} label={event.event} />
+                ) : null}
+            </h4>
             <kompendium-taglist tags={event.docsTags} />
             <div class="markdown-props">
                 <kompendium-markdown text={event.docs} />
@@ -51,4 +63,4 @@ function renderEvent(event: JsonDocsEvent) {
             </div>
         </div>
     );
-}
+};

@@ -13,7 +13,14 @@ import { StyleList } from './templates/style';
 import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
 import { PropsFactory } from '../playground/playground.types';
-import { getRoute, scrollToElement } from '../anchor-scroll';
+import {
+    getAnchorId,
+    getRoute,
+    scrollToAnchor,
+    scrollToElement,
+} from '../anchor-scroll';
+import { SECTION_SLUGS, entrySlug, exampleAnchorId } from './anchors';
+import { TocEntry } from '../toc/toc.types';
 
 @Component({
     tag: 'kompendium-component',
@@ -63,39 +70,49 @@ export class KompendiumComponent {
     }
 
     protected componentDidLoad(): void {
-        const route = getRoute().split('#')[0];
-        scrollToElement(this.host.shadowRoot, route);
+        scrollToAnchor(this.host.shadowRoot);
     }
 
     protected componentDidUpdate(): void {
         if (this.scrollToOnNextUpdate) {
-            const route = this.scrollToOnNextUpdate.split('#')[0];
-            scrollToElement(this.host.shadowRoot, route);
+            scrollToElement(this.host.shadowRoot, this.scrollToOnNextUpdate);
             this.scrollToOnNextUpdate = null;
         }
     }
 
     private handleRouteChange() {
-        this.scrollToOnNextUpdate = getRoute().split('#')[0];
+        this.scrollToOnNextUpdate = this.getScrollTargetId();
+        scrollToAnchor(this.host.shadowRoot);
+    }
+
+    private getScrollTargetId(): string | null {
+        return getAnchorId() || getRoute().split('#')[0] || null;
     }
 
     public render(): HTMLElement {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
+        const examples = findExamples(component, this.docs);
 
         return (
             <article class="component">
                 <section class="docs">
-                    {this.renderDocs(tag, component)}
+                    {this.renderDocs(tag, component, examples)}
                 </section>
+                <kompendium-toc
+                    entries={buildTocEntries(component, examples)}
+                />
             </article>
         );
     }
 
-    private renderDocs(tag: string, component: JsonDocsComponent) {
+    private renderDocs(
+        tag: string,
+        component: JsonDocsComponent,
+        examples: JsonDocsComponent[],
+    ) {
         let title = tag.split('-').slice(1).join(' ');
         title = title[0].toLocaleUpperCase() + title.slice(1);
-        const examples = findExamples(component, this.docs);
         const tags = component.docsTags
             .filter(negate(isTag('slot')))
             .filter(negate(isTag('exampleComponent')));
@@ -108,20 +125,35 @@ export class KompendiumComponent {
             <ExampleList
                 examples={examples}
                 id={this.getId('examples')}
+                slugId={SECTION_SLUGS.examples}
                 schema={schema}
                 propsFactory={this.examplePropsFactory}
             />,
             <PropertyList
                 props={component.props}
                 id={this.getId('properties')}
+                slugId={SECTION_SLUGS.properties}
             />,
-            <EventList events={component.events} id={this.getId('events')} />,
+            <EventList
+                events={component.events}
+                id={this.getId('events')}
+                slugId={SECTION_SLUGS.events}
+            />,
             <MethodList
                 methods={component.methods}
                 id={this.getId('methods')}
+                slugId={SECTION_SLUGS.methods}
             />,
-            <SlotList slots={component.slots} id={this.getId('slots')} />,
-            <StyleList styles={component.styles} id={this.getId('styles')} />,
+            <SlotList
+                slots={component.slots}
+                id={this.getId('slots')}
+                slugId={SECTION_SLUGS.slots}
+            />,
+            <StyleList
+                styles={component.styles}
+                id={this.getId('styles')}
+                slugId={SECTION_SLUGS.styles}
+            />,
         ];
     }
 
@@ -149,3 +181,117 @@ const findComponentByTag = (docs: JsonDocs) => (tag: JsonDocsTag) => {
 const isTag = (name: string) => (tag: JsonDocsTag) => {
     return tag.name === name;
 };
+
+function buildTocEntries(
+    component: JsonDocsComponent,
+    examples: JsonDocsComponent[],
+): TocEntry[] {
+    const entries: TocEntry[] = [];
+
+    const resolvedExamples = examples.filter(Boolean);
+    if (resolvedExamples.length) {
+        entries.push({
+            id: SECTION_SLUGS.examples,
+            title: 'Examples',
+            collapsible: true,
+            defaultExpanded: true,
+            children: resolvedExamples.map((example) => {
+                const id = exampleAnchorId(example.docs, example.tag);
+                const title = exampleTitle(example) || prettifyTag(id);
+
+                return { id: id, title: title };
+            }),
+        });
+    }
+
+    if (component.props?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.properties,
+                'Properties',
+                component.props.map((prop) => prop.name),
+            ),
+        );
+    }
+
+    if (component.events?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.events,
+                'Events',
+                component.events.map((event) => event.event),
+            ),
+        );
+    }
+
+    if (component.methods?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.methods,
+                'Methods',
+                component.methods.map((method) => method.name),
+            ),
+        );
+    }
+
+    if (component.slots?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.slots,
+                'Slots',
+                component.slots.map((slot) => slot.name),
+            ),
+        );
+    }
+
+    if (component.styles?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.styles,
+                'Styles',
+                component.styles.map((style) => style.name),
+            ),
+        );
+    }
+
+    return entries;
+}
+
+function collapsibleSection(
+    sectionSlug: string,
+    title: string,
+    names: string[],
+): TocEntry {
+    return {
+        id: sectionSlug,
+        title: title,
+        collapsible: true,
+        children: names.map((name) => ({
+            id: entrySlug(sectionSlug, name),
+            title: name,
+        })),
+    };
+}
+
+function exampleTitle(example: JsonDocsComponent): string {
+    const firstLine = (example.docs || '').split('\n')[0];
+
+    return firstLine.trim();
+}
+
+function prettifyTag(slug: string): string {
+    if (!slug) {
+        return slug;
+    }
+
+    const words = slug.split('-').filter(Boolean);
+    if (!words.length) {
+        return slug;
+    }
+
+    return (
+        words[0][0].toLocaleUpperCase() +
+        words[0].substring(1) +
+        (words.length > 1 ? ' ' + words.slice(1).join(' ') : '')
+    );
+}

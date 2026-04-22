@@ -1,14 +1,17 @@
 import { JsonDocsComponent, JsonDocsTag } from '@stencil/core/internal';
 import { h } from '@stencil/core';
 import { PropsFactory } from '../../playground/playground.types';
+import { exampleAnchorId } from '../anchors';
 
 export function ExampleList({
     examples,
     id,
+    slugId,
     schema,
     propsFactory,
 }: {
     id: string;
+    slugId: string;
     examples: JsonDocsComponent[];
     schema: Record<string, any>;
     propsFactory?: PropsFactory;
@@ -18,8 +21,10 @@ export function ExampleList({
     }
 
     return [
+        <span class="section-anchor" id={slugId} aria-hidden="true"></span>,
         <h3 class="docs-layout-section-heading" id={id}>
             Examples
+            <kompendium-anchor slug={slugId} label="Examples" />
         </h3>,
         examples.map(renderExample(schema, propsFactory)),
     ];
@@ -28,12 +33,17 @@ export function ExampleList({
 const renderExample =
     (schema: Record<string, any>, factory: PropsFactory) =>
     (example: JsonDocsComponent) => {
+        const slug = exampleAnchorId(example.docs, example.tag);
+
         return (
-            <kompendium-playground
-                component={example}
-                schema={schema}
-                propsFactory={factory}
-            />
+            <div class="example-wrapper" id={slug}>
+                <kompendium-playground
+                    anchorSlug={slug}
+                    component={example}
+                    schema={schema}
+                    propsFactory={factory}
+                />
+            </div>
         );
     };
 
