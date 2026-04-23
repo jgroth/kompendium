@@ -1,6 +1,7 @@
 import { JsonDocsSlot } from '@stencil/core/internal';
 import { h } from '@stencil/core';
 import { entrySlug } from '../anchors';
+import { slotDisplayName } from '../slots';
 
 export function SlotList({
     slots,
@@ -26,15 +27,14 @@ export function SlotList({
 }
 
 const renderSlot = (sectionSlug: string) => (slot: JsonDocsSlot) => {
-    const slug = sectionSlug ? entrySlug(sectionSlug, slot.name) : null;
+    const name = slotDisplayName(slot.name);
+    const slug = sectionSlug ? entrySlug(sectionSlug, name) : null;
 
     return (
         <div>
             <h4 id={slug}>
-                {slot.name}
-                {slug ? (
-                    <kompendium-anchor slug={slug} label={slot.name} />
-                ) : null}
+                {name}
+                {slug ? <kompendium-anchor slug={slug} label={name} /> : null}
             </h4>
             <kompendium-markdown text={slot.docs} />
         </div>

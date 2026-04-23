@@ -25,6 +25,7 @@ import {
     firstLine,
     uniqueExampleSlugs,
 } from './anchors';
+import { slotDisplayName } from './slots';
 import { TocEntry } from '../toc/toc.types';
 
 @Component({
@@ -97,7 +98,9 @@ export class KompendiumComponent {
     public render(): HTMLElement {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        const examples = findExamples(component, this.docs).filter(Boolean);
+        const examples = findExamples(component, this.docs).filter(
+            (example): example is JsonDocsComponent => Boolean(example),
+        );
 
         return (
             <article class="component">
@@ -244,7 +247,7 @@ function buildTocEntries(
             collapsibleSection(
                 SECTION_SLUGS.slots,
                 'Slots',
-                component.slots.map((slot) => slot.name),
+                component.slots.map((slot) => slotDisplayName(slot.name)),
             ),
         );
     }

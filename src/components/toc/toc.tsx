@@ -218,18 +218,25 @@ export class Toc {
             return;
         }
 
-        const parent = findParentOf(activeId, this.entries);
-        if (!parent || !parent.collapsible) {
-            return;
-        }
-
-        if (this.isEntryExpanded(parent)) {
+        const ancestors = findAncestorsOf(activeId, this.entries).filter(
+            (entry) => entry.collapsible,
+        );
+        if (!ancestors.length) {
             return;
         }
 
         const next = new Map(this.userToggles);
-        next.set(parent.id, true);
-        this.userToggles = next;
+        let changed = false;
+        for (const ancestor of ancestors) {
+            if (!this.isEntryExpanded(ancestor)) {
+                next.set(ancestor.id, true);
+                changed = true;
+            }
+        }
+
+        if (changed) {
+            this.userToggles = next;
+        }
     }
 }
 
@@ -260,20 +267,24 @@ function findEntryById(id: string, entries: TocEntry[]): TocEntry | null {
     return null;
 }
 
-function findParentOf(targetId: string, entries: TocEntry[]): TocEntry | null {
+function findAncestorsOf(
+    targetId: string,
+    entries: TocEntry[],
+    trail: TocEntry[] = [],
+): TocEntry[] {
     for (const entry of entries) {
         const children = entry.children || [];
         if (children.some((child) => child.id === targetId)) {
-            return entry;
+            return [...trail, entry];
         }
 
-        const deeper = findParentOf(targetId, children);
-        if (deeper) {
+        const deeper = findAncestorsOf(targetId, children, [...trail, entry]);
+        if (deeper.length) {
             return deeper;
         }
     }
 
-    return null;
+    return [];
 }
 
 const stopPropagation = (event: MouseEvent): void => {
