@@ -97,7 +97,7 @@ export class KompendiumComponent {
     public render(): HTMLElement {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
-        const examples = findExamples(component, this.docs);
+        const examples = findExamples(component, this.docs).filter(Boolean);
 
         return (
             <article class="component">
@@ -193,15 +193,14 @@ function buildTocEntries(
 ): TocEntry[] {
     const entries: TocEntry[] = [];
 
-    const resolvedExamples = examples.filter(Boolean);
-    if (resolvedExamples.length) {
-        const slugs = uniqueExampleSlugs(resolvedExamples);
+    if (examples.length) {
+        const slugs = uniqueExampleSlugs(examples);
         entries.push({
             id: SECTION_SLUGS.examples,
             title: 'Examples',
             collapsible: true,
             defaultExpanded: true,
-            children: resolvedExamples.map((example, index) => {
+            children: examples.map((example, index) => {
                 const id = slugs[index];
                 const title = exampleTitle(example) || prettifyTag(id);
 

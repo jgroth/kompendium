@@ -74,9 +74,11 @@ export class Toc {
 
         if (isOpen) {
             requestAnimationFrame(() => {
-                const first = shadow.querySelector<HTMLElement>(
-                    '.panel a, .panel button',
-                );
+                const first =
+                    shadow.querySelector<HTMLElement>('.panel .link') ||
+                    shadow.querySelector<HTMLElement>(
+                        '.panel a, .panel button',
+                    );
                 first?.focus();
             });
         } else {
