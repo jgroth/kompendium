@@ -471,6 +471,121 @@ describe('type links', () => {
     });
 });
 
+describe('inline @link references', () => {
+    it('links {@link Target} to known types and wraps the label in code', async () => {
+        const md = 'See {@link Rule} for details.';
+        const result = await markdownToHtml(md, ['Rule']);
+        expect(result.toString()).toContain(
+            '<a href="#/type/Rule"><code>Rule</code></a>',
+        );
+    });
+
+    it('links {@link Target} to known components and wraps the label in code', async () => {
+        const md = 'Use {@link limebb-rule-editor} for editing.';
+        const result = await markdownToHtml(md, [], ['limebb-rule-editor']);
+        expect(result.toString()).toContain(
+            '<a href="#/component/limebb-rule-editor/"><code>limebb-rule-editor</code></a>',
+        );
+    });
+
+    it('supports space-separated display text', async () => {
+        const md = 'See {@link Rule the rule type}.';
+        const result = await markdownToHtml(md, ['Rule']);
+        expect(result.toString()).toContain(
+            '<a href="#/type/Rule">the rule type</a>',
+        );
+    });
+
+    it('supports pipe-separated display text', async () => {
+        const md = 'See {@link Rule | the rule type}.';
+        const result = await markdownToHtml(md, ['Rule']);
+        expect(result.toString()).toContain(
+            '<a href="#/type/Rule">the rule type</a>',
+        );
+    });
+
+    it('falls back to inline code for unresolved bare identifiers', async () => {
+        const md = 'See {@link Unknown} please.';
+        const result = await markdownToHtml(md);
+        const html = result.toString();
+        expect(html).not.toContain('{@link');
+        expect(html).not.toContain('<a ');
+        expect(html).toContain('<code>Unknown</code>');
+    });
+
+    it('falls back to plain text when the target is unknown and a label is given', async () => {
+        const md = 'See {@link Unknown the missing one}.';
+        const result = await markdownToHtml(md);
+        const html = result.toString();
+        expect(html).not.toContain('{@link');
+        expect(html).not.toContain('<a ');
+        expect(html).not.toContain('<code>');
+        expect(html).toContain('the missing one');
+    });
+
+    it('does not transform references inside inline code', async () => {
+        const md = 'Use `{@link Rule}` literally.';
+        const result = await markdownToHtml(md, ['Rule']);
+        const html = result.toString();
+        // The `{@link Rule}` syntax stays intact inside the <code> element —
+        // i.e. the inline-link plugin doesn't fire. The existing typeLinks
+        // pass may still link the bare `Rule` token inside the code element;
+        // that is pre-existing behaviour and not under test here.
+        expect(html).toContain('<code>{@link ');
+        expect(html).toContain('}</code>');
+    });
+
+    it('does not transform references inside fenced code blocks', async () => {
+        const md = '```ts\n// {@link Rule}\n```';
+        const result = await markdownToHtml(md, ['Rule']);
+        const html = result.toString();
+        expect(html).toContain('{@link Rule}');
+        expect(html).not.toContain('<a href="#/type/Rule"');
+    });
+
+    it('links absolute URLs without needing a resolver entry', async () => {
+        const md = 'See {@link https://example.com | the docs}.';
+        const result = await markdownToHtml(md);
+        expect(result.toString()).toContain(
+            '<a href="https://example.com">the docs</a>',
+        );
+    });
+
+    it('treats an empty pipe label as a bare reference', async () => {
+        // `{@link X |}` has a pipe but no label after it. The label is empty,
+        // so the reference is treated as bare: the identifier is wrapped in
+        // code (and linked when known), never rendered as the literal `|`.
+        const md = 'See {@link Rule |} for details.';
+        const result = await markdownToHtml(md, ['Rule']);
+        const html = result.toString();
+        expect(html).toContain('<a href="#/type/Rule"><code>Rule</code></a>');
+        expect(html).not.toContain('|');
+    });
+
+    // Known limitation: the URL pre-pass (`normalizeInlineLinkUrls`) runs over
+    // raw text before parsing, so unlike the non-URL mdast path it cannot tell
+    // a code span from prose. A URL `{@link}` inside inline or fenced code is
+    // therefore rewritten to markdown link source rather than passed through
+    // verbatim. Documented here as intended (if imperfect) behaviour; non-URL
+    // references in code are correctly passed through (see the tests above).
+    it('rewrites a URL reference even inside inline code (known gap)', async () => {
+        const md = 'Use `{@link https://example.com}` literally.';
+        const result = await markdownToHtml(md);
+        const html = result.toString();
+        expect(html).toContain('<code>');
+        expect(html).toContain('[https://example.com](https://example.com)');
+        expect(html).not.toContain('{@link');
+    });
+
+    it('rewrites a URL reference even inside fenced code (known gap)', async () => {
+        const md = '```\n{@link https://example.com}\n```';
+        const result = await markdownToHtml(md);
+        const html = result.toString();
+        expect(html).toContain('[https://example.com](https://example.com)');
+        expect(html).not.toContain('{@link');
+    });
+});
+
 describe('raw HTML passthrough', () => {
     it('allows raw HTML in markdown', async () => {
         const md = '<div class="custom">Custom content</div>';

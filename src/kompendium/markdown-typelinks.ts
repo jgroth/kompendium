@@ -39,6 +39,14 @@ function collectSkippableCode(
 
     const tagName = isElement(node) ? node.tagName : '';
 
+    // Skip `<code>` nested inside an `<a>`: the inline-link pass (`inlineLinks`
+    // in markdown-inline-links.ts) emits exactly this `link > inlineCode` shape
+    // for a resolved bare `{@link}` reference. Re-linking that code here would
+    // wrap an anchor in another anchor, so this pass yields to the earlier one.
+    // This guard is intentionally broader than that contract: it suppresses
+    // re-linking for *any* `<code>` inside *any* `<a>`, regardless of origin,
+    // since a nested anchor is never wanted no matter how the `<code>` got
+    // there.
     if (tagName === 'code' && insideAnchor) {
         set.add(node);
     }

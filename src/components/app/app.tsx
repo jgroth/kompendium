@@ -1,6 +1,6 @@
 import { Component, h, State, Prop, Watch } from '@stencil/core';
 import { KompendiumData, KompendiumDocument } from '../../types';
-import { setTypes } from '../markdown/markdown-types';
+import { setComponents, setTypes } from '../markdown/markdown-types';
 import Fuse from 'fuse.js';
 import { PropsFactory } from '../playground/playground.types';
 
@@ -83,6 +83,9 @@ export class App {
         this.data = await data.json();
         const typeNames = this.data.types.map((type) => type.name);
         setTypes(typeNames);
+        const componentTags =
+            this.data.docs.components?.map((component) => component.tag) ?? [];
+        setComponents(componentTags);
     }
 
     protected render(): HTMLElement {
