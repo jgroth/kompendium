@@ -6,6 +6,7 @@ import { scrollToAnchor } from '../anchor-scroll';
 /**
  * This component renders markdown
  * @exampleComponent kompendium-example-markdown
+ * @exampleComponent kompendium-example-inline-links
  */
 @Component({
     tag: 'kompendium-markdown',
