@@ -1,24 +1,12 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import js from '@eslint/js';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import prettier from 'eslint-plugin-prettier';
+import tsParser from '@typescript-eslint/parser';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import sonarjs from 'eslint-plugin-sonarjs';
+import jsdoc from 'eslint-plugin-jsdoc';
 import preferArrow from 'eslint-plugin-prefer-arrow';
 import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
-
-/* eslint-disable no-underscore-dangle */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all,
-});
-/* eslint-enable no-underscore-dangle */
 
 export default [
     {
@@ -32,18 +20,14 @@ export default [
             '**/loader/',
         ],
     },
-    ...compat.extends(
-        'eslint:recommended',
-        'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:prettier/recommended',
-        'plugin:sonarjs/recommended',
-        'plugin:jsdoc/recommended',
-    ),
+    js.configs.recommended,
+    typescriptEslint.configs['flat/eslint-recommended'],
+    sonarjs.configs.recommended,
+    jsdoc.configs['flat/recommended'],
+    prettierRecommended,
     {
         plugins: {
             '@typescript-eslint': typescriptEslint,
-            prettier: prettier,
-            sonarjs: sonarjs,
             'prefer-arrow': preferArrow,
         },
 
@@ -238,19 +222,6 @@ export default [
             'src/**/*.e2e.{ts,tsx}',
             'src/**/*.test-wrapper.{ts,tsx}',
         ],
-
-        languageOptions: {
-            ecmaVersion: 5,
-            sourceType: 'script',
-
-            parserOptions: {
-                parserOption: {
-                    jsx: true,
-                },
-
-                project: 'tsconfig.json',
-            },
-        },
 
         rules: {
             '@typescript-eslint/dot-notation': 'error',

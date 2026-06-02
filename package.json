@@ -57,7 +57,6 @@
     "lint:scss:prod": "prettier -c --end-of-line lf --ignore-path ./.gitignore **/*.scss"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.4",
     "@limetech/stencil-router": "^1.0.1",
     "@stencil/core": "4.43.5",
@@ -67,13 +66,13 @@
     "@typescript-eslint/eslint-plugin": "^8.60.1",
     "@typescript-eslint/parser": "^8.60.1",
     "copyfiles": "^2.4.1",
-    "eslint": "^8.57.1",
+    "eslint": "^9.39.4",
     "eslint-config-prettier": "^9.1.2",
     "eslint-plugin-jsdoc": "^48.11.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-sonarjs": "^0.25.1",
+    "eslint-plugin-sonarjs": "^1.0.4",
     "globals": "^15.15.0",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
