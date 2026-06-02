@@ -1,9 +1,15 @@
 import { JsonDocs, Config, Logger } from '@stencil/core/internal';
 import { defaultConfig } from './config';
 import { addSources } from './source';
-import lnk from 'lnk';
 import { createMenu } from './menu';
-import { copyFile, mkdir, readFile, stat, writeFile } from 'fs/promises';
+import {
+    copyFile,
+    mkdir,
+    readFile,
+    stat,
+    symlink,
+    writeFile,
+} from 'fs/promises';
 import { exists } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
@@ -89,7 +95,11 @@ async function createSymlink(config: Partial<KompendiumConfig>) {
         return;
     }
 
-    lnk([source], config.publicPath);
+    try {
+        await symlink(source, target);
+    } catch (error) {
+        logger.warn(`Failed to create kompendium.json symlink: ${error}`);
+    }
 }
 
 async function getProjectTitle(
