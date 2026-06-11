@@ -6,9 +6,11 @@ import {
 } from '@stencil/core/internal';
 import { MatchResults } from '@limetech/stencil-router';
 import { PropsFactory } from '../playground/playground.types';
+import { getComponentTitle } from '../component-title';
 
 @Component({
     tag: 'kompendium-debug',
+    styleUrl: 'debug.scss',
     shadow: true,
 })
 export class KompendiumDebug {
@@ -60,13 +62,33 @@ export class KompendiumDebug {
             ...factory(ExampleComponent),
         };
 
-        return (
+        return [
+            this.renderHeadings(component, ownerComponent),
             <div class="show-case">
                 <div class="show-case_component">
                     <ExampleComponent {...props} />
                 </div>
-            </div>
-        );
+            </div>,
+        ];
+    }
+
+    /*
+     * Render the same heading context as the component page, so that the
+     * heading outline of an example is identical on both pages, e.g. when
+     * testing for accessibility
+     */
+    private renderHeadings(
+        component: JsonDocsComponent,
+        ownerComponent: JsonDocsComponent,
+    ) {
+        const exampleTitle = component.docs?.split('\n')[0];
+
+        return [
+            <h2 class="context-heading">
+                {getComponentTitle(ownerComponent.tag)}
+            </h2>,
+            !!exampleTitle && <h3 class="context-heading">{exampleTitle}</h3>,
+        ];
     }
 }
 
