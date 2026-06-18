@@ -10,6 +10,7 @@ import {
     symlink,
     writeFile,
 } from 'fs/promises';
+import { resolve } from 'path';
 import { exists } from './filesystem';
 import { createWatcher } from './watch';
 import { findGuides } from './guides';
@@ -96,7 +97,10 @@ async function createSymlink(config: Partial<KompendiumConfig>) {
     }
 
     try {
-        await symlink(source, target);
+        // Use an absolute source path: a relative symlink target is resolved
+        // relative to the link's own directory (publicPath), not the cwd, so a
+        // relative source produces a broken link (e.g. `www/.kompendium/...`).
+        await symlink(resolve(source), target);
     } catch (error) {
         logger.warn(`Failed to create kompendium.json symlink: ${error}`);
     }
