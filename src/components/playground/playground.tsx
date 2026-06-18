@@ -3,6 +3,7 @@ import { JsonDocsComponent } from '@stencil/core/internal';
 import { JsonDocsSource } from '../../kompendium/source';
 import { Theme, THEME_EVENT_NAME } from '../darkmode-switch/types';
 import { PropsFactory } from './playground.types';
+import { splitDocs } from './split-docs';
 
 @Component({
     tag: 'kompendium-playground',
@@ -28,6 +29,12 @@ export class Playground {
      */
     @Prop()
     public propsFactory?: PropsFactory = () => ({});
+
+    /**
+     * Slug used as the URL anchor for linking to this example.
+     */
+    @Prop()
+    public anchorSlug?: string;
 
     @State()
     private activeTab: string;
@@ -93,17 +100,27 @@ export class Playground {
 
     private renderResult() {
         const ExampleComponent = this.component.tag;
-        const text = '### ' + this.component.docs;
         const factory = this.propsFactory;
         const props = {
             schema: this.schema,
             ...factory(ExampleComponent),
         };
+        const { title, body } = splitDocs(this.component.docs);
+        const heading = title || this.component.tag;
 
         return (
             <div class="show-case">
                 <div class="show-case_description">
-                    <kompendium-markdown text={text} />
+                    <h3 class="example-heading">
+                        {heading}
+                        {this.anchorSlug ? (
+                            <kompendium-anchor
+                                slug={this.anchorSlug}
+                                label={heading}
+                            />
+                        ) : null}
+                    </h3>
+                    {body ? <kompendium-markdown text={body} /> : null}
                 </div>
                 <div class="show-case_component">
                     {this.renderDebugButton(this.component.tag)}

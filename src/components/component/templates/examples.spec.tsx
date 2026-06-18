@@ -18,7 +18,9 @@ describe('ExampleList', () => {
                 <div>
                     <ExampleList
                         examples={[example]}
+                        slugs={['examples']}
                         id="component/my-component/examples/"
+                        slugId="examples"
                         schema={undefined}
                     />
                 </div>
@@ -40,7 +42,9 @@ describe('ExampleList', () => {
                 <div>
                     <ExampleList
                         examples={[example]}
+                        slugs={['examples']}
                         id="component/my-component/examples/"
+                        slugId="examples"
                         schema={undefined}
                     />
                 </div>

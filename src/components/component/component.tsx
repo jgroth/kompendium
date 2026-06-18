@@ -13,7 +13,21 @@ import { StyleList } from './templates/style';
 import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
 import { PropsFactory } from '../playground/playground.types';
-import { getRoute, scrollToElement } from '../anchor-scroll';
+import {
+    getAnchorId,
+    getRoute,
+    scrollToAnchor,
+    scrollToElement,
+} from '../anchor-scroll';
+import {
+    SECTION_SLUGS,
+    entrySlug,
+    firstLine,
+    slugify,
+    uniqueExampleSlugs,
+} from './anchors';
+import { slotDisplayName } from './slots';
+import { TocEntry } from '../toc/toc.types';
 import { getComponentTitle } from '../component-title';
 
 @Component({
@@ -64,64 +78,100 @@ export class KompendiumComponent {
     }
 
     protected componentDidLoad(): void {
-        const route = getRoute().split('#')[0];
-        scrollToElement(this.host.shadowRoot, route);
+        scrollToAnchor(this.host.shadowRoot);
     }
 
     protected componentDidUpdate(): void {
         if (this.scrollToOnNextUpdate) {
-            const route = this.scrollToOnNextUpdate.split('#')[0];
-            scrollToElement(this.host.shadowRoot, route);
+            scrollToElement(this.host.shadowRoot, this.scrollToOnNextUpdate);
             this.scrollToOnNextUpdate = null;
         }
     }
 
     private handleRouteChange() {
-        this.scrollToOnNextUpdate = getRoute().split('#')[0];
+        this.scrollToOnNextUpdate = this.getScrollTargetId();
+        scrollToAnchor(this.host.shadowRoot);
+    }
+
+    private getScrollTargetId(): string | null {
+        return getAnchorId() || getRoute().split('#')[0] || null;
     }
 
     public render(): HTMLElement {
         const tag = this.match.params.name;
         const component = findComponent(tag, this.docs);
+        const examples = findExamples(component, this.docs).filter(
+            (example): example is JsonDocsComponent => Boolean(example),
+        );
+        const exampleSlugs = uniqueExampleSlugs(examples);
 
         return (
             <article class="component">
                 <section class="docs">
-                    {this.renderDocs(tag, component)}
+                    {this.renderDocs(tag, component, examples, exampleSlugs)}
                 </section>
+                <kompendium-toc
+                    entries={buildTocEntries(component, examples, exampleSlugs)}
+                />
             </article>
         );
     }
 
-    private renderDocs(tag: string, component: JsonDocsComponent) {
+    private renderDocs(
+        tag: string,
+        component: JsonDocsComponent,
+        examples: JsonDocsComponent[],
+        exampleSlugs: string[],
+    ) {
         const title = getComponentTitle(tag);
-        const examples = findExamples(component, this.docs);
         const tags = component.docsTags
             .filter(negate(isTag('slot')))
             .filter(negate(isTag('exampleComponent')));
         const schema = this.schemas.find((s) => s.$id === tag);
 
+        // Each section carries two ids by design: a legacy route-based id on
+        // the heading (e.g. `component/<tag>/examples/`, kept so existing
+        // sidebar links and `scrollToElement` keep working) and a short,
+        // URL-fragment-safe `slugId` on a sibling section-anchor span (the
+        // target for the in-page TOC and ¶ anchors). The route-based id cannot
+        // double as a hash fragment, hence both coexist.
         return [
             <h1 id={this.getId()}>{title}</h1>,
             <kompendium-markdown text={component.docs} />,
             <kompendium-taglist tags={tags} />,
             <ExampleList
                 examples={examples}
+                slugs={exampleSlugs}
                 id={this.getId('examples')}
+                slugId={SECTION_SLUGS.examples}
                 schema={schema}
                 propsFactory={this.examplePropsFactory}
             />,
             <PropertyList
                 props={component.props}
                 id={this.getId('properties')}
+                slugId={SECTION_SLUGS.properties}
             />,
-            <EventList events={component.events} id={this.getId('events')} />,
+            <EventList
+                events={component.events}
+                id={this.getId('events')}
+                slugId={SECTION_SLUGS.events}
+            />,
             <MethodList
                 methods={component.methods}
                 id={this.getId('methods')}
+                slugId={SECTION_SLUGS.methods}
             />,
-            <SlotList slots={component.slots} id={this.getId('slots')} />,
-            <StyleList styles={component.styles} id={this.getId('styles')} />,
+            <SlotList
+                slots={component.slots}
+                id={this.getId('slots')}
+                slugId={SECTION_SLUGS.slots}
+            />,
+            <StyleList
+                styles={component.styles}
+                id={this.getId('styles')}
+                slugId={SECTION_SLUGS.styles}
+            />,
         ];
     }
 
@@ -149,3 +199,116 @@ const findComponentByTag = (docs: JsonDocs) => (tag: JsonDocsTag) => {
 const isTag = (name: string) => (tag: JsonDocsTag) => {
     return tag.name === name;
 };
+
+function buildTocEntries(
+    component: JsonDocsComponent,
+    examples: JsonDocsComponent[],
+    exampleSlugs: string[],
+): TocEntry[] {
+    const entries: TocEntry[] = [];
+
+    if (examples.length) {
+        entries.push({
+            id: SECTION_SLUGS.examples,
+            title: 'Examples',
+            collapsible: true,
+            defaultExpanded: true,
+            children: examples.map((example, index) => {
+                const id = exampleSlugs[index];
+                const title =
+                    exampleTitle(example) || prettifyTag(slugify(example.tag));
+
+                return { id: id, title: title };
+            }),
+        });
+    }
+
+    if (component.props?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.properties,
+                'Properties',
+                component.props.map((prop) => prop.name),
+            ),
+        );
+    }
+
+    if (component.events?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.events,
+                'Events',
+                component.events.map((event) => event.event),
+            ),
+        );
+    }
+
+    if (component.methods?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.methods,
+                'Methods',
+                component.methods.map((method) => method.name),
+            ),
+        );
+    }
+
+    if (component.slots?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.slots,
+                'Slots',
+                component.slots.map((slot) => slotDisplayName(slot.name)),
+            ),
+        );
+    }
+
+    if (component.styles?.length) {
+        entries.push(
+            collapsibleSection(
+                SECTION_SLUGS.styles,
+                'Styles',
+                component.styles.map((style) => style.name),
+            ),
+        );
+    }
+
+    return entries;
+}
+
+function collapsibleSection(
+    sectionSlug: string,
+    title: string,
+    names: string[],
+): TocEntry {
+    return {
+        id: sectionSlug,
+        title: title,
+        collapsible: true,
+        children: names.map((name) => ({
+            id: entrySlug(sectionSlug, name),
+            title: name,
+        })),
+    };
+}
+
+function exampleTitle(example: JsonDocsComponent): string {
+    return firstLine(example.docs);
+}
+
+function prettifyTag(slug: string): string {
+    if (!slug) {
+        return slug;
+    }
+
+    const words = slug.split('-').filter(Boolean);
+    if (!words.length) {
+        return slug;
+    }
+
+    return (
+        words[0][0].toLocaleUpperCase() +
+        words[0].substring(1) +
+        (words.length > 1 ? ' ' + words.slice(1).join(' ') : '')
+    );
+}

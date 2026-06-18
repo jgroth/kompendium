@@ -193,6 +193,17 @@ section.example {
     --kompendium-markdown-h3-margin-top: #{functions.pxToRem(12)};
 }
 
+.example-heading {
+    margin: 0 0 functions.pxToRem(12) 0;
+    font-size: functions.pxToRem(18);
+    line-height: functions.pxToRem(18);
+    font-weight: 500;
+
+    &:hover {
+        --kompendium-anchor-opacity: 1;
+    }
+}
+
 .show-case_component {
     font-family: var(--kompendium-example-font-family, inherit);
     font-size: var(--kompendium-example-font-size, inherit);
