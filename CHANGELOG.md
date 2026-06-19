@@ -1,3 +1,15 @@
+# 🌕 [1.2.0](https://github.com/jgroth/kompendium/compare/v1.1.1...v1.2.0) (2026-06-19)
+
+
+### Bug Fixes
+
+* **markdown:** skip type-linking inside anchor ancestors ([ef4bdcb](https://github.com/jgroth/kompendium/commit/ef4bdcba66ce7764c5632ea97b3de81d103b45d5))
+
+
+### Features
+
+* **markdown:** render inline {[@link](https://github.com/link) Target} references as links ([4add967](https://github.com/jgroth/kompendium/commit/4add9670d195ec91f9f03bfaac62c21fcf00a952))
+
 ## 🏮 [1.1.1](https://github.com/jgroth/kompendium/compare/v1.1.0...v1.1.1) (2026-04-14)
 
 
