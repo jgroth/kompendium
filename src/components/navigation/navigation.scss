@@ -228,9 +228,8 @@ header {
 
             .nav-panel__responsive-menu {
                 right: calc(
-                    (var(--size-show-nav-panel-button) * -1) - #{functions.pxToRem(
-                            5
-                        )}
+                    (var(--size-show-nav-panel-button) * -1) -
+                        #{functions.pxToRem(5)}
                 );
                 border-radius: 0 functions.pxToRem(8) functions.pxToRem(8) 0;
 

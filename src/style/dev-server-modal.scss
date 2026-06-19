@@ -14,7 +14,8 @@ div#dev-server-modal {
             forwards;
         overflow-x: auto;
         height: fit-content !important;
-        box-shadow: var(--kompendium-shadow-depth-64),
+        box-shadow:
+            var(--kompendium-shadow-depth-64),
             var(--kompendium-shadow-depth-8-error);
         border-radius: 0.75rem;
         padding-bottom: 0 !important;
