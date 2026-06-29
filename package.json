@@ -106,6 +106,10 @@
     "unist-util-visit": "^5.1.0",
     "yaml": "^2.8.3"
   },
+  "overrides": {
+    "js-yaml@^4": "^4.2.0",
+    "@babel/core": "^7.29.6"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jgroth/kompendium.git"
