@@ -117,3 +117,15 @@ blockquote {
     color: rgb(var(--kompendium-contrast-1100));
     padding-left: 1rem;
 }
+
+h3 {
+    // The custom properties let the playground keep the example title at
+    // the size it had back when it was an h5; the fallbacks match the
+    // regular h3 styles in typography.scss.
+    font-size: var(--kompendium-markdown-h3-font-size, functions.pxToRem(22));
+    line-height: var(
+        --kompendium-markdown-h3-line-height,
+        functions.pxToRem(24)
+    );
+    margin-top: var(--kompendium-markdown-h3-margin-top, functions.pxToRem(16));
+}

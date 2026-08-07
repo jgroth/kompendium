@@ -93,7 +93,7 @@ export class Playground {
 
     private renderResult() {
         const ExampleComponent = this.component.tag;
-        const text = '##### ' + this.component.docs;
+        const text = '### ' + this.component.docs;
         const factory = this.propsFactory;
         const props = {
             schema: this.schema,
