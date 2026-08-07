@@ -4,12 +4,16 @@ import { PropsFactory } from '../../playground/playground.types';
 
 export function ExampleList({
     examples,
+    slugs,
     id,
+    slugId,
     schema,
     propsFactory,
 }: {
-    id: string;
+    id?: string;
+    slugId?: string;
     examples: JsonDocsComponent[];
+    slugs: string[];
     schema: Record<string, any>;
     propsFactory?: PropsFactory;
 }): HTMLElement[] {
@@ -18,22 +22,33 @@ export function ExampleList({
     }
 
     return [
-        <h3 class="docs-layout-section-heading" id={id}>
+        slugId ? (
+            <span class="section-anchor" id={slugId} aria-hidden="true"></span>
+        ) : null,
+        <h2 class="docs-layout-section-heading" id={id}>
             Examples
-        </h3>,
-        examples.map(renderExample(schema, propsFactory)),
+            {slugId ? (
+                <kompendium-anchor slug={slugId} label="Examples" />
+            ) : null}
+        </h2>,
+        examples.map(renderExample(slugs, schema, propsFactory)),
     ];
 }
 
 const renderExample =
-    (schema: Record<string, any>, factory: PropsFactory) =>
-    (example: JsonDocsComponent) => {
+    (slugs: string[], schema: Record<string, any>, factory: PropsFactory) =>
+    (example: JsonDocsComponent, index: number) => {
+        const slug = slugs[index];
+
         return (
-            <kompendium-playground
-                component={example}
-                schema={schema}
-                propsFactory={factory}
-            />
+            <div class="example-wrapper" id={slug}>
+                <kompendium-playground
+                    anchorSlug={slug}
+                    component={example}
+                    schema={schema}
+                    propsFactory={factory}
+                />
+            </div>
         );
     };
 
