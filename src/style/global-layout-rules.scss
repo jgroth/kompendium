@@ -11,6 +11,11 @@ kompendium-playground {
     margin: functions.pxToRem(40) 0 functions.pxToRem(20) 0;
     border-top: 1px solid rgb(var(--kompendium-contrast-500));
 
+    // The section headings are h2 elements for the sake of the document
+    // outline, but are sized like h3 headings by design.
+    font-size: functions.pxToRem(22);
+    line-height: functions.pxToRem(24);
+
     &:before {
         content: '';
         width: functions.pxToRem(2);

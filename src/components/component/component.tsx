@@ -14,6 +14,7 @@ import { ExampleList } from './templates/examples';
 import negate from 'lodash/negate';
 import { PropsFactory } from '../playground/playground.types';
 import { getRoute, scrollToElement } from '../anchor-scroll';
+import { getComponentTitle } from '../component-title';
 
 @Component({
     tag: 'kompendium-component',
@@ -93,8 +94,7 @@ export class KompendiumComponent {
     }
 
     private renderDocs(tag: string, component: JsonDocsComponent) {
-        let title = tag.split('-').slice(1).join(' ');
-        title = title[0].toLocaleUpperCase() + title.slice(1);
+        const title = getComponentTitle(tag);
         const examples = findExamples(component, this.docs);
         const tags = component.docsTags
             .filter(negate(isTag('slot')))
