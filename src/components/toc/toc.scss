@@ -1,0 +1,185 @@
+@use '../../style/functions.scss';
+@use '../../style/variables.scss';
+@use '../../style/mixins.scss';
+
+:host {
+    display: contents;
+    font-family: var(--kompendium-font-primary);
+}
+
+.toc.hidden {
+    display: none;
+}
+
+.fab {
+    position: fixed;
+    top: functions.pxToRem(24);
+    right: functions.pxToRem(24);
+    z-index: 110;
+
+    width: functions.pxToRem(48);
+    height: functions.pxToRem(48);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    background-color: rgb(var(--kompendium-contrast-200));
+    color: rgb(var(--kompendium-contrast-1100));
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mixins.is-elevated-clickable;
+}
+
+.scrim {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(var(--kompendium-color-black), 0.24);
+    backdrop-filter: blur(functions.pxToRem(2));
+}
+
+.panel {
+    display: none;
+    position: fixed;
+    z-index: 105;
+    right: functions.pxToRem(24);
+    top: functions.pxToRem(84);
+
+    width: min(
+        #{functions.pxToRem(360)},
+        calc(100vw - #{functions.pxToRem(48)})
+    );
+    max-height: calc(100vh - #{functions.pxToRem(120)});
+    overflow-y: auto;
+
+    background-color: rgb(var(--kompendium-contrast-200));
+    color: rgb(var(--kompendium-contrast-1100));
+
+    border-radius: functions.pxToRem(12);
+    box-shadow: var(--kompendium-shadow-depth-16);
+    padding: functions.pxToRem(16) functions.pxToRem(20);
+}
+
+.heading {
+    margin: 0 0 functions.pxToRem(8) 0;
+    font-size: functions.pxToRem(13);
+    font-variant: all-small-caps;
+    letter-spacing: functions.pxToRem(1);
+    color: rgb(var(--kompendium-contrast-900));
+    font-weight: 500;
+}
+
+.entries {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.entry {
+    margin: 0;
+    padding: 0;
+
+    &::before {
+        display: none;
+        content: none;
+    }
+}
+
+.entry-row {
+    display: flex;
+    align-items: center;
+    gap: functions.pxToRem(2);
+}
+
+.toggle {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: functions.pxToRem(20);
+    height: functions.pxToRem(20);
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: functions.pxToRem(4);
+    cursor: pointer;
+
+    color: rgb(var(--kompendium-contrast-900));
+
+    svg {
+        transition: transform 0.15s ease;
+    }
+
+    &.expanded svg {
+        transform: rotate(90deg);
+    }
+
+    &:hover {
+        background-color: rgba(var(--kompendium-contrast-400), 0.8);
+        color: rgb(var(--kompendium-contrast-1100));
+    }
+
+    @include mixins.visualize-keyboard-focus();
+}
+
+.link {
+    flex: 1;
+    display: block;
+    padding: functions.pxToRem(6) functions.pxToRem(8);
+    border-radius: functions.pxToRem(4);
+    color: rgb(var(--kompendium-contrast-1100));
+    text-decoration: none;
+    font-size: functions.pxToRem(14);
+    line-height: functions.pxToRem(20);
+
+    &:hover {
+        background-color: rgba(var(--kompendium-contrast-400), 0.8);
+        color: rgb(var(--kompendium-color-blue-default));
+    }
+
+    @include mixins.visualize-keyboard-focus();
+}
+
+.children {
+    list-style: none;
+    margin: functions.pxToRem(2) 0 functions.pxToRem(4) functions.pxToRem(12);
+    padding: 0 0 0 functions.pxToRem(12);
+    border-left: 1px solid rgb(var(--kompendium-contrast-500));
+
+    .entry::before {
+        display: none;
+        content: none;
+    }
+
+    .link {
+        font-size: functions.pxToRem(13);
+        color: rgb(var(--kompendium-contrast-1000));
+    }
+}
+
+.toc.open {
+    .scrim,
+    .panel {
+        display: block;
+    }
+}
+
+@media (max-width: variables.$break-point-small) {
+    .panel {
+        right: functions.pxToRem(16);
+        left: functions.pxToRem(16);
+        max-width: none;
+    }
+
+    .fab {
+        top: functions.pxToRem(16);
+        right: functions.pxToRem(16);
+    }
+}

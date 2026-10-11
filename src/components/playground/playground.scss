@@ -185,6 +185,23 @@ section.example {
 
 .show-case_description {
     padding: functions.pxToRem(12);
+
+    // The example title is an h3 element for the sake of the document
+    // outline, but keeps the size it had back when it was an h5.
+    --kompendium-markdown-h3-font-size: #{functions.pxToRem(18)};
+    --kompendium-markdown-h3-line-height: #{functions.pxToRem(18)};
+    --kompendium-markdown-h3-margin-top: #{functions.pxToRem(12)};
+}
+
+.example-heading {
+    margin: 0 0 functions.pxToRem(12) 0;
+    font-size: functions.pxToRem(18);
+    line-height: functions.pxToRem(18);
+    font-weight: 500;
+
+    &:hover {
+        --kompendium-anchor-opacity: 1;
+    }
 }
 
 .show-case_component {

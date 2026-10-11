@@ -1,0 +1,21 @@
+@use '../../style/functions.scss';
+
+// The context headings exist to give the debug page the same heading
+// outline as the component page; visually they are deliberately small,
+// since the example component is the main content here.
+.context-heading {
+    margin: 0;
+    font-weight: 500;
+    color: rgb(var(--kompendium-contrast-900));
+}
+
+h2.context-heading {
+    font-size: functions.pxToRem(14);
+    line-height: functions.pxToRem(20);
+}
+
+h3.context-heading {
+    font-size: functions.pxToRem(12);
+    line-height: functions.pxToRem(16);
+    margin-bottom: functions.pxToRem(8);
+}
